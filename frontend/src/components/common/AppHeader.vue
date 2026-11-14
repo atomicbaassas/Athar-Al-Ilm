@@ -19,7 +19,7 @@
       <!-- ── Logo ──────────────────────────────────────────────── -->
       <RouterLink to="/" class="flex items-center gap-2.5 shrink-0 group">
         <img
-          src="/logo-rounded.png"
+          src="/logo-rounded.png?v=quiet-mihrab"
           alt="Athar Al Ilm logo"
           class="h-11 w-auto rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
         />

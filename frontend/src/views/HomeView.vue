@@ -871,7 +871,7 @@
           <!-- Brand column -->
           <div class="sm:col-span-2 lg:col-span-1">
             <div class="flex items-center mb-4">
-              <img src="/logo-rounded.png" alt="Athar Al Ilm" class="h-14 w-auto rounded-lg" />
+              <img src="/logo-rounded.png?v=quiet-mihrab" alt="Athar Al Ilm" class="h-14 w-auto rounded-lg" />
             </div>
             <p class="text-sm leading-relaxed mb-5" style="color:rgba(255,255,255,0.3);">
               Structured Islamic learning for the global Ummah. Free forever.
