@@ -9,7 +9,7 @@
 // next successful deploy. Set SSG_ALLOW_FALLBACK=1 to restore warn-and-continue
 // (used by the CI compile check and local builds without network access).
 
-const STATIC_ROUTES = ['/', '/learn', '/library', '/launch', '/privacy', '/terms']
+const STATIC_ROUTES = ['/', '/learn', '/quran', '/library', '/launch', '/privacy', '/terms']
 
 // Never prerender auth/personalized routes (they're also absent from sitemap.xml).
 const EXCLUDE_PREFIXES = ['/login', '/register', '/dashboard', '/admin']

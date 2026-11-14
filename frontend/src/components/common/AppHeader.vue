@@ -22,6 +22,7 @@
           src="/logo-mark.svg?v=quiet-mihrab"
           alt="Athar Al Ilm logo"
           class="h-9 w-9 shrink-0 transition-transform duration-200 group-hover:scale-105"
+          :class="logoOnDark ? 'brightness-0 invert' : ''"
         />
       </RouterLink>
 
@@ -451,6 +452,11 @@ const navLinkClass = computed(() => {
     ? 'text-white/70 hover:text-white hover:bg-white/10'
     : 'text-gray-800 hover:text-gray-900 hover:bg-black/[0.06]'
 })
+
+// Dark-green mark is invisible on the dark home hero — invert until the white pill appears.
+const logoOnDark = computed(() =>
+  isHomePage.value && !isScrolled.value && homeTheme.theme.value === 'dark',
+)
 
 // ── Auth ───────────────────────────────────────────────────────────
 function handleLogout() {
