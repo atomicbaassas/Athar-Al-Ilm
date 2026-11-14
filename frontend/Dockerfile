@@ -10,6 +10,9 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 # (the build stage can't reach the internal backend, but has outbound network).
 ARG SSG_ORIGIN=https://thetadabbur.org
 ENV SSG_ORIGIN=$SSG_ORIGIN
+# First Athar deploys have empty curriculum; allow static-route-only prerender.
+ARG SSG_ALLOW_FALLBACK=0
+ENV SSG_ALLOW_FALLBACK=$SSG_ALLOW_FALLBACK
 # The SSG build fetches the live sitemap/content at build time, but Docker can't
 # see that changed and would reuse a cached `npm run build`. Passing a unique
 # CACHEBUST each deploy invalidates this layer so the prerender always reflects

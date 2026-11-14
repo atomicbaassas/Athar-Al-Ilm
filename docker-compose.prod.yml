@@ -58,8 +58,9 @@ services:
       context: ./frontend
       args:
         VITE_API_BASE_URL: /api/v1
-        SSG_ORIGIN: ${SSG_ORIGIN:-https://thetadabbur.org}
+        SSG_ORIGIN: ${SSG_ORIGIN:-https://atharulilm.or.tz}
         CACHEBUST: ${CACHEBUST:-0}
+        SSG_ALLOW_FALLBACK: ${SSG_ALLOW_FALLBACK:-1}
     container_name: tadabbur_frontend
     restart: unless-stopped
     networks:
@@ -71,7 +72,8 @@ services:
     container_name: tadabbur_nginx
     restart: unless-stopped
     ports:
-      - "8080:80"
+      # Host nginx owns 80/443; expose loopback only for Contabo reverse proxy.
+      - "127.0.0.1:8080:80"
     volumes:
       - static_files:/app/staticfiles:ro
     depends_on:
