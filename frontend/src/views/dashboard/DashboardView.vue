@@ -33,14 +33,14 @@
           <!-- Continue Learning hero -->
           <div
             v-if="progress.continueLesson"
-            class="bg-gradient-to-br from-[#234ecc] to-[#1a3ba8] rounded-2xl p-6 text-white"
+            class="bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8] rounded-2xl p-6 text-white"
           >
             <p class="text-white/60 text-xs uppercase tracking-wider font-medium mb-1">{{ t('dashboard.continueLearning') }}</p>
             <p class="text-white/80 text-sm mb-1">{{ progress.continueLesson.subject_title }}</p>
             <p class="text-xl font-bold mb-4">{{ progress.continueLesson.lesson_title }}</p>
             <RouterLink
               :to="{ name: 'lesson', params: { lessonSlug: progress.continueLesson.lesson_slug } }"
-              class="inline-flex items-center gap-2 bg-white text-[#234ecc] font-semibold text-sm rounded-xl px-5 py-2.5 hover:bg-white/90 transition-colors"
+              class="inline-flex items-center gap-2 bg-white text-[#0B3D2E] font-semibold text-sm rounded-xl px-5 py-2.5 hover:bg-white/90 transition-colors"
             >
               {{ t('dashboard.resume') }}
               <svg class="w-4 h-4 icon-dir" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,8 +52,8 @@
           <!-- Stats grid (2×2) -->
           <div class="grid grid-cols-2 gap-4">
             <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-              <div class="w-10 h-10 rounded-xl bg-[#234ecc]/10 flex items-center justify-center mb-3">
-                <svg class="w-5 h-5 text-[#234ecc]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-10 h-10 rounded-xl bg-[#0B3D2E]/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-[#0B3D2E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
@@ -84,7 +84,7 @@
               </div>
               <div class="text-xs text-gray-500 mt-1">{{ t('dashboard.dayStreak') }}</div>
               <div class="text-[10px] mt-1"
-                :class="progress.currentStreak === 0 ? 'text-[#234ecc]' : streakAtRisk ? 'text-orange-500' : 'text-emerald-600'">
+                :class="progress.currentStreak === 0 ? 'text-[#0B3D2E]' : streakAtRisk ? 'text-orange-500' : 'text-emerald-600'">
                 {{ streakSubtext }}
               </div>
             </div>
@@ -104,7 +104,7 @@
               </div>
               <div class="text-xs text-gray-500 mt-1">{{ t('dashboard.lastActivity') }}</div>
               <div v-if="lastActivityDate" class="text-[10px] text-gray-400 mt-1">{{ lastActivityDate }}</div>
-              <div v-else class="text-[10px] text-[#234ecc] mt-1">{{ t('dashboard.noActivityYet') }}</div>
+              <div v-else class="text-[10px] text-[#0B3D2E] mt-1">{{ t('dashboard.noActivityYet') }}</div>
             </div>
           </div>
 
@@ -118,16 +118,16 @@
                     v-for="subj in trackStats[slug].subjects"
                     :key="subj.subject_slug"
                     :to="{ name: 'track', params: { trackSlug: slug } }"
-                    class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#234ecc]/40 hover:shadow-md transition-all"
+                    class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#0B3D2E]/40 hover:shadow-md transition-all"
                   >
-                    <p class="text-[10px] text-[#234ecc] font-semibold uppercase tracking-wide mb-1.5 truncate">{{ trackStats[slug].track_title }}</p>
+                    <p class="text-[10px] text-[#0B3D2E] font-semibold uppercase tracking-wide mb-1.5 truncate">{{ trackStats[slug].track_title }}</p>
                     <p class="font-semibold text-gray-900 text-sm mb-3 line-clamp-2 leading-snug">{{ subj.subject_title }}</p>
                     <div class="w-full bg-gray-100 rounded-full h-1.5 mb-2">
-                      <div class="bg-[#234ecc] h-1.5 rounded-full transition-all duration-500" :style="{ width: subj.percent + '%' }" />
+                      <div class="bg-[#0B3D2E] h-1.5 rounded-full transition-all duration-500" :style="{ width: subj.percent + '%' }" />
                     </div>
                     <div class="flex items-center justify-between">
                       <span class="text-xs text-gray-400">{{ subj.completed_lessons }}/{{ subj.total_lessons }} {{ t('dashboard.lessons') }}</span>
-                      <span class="text-xs font-bold text-[#234ecc]">{{ subj.percent }}%</span>
+                      <span class="text-xs font-bold text-[#0B3D2E]">{{ subj.percent }}%</span>
                     </div>
                   </RouterLink>
                 </template>
@@ -147,7 +147,7 @@
           <!-- Empty state -->
           <div v-else class="bg-blue-50 border border-blue-100 rounded-2xl p-8 text-center">
             <div class="mb-3 flex justify-center">
-              <svg class="w-12 h-12 text-[#234ecc]/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="w-12 h-12 text-[#0B3D2E]/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
               </svg>
             </div>
@@ -155,7 +155,7 @@
             <p class="text-gray-500 text-sm mb-5">{{ t('dashboard.emptyDesc') }}</p>
             <RouterLink
               to="/learn"
-              class="inline-block bg-[#234ecc] hover:bg-[#1a3ba8] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+              class="inline-block bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors"
             >
               {{ t('dashboard.browseCurriculum') }}
             </RouterLink>
@@ -181,7 +181,7 @@
               {{ t('dashboard.bestStreak', { count: progress.longestStreak }) }}
             </div>
             <div class="text-xs font-medium mt-2"
-              :class="progress.currentStreak === 0 ? 'text-[#234ecc]' : streakAtRisk ? 'text-orange-500' : 'text-emerald-600'">
+              :class="progress.currentStreak === 0 ? 'text-[#0B3D2E]' : streakAtRisk ? 'text-orange-500' : 'text-emerald-600'">
               {{ streakSubtext }}
             </div>
           </div>
@@ -205,15 +205,15 @@
           <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
             <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Explore</p>
             <div class="space-y-1">
-              <RouterLink to="/learn" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-gray-700 hover:text-[#234ecc] transition-colors group">
-                <div class="w-8 h-8 rounded-lg bg-[#234ecc]/10 flex items-center justify-center group-hover:bg-[#234ecc]/20 transition-colors">
-                  <svg class="w-4 h-4 text-[#234ecc]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <RouterLink to="/learn" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-gray-700 hover:text-[#0B3D2E] transition-colors group">
+                <div class="w-8 h-8 rounded-lg bg-[#0B3D2E]/10 flex items-center justify-center group-hover:bg-[#0B3D2E]/20 transition-colors">
+                  <svg class="w-4 h-4 text-[#0B3D2E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                   </svg>
                 </div>
                 <span class="text-sm font-medium">Browse Curriculum</span>
               </RouterLink>
-              <RouterLink to="/library" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-gray-700 hover:text-[#234ecc] transition-colors group">
+              <RouterLink to="/library" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-gray-700 hover:text-[#0B3D2E] transition-colors group">
                 <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
                   <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
@@ -221,7 +221,7 @@
                 </div>
                 <span class="text-sm font-medium">Open Library</span>
               </RouterLink>
-              <RouterLink to="/videos" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-gray-700 hover:text-[#234ecc] transition-colors group">
+              <RouterLink to="/videos" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-gray-700 hover:text-[#0B3D2E] transition-colors group">
                 <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
                   <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>

@@ -102,9 +102,9 @@
             </div>
             <div class="flex gap-2">
               <input v-model="block.body.url" type="url" placeholder="Paste image URL…"
-                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               <button type="button" @click="imageInputRefs[idx]?.click()" :disabled="imageUploading[idx]"
-                class="shrink-0 px-3 py-2 text-xs font-medium border border-[#234ecc]/30 text-[#234ecc] rounded-xl hover:bg-[#234ecc]/5 disabled:opacity-60 transition-colors">
+                class="shrink-0 px-3 py-2 text-xs font-medium border border-[#0B3D2E]/30 text-[#0B3D2E] rounded-xl hover:bg-[#0B3D2E]/5 disabled:opacity-60 transition-colors">
                 {{ imageUploading[idx] ? 'Uploading…' : 'Upload' }}
               </button>
               <input :ref="el => imageInputRefs[idx] = el" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden" @change="handleImageUpload(idx, $event)" />
@@ -129,7 +129,7 @@
               <span>Paste a YouTube or video URL below to preview</span>
             </div>
             <input v-model="block.body.url" type="url" placeholder="YouTube or video URL…"
-              class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             <input v-model="block.body.caption" placeholder="Caption (optional)"
               class="w-full text-xs text-center text-gray-400 border-0 border-b border-dashed border-gray-200 pb-1 focus:outline-none focus:border-gray-400 bg-transparent placeholder:text-gray-300" />
           </div>
@@ -144,10 +144,10 @@
           </div>
           <div class="bg-white px-4 py-4 space-y-2">
             <div v-for="(opt, oi) in (block.body.options || ['', '', '', ''])" :key="oi" class="flex items-center gap-2.5">
-              <input type="radio" :name="`quiz-correct-${idx}`" :value="oi" v-model="block.body.correct" class="accent-[#234ecc] shrink-0" title="Mark as correct answer" />
+              <input type="radio" :name="`quiz-correct-${idx}`" :value="oi" v-model="block.body.correct" class="accent-[#0B3D2E] shrink-0" title="Mark as correct answer" />
               <input :value="opt" @input="setOption(block, oi, $event.target.value)" :placeholder="`Option ${['A', 'B', 'C', 'D'][oi]}`"
                 class="flex-1 px-3 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-1"
-                :class="block.body.correct === oi ? 'border-emerald-500 bg-emerald-50 text-emerald-800 focus:ring-emerald-300' : 'border-gray-200 text-gray-700 hover:border-gray-300 focus:ring-[#234ecc]/30 placeholder:text-gray-300'" />
+                :class="block.body.correct === oi ? 'border-emerald-500 bg-emerald-50 text-emerald-800 focus:ring-emerald-300' : 'border-gray-200 text-gray-700 hover:border-gray-300 focus:ring-[#0B3D2E]/30 placeholder:text-gray-300'" />
             </div>
             <p class="text-xs text-gray-400 mt-1 ms-6">Click the radio to mark the correct answer.</p>
           </div>
@@ -163,7 +163,7 @@
     <!-- Add block pills -->
     <div v-if="allowStructure" class="flex flex-wrap gap-2 pt-2">
       <button v-for="type in BLOCK_TYPES" :key="type.value" type="button" @click="addBlock(type.value)"
-        class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 hover:border-[#234ecc]/30 hover:bg-[#234ecc]/5 hover:text-[#234ecc] text-xs font-medium text-gray-500 transition-colors">
+        class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 hover:border-[#0B3D2E]/30 hover:bg-[#0B3D2E]/5 hover:text-[#0B3D2E] text-xs font-medium text-gray-500 transition-colors">
         <svg class="w-3.5 h-3.5 shrink-0" :class="type.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="type.icon" /></svg>
         + {{ type.label }}
       </button>

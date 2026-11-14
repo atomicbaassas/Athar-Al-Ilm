@@ -17,7 +17,7 @@ concurrency:
 #   SSH_USER          SSH login user (e.g. root, ubuntu)
 #   SSH_PRIVATE_KEY   Full private key (-----BEGIN ... -----)
 #   SSH_PORT          SSH port — omit to default to 22
-#   DEPLOY_PATH       Absolute path on server (e.g. /root/app/Tadabbur)
+#   DEPLOY_PATH       Absolute path on server (e.g. /root/app/Athar Al 'Ilm)
 #
 # The server must have Docker + Docker Compose v2 installed, and a .env file
 # at DEPLOY_PATH with all production values filled in.

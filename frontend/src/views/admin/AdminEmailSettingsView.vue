@@ -27,26 +27,26 @@
           <div class="sm:col-span-2">
             <label class="block text-sm font-medium text-gray-700 mb-1.5">SMTP host</label>
             <input v-model="form.host" type="text" placeholder="smtp.your-provider.com"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Port</label>
             <input v-model.number="form.port" type="number"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1.5">Username</label>
           <input v-model="form.username" type="text" autocomplete="off" placeholder="SMTP username / API key id"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
           <input v-model="passwordInput" type="password" autocomplete="new-password"
             :placeholder="form.has_password ? `Saved (${form.password_hint}) — leave blank to keep` : 'SMTP password / API key'"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           <button v-if="form.has_password" type="button" @click="clearPassword = !clearPassword"
             class="mt-1.5 text-xs" :class="clearPassword ? 'text-red-600 font-medium' : 'text-gray-400 hover:text-gray-600'">
             {{ clearPassword ? 'Will remove the saved password on save' : 'Remove saved password' }}
@@ -56,15 +56,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">From address</label>
-            <input v-model="form.from_email" type="text" placeholder="Tadabbur <no-reply@thetadabbur.org>"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            <input v-model="form.from_email" type="text" placeholder="Athar Al 'Ilm <no-reply@atharulilm.or.tz>"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div class="flex items-end gap-4 pb-1">
             <label class="inline-flex items-center gap-2 text-sm text-gray-700">
-              <input v-model="form.use_tls" type="checkbox" class="rounded border-gray-300 text-[#234ecc] focus:ring-[#234ecc]/40" /> TLS
+              <input v-model="form.use_tls" type="checkbox" class="rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" /> TLS
             </label>
             <label class="inline-flex items-center gap-2 text-sm text-gray-700">
-              <input v-model="form.use_ssl" type="checkbox" class="rounded border-gray-300 text-[#234ecc] focus:ring-[#234ecc]/40" /> SSL
+              <input v-model="form.use_ssl" type="checkbox" class="rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" /> SSL
             </label>
           </div>
         </div>
@@ -74,7 +74,7 @@
         <div class="flex items-center justify-end gap-3 pt-2 border-t border-gray-100">
           <span v-if="saved" class="text-sm text-emerald-600 font-medium">Saved ✓</span>
           <button :disabled="saving" @click="save"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             {{ saving ? 'Saving…' : 'Save settings' }}
           </button>
         </div>

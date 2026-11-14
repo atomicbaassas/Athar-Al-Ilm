@@ -51,7 +51,7 @@
               <div v-if="c.user?.avatar_url" class="w-6 h-6 rounded-full overflow-hidden shrink-0 bg-gray-100">
                 <img :src="c.user.avatar_url" class="w-full h-full object-cover" alt="" />
               </div>
-              <div v-else class="w-6 h-6 rounded-full shrink-0 bg-[#234ecc]/10 text-[#234ecc] text-[10px] font-semibold flex items-center justify-center">
+              <div v-else class="w-6 h-6 rounded-full shrink-0 bg-[#0B3D2E]/10 text-[#0B3D2E] text-[10px] font-semibold flex items-center justify-center">
                 {{ initials(c.user) }}
               </div>
               <span class="font-medium text-gray-800 truncate">{{ displayName(c.user) }}</span>

@@ -15,7 +15,7 @@
             type="button"
             @click="form.is_published = !form.is_published"
             class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-            :class="form.is_published ? 'bg-[#234ecc]' : 'bg-gray-300'"
+            :class="form.is_published ? 'bg-[#0B3D2E]' : 'bg-gray-300'"
           >
             <span
               class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
@@ -27,7 +27,7 @@
           type="button"
           :disabled="saving"
           @click="save"
-          class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+          class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
         >
           {{ saving ? 'Saving…' : (isEdit ? 'Save Changes' : 'Create Track') }}
         </button>
@@ -65,7 +65,7 @@
               type="text"
               required
               placeholder="e.g. Foundations of Islam"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
             />
           </div>
 
@@ -78,12 +78,12 @@
                 type="text"
                 required
                 placeholder="e.g. foundations-of-islam"
-                class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <button
                 type="button"
                 @click="regenerateSlug"
-                class="px-3 py-2.5 text-xs text-gray-500 border border-gray-200 rounded-xl hover:border-[#234ecc]/40 hover:text-[#234ecc] transition-colors"
+                class="px-3 py-2.5 text-xs text-gray-500 border border-gray-200 rounded-xl hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] transition-colors"
               >
                 Regenerate
               </button>
@@ -97,7 +97,7 @@
               v-model="form.description"
               rows="4"
               placeholder="Short description of this track…"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
             />
           </div>
         </div>
@@ -116,7 +116,7 @@
               <div v-else class="mb-2 rounded-xl aspect-video bg-gray-50 border border-gray-100 flex items-center justify-center">
                 <span class="text-xs text-gray-300">Preview</span>
               </div>
-              <label class="text-xs font-medium text-[#234ecc] hover:underline cursor-pointer">
+              <label class="text-xs font-medium text-[#0B3D2E] hover:underline cursor-pointer">
                 {{ uploading ? 'Uploading…' : 'Upload image' }}
                 <input type="file" accept="image/*" class="hidden" @change="onThumbnailUpload" :disabled="uploading" />
               </label>
@@ -127,7 +127,7 @@
                 v-model="form.thumbnail_url"
                 type="url"
                 placeholder="https://…"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <img
                 v-if="thumbnailValid"
@@ -146,7 +146,7 @@
                 v-model.number="form.order"
                 type="number"
                 min="0"
-                class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
 
@@ -155,7 +155,7 @@
               <select
                 v-model="form.category_slug"
                 @change="form.level_slug = ''"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               >
                 <option value="">No category</option>
                 <option v-for="c in categories" :key="c.slug" :value="c.slug">{{ c.title }}</option>
@@ -166,7 +166,7 @@
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Level</label>
               <select
                 v-model="form.level_slug"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               >
                 <option value="">No level</option>
                 <option v-for="l in selectedCategory.levels" :key="l.slug" :value="l.slug">{{ l.name }}</option>
@@ -181,12 +181,12 @@
             <div class="flex gap-2">
               <button type="button" @click="form.audience = 'all'"
                 class="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors"
-                :class="form.audience === 'all' ? 'border-[#234ecc] bg-[#234ecc]/5 text-[#234ecc]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
+                :class="form.audience === 'all' ? 'border-[#0B3D2E] bg-[#0B3D2E]/5 text-[#0B3D2E]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
                 All users
               </button>
               <button type="button" @click="form.audience = 'selected'"
                 class="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors"
-                :class="form.audience === 'selected' ? 'border-[#234ecc] bg-[#234ecc]/5 text-[#234ecc]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
+                :class="form.audience === 'selected' ? 'border-[#0B3D2E] bg-[#0B3D2E]/5 text-[#0B3D2E]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
                 Selected users
               </button>
             </div>
@@ -204,7 +204,7 @@
               <div class="relative">
                 <input v-model="userSearch" @input="onUserSearch" type="text"
                   placeholder="Search users by email or name…"
-                  class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
                 <div v-if="userResults.length"
                   class="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-56 overflow-y-auto">
                   <button v-for="u in userResults" :key="u.id" @click="addUser(u)"
@@ -238,7 +238,7 @@
                 type="text"
                 maxlength="70"
                 :placeholder="form.title || 'Defaults to track title'"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <p class="text-[11px] mt-1" :class="(form.meta_title?.length || 0) > 60 ? 'text-amber-500' : 'text-gray-400'">
                 {{ form.meta_title?.length || 0 }}/70 — aim for ≤ 60
@@ -252,7 +252,7 @@
                 rows="3"
                 maxlength="200"
                 :placeholder="form.description || 'Defaults to track description'"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
               />
               <p class="text-[11px] mt-1" :class="(form.meta_description?.length || 0) > 160 ? 'text-amber-500' : 'text-gray-400'">
                 {{ form.meta_description?.length || 0 }}/200 — aim for ≤ 160
@@ -265,7 +265,7 @@
                 v-model="form.og_image"
                 type="url"
                 :placeholder="form.thumbnail_url || 'https://… (defaults to thumbnail)'"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <p class="text-[11px] text-gray-400 mt-1">Shown when shared on social. 1200×630 recommended.</p>
             </div>

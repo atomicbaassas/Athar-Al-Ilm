@@ -33,7 +33,7 @@
           </h2>
           <RouterLink
             :to="{ name: 'admin-subject-new', query: { track: route.params.slug } }"
-            class="text-sm font-semibold text-[#234ecc] hover:underline transition-colors"
+            class="text-sm font-semibold text-[#0B3D2E] hover:underline transition-colors"
           >
             + Add Subject
           </RouterLink>
@@ -80,7 +80,7 @@
                 <button
                   @click="togglePublishSubject(subj)"
                   :title="subj.is_published ? 'Unpublish' : 'Publish'"
-                  class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#234ecc]/10 hover:text-[#234ecc] flex items-center justify-center text-gray-400 transition-colors"
+                  class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
                 >
                   <svg v-if="subj.is_published" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -94,7 +94,7 @@
                 <RouterLink
                   :to="{ name: 'admin-subject-edit', params: { slug: subj.slug } }"
                   title="Edit subject"
-                  class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#234ecc]/10 hover:text-[#234ecc] flex items-center justify-center text-gray-400 transition-colors"
+                  class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
                 >
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -104,7 +104,7 @@
                 <RouterLink
                   :to="{ name: 'admin-lesson-new', query: { subject: subj.slug } }"
                   title="Add lesson"
-                  class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#234ecc]/10 hover:text-[#234ecc] flex items-center justify-center text-gray-400 transition-colors"
+                  class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
                 >
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -150,7 +150,7 @@
                   <button
                     @click="togglePublishLesson(lesson, subj.slug)"
                     :title="lesson.status === 'published' ? 'Unpublish' : 'Publish'"
-                    class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#234ecc]/10 hover:text-[#234ecc] flex items-center justify-center text-gray-400 transition-colors"
+                    class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
                   >
                     <svg v-if="lesson.status === 'published'" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -164,7 +164,7 @@
                   <RouterLink
                     :to="{ name: 'admin-lesson-edit', params: { slug: lesson.slug } }"
                     title="Edit lesson"
-                    class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#234ecc]/10 hover:text-[#234ecc] flex items-center justify-center text-gray-400 transition-colors"
+                    class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
                   >
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -187,7 +187,7 @@
               <div class="px-8 py-3 border-t border-gray-50 bg-gray-50/50">
                 <RouterLink
                   :to="{ name: 'admin-lesson-new', query: { subject: subj.slug } }"
-                  class="text-xs font-medium text-[#234ecc] hover:underline"
+                  class="text-xs font-medium text-[#0B3D2E] hover:underline"
                 >
                   + Add Lesson to {{ subj.title }}
                 </RouterLink>
@@ -215,7 +215,7 @@
                 @input="autofillSlug"
                 type="text"
                 placeholder="Track title"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
 
@@ -226,12 +226,12 @@
                   v-model="form.slug"
                   @input="slugEdited = true"
                   type="text"
-                  class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                  class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
                 />
                 <button
                   type="button"
                   @click="regenerateSlug"
-                  class="px-2.5 py-2 text-xs text-gray-400 border border-gray-200 rounded-xl hover:border-[#234ecc]/40 hover:text-[#234ecc] transition-colors whitespace-nowrap"
+                  class="px-2.5 py-2 text-xs text-gray-400 border border-gray-200 rounded-xl hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] transition-colors whitespace-nowrap"
                 >
                   Regen
                 </button>
@@ -244,7 +244,7 @@
                 v-model="form.description"
                 rows="3"
                 placeholder="Short description…"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
               />
             </div>
 
@@ -253,7 +253,7 @@
               <div v-if="form.thumbnail_url" class="mb-2 rounded-xl overflow-hidden h-20 bg-gray-100">
                 <img :src="form.thumbnail_url" class="w-full h-full object-cover" />
               </div>
-              <label class="text-xs font-medium text-[#234ecc] hover:underline cursor-pointer">
+              <label class="text-xs font-medium text-[#0B3D2E] hover:underline cursor-pointer">
                 {{ uploading ? 'Uploading…' : 'Upload image' }}
                 <input type="file" accept="image/*" class="hidden" @change="onThumbnailUpload" :disabled="uploading" />
               </label>
@@ -264,7 +264,7 @@
                 v-model="form.thumbnail_url"
                 type="url"
                 placeholder="https://…"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <div v-if="form.thumbnail_url" class="mt-2 rounded-xl overflow-hidden h-20 bg-gray-100">
                 <img :src="form.thumbnail_url" class="w-full h-full object-cover" />
@@ -276,7 +276,7 @@
               <input
                 v-model.number="form.order"
                 type="number" min="0"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
 
@@ -290,7 +290,7 @@
                 type="button"
                 @click="form.is_published = !form.is_published"
                 class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-                :class="form.is_published ? 'bg-[#234ecc]' : 'bg-gray-300'"
+                :class="form.is_published ? 'bg-[#0B3D2E]' : 'bg-gray-300'"
               >
                 <span
                   class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
@@ -310,7 +310,7 @@
               type="button"
               @click="saveTrack"
               :disabled="saving"
-              class="w-full bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white py-2.5 rounded-xl text-sm font-semibold transition-colors"
+              class="w-full bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white py-2.5 rounded-xl text-sm font-semibold transition-colors"
             >
               {{ saving ? 'Saving…' : 'Save Track' }}
             </button>
@@ -321,7 +321,7 @@
               <p>{{ totalLessons }} lesson{{ totalLessons !== 1 ? 's' : '' }}</p>
               <RouterLink
                 :to="{ name: 'admin-track-edit', params: { slug: route.params.slug } }"
-                class="block text-[#234ecc] hover:underline mt-1"
+                class="block text-[#0B3D2E] hover:underline mt-1"
               >
                 Advanced editor ↗
               </RouterLink>
@@ -340,7 +340,7 @@
               :key="d"
               @click="statsDays = d"
               class="px-2.5 py-1 transition-colors"
-              :class="statsDays === d ? 'bg-[#234ecc] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
+              :class="statsDays === d ? 'bg-[#0B3D2E] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
             >
               {{ d }}d
             </button>
@@ -459,7 +459,7 @@ const readersData = computed(() => {
     datasets: [{
       label: 'Readers',
       data: series.map(p => p.count),
-      backgroundColor: '#234ecc',
+      backgroundColor: '#0B3D2E',
       borderRadius: 6,
       maxBarThickness: 28,
     }],

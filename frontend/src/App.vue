@@ -1,5 +1,5 @@
 <template>
-  <div id="tadabbur-app">
+  <div id="athar-app">
     <AppHeader v-if="!route.meta.fullScreen" />
     <!-- Home page: hero sits behind the transparent header (no padding needed).
          Admin pages (fullScreen): own their own chrome entirely, no header padding.

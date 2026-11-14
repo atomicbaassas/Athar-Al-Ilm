@@ -1,14 +1,14 @@
 {
   "id": "/",
-  "name": "Tadabbur | تدبّر — Structured Islamic Learning",
-  "short_name": "Tadabbur",
+  "name": "Athar Al 'Ilm | أثر العلم — Structured Islamic Learning",
+  "short_name": "Athar Al 'Ilm",
   "description": "Free, open-source Islamic learning platform with scholar-verified curriculum, structured tracks, progress tracking, and a growing resource library.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "lang": "en",
   "dir": "ltr",
-  "theme_color": "#234ecc",
+  "theme_color": "#0B3D2E",
   "background_color": "#0a0a0a",
   "categories": ["education", "lifestyle"],
   "icons": [

@@ -9,7 +9,7 @@
           <p class="text-gray-400 text-sm mt-0.5">Send an email to a segment of your audience.</p>
         </div>
         <button @click="startNew"
-          class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
+          class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New campaign
         </button>
@@ -86,12 +86,12 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Campaign name <span class="text-red-500">*</span></label>
               <input v-model="form.name" :disabled="isSent" type="text" placeholder="Internal name"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 disabled:bg-gray-50" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 disabled:bg-gray-50" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Start from template</label>
               <select :disabled="isSent" @change="applyTemplate($event.target.value)"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 disabled:bg-gray-50">
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 disabled:bg-gray-50">
                 <option value="">— None —</option>
                 <option v-for="t in templates" :key="t.id" :value="t.id">{{ t.name }}</option>
               </select>
@@ -99,12 +99,12 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Subject</label>
               <input v-model="form.subject" :disabled="isSent" type="text"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 disabled:bg-gray-50" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 disabled:bg-gray-50" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">HTML body</label>
               <textarea v-model="form.html_body" :disabled="isSent" rows="14" spellcheck="false"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-y disabled:bg-gray-50" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-y disabled:bg-gray-50" />
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Recipients</label>
               <select v-model="form.segment" :disabled="isSent" @change="previewCount"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 disabled:bg-gray-50">
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 disabled:bg-gray-50">
                 <option v-for="s in segments" :key="s.key" :value="s.key">{{ s.label }}</option>
               </select>
               <p class="text-[11px] text-gray-400 mt-1">
@@ -141,7 +141,7 @@
             <p class="text-sm font-medium text-gray-700">Send a test</p>
             <div class="flex gap-2">
               <input v-model="testEmail" type="email" placeholder="you@example.com"
-                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               <button :disabled="testing || !testEmail" @click="doTest"
                 class="bg-gray-100 hover:bg-gray-200 disabled:opacity-50 text-gray-700 text-sm font-medium px-3 py-2 rounded-xl transition-colors">
                 {{ testing ? '…' : 'Send' }}
@@ -155,10 +155,10 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Schedule (optional, UTC)</label>
               <input v-model="form.scheduled_at" type="datetime-local"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <button :disabled="sending" @click="confirmSend = true"
-              class="w-full bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">
+              class="w-full bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">
               {{ form.scheduled_at ? 'Schedule send' : 'Send now' }}
             </button>
           </div>
@@ -192,7 +192,7 @@
         </p>
         <div class="flex gap-3">
           <button @click="confirmSend = false" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
-          <button :disabled="sending" @click="doSend" class="flex-1 px-4 py-2.5 bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
+          <button :disabled="sending" @click="doSend" class="flex-1 px-4 py-2.5 bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
             {{ sending ? 'Working…' : (form.scheduled_at ? 'Schedule' : 'Send now') }}
           </button>
         </div>

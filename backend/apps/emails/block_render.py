@@ -71,7 +71,7 @@ def _render_button(body):
         return ''
     return (
         f'<p style="text-align:center;margin:28px 0">'
-        f'<a href="{url}" style="background:#234ecc;color:#fff;text-decoration:none;'
+        f'<a href="{url}" style="background:#0B3D2E;color:#fff;text-decoration:none;'
         f'padding:12px 28px;border-radius:8px;font-weight:600;display:inline-block">{label}</a></p>'
     )
 

@@ -9,7 +9,7 @@
           <p class="text-gray-400 text-sm mt-0.5">Reusable subject + layout for your campaigns and system emails.</p>
         </div>
         <button @click="startNew"
-          class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
+          class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New template
         </button>
@@ -55,7 +55,7 @@
           <button v-if="form.id" @click="deleteTarget = { id: form.id, name: form.name }"
             class="text-sm text-red-500 hover:text-red-600 px-3 py-2 transition-colors">Delete</button>
           <button :disabled="saving" @click="save"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             {{ saving ? 'Saving…' : (form.id ? 'Save' : 'Create') }}
           </button>
         </div>
@@ -72,15 +72,15 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Name <span class="text-red-500">*</span></label>
               <input v-model="form.name" type="text" placeholder="e.g. Monthly newsletter"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Subject</label>
               <input v-model="form.subject" type="text" placeholder="Email subject line"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div v-if="form.slug" class="flex items-center gap-2">
-              <input id="is_active" v-model="form.is_active" type="checkbox" class="accent-[#234ecc]" />
+              <input id="is_active" v-model="form.is_active" type="checkbox" class="accent-[#0B3D2E]" />
               <label for="is_active" class="text-sm text-gray-600">Active (unchecking forces the hardcoded fallback copy for this email)</label>
             </div>
 
@@ -89,7 +89,7 @@
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Personalization tags</label>
               <div class="flex flex-wrap gap-1.5">
                 <button v-for="tag in availableTags" :key="tag" type="button" @click="copyTag(tag)"
-                  class="px-2 py-1 rounded-full bg-gray-100 hover:bg-[#234ecc]/10 hover:text-[#234ecc] font-mono text-[11px] transition-colors">
+                  class="px-2 py-1 rounded-full bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] font-mono text-[11px] transition-colors">
                   {{ tagLabel(tag) }}
                 </button>
               </div>
@@ -103,7 +103,7 @@
               <template v-else>
                 <textarea v-model="form.html_body" rows="16" spellcheck="false"
                   placeholder="<h1>Hello!</h1><p>Your message…</p>"
-                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-y" />
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-y" />
                 <p class="text-[11px] text-gray-400 mt-1">Raw HTML. An unsubscribe footer is appended automatically when sent.</p>
               </template>
             </div>
@@ -114,7 +114,7 @@
             <p class="text-sm font-medium text-gray-700 mb-2">Send a test</p>
             <div class="flex gap-2">
               <input v-model="testEmail" type="email" placeholder="you@example.com"
-                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               <button :disabled="testing || !testEmail" @click="doTest"
                 class="bg-gray-100 hover:bg-gray-200 disabled:opacity-50 text-gray-700 text-sm font-medium px-3 py-2 rounded-xl transition-colors whitespace-nowrap">
                 {{ testing ? 'Sending…' : 'Send test' }}

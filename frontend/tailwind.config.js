@@ -21,7 +21,7 @@ export default {
           950: '#022c22',
         },
         brand: {
-          DEFAULT: '#234ecc',
+          DEFAULT: '#0B3D2E',
           dark:    '#1a3ba8',
           light:   '#3d65e8',
           muted:   '#e8edfb',

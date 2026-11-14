@@ -34,7 +34,7 @@ function failOrFallback(reason) {
 }
 
 export async function includedRoutes(_paths, _routes) {
-  const origin = process.env.SSG_ORIGIN || 'https://thetadabbur.org'
+  const origin = process.env.SSG_ORIGIN || 'https://atharulilm.or.tz'
   const routes = new Set(STATIC_ROUTES)
 
   let res

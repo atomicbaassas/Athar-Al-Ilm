@@ -12,7 +12,7 @@ export default defineConfig({
     // Absolute API base used only during SSG prerender (Node has no relative
     // URL host). The browser keeps using the relative VITE_API_BASE_URL.
     __SSG_API_BASE__: JSON.stringify(
-      `${process.env.SSG_ORIGIN || 'https://thetadabbur.org'}/api/v1`,
+      `${process.env.SSG_ORIGIN || 'https://atharulilm.or.tz'}/api/v1`,
     ),
   },
   resolve: {

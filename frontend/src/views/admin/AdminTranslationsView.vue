@@ -28,7 +28,7 @@
           <div>
             <label class="block text-xs font-medium text-gray-500 mb-1">Model</label>
             <input v-model="form.model" type="text" placeholder="gemini-flash-lite-latest"
-              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div>
             <label class="block text-xs font-medium text-gray-500 mb-1">
@@ -40,7 +40,7 @@
             </label>
             <input v-model="keyInput" type="password" autocomplete="off"
               :placeholder="hasKey ? 'Enter a new key to replace it' : 'Paste your Gemini API key'"
-              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             <button v-if="hasKey && keySource === 'admin'" type="button" @click="clearKey = !clearKey"
               class="mt-1.5 text-xs" :class="clearKey ? 'text-red-600 font-semibold' : 'text-gray-400 hover:text-red-500'">
               {{ clearKey ? 'Key will be removed on save · undo' : 'Remove stored key' }}
@@ -50,7 +50,7 @@
             <details>
               <summary class="text-xs font-medium text-gray-500 cursor-pointer select-none">Translation instructions (advanced)</summary>
               <textarea v-model="form.system_instruction" rows="6"
-                class="mt-2 w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-y"></textarea>
+                class="mt-2 w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-y"></textarea>
               <p class="text-[11px] text-gray-400 mt-1">Guides tone and what to preserve (Arabic, ﷺ, names, Islamic terms).</p>
             </details>
           </div>
@@ -65,7 +65,7 @@
             <p class="text-xs text-gray-400 mt-0.5">The <span class="font-medium">Name</span> is what Gemini translates into (e.g. “Hinglish”, “Urdu”).</p>
           </div>
           <button @click="addLanguage" type="button"
-            class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#234ecc] hover:text-[#1a3ba8] transition-colors">
+            class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B3D2E] hover:text-[#1a3ba8] transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
             Add
           </button>
@@ -80,24 +80,24 @@
             <div class="sm:col-span-4">
               <label class="block text-[11px] font-medium text-gray-400 mb-1 sm:hidden">Name</label>
               <input v-model="lang.name" type="text" placeholder="Hinglish"
-                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div class="sm:col-span-3">
               <label class="block text-[11px] font-medium text-gray-400 mb-1 sm:hidden">Code</label>
               <input v-model="lang.code" type="text" :placeholder="slugify(lang.name) || 'code'"
-                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div class="sm:col-span-3">
               <label class="block text-[11px] font-medium text-gray-400 mb-1 sm:hidden">Native name</label>
               <input v-model="lang.native_name" type="text" placeholder="Native name (optional)"
-                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div class="sm:col-span-2 flex items-center justify-between gap-3">
               <label class="inline-flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer" title="Right-to-left script">
-                <input v-model="lang.rtl" type="checkbox" class="rounded border-gray-300 text-[#234ecc] focus:ring-[#234ecc]/40" /> RTL
+                <input v-model="lang.rtl" type="checkbox" class="rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" /> RTL
               </label>
               <label class="inline-flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer" title="Show to learners">
-                <input v-model="lang.enabled" type="checkbox" class="rounded border-gray-300 text-[#234ecc] focus:ring-[#234ecc]/40" /> On
+                <input v-model="lang.enabled" type="checkbox" class="rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" /> On
               </label>
               <button @click="languages.splice(i, 1)" type="button" title="Remove"
                 class="w-7 h-7 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0">
@@ -111,7 +111,7 @@
       <!-- Save bar -->
       <div class="flex flex-wrap items-center gap-3">
         <button @click="save" :disabled="saving"
-          class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
+          class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
           {{ saving ? 'Saving…' : 'Save changes' }}
         </button>
         <span v-if="saved" class="text-sm text-emerald-600 font-semibold">Saved ✓</span>

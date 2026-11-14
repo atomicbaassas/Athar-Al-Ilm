@@ -30,19 +30,19 @@
           v-model="searchQuery"
           type="search"
           placeholder="Search by name, email or username…"
-          class="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+          class="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
         />
       </div>
-      <select v-model="roleFilter" class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+      <select v-model="roleFilter" class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
         <option value="">All roles</option>
         <option v-for="r in roleOptions" :key="r.name" :value="r.name">{{ r.label }}</option>
       </select>
-      <select v-model="statusFilter" class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+      <select v-model="statusFilter" class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
         <option value="all">All status</option>
         <option value="active">Active</option>
         <option value="inactive">Deactivated</option>
       </select>
-      <select v-model="sortBy" class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+      <select v-model="sortBy" class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
         <option value="newest">Newest first</option>
         <option value="name">Name A–Z</option>
         <option value="lessons">Most lessons</option>
@@ -82,11 +82,11 @@
             <!-- User -->
             <td class="px-5 py-3">
               <RouterLink :to="{ name: 'admin-user-detail', params: { id: u.id } }" class="flex items-center gap-3 group">
-                <span class="w-8 h-8 rounded-full bg-[#234ecc]/15 text-[#234ecc] text-xs font-bold flex items-center justify-center shrink-0">
+                <span class="w-8 h-8 rounded-full bg-[#0B3D2E]/15 text-[#0B3D2E] text-xs font-bold flex items-center justify-center shrink-0">
                   {{ (u.full_name || u.email).charAt(0).toUpperCase() }}
                 </span>
                 <span class="min-w-0">
-                  <span class="block font-medium text-gray-800 truncate group-hover:text-[#234ecc] transition-colors">{{ u.full_name || u.username }}</span>
+                  <span class="block font-medium text-gray-800 truncate group-hover:text-[#0B3D2E] transition-colors">{{ u.full_name || u.username }}</span>
                   <span class="block text-xs text-gray-400 truncate">{{ u.email }}</span>
                 </span>
               </RouterLink>
@@ -96,7 +96,7 @@
               <select
                 :value="u.role"
                 @change="changeRole(u, $event.target.value)"
-                class="border border-gray-200 rounded-lg px-2 py-1.5 text-xs bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 max-w-[10rem]"
+                class="border border-gray-200 rounded-lg px-2 py-1.5 text-xs bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 max-w-[10rem]"
               >
                 <option v-for="r in roleOptions" :key="r.name" :value="r.name">{{ r.label }}</option>
                 <option v-if="!roleOptions.some(r => r.name === u.role)" :value="u.role">{{ u.role }}</option>
@@ -120,7 +120,7 @@
             <!-- Actions -->
             <td class="px-4 py-3">
               <div class="flex items-center justify-end gap-1">
-                <button @click="passwordTarget = u" title="Reset password" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#234ecc] hover:bg-[#234ecc]/8 transition-colors">
+                <button @click="passwordTarget = u" title="Reset password" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </button>
                 <button @click="deleteTarget = u" title="Delete user" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
@@ -136,10 +136,10 @@
     <!-- Pagination -->
     <div v-if="!loading && totalPages > 1" class="flex items-center justify-center gap-1.5 mt-6">
       <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
-        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Prev</button>
+        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Prev</button>
       <span class="text-sm text-gray-500 px-2">Page {{ currentPage }} / {{ totalPages }}</span>
       <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
-        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Next</button>
+        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Next</button>
     </div>
 
     <!-- Reset password modal -->
@@ -148,11 +148,11 @@
         <h3 class="font-bold text-gray-900 mb-1">Reset password</h3>
         <p class="text-sm text-gray-500 mb-4">Set a new password for <strong>{{ passwordTarget.email }}</strong>.</p>
         <input v-model="newPassword" type="text" placeholder="New password (min 8 chars)"
-          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         <div class="flex gap-3">
           <button @click="passwordTarget = null; newPassword = ''" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
           <button :disabled="newPassword.length < 8 || saving" @click="doResetPassword"
-            class="flex-1 px-4 py-2.5 bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
+            class="flex-1 px-4 py-2.5 bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
             {{ saving ? 'Saving…' : 'Set password' }}
           </button>
         </div>

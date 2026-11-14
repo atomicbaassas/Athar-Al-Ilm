@@ -50,7 +50,7 @@
                 class="w-full font-semibold text-lg text-gray-900 bg-transparent border-0 focus:outline-none placeholder:text-gray-300" />
               <div class="flex items-center gap-2 text-xs">
                 <span class="text-gray-400">Size:</span>
-                <select v-model="block.body.level" class="border border-gray-200 rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+                <select v-model="block.body.level" class="border border-gray-200 rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
                   <option value="h1">Large (H1)</option>
                   <option value="h2">Regular (H2)</option>
                 </select>
@@ -70,9 +70,9 @@
               </div>
               <div class="flex gap-2">
                 <input v-model="block.body.url" type="url" placeholder="Paste image URL…"
-                  class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                  class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
                 <button type="button" @click="imageInputRefs[idx]?.click()" :disabled="imageUploading[idx]"
-                  class="shrink-0 px-3 py-2 text-xs font-medium border border-[#234ecc]/30 text-[#234ecc] rounded-xl hover:bg-[#234ecc]/5 disabled:opacity-60 transition-colors">
+                  class="shrink-0 px-3 py-2 text-xs font-medium border border-[#0B3D2E]/30 text-[#0B3D2E] rounded-xl hover:bg-[#0B3D2E]/5 disabled:opacity-60 transition-colors">
                   {{ imageUploading[idx] ? 'Uploading…' : 'Upload' }}
                 </button>
                 <input :ref="el => imageInputRefs[idx] = el" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden" @change="handleImageUpload(idx, $event)" />
@@ -90,7 +90,7 @@
               <input v-model="block.body.label" placeholder="Button label (e.g. Verify email)"
                 class="w-full font-medium text-gray-900 bg-transparent border-0 focus:outline-none placeholder:text-gray-300" />
               <input v-model="block.body.url" placeholder="URL (or a merge tag like {{verify_url}})"
-                class="w-full text-sm text-[#234ecc] font-mono bg-transparent border-0 border-t border-gray-100 pt-2 focus:outline-none placeholder:text-gray-300 placeholder:font-sans" />
+                class="w-full text-sm text-[#0B3D2E] font-mono bg-transparent border-0 border-t border-gray-100 pt-2 focus:outline-none placeholder:text-gray-300 placeholder:font-sans" />
             </div>
           </template>
 
@@ -106,7 +106,7 @@
             <div class="bg-white px-5 py-4 flex items-center gap-2 text-xs">
               <span class="text-gray-400">Height (px):</span>
               <input v-model.number="block.body.height" type="number" min="0" max="200"
-                class="w-20 border border-gray-200 rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-20 border border-gray-200 rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
           </template>
         </div>
@@ -120,7 +120,7 @@
     <!-- Add block pills -->
     <div class="flex flex-wrap gap-2 pt-3">
       <button v-for="type in EMAIL_BLOCK_TYPES" :key="type.value" type="button" @click="addBlock(type.value)"
-        class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 hover:border-[#234ecc]/30 hover:bg-[#234ecc]/5 hover:text-[#234ecc] text-xs font-medium text-gray-500 transition-colors">
+        class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 hover:border-[#0B3D2E]/30 hover:bg-[#0B3D2E]/5 hover:text-[#0B3D2E] text-xs font-medium text-gray-500 transition-colors">
         <svg class="w-3.5 h-3.5 shrink-0" :class="type.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="type.icon" /></svg>
         + {{ type.label }}
       </button>

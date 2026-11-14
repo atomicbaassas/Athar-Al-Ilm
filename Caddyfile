@@ -4,7 +4,7 @@
     }
 }
 
-thetadabbur.org, www.thetadabbur.org {
+atharulilm.or.tz, www.atharulilm.or.tz {
     reverse_proxy tadabbur_nginx:80
 
     header {

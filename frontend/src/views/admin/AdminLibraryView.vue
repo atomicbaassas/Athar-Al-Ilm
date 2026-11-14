@@ -9,7 +9,7 @@
       </div>
       <RouterLink
         :to="{ name: 'admin-book-new' }"
-        class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm"
+        class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -36,13 +36,13 @@
             v-model="searchQuery"
             type="search"
             placeholder="Search by title or author…"
-            class="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+            class="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
           />
         </div>
         <!-- Sort -->
         <select
           v-model="sortBy"
-          class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+          class="border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
         >
           <option value="order">Published first</option>
           <option value="newest">Newest first</option>
@@ -56,7 +56,7 @@
         <!-- Status -->
         <select
           v-model="statusFilter"
-          class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+          class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
         >
           <option value="all">All status</option>
           <option value="published">Published</option>
@@ -65,7 +65,7 @@
         <!-- Category -->
         <select
           v-model="categoryFilter"
-          class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+          class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
         >
           <option value="">All categories</option>
           <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
@@ -73,7 +73,7 @@
         <!-- Language -->
         <select
           v-model="languageFilter"
-          class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+          class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
         >
           <option value="">All languages</option>
           <option v-for="l in LANGUAGES" :key="l.value" :value="l.value">{{ l.label }}</option>
@@ -82,7 +82,7 @@
         <button
           v-if="hasActiveFilters"
           @click="resetFilters"
-          class="text-sm text-gray-500 hover:text-[#234ecc] transition-colors"
+          class="text-sm text-gray-500 hover:text-[#0B3D2E] transition-colors"
         >
           Clear filters
         </button>
@@ -115,7 +115,7 @@
       <p class="text-gray-400 text-sm mb-5">Add your first Islamic book to the library.</p>
       <RouterLink
         :to="{ name: 'admin-book-new' }"
-        class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+        class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -136,7 +136,7 @@
       <p class="text-gray-400 text-sm mb-5">Try a different search or clear the filters.</p>
       <button
         @click="resetFilters"
-        class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+        class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
       >
         Clear filters
       </button>
@@ -184,7 +184,7 @@
           <!-- File type badges -->
           <div class="absolute bottom-2 left-2 flex gap-1">
             <span v-if="book.has_pdf"
-                  class="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded bg-[#234ecc]/80 text-white">
+                  class="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded bg-[#0B3D2E]/80 text-white">
               PDF
             </span>
             <span v-if="book.has_audio"
@@ -197,7 +197,7 @@
           <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-200 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
             <RouterLink
               :to="{ name: 'admin-book-edit', params: { slug: book.slug } }"
-              class="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-gray-700 hover:text-[#234ecc] transition-colors shadow-sm"
+              class="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-gray-700 hover:text-[#0B3D2E] transition-colors shadow-sm"
               title="Edit"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +236,7 @@
         <p class="font-semibold text-gray-900 text-sm truncate leading-tight">{{ book.title }}</p>
         <p v-if="book.author" class="text-xs text-gray-400 mt-0.5 truncate">{{ book.author }}</p>
         <div v-if="book.category" class="mt-1.5">
-          <span class="text-[10px] text-[#234ecc] bg-[#234ecc]/8 font-semibold px-2 py-0.5 rounded-full">
+          <span class="text-[10px] text-[#0B3D2E] bg-[#0B3D2E]/8 font-semibold px-2 py-0.5 rounded-full">
             {{ book.category }}
           </span>
         </div>
@@ -248,7 +248,7 @@
       <button
         @click="goToPage(currentPage - 1)"
         :disabled="currentPage === 1"
-        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
         Prev
       </button>
@@ -259,8 +259,8 @@
           @click="goToPage(p)"
           class="min-w-[2.25rem] px-3 py-2 text-sm rounded-lg border transition-colors"
           :class="p === currentPage
-            ? 'bg-[#234ecc] border-[#234ecc] text-white font-semibold'
-            : 'border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc]'"
+            ? 'bg-[#0B3D2E] border-[#0B3D2E] text-white font-semibold'
+            : 'border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E]'"
         >
           {{ p }}
         </button>
@@ -268,7 +268,7 @@
       <button
         @click="goToPage(currentPage + 1)"
         :disabled="currentPage === totalPages"
-        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
         Next
       </button>
@@ -413,7 +413,7 @@ function goToPage(p) {
 }
 
 const COVER_GRADIENTS = [
-  'linear-gradient(135deg, #1e3a5f, #234ecc)',
+  'linear-gradient(135deg, #1e3a5f, #0B3D2E)',
   'linear-gradient(135deg, #2d1b69, #7c3aed)',
   'linear-gradient(135deg, #1a3a2a, #16a34a)',
   'linear-gradient(135deg, #3d1515, #dc2626)',

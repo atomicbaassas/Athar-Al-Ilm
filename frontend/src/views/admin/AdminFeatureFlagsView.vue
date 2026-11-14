@@ -30,7 +30,7 @@
           <!-- Enabled toggle -->
           <button type="button" @click="row.enabled = !row.enabled"
             class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0 mt-0.5"
-            :class="row.enabled ? 'bg-[#234ecc]' : 'bg-gray-300'">
+            :class="row.enabled ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
             <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
               :class="row.enabled ? 'translate-x-4' : 'translate-x-1'" />
           </button>
@@ -42,12 +42,12 @@
           <div class="flex gap-2">
             <button type="button" @click="row.audience = 'all'"
               class="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors"
-              :class="row.audience === 'all' ? 'border-[#234ecc] bg-[#234ecc]/5 text-[#234ecc]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
+              :class="row.audience === 'all' ? 'border-[#0B3D2E] bg-[#0B3D2E]/5 text-[#0B3D2E]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
               All users
             </button>
             <button type="button" @click="row.audience = 'selected'"
               class="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors"
-              :class="row.audience === 'selected' ? 'border-[#234ecc] bg-[#234ecc]/5 text-[#234ecc]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
+              :class="row.audience === 'selected' ? 'border-[#0B3D2E] bg-[#0B3D2E]/5 text-[#0B3D2E]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
               Selected users
             </button>
           </div>
@@ -66,7 +66,7 @@
             <div class="relative">
               <input v-model="search[row.key]" @input="onSearch(row.key)" type="text"
                 placeholder="Search users by email or name…"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               <div v-if="results[row.key]?.length"
                 class="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-56 overflow-y-auto">
                 <button v-for="u in results[row.key]" :key="u.id" @click="addUser(row, u)"
@@ -89,7 +89,7 @@
           <span v-if="savedKey === row.key" class="text-xs text-emerald-600 font-medium">Saved ✓</span>
           <button :disabled="!isDirty(row) || savingKey === row.key" @click="saveFlag(row)"
             class="text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
-            :class="isDirty(row) ? 'bg-[#234ecc] hover:bg-[#1a3ba8] text-white' : 'bg-gray-100 text-gray-400 cursor-default'">
+            :class="isDirty(row) ? 'bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white' : 'bg-gray-100 text-gray-400 cursor-default'">
             {{ savingKey === row.key ? 'Saving…' : 'Save' }}
           </button>
         </div>

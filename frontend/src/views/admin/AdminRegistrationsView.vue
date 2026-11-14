@@ -10,7 +10,7 @@
       <button
         v-if="registrations.length"
         @click="exportCsv"
-        class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-[#234ecc]/40 hover:text-[#234ecc] text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm shrink-0"
+        class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm shrink-0"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         Export CSV
@@ -36,28 +36,28 @@
         <div>
           <label class="block text-xs font-medium text-gray-500 mb-1">Date &amp; time</label>
           <input v-model="settingsForm.datetime" type="datetime-local"
-            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         </div>
         <div>
           <label class="block text-xs font-medium text-gray-500 mb-1">Timezone</label>
           <select v-model="settingsForm.offset"
-            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
             <option v-for="o in offsetOptions" :key="o.value" :value="o.value">{{ o.label }}</option>
           </select>
         </div>
         <div class="sm:col-span-2">
           <label class="block text-xs font-medium text-gray-500 mb-1">Headline</label>
           <input v-model="settingsForm.headline" type="text" maxlength="120"
-            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         </div>
         <div class="sm:col-span-2">
           <label class="block text-xs font-medium text-gray-500 mb-1">Intro paragraph</label>
           <textarea v-model="settingsForm.intro" rows="3"
-            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"></textarea>
+            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"></textarea>
         </div>
         <div class="sm:col-span-2 flex flex-wrap items-center gap-3">
           <button @click="saveSettings" :disabled="savingSettings"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
             {{ savingSettings ? 'Saving…' : 'Save event settings' }}
           </button>
           <span class="text-xs text-gray-400">Preview: <span class="text-gray-600">{{ previewLabel }}</span></span>
@@ -73,7 +73,7 @@
           <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-width="2" d="m21 21-4.35-4.35"/>
         </svg>
         <input v-model="searchQuery" type="search" placeholder="Search name, email, phone, country…"
-          class="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+          class="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
       </div>
       <span class="text-sm text-gray-400 self-center whitespace-nowrap">
         {{ filtered.length }} registration{{ filtered.length === 1 ? '' : 's' }}
@@ -113,7 +113,7 @@
         <tbody>
           <tr v-for="r in paged" :key="r.id" class="border-b border-gray-50 last:border-0 hover:bg-gray-50/60 transition-colors">
             <td class="px-5 py-3 font-medium text-gray-800">{{ r.full_name }}</td>
-            <td class="px-4 py-3 text-gray-600"><a :href="`mailto:${r.email}`" class="hover:text-[#234ecc]">{{ r.email }}</a></td>
+            <td class="px-4 py-3 text-gray-600"><a :href="`mailto:${r.email}`" class="hover:text-[#0B3D2E]">{{ r.email }}</a></td>
             <td class="px-4 py-3 text-gray-600 hidden sm:table-cell">{{ r.phone || '—' }}</td>
             <td class="px-4 py-3 text-gray-600 hidden md:table-cell">{{ r.country || '—' }}</td>
             <td class="px-4 py-3 text-right text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(r.created_at) }}</td>
@@ -130,10 +130,10 @@
     <!-- Pagination -->
     <div v-if="!loading && totalPages > 1" class="flex items-center justify-center gap-1.5 mt-6">
       <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
-        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Prev</button>
+        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Prev</button>
       <span class="text-sm text-gray-500 px-2">Page {{ currentPage }} / {{ totalPages }}</span>
       <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
-        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Next</button>
+        class="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Next</button>
     </div>
 
     <!-- Delete modal -->

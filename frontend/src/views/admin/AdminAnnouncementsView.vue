@@ -9,7 +9,7 @@
           <p class="text-gray-400 text-sm mt-0.5">Pop-up modals shown to logged-in users (once each).</p>
         </div>
         <button @click="startNew"
-          class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
+          class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New announcement
         </button>
@@ -73,7 +73,7 @@
           <span v-if="saved" class="text-sm text-emerald-600 font-medium">Saved ✓</span>
           <span v-if="formError" class="text-sm text-red-600">{{ formError }}</span>
           <button :disabled="saving" @click="save"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             {{ saving ? 'Saving…' : (form.id ? 'Save' : 'Create') }}
           </button>
         </div>
@@ -85,7 +85,7 @@
           <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Title <span class="text-red-500">*</span></label>
             <input v-model="form.title" type="text" placeholder="e.g. We've gone live! 🎉"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <BlockEditor v-model="form.content_blocks" @error="formError = $event" />
         </div>
@@ -100,7 +100,7 @@
               </div>
               <button type="button" @click="form.is_active = !form.is_active"
                 class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-                :class="form.is_active ? 'bg-[#234ecc]' : 'bg-gray-300'">
+                :class="form.is_active ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
                 <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
                   :class="form.is_active ? 'translate-x-4' : 'translate-x-1'" />
               </button>
@@ -109,19 +109,19 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Priority</label>
               <input v-model.number="form.priority" type="number"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               <p class="text-[11px] text-gray-400 mt-1">Higher shows first when several are queued.</p>
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Show from</label>
               <input v-model="form.starts_at" type="datetime-local"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Show until</label>
               <input v-model="form.ends_at" type="datetime-local"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               <p class="text-[11px] text-gray-400 mt-1">Leave both blank to show indefinitely. Times are UTC.</p>
             </div>
 

@@ -6,7 +6,7 @@
   >
     <div ref="card" class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden text-center">
       <!-- Celebration header band -->
-      <div class="bg-gradient-to-br from-[#234ecc] to-[#1a3ba8] px-6 pt-7 pb-10 relative">
+      <div class="bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8] px-6 pt-7 pb-10 relative">
         <p class="text-white/80 text-xs font-semibold tracking-wider uppercase">{{ t('badges.unlocked') }}</p>
         <div ref="medal" class="mx-auto mt-4 w-24 h-24 rounded-full bg-white shadow-lg flex items-center justify-center overflow-hidden">
           <img v-if="current.icon_url" :src="current.icon_url" :alt="current.name" class="w-full h-full object-cover" />
@@ -27,7 +27,7 @@
 
         <button
           @click="close"
-          class="mt-6 w-full bg-[#234ecc] hover:bg-[#1a3ba8] text-white font-semibold py-3 rounded-xl transition-colors"
+          class="mt-6 w-full bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white font-semibold py-3 rounded-xl transition-colors"
         >
           {{ queue.length > 1 ? t('badges.next') : t('badges.close') }}
         </button>

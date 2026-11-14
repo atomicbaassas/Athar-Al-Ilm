@@ -1,4 +1,4 @@
-# HANDOFF — Athar → Tadabbur reset
+# HANDOFF — Athar → Athar Al 'Ilm reset
 
 **Date:** 2026-11-14  
 **Branch:** `feat/tadabbur-athar`  
@@ -6,12 +6,12 @@
 
 ## Decision
 
-Product base switched from LearnHouse AGPL fork to **Tadabbur** (Vue 3 + Django 5 + Mongo). Salafi gateway kept.
+Product base switched from LearnHouse AGPL fork to **Athar Al 'Ilm** (Vue 3 + Django 5 + Mongo). Salafi gateway kept.
 
 ## What changed locally
 
-- Fresh clone of `mohhomadfarman/Tadabbur` as Athar working tree
-- Remotes: `origin` → `atomicbaassas/Athar-Al-Ilm`, `upstream` → Tadabbur
+- Fresh clone of `atomicbaassas/Athar-Al-Ilm` as Athar working tree
+- Remotes: `origin` → `atomicbaassas/Athar-Al-Ilm`, `upstream` → Athar Al 'Ilm
 - Carried `apps/athar-gateway` + `docs/SOURCES_SALAFI.md` + contracts (rewritten)
 - Agent root moved to this worktree
 
@@ -22,12 +22,12 @@ Product base switched from LearnHouse AGPL fork to **Tadabbur** (Vue 3 + Django 
 - Host nginx `atharulilm` proxies `/` → `:8080` (was LearnHouse `:9080`)
 - Gateway still `/athar/` → `:9091` (healthy)
 - Celery redis-py bumped; SSG first build used `SSG_ALLOW_FALLBACK=1`
-- UI title still **Tadabbur** branding — Athar skin pending
+- UI title still **Athar Al 'Ilm** branding — Athar skin pending
 - LearnHouse containers still running on `:9080` but **not** public
 
 ## Still open
 
-- Athar brand / EN-AR chrome on Vue
+- Wire Salafi learner pages to `/athar/` gateway
 - Wire Salafi pages to gateway; strip AI-as-source of truth
 - Retire LearnHouse containers when stable
 - Do **not** force-rewrite GitHub `main` without explicit ask

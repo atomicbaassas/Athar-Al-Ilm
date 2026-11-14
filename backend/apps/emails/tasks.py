@@ -12,7 +12,7 @@ from .segments import resolve_segment, unsubscribe_url
 UNSUB_FOOTER = (
     '<hr style="margin-top:32px;border:none;border-top:1px solid #eee">'
     '<p style="font-size:12px;color:#888;text-align:center;margin-top:12px">'
-    'You received this because you have an account or registered with Tadabbur.<br>'
+    'You received this because you have an account or registered with Athar Al 'Ilm.<br>'
     '<a href="{url}" style="color:#888">Unsubscribe</a></p>'
 )
 

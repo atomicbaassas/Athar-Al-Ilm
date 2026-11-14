@@ -81,7 +81,7 @@
         <!-- Enrollment gate (logged in, not enrolled) -->
         <div v-if="lesson.needs_enrollment" class="mt-2">
           <div class="border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-br from-[#234ecc] to-[#1a3ba8] px-8 py-8 text-center text-white">
+            <div class="bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8] px-8 py-8 text-center text-white">
               <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-4">
                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -96,7 +96,7 @@
               <button
                 :disabled="progress.enrolling || enrolling"
                 @click="handleEnroll"
-                class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60
+                class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60
                        text-white px-8 py-3 rounded-xl font-semibold transition-colors"
               >
                 <svg v-if="!progress.enrolling && !enrolling" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -291,7 +291,7 @@ useSeo(() => {
               : undefined,
           }
         : undefined,
-      provider: { '@type': 'Organization', name: 'Tadabbur', url: SEO_ORIGIN },
+      provider: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
     },
   }
 })

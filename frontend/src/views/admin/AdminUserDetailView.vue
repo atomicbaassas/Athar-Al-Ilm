@@ -1,7 +1,7 @@
 <template>
   <div class="px-6 py-8 max-w-4xl mx-auto">
 
-    <RouterLink :to="{ name: 'admin-users' }" class="inline-flex items-center gap-1.5 text-sm text-[#234ecc] hover:text-[#1a3ba8] mb-6 transition-colors">
+    <RouterLink :to="{ name: 'admin-users' }" class="inline-flex items-center gap-1.5 text-sm text-[#0B3D2E] hover:text-[#1a3ba8] mb-6 transition-colors">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
       Back to users
     </RouterLink>
@@ -22,14 +22,14 @@
       <!-- Profile header -->
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-5">
         <div class="flex items-start gap-4">
-          <span class="w-14 h-14 rounded-2xl bg-[#234ecc]/15 text-[#234ecc] text-xl font-bold flex items-center justify-center shrink-0">
+          <span class="w-14 h-14 rounded-2xl bg-[#0B3D2E]/15 text-[#0B3D2E] text-xl font-bold flex items-center justify-center shrink-0">
             {{ (user.full_name || user.email).charAt(0).toUpperCase() }}
           </span>
           <div class="min-w-0 flex-1">
             <h1 class="text-xl font-bold text-gray-900 truncate">{{ user.full_name || user.username }}</h1>
             <p class="text-gray-400 text-sm truncate">{{ user.email }} · @{{ user.username }}</p>
             <div class="flex flex-wrap items-center gap-2 mt-2 text-xs">
-              <span class="px-2 py-0.5 rounded-full bg-[#234ecc]/10 text-[#234ecc] font-semibold capitalize">{{ user.role }}</span>
+              <span class="px-2 py-0.5 rounded-full bg-[#0B3D2E]/10 text-[#0B3D2E] font-semibold capitalize">{{ user.role }}</span>
               <span class="px-2 py-0.5 rounded-full font-semibold" :class="user.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'">
                 {{ user.is_active ? 'Active' : 'Deactivated' }}
               </span>
@@ -66,7 +66,7 @@
         <div class="flex flex-wrap items-center gap-3">
           <label class="text-sm text-gray-500">Role
             <select :value="user.role" @change="changeRole($event.target.value)"
-              class="ms-2 border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+              class="ms-2 border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
               <option v-for="r in roleOptions" :key="r.name" :value="r.name">{{ r.label }}</option>
               <option v-if="!roleOptions.some(r => r.name === user.role)" :value="user.role">{{ user.role }}</option>
             </select>
@@ -76,7 +76,7 @@
             :class="user.is_active ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' : 'bg-emerald-500 text-white hover:bg-emerald-600'">
             {{ user.is_active ? 'Deactivate' : 'Activate' }}
           </button>
-          <button @click="showPassword = true" class="text-sm font-semibold px-4 py-2 rounded-xl bg-[#234ecc] hover:bg-[#1a3ba8] text-white transition-colors">Reset password</button>
+          <button @click="showPassword = true" class="text-sm font-semibold px-4 py-2 rounded-xl bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white transition-colors">Reset password</button>
           <button @click="showDelete = true" class="text-sm font-semibold px-4 py-2 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 transition-colors ms-auto">Delete user</button>
         </div>
       </div>
@@ -115,11 +115,11 @@
         <h3 class="font-bold text-gray-900 mb-1">Reset password</h3>
         <p class="text-sm text-gray-500 mb-4">Set a new password for <strong>{{ user.email }}</strong>.</p>
         <input v-model="newPassword" type="text" placeholder="New password (min 8 chars)"
-          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         <div class="flex gap-3">
           <button @click="showPassword = false; newPassword = ''" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
           <button :disabled="newPassword.length < 8 || saving" @click="doResetPassword"
-            class="flex-1 px-4 py-2.5 bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
+            class="flex-1 px-4 py-2.5 bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
             {{ saving ? 'Saving…' : 'Set password' }}
           </button>
         </div>
@@ -181,7 +181,7 @@ function formatDateTime(iso) {
 function eventColor(type) {
   return {
     lesson_completed: 'bg-emerald-500',
-    quiz_attempt: 'bg-[#234ecc]',
+    quiz_attempt: 'bg-[#0B3D2E]',
     login: 'bg-amber-400',
     registered: 'bg-purple-500',
   }[type] || 'bg-gray-300'

@@ -12,7 +12,7 @@
       </div>
       <RouterLink
         :to="{ name: 'admin-track-new' }"
-        class="bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors"
+        class="bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors"
       >
         + New Track
       </RouterLink>
@@ -29,14 +29,14 @@
           v-model="search"
           type="text"
           placeholder="Search tracks…"
-          class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+          class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
         />
       </div>
 
       <!-- Sort -->
       <select
         v-model="sortBy"
-        class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+        class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
       >
         <option value="published_first">Published first (default)</option>
         <option value="order">Manual order</option>
@@ -52,7 +52,7 @@
           :key="opt[0]"
           @click="filterStatus = opt[0]"
           class="px-3 py-2 transition-colors"
-          :class="filterStatus === opt[0] ? 'bg-[#234ecc] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
+          :class="filterStatus === opt[0] ? 'bg-[#0B3D2E] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
         >
           {{ opt[1] }}
         </button>
@@ -76,7 +76,7 @@
       </svg>
       <p class="font-medium text-gray-500 mb-1">No tracks yet</p>
       <p class="text-sm mb-4">Create your first track to start building curriculum.</p>
-      <RouterLink :to="{ name: 'admin-track-new' }" class="bg-[#234ecc] text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-[#1a3ba8] transition-colors">
+      <RouterLink :to="{ name: 'admin-track-new' }" class="bg-[#0B3D2E] text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-[#1a3ba8] transition-colors">
         + Create Track
       </RouterLink>
     </div>
@@ -90,7 +90,7 @@
       <div
         v-for="track in filteredTracks"
         :key="track.slug"
-        class="group bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-[#234ecc]/20 transition-all duration-200 flex flex-col"
+        class="group bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-[#0B3D2E]/20 transition-all duration-200 flex flex-col"
       >
         <!-- Thumbnail / gradient placeholder -->
         <div class="relative aspect-[16/7] overflow-hidden shrink-0">
@@ -130,7 +130,7 @@
             <button
               @click.stop="togglePublish(track)"
               :title="track.is_published ? 'Unpublish' : 'Publish'"
-              class="w-7 h-7 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-[#234ecc] transition-colors"
+              class="w-7 h-7 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-[#0B3D2E] transition-colors"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path v-if="track.is_published" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
@@ -162,7 +162,7 @@
             </span>
             <RouterLink
               :to="{ name: 'admin-track-detail', params: { slug: track.slug } }"
-              class="text-xs font-semibold text-[#234ecc] hover:text-[#1a3ba8] flex items-center gap-1 transition-colors"
+              class="text-xs font-semibold text-[#0B3D2E] hover:text-[#1a3ba8] flex items-center gap-1 transition-colors"
             >
               Manage
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,7 +216,7 @@ const deleteTarget = ref(null)
 const deleting = ref(false)
 
 const GRADIENTS = [
-  'bg-gradient-to-br from-[#234ecc] to-[#1a3ba8]',
+  'bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8]',
   'bg-gradient-to-br from-emerald-500 to-emerald-700',
   'bg-gradient-to-br from-purple-500 to-purple-700',
   'bg-gradient-to-br from-amber-500 to-orange-600',

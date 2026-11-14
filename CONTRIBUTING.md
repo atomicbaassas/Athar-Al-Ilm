@@ -1,9 +1,9 @@
-# Contributing to Tadabbur
+# Contributing to Athar Al 'Ilm
 
 > *"Whoever guides someone to goodness will have a reward like the one who did it."*
 > — Prophet Muhammad ﷺ (Muslim)
 
-Thank you for wanting to contribute. Tadabbur is built by Muslims for Muslims, and every contribution — code, translation, content, or design — is a form of sadaqah jariyah (ongoing charity).
+Thank you for wanting to contribute. Athar Al 'Ilm is built by Muslims for Muslims, and every contribution — code, translation, content, or design — is a form of sadaqah jariyah (ongoing charity).
 
 ---
 
@@ -218,7 +218,7 @@ Major features should be discussed before implementation.
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Email us privately at: mohhomadfarman@gmail.com
+Email us privately at: admin@atharulilm.or.tz
 
 Include:
 - A description of the vulnerability
@@ -233,7 +233,7 @@ We will respond within 72 hours and credit you in the fix if you wish.
 ## Contact
 
 - **GitHub Discussions:** Join the conversation on the repo
-- **Email:** mohhomadfarman@gmail.com
+- **Email:** admin@atharulilm.or.tz
 
 ---
 

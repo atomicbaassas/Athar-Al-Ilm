@@ -9,7 +9,7 @@
           <p class="text-gray-400 text-sm mt-0.5">Achievements awarded to learners, with a celebration popup.</p>
         </div>
         <button @click="startNew"
-          class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
+          class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New badge
         </button>
@@ -28,7 +28,7 @@
 
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button v-for="b in items" :key="b.id" @click="startEdit(b)"
-          class="text-left bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#234ecc]/40 transition-colors flex items-center gap-4">
+          class="text-left bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#0B3D2E]/40 transition-colors flex items-center gap-4">
           <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden shrink-0">
             <img v-if="b.icon_url" :src="b.icon_url" class="w-full h-full object-cover" />
             <svg v-else class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="m8.5 13.5-1.8 7.5L12 18l5.3 3-1.8-7.5"/></svg>
@@ -55,7 +55,7 @@
           <span v-if="saved" class="text-sm text-emerald-600 font-medium">Saved ✓</span>
           <span v-if="formError" class="text-sm text-red-600">{{ formError }}</span>
           <button :disabled="saving" @click="save"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             {{ saving ? 'Saving…' : (form.id ? 'Save' : 'Create') }}
           </button>
         </div>
@@ -68,17 +68,17 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Name <span class="text-red-500">*</span></label>
               <input v-model="form.name" type="text" placeholder="e.g. First Steps"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Description</label>
               <textarea v-model="form.description" rows="2" placeholder="What this badge celebrates."
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Reward text</label>
               <input v-model="form.reward" type="text" placeholder="e.g. You earned a gold star!"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
                   <img v-if="form.icon_url" :src="form.icon_url" class="w-full h-full object-cover" />
                   <svg v-else class="w-7 h-7 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="m8.5 13.5-1.8 7.5L12 18l5.3 3-1.8-7.5"/></svg>
                 </div>
-                <label class="text-xs font-medium text-[#234ecc] hover:underline cursor-pointer">
+                <label class="text-xs font-medium text-[#0B3D2E] hover:underline cursor-pointer">
                   {{ uploading ? 'Uploading…' : 'Upload image' }}
                   <input type="file" accept="image/*" class="hidden" @change="onIconUpload" :disabled="uploading" />
                 </label>
@@ -109,7 +109,7 @@
               </div>
               <button type="button" @click="form.is_active = !form.is_active"
                 class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-                :class="form.is_active ? 'bg-[#234ecc]' : 'bg-gray-300'">
+                :class="form.is_active ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
                 <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
                   :class="form.is_active ? 'translate-x-4' : 'translate-x-1'" />
               </button>
@@ -119,7 +119,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Awarded when</label>
               <select v-model="form.criteria_type"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
                 <option value="manual">Granted manually</option>
                 <option value="track_complete">A track is completed</option>
                 <option value="lessons_count">N lessons completed</option>
@@ -130,14 +130,14 @@
             <div v-if="form.criteria_type === 'track_complete'">
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Track slug</label>
               <input v-model="form.criteria_value" type="text" placeholder="e.g. seerah-foundations"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div v-else-if="form.criteria_type === 'lessons_count' || form.criteria_type === 'streak'">
               <label class="block text-sm font-medium text-gray-700 mb-1.5">
                 {{ form.criteria_type === 'streak' ? 'Streak days' : 'Lessons' }}
               </label>
               <input v-model="form.criteria_value" type="number" min="1"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
 
             <div v-if="form.id" class="pt-3 border-t border-gray-100 text-xs text-gray-400">
@@ -154,7 +154,7 @@
           <div v-if="form.id" class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-3">
             <p class="text-sm font-medium text-gray-700">Grant to a learner</p>
             <input v-model="grantQuery" type="text" placeholder="Search by name, email or username…"
-              class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             <p v-if="grantMessage" class="text-xs text-emerald-600">{{ grantMessage }}</p>
             <div v-if="grantQuery.trim()" class="max-h-48 overflow-y-auto space-y-1">
               <p v-if="grantResults.length === 0" class="text-xs text-gray-400 py-2">No matching users.</p>
@@ -164,7 +164,7 @@
                   <p class="text-xs text-gray-400 truncate">{{ u.email }}</p>
                 </div>
                 <button @click="grant(u)" :disabled="granting === u.id"
-                  class="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#234ecc]/10 text-[#234ecc] hover:bg-[#234ecc]/20 disabled:opacity-60 transition-colors">
+                  class="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#0B3D2E]/10 text-[#0B3D2E] hover:bg-[#0B3D2E]/20 disabled:opacity-60 transition-colors">
                   {{ granting === u.id ? 'Granting…' : 'Grant' }}
                 </button>
               </div>

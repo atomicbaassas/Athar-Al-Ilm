@@ -47,7 +47,7 @@
         <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
           <div
             class="h-2 rounded-full transition-all duration-700 ease-out"
-            :class="completedCount === totalLessons ? 'bg-emerald-500' : 'bg-[#234ecc]'"
+            :class="completedCount === totalLessons ? 'bg-emerald-500' : 'bg-[#0B3D2E]'"
             :style="{ width: progressPercent + '%' }"
           />
         </div>
@@ -79,7 +79,7 @@
             :class="isCompleted(lesson.slug)
               ? 'bg-emerald-100 text-emerald-700'
               : isInProgress(lesson.slug)
-                ? 'bg-blue-50 text-[#234ecc]'
+                ? 'bg-blue-50 text-[#0B3D2E]'
                 : 'bg-gray-50 text-gray-500 group-hover:bg-emerald-50 group-hover:text-emerald-700'"
           >
             <!-- Checkmark -->
@@ -117,7 +117,7 @@
               </span>
               <span
                 v-else-if="isInProgress(lesson.slug)"
-                class="flex-shrink-0 text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#234ecc] border border-blue-200 px-1.5 py-0.5 rounded-full"
+                class="flex-shrink-0 text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#0B3D2E] border border-blue-200 px-1.5 py-0.5 rounded-full"
               >
                 {{ t('subject.statusInProgress') }}
               </span>
@@ -184,7 +184,7 @@ useSeo(() => {
       name: s.title,
       description: s.description,
       url,
-      provider: { '@type': 'Organization', name: 'Tadabbur', url: SEO_ORIGIN },
+      provider: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
       isPartOf: s.track_title
         ? { '@type': 'Course', name: s.track_title, url: `${SEO_ORIGIN}/learn/${s.track_slug}` }
         : undefined,

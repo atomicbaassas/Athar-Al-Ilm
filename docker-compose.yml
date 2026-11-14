@@ -2,7 +2,7 @@ services:
 
   mongo:
     image: mongo:7.0
-    container_name: tadabbur_mongo
+    container_name: athar_mongo
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}

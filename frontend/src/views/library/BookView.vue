@@ -199,7 +199,7 @@
                 controls
                 :src="book.audio_url"
                 class="w-full rounded-xl"
-                style="accent-color:#234ecc;"
+                style="accent-color:#0B3D2E;"
               >
                 Your browser does not support the audio element.
               </audio>
@@ -321,9 +321,9 @@ useSeo(() => {
   const b = book.value
   if (!b) return {}
   const url = `${SEO_ORIGIN}/library/${b.slug}`
-  const desc = b.description?.slice(0, 160) || 'Read this Islamic book on Tadabbur.'
+  const desc = b.description?.slice(0, 160) || 'Read this Islamic book on Athar Al 'Ilm.'
   return {
-    title: `${b.title} — Tadabbur Library`,
+    title: `${b.title} — Athar Al 'Ilm Library`,
     description: desc,
     url,
     image: b.cover_url || undefined,
@@ -336,7 +336,7 @@ useSeo(() => {
       url,
       inLanguage: b.language || undefined,
       numberOfPages: b.page_count || undefined,
-      publisher: { '@type': 'Organization', name: 'Tadabbur', url: SEO_ORIGIN },
+      publisher: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
     },
   }
 })

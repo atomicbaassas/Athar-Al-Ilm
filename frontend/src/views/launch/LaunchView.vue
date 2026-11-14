@@ -6,7 +6,7 @@
     <!-- Minimal top bar -->
     <header class="launch__bar">
       <RouterLink to="/" class="launch__brand">
-        <img src="/logo-rounded.png" alt="Tadabbur" class="launch__logo" />
+        <img src="/logo-rounded.png" alt="Athar Al 'Ilm" class="launch__logo" />
       </RouterLink>
       <RouterLink to="/" class="launch__back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -87,7 +87,7 @@
           <h2 class="launch__card-title">{{ alreadyRegistered ? "You're already in!" : "You're registered!" }}</h2>
           <p class="launch__card-sub">{{ successMessage }}</p>
           <p class="launch__thanks-when">{{ eventDateLabel }}</p>
-          <RouterLink to="/" class="launch__thanks-link">Explore Tadabbur while you wait →</RouterLink>
+          <RouterLink to="/" class="launch__thanks-link">Explore Athar Al 'Ilm while you wait →</RouterLink>
         </div>
       </section>
     </main>
@@ -109,8 +109,8 @@ const SSR_KEY = 'launchSettings'
 const cached = ssr.get(SSR_KEY)
 
 const eventAt = ref(cached?.event_at || '2026-07-15T18:30:00+05:30')   // ISO 8601 with timezone offset
-const headline = ref(cached?.headline || 'Be there when Tadabbur goes live.')
-const intro = ref(cached?.intro || 'Join us for the official launch of Tadabbur — a free, structured, scholar-verified Islamic learning platform. Register below to get the live link and event reminders.')
+const headline = ref(cached?.headline || 'Be there when Athar Al 'Ilm goes live.')
+const intro = ref(cached?.intro || 'Join us for the official launch of Athar Al 'Ilm — a free, structured, scholar-verified Islamic learning platform. Register below to get the live link and event reminders.')
 
 function applySettings(s) {
   if (s?.event_at) eventAt.value = s.event_at
@@ -152,7 +152,7 @@ function formatEventLabel(iso) {
 
 useSeo({
   title: 'Live Launch — Register',
-  description: 'Register for the live launch of Tadabbur, a free, scholar-verified Islamic learning platform. Get the live link and reminders.',
+  description: 'Register for the live launch of Athar Al 'Ilm, a free, scholar-verified Islamic learning platform. Get the live link and reminders.',
   url: `${SEO_ORIGIN}/launch`,
 })
 
@@ -296,7 +296,7 @@ async function submit() {
 .launch__points li { position: relative; padding-left: 1.6rem; font-size: 0.95rem; color: rgba(255,255,255,0.7); }
 .launch__points li::before {
   content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem;
-  border-radius: 999px; background: #234ecc;
+  border-radius: 999px; background: #0B3D2E;
 }
 
 /* Form card */
@@ -313,13 +313,13 @@ async function submit() {
   width: 100%; padding: 0.7rem 0.9rem; font-size: 1rem; color: #111827;
   border: 1px solid #e5e7eb; border-radius: 0.7rem; transition: border-color 0.15s, box-shadow 0.15s;
 }
-.launch__fields input:focus { outline: none; border-color: #234ecc; box-shadow: 0 0 0 3px rgba(35,78,204,0.15); }
+.launch__fields input:focus { outline: none; border-color: #0B3D2E; box-shadow: 0 0 0 3px rgba(35,78,204,0.15); }
 .launch__fields input.bad { border-color: #f87171; }
 .launch__err { color: #dc2626; font-size: 0.78rem; margin-top: 0.3rem; }
 .launch__error-banner { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; font-size: 0.85rem; padding: 0.7rem 0.9rem; border-radius: 0.6rem; }
 .launch__submit {
   width: 100%; padding: 0.85rem 1rem; font-size: 1rem; font-weight: 700; color: #fff;
-  background: #234ecc; border: none; border-radius: 0.8rem; cursor: pointer; transition: background 0.2s, transform 0.15s;
+  background: #0B3D2E; border: none; border-radius: 0.8rem; cursor: pointer; transition: background 0.2s, transform 0.15s;
 }
 .launch__submit:hover:not(:disabled) { background: #1a3ba8; transform: translateY(-1px); }
 .launch__submit:disabled { opacity: 0.6; cursor: default; }
@@ -332,8 +332,8 @@ async function submit() {
   background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center;
 }
 .launch__check svg { width: 1.75rem; height: 1.75rem; }
-.launch__thanks-when { margin-top: 1rem; font-weight: 600; color: #234ecc; }
-.launch__thanks-link { display: inline-block; margin-top: 1.5rem; color: #234ecc; font-weight: 600; text-decoration: none; }
+.launch__thanks-when { margin-top: 1rem; font-weight: 600; color: #0B3D2E; }
+.launch__thanks-link { display: inline-block; margin-top: 1.5rem; color: #0B3D2E; font-weight: 600; text-decoration: none; }
 .launch__thanks-link:hover { text-decoration: underline; }
 
 @media (max-width: 860px) {

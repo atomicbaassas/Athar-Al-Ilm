@@ -1,7 +1,7 @@
 <template>
   <div class="legal" dir="ltr">
     <div class="max-w-3xl mx-auto px-4 py-12 sm:py-16">
-      <RouterLink to="/" class="inline-flex items-center gap-1.5 text-sm text-[#234ecc] hover:text-[#1a3ba8] mb-8 transition-colors">
+      <RouterLink to="/" class="inline-flex items-center gap-1.5 text-sm text-[#0B3D2E] hover:text-[#1a3ba8] mb-8 transition-colors">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
         Back to home
       </RouterLink>
@@ -10,9 +10,9 @@
       <p class="text-sm text-gray-400 mb-10">Last updated: 25 June 2026</p>
 
       <p>
-        Tadabbur ("we", "us", "our") is a free, open-source Islamic learning platform. This Privacy
+        Athar Al 'Ilm ("we", "us", "our") is a free, open-source Islamic learning platform. This Privacy
         Policy explains what information we collect, how we use it, and the choices you have. By using
-        <a href="https://thetadabbur.org">thetadabbur.org</a> you agree to this policy.
+        <a href="https://atharulilm.or.tz">atharulilm.or.tz</a> you agree to this policy.
       </p>
 
       <h2>Information we collect</h2>
@@ -61,7 +61,7 @@
 
       <h2>Children's privacy</h2>
       <p>
-        Tadabbur is intended for general audiences. We do not knowingly collect personal information from
+        Athar Al 'Ilm is intended for general audiences. We do not knowingly collect personal information from
         children under 13. If you believe a child has provided us information, please contact us and we
         will remove it.
       </p>
@@ -75,7 +75,7 @@
       <h2>Contact</h2>
       <p>
         Questions about this policy? Email us at
-        <a href="mailto:mohhomadfarman@gmail.com">mohhomadfarman@gmail.com</a>.
+        <a href="mailto:admin@atharulilm.or.tz">admin@atharulilm.or.tz</a>.
       </p>
     </div>
   </div>
@@ -86,7 +86,7 @@ import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
 useSeo({
   title: 'Privacy Policy',
-  description: 'How Tadabbur collects, uses, and protects your information.',
+  description: 'How Athar Al 'Ilm collects, uses, and protects your information.',
   url: `${SEO_ORIGIN}/privacy`,
 })
 </script>
@@ -103,6 +103,6 @@ useSeo({
 }
 .legal :deep(ul) { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
 .legal :deep(li) { line-height: 1.7; margin-bottom: 0.5rem; color: #4b5563; }
-.legal :deep(a) { color: #234ecc; text-decoration: underline; text-underline-offset: 2px; }
+.legal :deep(a) { color: #0B3D2E; text-decoration: underline; text-underline-offset: 2px; }
 .legal :deep(a:hover) { color: #1a3ba8; }
 </style>

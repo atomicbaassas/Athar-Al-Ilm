@@ -9,7 +9,7 @@
           <p class="text-gray-400 text-sm mt-0.5">Group tracks into categories, each with its own levels (e.g. Beginner/Intermediate/Advanced).</p>
         </div>
         <button @click="startNew"
-          class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
+          class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New category
         </button>
@@ -58,7 +58,7 @@
               <span v-else class="text-xs text-gray-300">No banner</span>
             </div>
             <div class="flex flex-col gap-2">
-              <label class="text-xs font-medium text-[#234ecc] hover:underline cursor-pointer">
+              <label class="text-xs font-medium text-[#0B3D2E] hover:underline cursor-pointer">
                 {{ bannerUploading ? 'Uploading…' : 'Upload image' }}
                 <input type="file" accept="image/*" class="hidden" @change="onBannerUpload" :disabled="bannerUploading" />
               </label>
@@ -71,13 +71,13 @@
               <label class="block text-xs font-medium text-gray-600 mb-1.5">Title</label>
               <input v-model="bannerForm.banner_title" type="text" maxlength="200"
                 placeholder="Defaults to &quot;Learning Tracks&quot;"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div>
               <label class="block text-xs font-medium text-gray-600 mb-1.5">Subtitle</label>
               <input v-model="bannerForm.banner_subtitle" type="text" maxlength="300"
                 placeholder="Defaults to the standard subtitle"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
           </div>
 
@@ -89,7 +89,7 @@
                 <input v-model="bannerForm.banner_text_color" type="color"
                   class="w-10 h-10 rounded-lg border border-gray-200 cursor-pointer p-0.5 shrink-0" />
                 <input v-model="bannerForm.banner_text_color" type="text" maxlength="20"
-                  class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                  class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
               </div>
             </div>
             <div>
@@ -100,7 +100,7 @@
             <div>
               <label class="inline-flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none py-2">
                 <input v-model="bannerForm.banner_text_shadow" type="checkbox"
-                  class="w-4 h-4 rounded border-gray-300 text-[#234ecc] focus:ring-[#234ecc]/40" />
+                  class="w-4 h-4 rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" />
                 Text shadow
               </label>
             </div>
@@ -108,7 +108,7 @@
 
           <div class="mt-4 flex flex-wrap items-center gap-3">
             <button @click="saveBannerSettings" :disabled="bannerSaving"
-              class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+              class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
               {{ bannerSaving ? 'Saving…' : 'Save banner' }}
             </button>
             <span v-if="bannerError" class="text-xs text-red-600">{{ bannerError }}</span>
@@ -154,7 +154,7 @@
           <button v-if="form.id" @click="deleteTarget = { id: form.id, title: form.title }"
             class="text-sm text-red-500 hover:text-red-600 px-3 py-2 transition-colors">Delete</button>
           <button :disabled="saving" @click="save"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             {{ saving ? 'Saving…' : (form.id ? 'Save' : 'Create') }}
           </button>
         </div>
@@ -164,7 +164,7 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1.5">Title <span class="text-red-500">*</span></label>
           <input v-model="form.title" type="text" placeholder="e.g. Quran Studies"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         </div>
 
         <div v-if="features.isEnabled('learn_page_media')">
@@ -174,7 +174,7 @@
               <img v-if="form.icon_url" :src="form.icon_url" class="w-full h-full object-cover" />
               <svg v-else class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h16M4 4h16v16H4V4z"/></svg>
             </div>
-            <label class="text-xs font-medium text-[#234ecc] hover:underline cursor-pointer">
+            <label class="text-xs font-medium text-[#0B3D2E] hover:underline cursor-pointer">
               {{ iconUploading ? 'Uploading…' : 'Upload image' }}
               <input type="file" accept="image/*" class="hidden" @change="onIconUpload" :disabled="iconUploading" />
             </label>
@@ -184,13 +184,13 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1.5">Display order</label>
           <input v-model.number="form.order" type="number" min="0"
-            class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+            class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <label class="block text-sm font-medium text-gray-700">Levels</label>
-            <button type="button" @click="addLevel" class="text-xs font-semibold text-[#234ecc] hover:text-[#1a3ba8]">+ Add level</button>
+            <button type="button" @click="addLevel" class="text-xs font-semibold text-[#0B3D2E] hover:text-[#1a3ba8]">+ Add level</button>
           </div>
           <p class="text-xs text-gray-400 mb-2">e.g. Beginner, Intermediate, Advanced — assigned to tracks from the track editor.</p>
 
@@ -199,7 +199,7 @@
           </div>
           <div v-for="(lvl, i) in form.levels" :key="i" class="flex items-center gap-2 mb-2">
             <input v-model="lvl.name" type="text" placeholder="Level name"
-              class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             <button type="button" @click="form.levels.splice(i, 1)"
               class="w-9 h-9 shrink-0 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>

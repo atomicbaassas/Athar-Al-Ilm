@@ -1,7 +1,7 @@
 // Hand-rolled service worker (no Workbox/vite-plugin-pwa — see CLAUDE.md on
 // keeping infra dependency-free). Bump CACHE_VERSION whenever this file's
 // caching logic changes; activate() below wipes any cache that doesn't match.
-const CACHE_VERSION = 'tadabbur-v1'
+const CACHE_VERSION = 'athar-v1'
 const STATIC_CACHE = `${CACHE_VERSION}-static`
 const PAGE_CACHE = `${CACHE_VERSION}-pages`
 

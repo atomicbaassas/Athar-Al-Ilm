@@ -15,7 +15,7 @@
             type="button"
             @click="form.is_published = !form.is_published"
             class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-            :class="form.is_published ? 'bg-[#234ecc]' : 'bg-gray-300'"
+            :class="form.is_published ? 'bg-[#0B3D2E]' : 'bg-gray-300'"
           >
             <span
               class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
@@ -27,7 +27,7 @@
           type="button"
           :disabled="saving"
           @click="save"
-          class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+          class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
         >
           {{ saving ? 'Saving…' : (isEdit ? 'Save Changes' : 'Create Subject') }}
         </button>
@@ -63,7 +63,7 @@
               v-model="form.track_slug"
               required
               :disabled="isEdit"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 bg-white disabled:bg-gray-50 disabled:text-gray-500"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 bg-white disabled:bg-gray-50 disabled:text-gray-500"
             >
               <option value="" disabled>Select a track…</option>
               <option v-for="t in tracks" :key="t.slug" :value="t.slug">{{ t.title }}</option>
@@ -78,7 +78,7 @@
               type="text"
               required
               placeholder="e.g. Pillars of Islam"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
             />
           </div>
 
@@ -91,12 +91,12 @@
                 type="text"
                 required
                 placeholder="e.g. pillars-of-islam"
-                class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <button
                 type="button"
                 @click="regenerateSlug"
-                class="px-3 py-2.5 text-xs text-gray-500 border border-gray-200 rounded-xl hover:border-[#234ecc]/40 hover:text-[#234ecc] transition-colors"
+                class="px-3 py-2.5 text-xs text-gray-500 border border-gray-200 rounded-xl hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] transition-colors"
               >
                 Regenerate
               </button>
@@ -110,7 +110,7 @@
               v-model="form.description"
               rows="4"
               placeholder="Short description of this subject…"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
             />
           </div>
         </div>
@@ -124,7 +124,7 @@
                 v-model.number="form.order"
                 type="number"
                 min="0"
-                class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
           </div>
@@ -144,7 +144,7 @@
                 type="text"
                 maxlength="70"
                 :placeholder="form.title || 'Defaults to subject title'"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
               <p class="text-[11px] mt-1" :class="(form.meta_title?.length || 0) > 60 ? 'text-amber-500' : 'text-gray-400'">
                 {{ form.meta_title?.length || 0 }}/70 — aim for ≤ 60
@@ -158,7 +158,7 @@
                 rows="3"
                 maxlength="200"
                 :placeholder="form.description || 'Defaults to subject description'"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
               />
               <p class="text-[11px] mt-1" :class="(form.meta_description?.length || 0) > 160 ? 'text-amber-500' : 'text-gray-400'">
                 {{ form.meta_description?.length || 0 }}/200 — aim for ≤ 160
@@ -171,7 +171,7 @@
                 v-model="form.og_image"
                 type="url"
                 placeholder="https://… (1200×630 recommended)"
-                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
           </div>

@@ -18,8 +18,8 @@ from .tasks import send_campaign, deliver_message
 # Fixed sample data for the "preview with sample data" pane — never a real user.
 _PREVIEW_SAMPLE_CONTEXT = {
     'full_name': 'Aisha Rahman', 'email': 'aisha@example.com',
-    'verify_url': 'https://thetadabbur.org/verify-email?token=sample',
-    'reset_url': 'https://thetadabbur.org/reset-password?token=sample',
+    'verify_url': 'https://atharulilm.or.tz/verify-email?token=sample',
+    'reset_url': 'https://atharulilm.or.tz/reset-password?token=sample',
     'track_title': 'Foundations of Aqeedah',
     'badge_name': 'First Steps', 'badge_reward': 'A dua for you',
 }
@@ -464,10 +464,10 @@ def _html_page(message):
     return (
         '<!doctype html><html><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        '<title>Unsubscribe — Tadabbur</title></head>'
+        '<title>Unsubscribe — Athar Al 'Ilm</title></head>'
         '<body style="font-family:system-ui,sans-serif;background:#f7f7f8;margin:0;padding:48px 16px;text-align:center">'
         '<div style="max-width:440px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:16px;padding:32px">'
-        '<h1 style="font-size:18px;color:#111;margin:0 0 8px">Tadabbur</h1>'
+        '<h1 style="font-size:18px;color:#111;margin:0 0 8px">Athar Al 'Ilm</h1>'
         f'<p style="font-size:14px;color:#555;margin:0">{message}</p>'
         '</div></body></html>'
     )

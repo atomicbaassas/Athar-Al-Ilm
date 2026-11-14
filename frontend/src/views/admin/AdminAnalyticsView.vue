@@ -49,11 +49,11 @@
             >
               <td class="px-5 py-3 font-medium text-gray-800 font-mono text-xs">{{ row.lesson_slug }}</td>
               <td class="px-5 py-3 text-right">
-                <span class="inline-flex items-center justify-center bg-[#234ecc]/10 text-[#234ecc] text-xs font-bold rounded-full px-2.5 py-0.5 min-w-[2rem]">
+                <span class="inline-flex items-center justify-center bg-[#0B3D2E]/10 text-[#0B3D2E] text-xs font-bold rounded-full px-2.5 py-0.5 min-w-[2rem]">
                   {{ row.completion_count }}
                 </span>
               </td>
-              <td class="px-5 py-3 text-right text-gray-300 hover:text-[#234ecc] transition-colors">
+              <td class="px-5 py-3 text-right text-gray-300 hover:text-[#0B3D2E] transition-colors">
                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -67,7 +67,7 @@
       <template v-else>
         <button
           @click="selectedLesson = null; detail = null"
-          class="flex items-center gap-1.5 text-sm text-[#234ecc] hover:text-[#1a3ba8] mb-5 transition-colors"
+          class="flex items-center gap-1.5 text-sm text-[#0B3D2E] hover:text-[#1a3ba8] mb-5 transition-colors"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -87,7 +87,7 @@
             <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Lesson</p>
             <p class="font-bold text-gray-900 font-mono text-sm mb-3">{{ detail.lesson_slug }}</p>
             <div class="flex items-center gap-2">
-              <span class="text-3xl font-black text-[#234ecc]">{{ detail.completion_count }}</span>
+              <span class="text-3xl font-black text-[#0B3D2E]">{{ detail.completion_count }}</span>
               <span class="text-gray-500 text-sm">users completed this lesson</span>
             </div>
           </div>

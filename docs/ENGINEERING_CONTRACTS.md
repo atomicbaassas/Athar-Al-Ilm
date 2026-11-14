@@ -1,4 +1,4 @@
-# Engineering contracts — Athar Al 'Ilm (Tadabbur base)
+# Engineering contracts — Athar Al 'Ilm (Athar Al 'Ilm base)
 
 Amend this file when a rule must change. Code that violates an active contract is a bug.
 
@@ -22,7 +22,7 @@ Amend this file when a rule must change. Code that violates an active contract i
 
 1. `git push` ≠ production. Contabo scripts or explicit ssh deploy required.
 2. Nginx owns :80/:443. Apps bind loopback. Cloudflare Full (Strict) + Origin CA.
-3. LearnHouse GHCR image is **legacy** until Tadabbur Athar cutover; do not assume `ghcr.io/atomicbaassas/athar-al-ilm:latest` is the new stack.
+3. LearnHouse GHCR image is **legacy** until Athar Al 'Ilm Athar cutover; do not assume `ghcr.io/atomicbaassas/athar-al-ilm:latest` is the new stack.
 4. Gateway deploy path remains `apps/athar-gateway` (scripts to be re-added under `deploy/contabo/` for this tree).
 
 ## C-SEC — Secrets
@@ -37,6 +37,6 @@ Amend this file when a rule must change. Code that violates an active contract i
 
 ## C-FORK — Upstream
 
-1. `upstream` = `mohhomadfarman/Tadabbur` (MIT). `origin` = Athar GitHub (`atomicbaassas/Athar-Al-Ilm`).
-2. Prefer Athar modules (`apps/athar-gateway`, brand, Salafi pages) over wide Tadabbur rewrites.
-3. Keep MIT LICENSE and Tadabbur attribution. LearnHouse AGPL tree is retired for this product line.
+1. `upstream` = `atomicbaassas/Athar-Al-Ilm` (MIT). `origin` = Athar GitHub (`atomicbaassas/Athar-Al-Ilm`).
+2. Prefer Athar modules (`apps/athar-gateway`, brand, Salafi pages) over wide Athar Al 'Ilm rewrites.
+3. Keep MIT LICENSE and Athar Al 'Ilm attribution. LearnHouse AGPL tree is retired for this product line.

@@ -10,7 +10,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # Public-facing site origin (no trailing slash) — used for sitemap/canonical URLs.
-SITE_URL = config('SITE_URL', default='https://thetadabbur.org').rstrip('/')
+SITE_URL = config('SITE_URL', default='https://atharulilm.or.tz').rstrip('/')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -160,7 +160,7 @@ CELERY_TASK_SERIALIZER = 'json'
 # content is published. Fine-grained PAT scoped to this repo with
 # "Actions: Read and write". Empty token => auto-rebuild is simply disabled.
 GITHUB_DEPLOY_TOKEN = config('GITHUB_DEPLOY_TOKEN', default='')
-GITHUB_REPO         = config('GITHUB_REPO', default='mohhomadfarman/Tadabbur')
+GITHUB_REPO         = config('GITHUB_REPO', default='atomicbaassas/Athar-Al-Ilm')
 
 # Email (SMTP) — used by the Email Marketing feature (apps.emails).
 # Defaults to the console backend so dev never crashes when SMTP is unset; set
@@ -173,7 +173,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Tadabbur <no-reply@thetadabbur.org>')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Athar Al 'Ilm <no-reply@atharulilm.or.tz>')
 
 # YouTube Data API v3
 YOUTUBE_API_KEY    = config('YOUTUBE_API_KEY',    default='')

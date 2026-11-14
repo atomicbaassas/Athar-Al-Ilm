@@ -8,7 +8,7 @@
         <p class="text-gray-400 text-sm mt-0.5">Create roles and grant access to admin sections.</p>
       </div>
       <button @click="openCreate"
-        class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm">
+        class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
         New role
       </button>
@@ -37,13 +37,13 @@
             <p v-if="r.description" class="text-sm text-gray-500 mt-1">{{ r.description }}</p>
             <div class="flex flex-wrap gap-1.5 mt-3">
               <span v-if="r.sections.length === 0" class="text-xs text-gray-400">No access</span>
-              <span v-for="s in r.sections" :key="s" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#234ecc]/8 text-[#234ecc]">
+              <span v-for="s in r.sections" :key="s" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#0B3D2E]/8 text-[#0B3D2E]">
                 {{ sectionLabel(s) }}
               </span>
             </div>
           </div>
           <div v-if="!r.is_system" class="flex items-center gap-1 shrink-0">
-            <button @click="openEdit(r)" title="Edit" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#234ecc] hover:bg-[#234ecc]/8 transition-colors">
+            <button @click="openEdit(r)" title="Edit" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
             </button>
             <button @click="deleteTarget = r" title="Delete" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
@@ -66,23 +66,23 @@
           <div v-if="!editing.id">
             <label class="block text-xs font-medium text-gray-500 mb-1">Name (lowercase, unique)</label>
             <input v-model="editing.name" type="text" placeholder="e.g. editor"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div>
             <label class="block text-xs font-medium text-gray-500 mb-1">Label</label>
             <input v-model="editing.label" type="text" placeholder="e.g. Content Editor"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div>
             <label class="block text-xs font-medium text-gray-500 mb-1">Description</label>
             <input v-model="editing.description" type="text" placeholder="What can this role do?"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div>
             <label class="block text-xs font-medium text-gray-500 mb-2">Section access</label>
             <div class="grid grid-cols-2 gap-2">
               <label v-for="s in sections" :key="s.key" class="flex items-center gap-2 text-sm text-gray-700 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer hover:bg-gray-50">
-                <input type="checkbox" :value="s.key" v-model="editing.sections" class="accent-[#234ecc]" />
+                <input type="checkbox" :value="s.key" v-model="editing.sections" class="accent-[#0B3D2E]" />
                 {{ s.label }}
               </label>
             </div>
@@ -92,7 +92,7 @@
         <div class="flex gap-3 mt-6">
           <button @click="editing = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
           <button :disabled="saving || (!editing.id && !validName)" @click="save"
-            class="flex-1 px-4 py-2.5 bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
+            class="flex-1 px-4 py-2.5 bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-colors">
             {{ saving ? 'Saving…' : (editing.id ? 'Save changes' : 'Create role') }}
           </button>
         </div>

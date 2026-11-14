@@ -8,7 +8,7 @@ import ar from './ar.json'
 // locale on mount.
 const isClient = typeof window !== 'undefined'
 
-const savedLocale = (isClient && localStorage.getItem('tadabbur-locale')) || 'en'
+const savedLocale = (isClient && localStorage.getItem('athar-locale')) || 'en'
 
 export const i18n = createI18n({
   legacy: false,
@@ -25,7 +25,7 @@ function applyDocumentDir(locale) {
 
 export function setLocale(locale) {
   i18n.global.locale.value = locale
-  if (isClient) localStorage.setItem('tadabbur-locale', locale)
+  if (isClient) localStorage.setItem('athar-locale', locale)
   applyDocumentDir(locale)
 }
 

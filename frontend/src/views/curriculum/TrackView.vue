@@ -103,11 +103,11 @@
           <span
             v-else-if="subjectStatus(subject.slug) === 'inprogress'"
             class="absolute top-4 right-4 rtl:right-auto rtl:left-4 inline-flex items-center gap-1
-                   text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#234ecc]
+                   text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#0B3D2E]
                    border border-blue-200 px-2 py-0.5 rounded-full"
             :title="t('track.subjectInProgress')"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-[#234ecc] animate-pulse inline-block"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#0B3D2E] animate-pulse inline-block"></span>
             {{ t('track.subjectInProgress') }}
           </span>
 
@@ -129,14 +129,14 @@
                 {{ subjectData(subject.slug).completed_lessons }}/{{ subjectData(subject.slug).total_lessons }} {{ t('track.lessons') }}
               </span>
               <span class="text-[11px] font-medium"
-                :class="subjectStatus(subject.slug) === 'completed' ? 'text-emerald-600' : 'text-[#234ecc]'">
+                :class="subjectStatus(subject.slug) === 'completed' ? 'text-emerald-600' : 'text-[#0B3D2E]'">
                 {{ subjectData(subject.slug).percent }}%
               </span>
             </div>
             <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
               <div
                 class="h-1.5 rounded-full transition-all duration-500"
-                :class="subjectStatus(subject.slug) === 'completed' ? 'bg-emerald-500' : 'bg-[#234ecc]'"
+                :class="subjectStatus(subject.slug) === 'completed' ? 'bg-emerald-500' : 'bg-[#0B3D2E]'"
                 :style="{ width: subjectData(subject.slug).percent + '%' }"
               />
             </div>
@@ -225,7 +225,7 @@ useSeo(() => {
       name: tr.title,
       description: tr.description,
       url,
-      provider: { '@type': 'Organization', name: 'Tadabbur', url: SEO_ORIGIN },
+      provider: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
     },
   }
 })

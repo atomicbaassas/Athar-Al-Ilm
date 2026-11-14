@@ -80,7 +80,7 @@
             </RouterLink>
             <a
               data-h-cta
-              href="https://github.com/mohhomadfarman/Tadabbur"
+              href="https://github.com/atomicbaassas/Athar-Al-Ilm"
               target="_blank" rel="noopener noreferrer"
               class="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/35 hover:bg-white/5
                      text-white/70 hover:text-white px-6 py-3.5 rounded-xl font-semibold text-base transition-all duration-200"
@@ -113,7 +113,7 @@
               </div>
               <div class="flex-1 rounded-md px-3 py-1 text-[11px] font-mono"
                    style="background:#0a0a0f; color:rgba(255,255,255,0.25);">
-                tadabbur.org/learn
+                atharulilm.or.tz/learn
               </div>
               <div class="w-5 shrink-0"></div>
             </div>
@@ -121,13 +121,13 @@
             <!-- App header -->
             <div class="flex items-center justify-between px-4 py-2.5 border-b"
                  style="background:#0e0e14; border-color:rgba(255,255,255,0.05);">
-              <span class="text-white text-sm font-bold">Tadabbur</span>
+              <span class="text-white text-sm font-bold">Athar Al 'Ilm</span>
               <div class="hidden sm:flex gap-5 text-xs" style="color:rgba(255,255,255,0.35);">
                 <span style="color:rgba(255,255,255,0.75);">Learn</span>
                 <span>Dashboard</span>
               </div>
               <div class="text-xs text-white font-semibold px-2.5 py-1 rounded-lg"
-                   style="background:#234ecc;">Start Free</div>
+                   style="background:#0B3D2E;">Start Free</div>
             </div>
 
             <!-- App body -->
@@ -151,7 +151,7 @@
                   <p class="text-xs font-semibold leading-tight mb-0.5" style="color:rgba(255,255,255,0.9);">Quran Sciences</p>
                   <p class="text-[10px] mb-2" style="color:rgba(255,255,255,0.3);">12 subjects</p>
                   <div class="w-full rounded-full h-1" style="background:rgba(255,255,255,0.06);">
-                    <div data-hero-progress class="h-1 rounded-full" style="width:0%;background:#234ecc;"></div>
+                    <div data-hero-progress class="h-1 rounded-full" style="width:0%;background:#0B3D2E;"></div>
                   </div>
                 </div>
 
@@ -420,7 +420,7 @@
                   <span class="text-[11px] font-bold" style="color:#3d65e8;">34%</span>
                 </div>
                 <div class="w-full rounded-full h-1.5" style="background:rgba(255,255,255,0.06);">
-                  <div class="h-1.5 rounded-full" style="width:34%; background:linear-gradient(90deg, #234ecc, #3d65e8);"></div>
+                  <div class="h-1.5 rounded-full" style="width:34%; background:linear-gradient(90deg, #0B3D2E, #3d65e8);"></div>
                 </div>
               </div>
               <div>
@@ -507,7 +507,7 @@
 
             <!-- Progress bar -->
             <div class="h-1" style="background:rgba(255,255,255,0.04);">
-              <div data-reader-progress class="h-full" style="width:0%; background:linear-gradient(90deg,#234ecc,#3d65e8);"></div>
+              <div data-reader-progress class="h-full" style="width:0%; background:linear-gradient(90deg,#0B3D2E,#3d65e8);"></div>
             </div>
 
             <!-- Lesson header -->
@@ -684,7 +684,7 @@
                 :style="phase.done
                   ? 'background:#059669; color:#fff;'
                   : phase.current
-                    ? 'background:#234ecc; color:#fff;'
+                    ? 'background:#0B3D2E; color:#fff;'
                     : 'background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.3);'"
               >
                 <svg v-if="phase.done" class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
@@ -771,7 +771,7 @@
             <p data-reveal class="text-white/40 leading-relaxed mb-10">{{ t('home.openSourceSub') }}</p>
             <div data-reveal class="flex flex-col sm:flex-row gap-3">
               <a
-                href="https://github.com/mohhomadfarman/Tadabbur"
+                href="https://github.com/atomicbaassas/Athar-Al-Ilm"
                 target="_blank" rel="noopener noreferrer"
                 class="inline-flex items-center justify-center gap-2.5 bg-brand hover:bg-brand-dark text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 shadow-lg shadow-brand/30 hover:-translate-y-0.5"
               >
@@ -815,7 +815,7 @@
     <!-- ══════════════════════════════════════════════════════════════ -->
     <section
       class="relative py-24 sm:py-36 px-4 overflow-hidden text-white"
-      style="background: linear-gradient(135deg, #0a0f2e 0%, #162060 40%, #1a3ba8 70%, #234ecc 100%);"
+      style="background: linear-gradient(135deg, #0a0f2e 0%, #162060 40%, #1a3ba8 70%, #0B3D2E 100%);"
     >
       <!-- Grid pattern -->
       <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size:40px 40px;" aria-hidden="true"></div>
@@ -871,13 +871,13 @@
           <!-- Brand column -->
           <div class="sm:col-span-2 lg:col-span-1">
             <div class="flex items-center mb-4">
-              <img src="/logo-rounded.png" alt="Tadabbur" class="h-14 w-auto rounded-lg" />
+              <img src="/logo-rounded.png" alt="Athar Al 'Ilm" class="h-14 w-auto rounded-lg" />
             </div>
             <p class="text-sm leading-relaxed mb-5" style="color:rgba(255,255,255,0.3);">
               Structured Islamic learning for the global Ummah. Free forever.
             </p>
             <a
-              href="https://github.com/mohhomadfarman/Tadabbur"
+              href="https://github.com/atomicbaassas/Athar-Al-Ilm"
               target="_blank" rel="noopener noreferrer"
               class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg transition-all duration-200"
               style="color:rgba(255,255,255,0.4); border:1px solid rgba(255,255,255,0.08);"
@@ -937,7 +937,7 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8" style="border-top:1px solid rgba(255,255,255,0.06);">
           <p class="text-xs" style="color:rgba(255,255,255,0.2);">
-            © {{ new Date().getFullYear() }} Tadabbur. Built with
+            © {{ new Date().getFullYear() }} Athar Al 'Ilm. Built with
             <svg style="color:#f87171;" class="w-3.5 h-3.5 inline shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
             for the Ummah.
           </p>
@@ -962,9 +962,9 @@ const { t } = useI18n()
 const auth = useAuthStore()
 
 useSeo({
-  title:       'Tadabbur — Structured Islamic Learning for the Ummah',
+  title:       'Athar Al 'Ilm — Structured Islamic Learning for the Ummah',
   description: 'A rigorous, scholar-verified Islamic curriculum. Structured tracks from beginner to advanced. Free forever. Built for the Ummah.',
-  url:         'https://tadabbur.org/',
+  url:         'https://atharulilm.or.tz/',
 })
 
 // ── GSAP + Lenis refs ──────────────────────────────────────────────
@@ -1030,15 +1030,15 @@ const footerPlatform = computed(() => [
 ])
 
 const footerCommunity = [
-  { label: 'GitHub',      href: 'https://github.com/mohhomadfarman/Tadabbur' },
-  { label: 'Contribute',  href: 'https://github.com/mohhomadfarman/Tadabbur/blob/main/CONTRIBUTING.md' },
-  { label: 'Report a Bug',href: 'https://github.com/mohhomadfarman/Tadabbur/issues' },
+  { label: 'GitHub',      href: 'https://github.com/atomicbaassas/Athar-Al-Ilm' },
+  { label: 'Contribute',  href: 'https://github.com/atomicbaassas/Athar-Al-Ilm/blob/main/CONTRIBUTING.md' },
+  { label: 'Report a Bug',href: 'https://github.com/atomicbaassas/Athar-Al-Ilm/issues' },
 ]
 
 const footerLegal = [
   { label: 'Privacy Policy',      to: '/privacy' },
   { label: 'Terms & Conditions',  to: '/terms' },
-  { label: 'MIT License',         href: 'https://github.com/mohhomadfarman/Tadabbur/blob/main/LICENSE' },
+  { label: 'MIT License',         href: 'https://github.com/atomicbaassas/Athar-Al-Ilm/blob/main/LICENSE' },
 ]
 
 // ── Lifecycle ──────────────────────────────────────────────────────

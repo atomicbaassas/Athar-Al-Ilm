@@ -7,8 +7,8 @@
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
       <!-- Header -->
       <div class="px-6 pt-6 pb-2 text-center">
-        <div class="mx-auto w-12 h-12 rounded-full bg-[#234ecc]/10 flex items-center justify-center mb-3">
-          <svg class="w-6 h-6 text-[#234ecc]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        <div class="mx-auto w-12 h-12 rounded-full bg-[#0B3D2E]/10 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6 text-[#0B3D2E]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
         </div>
         <h2 class="text-lg font-bold text-gray-900">{{ t('feedback.trackCompleted') }}</h2>
         <p class="text-sm text-gray-500 mt-1">{{ t('feedback.leaveReview') }}</p>
@@ -38,7 +38,7 @@
           :placeholder="t('feedback.commentPlaceholder')"
           rows="3"
           maxlength="2000"
-          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
         />
 
         <p v-if="error" class="text-sm text-red-600 mt-2">{{ error }}</p>
@@ -52,7 +52,7 @@
         <button
           :disabled="!rating || submitting"
           @click="submit"
-          class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+          class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
         >
           {{ submitting ? t('feedback.sending') : t('feedback.submit') }}
         </button>

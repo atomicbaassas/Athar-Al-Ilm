@@ -9,7 +9,7 @@
           <p class="text-gray-400 text-sm mt-0.5">Condition-based transactional emails triggered by learner activity — separate from marketing campaigns.</p>
         </div>
         <button @click="startNew"
-          class="inline-flex items-center gap-2 bg-[#234ecc] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
+          class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New workflow
         </button>
@@ -60,7 +60,7 @@
           <button v-if="form.id" @click="deleteTarget = { id: form.id, name: form.name }"
             class="text-sm text-red-500 hover:text-red-600 px-3 py-2 transition-colors">Delete</button>
           <button :disabled="saving" @click="save"
-            class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+            class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             {{ saving ? 'Saving…' : (form.id ? 'Save' : 'Create') }}
           </button>
         </div>
@@ -72,13 +72,13 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Name <span class="text-red-500">*</span></label>
               <input v-model="form.name" type="text" placeholder="e.g. Track reminder"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Trigger</label>
-                <select v-model="form.trigger_event" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+                <select v-model="form.trigger_event" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
                   <option value="track_started">Track started (not yet finished)</option>
                   <option value="track_completed">Track completed</option>
                   <option value="lesson_completed">Lesson completed</option>
@@ -88,7 +88,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Send after</label>
                 <div class="flex items-center gap-2">
                   <input v-model.number="form.delay_hours" type="number" min="0" step="1"
-                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
                   <span class="text-xs text-gray-400 shrink-0">hours</span>
                 </div>
               </div>
@@ -100,7 +100,7 @@
                 Track {{ trackRequired ? '' : '(optional — blank = any track)' }}
                 <span v-if="trackRequired" class="text-red-500">*</span>
               </label>
-              <select v-model="form.track_slug" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40">
+              <select v-model="form.track_slug" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
                 <option value="">{{ trackRequired ? 'Select a track…' : 'Any track' }}</option>
                 <option v-for="t in tracks" :key="t.slug" :value="t.slug">{{ t.title }}</option>
               </select>
@@ -109,7 +109,7 @@
             <label v-if="form.delay_hours > 0" class="flex items-center gap-2.5 cursor-pointer">
               <button type="button" @click="form.recheck_condition = !form.recheck_condition"
                 class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0"
-                :class="form.recheck_condition ? 'bg-[#234ecc]' : 'bg-gray-300'">
+                :class="form.recheck_condition ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
                 <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
                   :class="form.recheck_condition ? 'translate-x-4' : 'translate-x-1'" />
               </button>
@@ -119,7 +119,7 @@
             <label class="flex items-center gap-2.5 cursor-pointer">
               <button type="button" @click="form.is_active = !form.is_active"
                 class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0"
-                :class="form.is_active ? 'bg-[#234ecc]' : 'bg-gray-300'">
+                :class="form.is_active ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
                 <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
                   :class="form.is_active ? 'translate-x-4' : 'translate-x-1'" />
               </button>
@@ -131,13 +131,13 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Subject</label>
               <input v-model="form.subject" type="text" placeholder="Email subject line"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">HTML body</label>
               <textarea v-model="form.html_body" rows="10" spellcheck="false"
                 placeholder="<p>Assalamu alaikum, don't forget to finish your track…</p>"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-y" />
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-y" />
             </div>
           </div>
 
@@ -147,12 +147,12 @@
             <div class="flex gap-2">
               <button type="button" @click="form.audience = 'all'"
                 class="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors"
-                :class="form.audience === 'all' ? 'border-[#234ecc] bg-[#234ecc]/5 text-[#234ecc]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
+                :class="form.audience === 'all' ? 'border-[#0B3D2E] bg-[#0B3D2E]/5 text-[#0B3D2E]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
                 All users
               </button>
               <button type="button" @click="form.audience = 'selected'"
                 class="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors"
-                :class="form.audience === 'selected' ? 'border-[#234ecc] bg-[#234ecc]/5 text-[#234ecc]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
+                :class="form.audience === 'selected' ? 'border-[#0B3D2E] bg-[#0B3D2E]/5 text-[#0B3D2E]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'">
                 Selected users
               </button>
             </div>
@@ -170,7 +170,7 @@
               <div class="relative">
                 <input v-model="userSearch" @input="onUserSearch" type="text"
                   placeholder="Search users by email or name…"
-                  class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40" />
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
                 <div v-if="userResults.length"
                   class="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-56 overflow-y-auto">
                   <button v-for="u in userResults" :key="u.id" @click="addUser(u)"

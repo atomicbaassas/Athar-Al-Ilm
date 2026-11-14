@@ -10,4 +10,4 @@ Disallow: /register
 Disallow: /dashboard
 Disallow: /videos
 
-Sitemap: https://thetadabbur.org/sitemap.xml
+Sitemap: https://atharulilm.or.tz/sitemap.xml

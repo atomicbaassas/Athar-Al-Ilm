@@ -54,7 +54,7 @@
                 :key="d"
                 @click="days = d"
                 class="px-2.5 py-1 transition-colors"
-                :class="days === d ? 'bg-[#234ecc] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
+                :class="days === d ? 'bg-[#0B3D2E] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
               >
                 {{ d }}d
               </button>
@@ -77,7 +77,7 @@
       <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-sm font-semibold text-gray-900">Top tracks by completions</h2>
-          <RouterLink :to="{ name: 'admin-curriculum' }" class="text-xs font-semibold text-[#234ecc] hover:text-[#1a3ba8]">
+          <RouterLink :to="{ name: 'admin-curriculum' }" class="text-xs font-semibold text-[#0B3D2E] hover:text-[#1a3ba8]">
             Manage curriculum →
           </RouterLink>
         </div>
@@ -109,7 +109,7 @@ const loading = ref(true)
 const error = ref('')
 const days = ref(30)
 
-const BRAND = '#234ecc'
+const BRAND = '#0B3D2E'
 
 function shortDate(iso) {
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })

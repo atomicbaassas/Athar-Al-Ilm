@@ -15,7 +15,7 @@
             type="button"
             @click="form.is_published = !form.is_published"
             class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-            :class="form.is_published ? 'bg-[#234ecc]' : 'bg-gray-300'"
+            :class="form.is_published ? 'bg-[#0B3D2E]' : 'bg-gray-300'"
           >
             <span
               class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
@@ -27,7 +27,7 @@
           type="button"
           :disabled="saving"
           @click="save"
-          class="bg-[#234ecc] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+          class="bg-[#0B3D2E] hover:bg-[#1a3ba8] disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
         >
           {{ saving ? 'Saving…' : (isEdit ? 'Save Changes' : 'Add Book') }}
         </button>
@@ -65,7 +65,7 @@
             type="text"
             required
             placeholder="e.g. Riyad as-Salihin"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
           />
         </div>
 
@@ -78,12 +78,12 @@
               type="text"
               required
               placeholder="e.g. riyad-as-salihin"
-              class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+              class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
             />
             <button
               type="button"
               @click="regenerateSlug"
-              class="px-3 py-2.5 text-xs text-gray-500 border border-gray-200 rounded-xl hover:border-[#234ecc]/40 hover:text-[#234ecc] transition-colors"
+              class="px-3 py-2.5 text-xs text-gray-500 border border-gray-200 rounded-xl hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] transition-colors"
             >
               Regenerate
             </button>
@@ -96,7 +96,7 @@
             v-model="form.author"
             type="text"
             placeholder="e.g. Imam al-Nawawi"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
           />
         </div>
 
@@ -106,7 +106,7 @@
             v-model="form.description"
             rows="4"
             placeholder="Brief description of this book…"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 resize-none"
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
           />
         </div>
 
@@ -118,7 +118,7 @@
               list="category-options"
               type="text"
               placeholder="e.g. Hadith"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
             />
             <datalist id="category-options">
               <option v-for="c in CATEGORIES" :key="c" :value="c" />
@@ -129,7 +129,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Language</label>
             <select
               v-model="form.language"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40 bg-white"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 bg-white"
             >
               <option value="en">English</option>
               <option value="ar">Arabic</option>
@@ -147,7 +147,7 @@
             v-model="tagsInput"
             type="text"
             placeholder="fiqh, sunnah, worship (comma-separated)"
-            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
           />
           <p class="text-xs text-gray-400 mt-1">Comma-separated list of tags.</p>
         </div>
@@ -163,7 +163,7 @@
               type="button"
               @click="toggleMultiVolume"
               class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0 mt-1"
-              :class="multiVolume ? 'bg-[#234ecc]' : 'bg-gray-300'"
+              :class="multiVolume ? 'bg-[#0B3D2E]' : 'bg-gray-300'"
             >
               <span
                 class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
@@ -195,7 +195,7 @@
                   <input
                     v-model.number="vol.number"
                     type="number" min="1"
-                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
                   />
                 </div>
                 <div class="col-span-2">
@@ -204,7 +204,7 @@
                     v-model="vol.title"
                     type="text"
                     placeholder="e.g. Al-Fatiha – Al-Baqarah"
-                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
                   />
                 </div>
               </div>
@@ -215,7 +215,7 @@
                   <input
                     v-model.number="vol.page_count"
                     type="number" min="0"
-                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
                   />
                 </div>
                 <div>
@@ -223,7 +223,7 @@
                   <input
                     v-model.number="vol.file_size_mb"
                     type="number" min="0" step="0.1"
-                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
                   />
                 </div>
               </div>
@@ -231,7 +231,7 @@
               <!-- Volume PDF upload -->
               <div class="border border-dashed border-gray-200 rounded-lg p-3 space-y-2 bg-white">
                 <p v-if="vol.pdf_key" class="text-xs text-gray-500 truncate">{{ fileBasename(vol.pdf_key) }}</p>
-                <p v-if="volUploading[i]" class="text-xs text-[#234ecc] animate-pulse">Uploading…</p>
+                <p v-if="volUploading[i]" class="text-xs text-[#0B3D2E] animate-pulse">Uploading…</p>
                 <p v-if="volUploaded[i]" class="text-xs text-emerald-600 flex items-center gap-1">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -247,7 +247,7 @@
                   type="button"
                   @click="volInputs[i]?.click()"
                   :disabled="volUploading[i]"
-                  class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-50 transition-colors"
+                  class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-50 transition-colors"
                 >
                   {{ vol.pdf_key ? 'Replace PDF' : 'Upload PDF' }}
                 </button>
@@ -257,7 +257,7 @@
             <button
               type="button"
               @click="addVolume"
-              class="w-full border border-dashed border-gray-300 rounded-xl py-2.5 text-sm font-medium text-gray-500 hover:border-[#234ecc]/40 hover:text-[#234ecc] transition-colors"
+              class="w-full border border-dashed border-gray-300 rounded-xl py-2.5 text-sm font-medium text-gray-500 hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] transition-colors"
             >
               + Add volume
             </button>
@@ -276,7 +276,7 @@
               <input
                 v-model.number="form.order"
                 type="number" min="0"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
             <div>
@@ -284,7 +284,7 @@
               <input
                 v-model.number="form.file_size_mb"
                 type="number" min="0" step="0.1"
-                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
             </div>
           </div>
@@ -294,7 +294,7 @@
             <input
               v-model.number="form.page_count"
               type="number" min="0"
-              class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#234ecc]/40"
+              class="w-32 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
             />
           </div>
 
@@ -303,7 +303,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
             <div class="border border-dashed border-gray-200 rounded-xl p-4 space-y-2">
               <p v-if="form.cover_key" class="text-xs text-gray-500 truncate">{{ fileBasename(form.cover_key) }}</p>
-              <p v-if="uploading.cover" class="text-xs text-[#234ecc] animate-pulse">Uploading…</p>
+              <p v-if="uploading.cover" class="text-xs text-[#0B3D2E] animate-pulse">Uploading…</p>
               <p v-if="uploaded.cover" class="text-xs text-emerald-600 flex items-center gap-1">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -312,7 +312,7 @@
               </p>
               <input ref="coverInput" type="file" accept="image/*" class="hidden" @change="handleUpload('cover', 'book_cover', $event)" />
               <button type="button" @click="coverInput.click()" :disabled="uploading.cover"
-                class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-50 transition-colors">
+                class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-50 transition-colors">
                 Choose File
               </button>
             </div>
@@ -323,7 +323,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">PDF File</label>
             <div class="border border-dashed border-gray-200 rounded-xl p-4 space-y-2">
               <p v-if="form.pdf_key" class="text-xs text-gray-500 truncate">{{ fileBasename(form.pdf_key) }}</p>
-              <p v-if="uploading.pdf" class="text-xs text-[#234ecc] animate-pulse">Uploading…</p>
+              <p v-if="uploading.pdf" class="text-xs text-[#0B3D2E] animate-pulse">Uploading…</p>
               <p v-if="uploaded.pdf" class="text-xs text-emerald-600 flex items-center gap-1">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -332,7 +332,7 @@
               </p>
               <input ref="pdfInput" type="file" accept="application/pdf" class="hidden" @change="handleUpload('pdf', 'book_pdf', $event)" />
               <button type="button" @click="pdfInput.click()" :disabled="uploading.pdf"
-                class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-50 transition-colors">
+                class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-50 transition-colors">
                 Choose File
               </button>
             </div>
@@ -346,7 +346,7 @@
             </label>
             <div class="border border-dashed border-gray-200 rounded-xl p-4 space-y-2">
               <p v-if="form.audio_key" class="text-xs text-gray-500 truncate">{{ fileBasename(form.audio_key) }}</p>
-              <p v-if="uploading.audio" class="text-xs text-[#234ecc] animate-pulse">Uploading…</p>
+              <p v-if="uploading.audio" class="text-xs text-[#0B3D2E] animate-pulse">Uploading…</p>
               <p v-if="uploaded.audio" class="text-xs text-emerald-600 flex items-center gap-1">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -355,7 +355,7 @@
               </p>
               <input ref="audioInput" type="file" accept="audio/*" class="hidden" @change="handleUpload('audio', 'book_audio', $event)" />
               <button type="button" @click="audioInput.click()" :disabled="uploading.audio"
-                class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#234ecc]/40 hover:text-[#234ecc] disabled:opacity-50 transition-colors">
+                class="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-[#0B3D2E]/40 hover:text-[#0B3D2E] disabled:opacity-50 transition-colors">
                 Choose File
               </button>
             </div>

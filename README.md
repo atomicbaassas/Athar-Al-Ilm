@@ -1,9 +1,9 @@
 <div align="center">
 
-<h1><img src="logos/Rounded.png" alt="Tadabbur" width="120" /></h1>
+<h1><img src="logos/Rounded.png" alt="Athar Al 'Ilm" width="120" /></h1>
 <h3>A Research & Learning Platform for the Muslim World</h3>
 
-<p><em>"Tadabbur" (تدبّر) — to reflect deeply, to ponder with purpose</em></p>
+<p><em>"Athar Al 'Ilm" (أثر العلم) — to reflect deeply, to ponder with purpose</em></p>
 
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green?style=flat-square)](https://github.com)
 [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
@@ -25,7 +25,7 @@ Over a thousand years ago, Muslim scholars didn't just memorize texts — they *
 
 Every Islamic app on the market does the same thing: prayer times, a Quran reader, a Qibla compass. Useful — but shallow.
 
-**Tadabbur is different.** It is not a utility app. It is a full **research and learning platform** — built to give Muslim youth the tools, primary sources, structure, and AI-powered assistance to study Islam the way the Golden Age scholars did: *rigorously, curiously, and comprehensively.*
+**Athar Al 'Ilm is different.** It is not a utility app. It is a full **research and learning platform** — built to give Muslim youth the tools, primary sources, structure, and AI-powered assistance to study Islam the way the Golden Age scholars did: *rigorously, curiously, and comprehensively.*
 
 > Our goal: empower a new generation of Muslim thinkers by 2028.
 
@@ -33,7 +33,7 @@ Every Islamic app on the market does the same thing: prayer times, a Quran reade
 
 ## 🗺️ Roadmap — 6 Parts, One Mission
 
-We are building Tadabbur in **6 progressive phases**, publishing each part as it is complete. This ensures every release is stable, usable, and valuable on its own — while the full platform grows toward its vision.
+We are building Athar Al 'Ilm in **6 progressive phases**, publishing each part as it is complete. This ensures every release is stable, usable, and valuable on its own — while the full platform grows toward its vision.
 
 ---
 
@@ -60,7 +60,7 @@ Phase 1 delivers a full **curriculum framework**:
 ### 🔄 Phase 2 — Active Learning, Not Passive Reading *(In Progress)*
 > *Study. Test. Retain. Repeat.*
 
-Reading is not learning. Phase 2 transforms Tadabbur into an active study tool:
+Reading is not learning. Phase 2 transforms Athar Al 'Ilm into an active study tool:
 
 - **Spaced repetition** for memorization of ayat, hadith, and key concepts
 - **AI-driven Socratic questioning** — after you read a lesson, the AI asks *you* questions
@@ -132,7 +132,7 @@ Muslim youth are told Islam and science are in conflict. History proves the oppo
 
 Islamic knowledge belongs to the Ummah — not to a company, not behind a paywall.
 
-By making Tadabbur fully open source:
+By making Athar Al 'Ilm fully open source:
 
 - Muslim developers **worldwide** can contribute code, translations, and content
 - Islamic scholars can **verify and contribute** without gatekeepers
@@ -146,7 +146,7 @@ This is how we scale: not through venture capital, but through the **global Musl
 
 ## 🪣 MinIO Setup (File Storage)
 
-Tadabbur uses **MinIO** (S3-compatible object storage) to store lesson images, PDFs, and other uploaded media. MinIO is **not bundled in Docker Compose** — you bring your own. Choose the option that fits you:
+Athar Al 'Ilm uses **MinIO** (S3-compatible object storage) to store lesson images, PDFs, and other uploaded media. MinIO is **not bundled in Docker Compose** — you bring your own. Choose the option that fits you:
 
 ---
 
@@ -286,7 +286,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the full setup guide, workflow, and 
 
 ## 💰 Support This Project
 
-Tadabbur is free, open source, and built for the Ummah. We run on community support — no venture capital, no ads, no data selling.
+Athar Al 'Ilm is free, open source, and built for the Ummah. We run on community support — no venture capital, no ads, no data selling.
 
 Your donation funds:
 - Server and infrastructure costs
@@ -359,14 +359,14 @@ Your donation funds:
 ## 📬 Contact & Community
 
 - **GitHub Discussions:** [Join the conversation](#)
-- **Discord:** [JOIN HERE](https://discord.gg/RfCn2nU2F)
-- **Email:** [mohhomadfarman@gmail.com](mailto:mohhomadfarman@gmail.com)
+- **Discord:** [JOIN HERE](https://github.com/atomicbaassas/Athar-Al-Ilm)
+- **Email:** [admin@atharulilm.or.tz](mailto:admin@atharulilm.or.tz)
 
 ---
 
 ## 📄 License
 
-Tadabbur is released under the [MIT License](LICENSE). Free to use, fork, and build upon — forever.
+Athar Al 'Ilm is released under the [MIT License](LICENSE). Free to use, fork, and build upon — forever.
 
 ---
 

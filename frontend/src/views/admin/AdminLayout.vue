@@ -8,7 +8,7 @@
           <path d="M3 12h18M3 6h18M3 18h18"/>
         </svg>
       </button>
-      <RouterLink to="/admin" class="ms-3 text-white font-bold text-sm tracking-wide">تدبّر <span class="text-white/40 font-normal">Admin</span></RouterLink>
+      <RouterLink to="/admin" class="ms-3 text-white font-bold text-sm tracking-wide">أثر العلم <span class="text-white/40 font-normal">Admin</span></RouterLink>
     </div>
 
     <!-- Mobile backdrop -->
@@ -26,7 +26,7 @@
         <!-- Logo -->
         <div class="flex items-center h-16 px-5 border-b border-white/5 shrink-0">
           <RouterLink to="/admin" class="flex items-center gap-2" @click="sidebarOpen = false">
-            <span class="text-white font-bold text-lg tracking-tight">تدبّر</span>
+            <span class="text-white font-bold text-lg tracking-tight">أثر العلم</span>
             <span class="text-white/30 text-sm font-normal">Admin</span>
           </RouterLink>
         </div>
@@ -37,7 +37,7 @@
           <RouterLink
             to="/admin"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('overview') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('overview') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -51,7 +51,7 @@
             v-if="auth.can('curriculum')"
             :to="{ name: 'admin-curriculum' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('curriculum') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('curriculum') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -65,7 +65,7 @@
             v-if="auth.can('curriculum')"
             :to="{ name: 'admin-categories' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('categories') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('categories') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +79,7 @@
             v-if="auth.can('library')"
             :to="{ name: 'admin-library' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('library') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('library') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -93,7 +93,7 @@
             v-if="auth.can('users')"
             :to="{ name: 'admin-users' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('users') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('users') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -107,7 +107,7 @@
             v-if="auth.can('registrations')"
             :to="{ name: 'admin-registrations' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('registrations') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('registrations') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -121,7 +121,7 @@
             v-if="auth.can('analytics')"
             :to="{ name: 'admin-analytics' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('analytics') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('analytics') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -135,7 +135,7 @@
             v-if="auth.can('translations')"
             :to="{ name: 'admin-translations' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('translations') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('translations') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -149,7 +149,7 @@
             v-if="auth.can('announcements')"
             :to="{ name: 'admin-announcements' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('announcements') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('announcements') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -163,7 +163,7 @@
             v-if="auth.can('feedback')"
             :to="{ name: 'admin-feedback' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('feedback') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('feedback') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -177,7 +177,7 @@
             v-if="auth.can('badges')"
             :to="{ name: 'admin-badges' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('badges') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('badges') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -191,7 +191,7 @@
             v-if="auth.can('email') && features.isEnabled('email_marketing')"
             :to="{ name: 'admin-email-campaigns' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('email-campaigns') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('email-campaigns') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -203,7 +203,7 @@
             v-if="auth.can('email') && features.isEnabled('email_marketing')"
             :to="{ name: 'admin-email-templates' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('email-templates') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('email-templates') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -215,7 +215,7 @@
             v-if="auth.can('email') && features.isEnabled('email_marketing')"
             :to="{ name: 'admin-email-settings' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('email-settings') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('email-settings') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -229,7 +229,7 @@
             v-if="auth.can('automations') && features.isEnabled('email_automation')"
             :to="{ name: 'admin-automations' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('automations') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('automations') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -243,7 +243,7 @@
             v-if="auth.can('features')"
             :to="{ name: 'admin-features' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('features') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('features') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -257,7 +257,7 @@
             v-if="auth.can('roles')"
             :to="{ name: 'admin-roles' }"
             class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
-            :class="isActive('roles') ? 'bg-[#234ecc] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            :class="isActive('roles') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
             @click="sidebarOpen = false"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -279,7 +279,7 @@
             Back to site
           </RouterLink>
           <div v-if="auth.user" class="flex items-center gap-2.5">
-            <div class="w-7 h-7 rounded-full bg-[#234ecc]/30 flex items-center justify-center text-[#234ecc] text-xs font-bold shrink-0">
+            <div class="w-7 h-7 rounded-full bg-[#0B3D2E]/30 flex items-center justify-center text-[#0B3D2E] text-xs font-bold shrink-0">
               {{ auth.user.full_name?.charAt(0)?.toUpperCase() || auth.user.email?.charAt(0)?.toUpperCase() }}
             </div>
             <div class="min-w-0">

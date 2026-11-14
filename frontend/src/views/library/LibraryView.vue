@@ -159,7 +159,7 @@
               :style="{ backgroundImage: coverGradient(book) }"
             >
               <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">
-                {{ book.category || 'Tadabbur' }}
+                {{ book.category || 'Athar Al 'Ilm' }}
               </span>
               <span class="text-base font-extrabold leading-tight line-clamp-4 drop-shadow-sm">
                 {{ book.title }}
@@ -275,7 +275,7 @@ let debounceTimer = null
 
 // Deterministic gradient for books without a cover, so they still look intentional.
 const COVER_PALETTES = [
-  ['#234ecc', '#0e2a73'],
+  ['#0B3D2E', '#0e2a73'],
   ['#0f766e', '#053b35'],
   ['#7c3aed', '#3b1278'],
   ['#b45309', '#5c2a06'],

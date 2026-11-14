@@ -10,7 +10,7 @@
   "home": {
     "verseTranslation": "\"And say: My Lord, increase me in knowledge.\" — Quran 20:114",
     "headline": "Structured Islamic Learning for the Ummah",
-    "subheadline": "Not another app with prayer times. Tadabbur gives you a structured, progressive curriculum — from beginner to advanced — grounded in authentic scholarship. Free forever.",
+    "subheadline": "Not another app with prayer times. Athar Al 'Ilm gives you a structured, progressive curriculum — from beginner to advanced — grounded in authentic scholarship. Free forever.",
     "ctaLearn": "Start Learning",
     "ctaRegister": "Create Free Account",
     "featuresTitle": "Built different",
@@ -23,7 +23,7 @@
 
     "heroDecor": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     "heroHeadline": "Structured Islamic Learning for the Ummah",
-    "heroSub": "Not another prayer app. Tadabbur gives you a rigorous, scholar-verified curriculum — from beginner to advanced — grounded in authentic knowledge. Free forever.",
+    "heroSub": "Not another prayer app. Athar Al 'Ilm gives you a rigorous, scholar-verified curriculum — from beginner to advanced — grounded in authentic knowledge. Free forever.",
     "heroScrollHint": "Scroll to explore",
     "heroCta1": "Start Learning",
     "heroCta2": "Contribute on GitHub",
@@ -40,7 +40,7 @@
 
     "diffBadge": "The solution",
     "diffTitle": "This is different. Built for serious learners.",
-    "diffSub": "Tadabbur was designed from the ground up to solve every one of these problems.",
+    "diffSub": "Athar Al 'Ilm was designed from the ground up to solve every one of these problems.",
     "diff1Title": "Structured Curriculum",
     "diff1Desc": "Six progressive learning tracks. Each lesson builds on the last. You always know exactly where you are and what comes next.",
     "diff2Title": "Scholar-Verified",
@@ -84,7 +84,7 @@
 
     "openSourceBadge": "Open Source",
     "openSourceTitle": "Islamic knowledge belongs to the Ummah",
-    "openSourceSub": "Tadabbur is free, open source, and will always remain so. No venture capital. No ads. No data harvesting. Built by Muslims who believe knowledge should be free.",
+    "openSourceSub": "Athar Al 'Ilm is free, open source, and will always remain so. No venture capital. No ads. No data harvesting. Built by Muslims who believe knowledge should be free.",
     "statStars": "GitHub Stars",
     "statContributors": "Contributors",
     "statLanguages": "Languages",
@@ -198,7 +198,7 @@
     "narratedBy": "Narrated by",
     "previewNote": "You've seen a preview of this lesson",
     "continueReading": "Continue reading — it's free",
-    "gateDesc": "Create a free account to unlock this lesson and everything else on Tadabbur.",
+    "gateDesc": "Create a free account to unlock this lesson and everything else on Athar Al 'Ilm.",
     "createAccount": "Create Free Account",
     "logIn": "Log In",
     "notFound": "Lesson not found.",
@@ -251,7 +251,7 @@
       "passwordPlaceholder": "••••••••"
     },
     "register": {
-      "title": "Join Tadabbur",
+      "title": "Join Athar Al 'Ilm",
       "subtitle": "Free forever. No credit card needed.",
       "fullName": "Full Name",
       "optional": "(optional)",
