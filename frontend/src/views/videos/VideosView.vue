@@ -168,7 +168,7 @@ import { videosApi } from '@/api/videos'
 import { useSeo } from '@/composables/useSeo'
 
 useSeo({
-  title: 'Videos — Athar Al 'Ilm',
+  title: 'Videos — Athar Al Ilm',
   description: 'Watch Islamic lectures, lessons, and talks from our YouTube channel.',
 })
 

@@ -121,7 +121,7 @@
             <!-- App header -->
             <div class="flex items-center justify-between px-4 py-2.5 border-b"
                  style="background:#0e0e14; border-color:rgba(255,255,255,0.05);">
-              <span class="text-white text-sm font-bold">Athar Al 'Ilm</span>
+              <span class="text-white text-sm font-bold">Athar Al Ilm</span>
               <div class="hidden sm:flex gap-5 text-xs" style="color:rgba(255,255,255,0.35);">
                 <span style="color:rgba(255,255,255,0.75);">Learn</span>
                 <span>Dashboard</span>
@@ -871,7 +871,7 @@
           <!-- Brand column -->
           <div class="sm:col-span-2 lg:col-span-1">
             <div class="flex items-center mb-4">
-              <img src="/logo-rounded.png" alt="Athar Al 'Ilm" class="h-14 w-auto rounded-lg" />
+              <img src="/logo-rounded.png" alt="Athar Al Ilm" class="h-14 w-auto rounded-lg" />
             </div>
             <p class="text-sm leading-relaxed mb-5" style="color:rgba(255,255,255,0.3);">
               Structured Islamic learning for the global Ummah. Free forever.
@@ -937,7 +937,7 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8" style="border-top:1px solid rgba(255,255,255,0.06);">
           <p class="text-xs" style="color:rgba(255,255,255,0.2);">
-            © {{ new Date().getFullYear() }} Athar Al 'Ilm. Built with
+            © {{ new Date().getFullYear() }} Athar Al Ilm. Built with
             <svg style="color:#f87171;" class="w-3.5 h-3.5 inline shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
             for the Ummah.
           </p>
@@ -962,7 +962,7 @@ const { t } = useI18n()
 const auth = useAuthStore()
 
 useSeo({
-  title:       'Athar Al 'Ilm — Structured Islamic Learning for the Ummah',
+  title:       'Athar Al Ilm — Structured Islamic Learning for the Ummah',
   description: 'A rigorous, scholar-verified Islamic curriculum. Structured tracks from beginner to advanced. Free forever. Built for the Ummah.',
   url:         'https://atharulilm.or.tz/',
 })

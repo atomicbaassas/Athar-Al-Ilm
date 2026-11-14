@@ -6,11 +6,11 @@ SYSTEM_TEMPLATE_SEEDS = [
     {
         'slug': 'verification',
         'name': 'Verify email (system)',
-        'subject': 'Verify your Athar Al 'Ilm email',
+        'subject': 'Verify your Athar Al Ilm email',
         'content_blocks': [
             {'type': 'text', 'order': 0, 'body': {'text': 'Assalamu alaikum,'}},
             {'type': 'text', 'order': 1, 'body': {
-                'text': 'Please confirm your email address to finish setting up your Athar Al 'Ilm account.'}},
+                'text': 'Please confirm your email address to finish setting up your Athar Al Ilm account.'}},
             {'type': 'button', 'order': 2, 'body': {'url': '{{verify_url}}', 'label': 'Verify email'}},
             {'type': 'text', 'order': 3, 'body': {
                 'text': "This link expires in 24 hours. If you didn't create this account, you can ignore this email."}},
@@ -19,10 +19,10 @@ SYSTEM_TEMPLATE_SEEDS = [
     {
         'slug': 'password_reset',
         'name': 'Reset password (system)',
-        'subject': 'Reset your Athar Al 'Ilm password',
+        'subject': 'Reset your Athar Al Ilm password',
         'content_blocks': [
             {'type': 'text', 'order': 0, 'body': {'text': 'Assalamu alaikum,'}},
-            {'type': 'text', 'order': 1, 'body': {'text': 'We received a request to reset your Athar Al 'Ilm password.'}},
+            {'type': 'text', 'order': 1, 'body': {'text': 'We received a request to reset your Athar Al Ilm password.'}},
             {'type': 'button', 'order': 2, 'body': {'url': '{{reset_url}}', 'label': 'Reset password'}},
             {'type': 'text', 'order': 3, 'body': {
                 'text': "This link expires in 30 minutes. If you didn't request this, you can safely ignore this email."}},
@@ -34,7 +34,7 @@ SYSTEM_TEMPLATE_SEEDS = [
         'subject': 'You earned a badge: {{badge_name}}',
         'content_blocks': [
             {'type': 'text', 'order': 0, 'body': {'text': 'Assalamu alaikum,'}},
-            {'type': 'text', 'order': 1, 'body': {'text': 'You just earned the {{badge_name}} badge on Athar Al 'Ilm!'}},
+            {'type': 'text', 'order': 1, 'body': {'text': 'You just earned the {{badge_name}} badge on Athar Al Ilm!'}},
             {'type': 'text', 'order': 2, 'body': {'text': '{{badge_reward}}'}},
             {'type': 'text', 'order': 3, 'body': {'text': 'Log in to see it on your dashboard.'}},
         ],

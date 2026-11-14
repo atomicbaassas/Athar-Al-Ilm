@@ -28,9 +28,9 @@ class LaunchSettings(Document):
     # ISO 8601 with timezone offset, e.g. '2026-07-15T18:30:00+05:30'. Storing the
     # offset preserves the event's wall-clock time so it displays the same to everyone.
     event_at = StringField(default='2026-07-15T18:30:00+05:30')
-    headline = StringField(default='Be there when Athar Al 'Ilm goes live.')
+    headline = StringField(default='Be there when Athar Al Ilm goes live.')
     intro = StringField(default=(
-        'Join us for the official launch of Athar Al 'Ilm — a free, structured, '
+        'Join us for the official launch of Athar Al Ilm — a free, structured, '
         'scholar-verified Islamic learning platform. Register below to get the '
         'live link and event reminders.'
     ))

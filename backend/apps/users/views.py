@@ -26,7 +26,7 @@ def _send_verification_email(user):
     url = f"{settings.SITE_URL.rstrip('/')}/verify-email?token={token}"
     context = {'full_name': user.full_name or user.username, 'email': user.email, 'verify_url': url}
     send_system_email('verification', user.email, context,
-                       fallback_subject='Verify your Athar Al 'Ilm email',
+                       fallback_subject='Verify your Athar Al Ilm email',
                        fallback_html=verification_email_body(url))
 
 
@@ -207,7 +207,7 @@ class ForgotPasswordView(APIView):
             url = f"{settings.SITE_URL.rstrip('/')}/reset-password?token={token}"
             context = {'full_name': user.full_name or user.username, 'email': user.email, 'reset_url': url}
             send_system_email('password_reset', user.email, context,
-                               fallback_subject='Reset your Athar Al 'Ilm password',
+                               fallback_subject='Reset your Athar Al Ilm password',
                                fallback_html=password_reset_email_body(url))
 
         # Always the same response — don't reveal whether the account exists.

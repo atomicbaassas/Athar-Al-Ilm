@@ -1,0 +1,17 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Athar Al Ilm  Athar Monogram mark">
+  <!-- Abstract # / A monogram: vertical stem + rightward mark, knowledge dot -->
+  <g fill="none" stroke="#0B3D2E" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Primary stem (alif / A spine) -->
+    <path d="M 42 22 L 42 74" stroke-width="4"/>
+    <!-- Right arm forming open A / hamza-like accent -->
+    <path d="M 42 34 L 68 28" stroke-width="3.5"/>
+    <path d="M 42 52 L 70 58" stroke-width="3.5"/>
+    <!-- Base footing -->
+    <path d="M 30 74 L 54 74" stroke-width="4"/>
+  </g>
+  <g fill="#0B3D2E">
+    <circle cx="68" cy="28" r="4"/>
+    <circle cx="70" cy="58" r="3.2"/>
+    <circle cx="42" cy="22" r="3.5"/>
+  </g>
+</svg>

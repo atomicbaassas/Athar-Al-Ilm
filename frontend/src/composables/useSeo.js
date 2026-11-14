@@ -1,15 +1,15 @@
 import { isRef, unref } from 'vue'
 import { useHead } from '@unhead/vue'
 
-const SITE_NAME = 'Athar Al 'Ilm | أثر العلم'
+const SITE_NAME = 'Athar Al Ilm | أثر العلم'
 const ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
 
 // Fallbacks used for any field a page doesn't supply, so every page emits a
 // complete, coherent set of tags.
 const DEFAULTS = {
-  title: 'Athar Al 'Ilm | أثر العلم — Structured Islamic Learning for the Ummah',
+  title: 'Athar Al Ilm | أثر العلم — Structured Islamic Learning for the Ummah',
   description:
-    'Athar Al 'Ilm is a free, open-source Islamic learning platform with scholar-verified curriculum, structured tracks, progress tracking, and a growing resource library. Built for the global Ummah.',
+    'Athar Al Ilm is a free, open-source Islamic learning platform with scholar-verified curriculum, structured tracks, progress tracking, and a growing resource library. Built for the global Ummah.',
   url: `${ORIGIN}/`,
   image: `${ORIGIN}/logo-rounded.png`,
 }

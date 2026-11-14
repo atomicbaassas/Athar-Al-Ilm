@@ -408,13 +408,13 @@ onServerPrefetch(async () => {
 
 useSeo(() => ({
   title: 'Learning Tracks',
-  description: 'Browse Athar Al 'Ilm’s structured Islamic learning tracks — scholar-verified curriculum from beginner to advanced, free forever.',
+  description: 'Browse Athar Al Ilm’s structured Islamic learning tracks — scholar-verified curriculum from beginner to advanced, free forever.',
   url: `${SEO_ORIGIN}/learn`,
   jsonLd: tracks.value.length
     ? {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: 'Athar Al 'Ilm Learning Tracks',
+        name: 'Athar Al Ilm Learning Tracks',
         itemListElement: tracks.value.map((tr, i) => ({
           '@type': 'ListItem',
           position: i + 1,

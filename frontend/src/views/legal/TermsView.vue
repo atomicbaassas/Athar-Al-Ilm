@@ -10,14 +10,14 @@
       <p class="text-sm text-gray-400 mb-10">Last updated: 25 June 2026</p>
 
       <p>
-        Welcome to Athar Al 'Ilm. These Terms &amp; Conditions ("Terms") govern your use of
+        Welcome to Athar Al Ilm. These Terms &amp; Conditions ("Terms") govern your use of
         <a href="https://atharulilm.or.tz">atharulilm.or.tz</a> (the "Service"). By accessing or using the
         Service, you agree to these Terms. If you do not agree, please do not use the Service.
       </p>
 
       <h2>About the Service</h2>
       <p>
-        Athar Al 'Ilm is a free, open-source platform offering structured, scholar-verified Islamic learning
+        Athar Al Ilm is a free, open-source platform offering structured, scholar-verified Islamic learning
         content. The Service is provided for educational purposes and is free to use.
       </p>
 
@@ -48,7 +48,7 @@
 
       <h2>Religious content disclaimer</h2>
       <p>
-        Content on Athar Al 'Ilm is provided for learning and reflection. While we strive for accuracy and
+        Content on Athar Al Ilm is provided for learning and reflection. While we strive for accuracy and
         scholarly review, it is not a substitute for guidance from a qualified scholar. For personal
         rulings or sensitive matters, please consult a trusted scholar directly.
       </p>
@@ -62,7 +62,7 @@
 
       <h2>Limitation of liability</h2>
       <p>
-        To the fullest extent permitted by law, Athar Al 'Ilm and its contributors shall not be liable for any
+        To the fullest extent permitted by law, Athar Al Ilm and its contributors shall not be liable for any
         indirect, incidental, or consequential damages arising from your use of the Service.
       </p>
 
@@ -92,7 +92,7 @@ import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
 useSeo({
   title: 'Terms & Conditions',
-  description: 'The terms that govern your use of the Athar Al 'Ilm Islamic learning platform.',
+  description: 'The terms that govern your use of the Athar Al Ilm Islamic learning platform.',
   url: `${SEO_ORIGIN}/terms`,
 })
 </script>

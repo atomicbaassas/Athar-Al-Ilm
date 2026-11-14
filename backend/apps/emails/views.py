@@ -464,10 +464,10 @@ def _html_page(message):
     return (
         '<!doctype html><html><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        '<title>Unsubscribe — Athar Al 'Ilm</title></head>'
+        '<title>Unsubscribe — Athar Al Ilm</title></head>'
         '<body style="font-family:system-ui,sans-serif;background:#f7f7f8;margin:0;padding:48px 16px;text-align:center">'
         '<div style="max-width:440px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:16px;padding:32px">'
-        '<h1 style="font-size:18px;color:#111;margin:0 0 8px">Athar Al 'Ilm</h1>'
+        '<h1 style="font-size:18px;color:#111;margin:0 0 8px">Athar Al Ilm</h1>'
         f'<p style="font-size:14px;color:#555;margin:0">{message}</p>'
         '</div></body></html>'
     )

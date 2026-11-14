@@ -22,7 +22,7 @@ def _button(url, label):
 def verification_email_body(url):
     return (
         '<p>Assalamu alaikum,</p>'
-        '<p>Please confirm your email address to finish setting up your Athar Al 'Ilm account.</p>'
+        '<p>Please confirm your email address to finish setting up your Athar Al Ilm account.</p>'
         f'{_button(url, "Verify email")}'
         '<p style="font-size:13px;color:#888">This link expires in 24 hours. '
         'If you didn\'t create this account, you can ignore this email.</p>'
@@ -32,7 +32,7 @@ def verification_email_body(url):
 def password_reset_email_body(url):
     return (
         '<p>Assalamu alaikum,</p>'
-        '<p>We received a request to reset your Athar Al 'Ilm password.</p>'
+        '<p>We received a request to reset your Athar Al Ilm password.</p>'
         f'{_button(url, "Reset password")}'
         '<p style="font-size:13px;color:#888">This link expires in 30 minutes. '
         'If you didn\'t request this, you can safely ignore this email.</p>'
@@ -43,7 +43,7 @@ def badge_earned_email_body(badge):
     reward = f'<p>{badge.reward}</p>' if badge.reward else ''
     return (
         f'<p>Assalamu alaikum,</p>'
-        f'<p>You just earned the <strong>{badge.name}</strong> badge on Athar Al 'Ilm!</p>'
+        f'<p>You just earned the <strong>{badge.name}</strong> badge on Athar Al Ilm!</p>'
         f'{reward}'
         f'<p style="font-size:13px;color:#888">Log in to see it on your dashboard.</p>'
     )

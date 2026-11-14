@@ -20,7 +20,7 @@ class EmailSettings(Document):
     password = StringField(default='')      # masked in API responses
     use_tls = BooleanField(default=True)
     use_ssl = BooleanField(default=False)
-    from_email = StringField(default='')     # e.g. 'Athar Al 'Ilm <no-reply@atharulilm.or.tz>'
+    from_email = StringField(default='')     # e.g. 'Athar Al Ilm <no-reply@atharulilm.or.tz>'
     updated_at = DateTimeField()
 
     meta = {'collection': 'email_settings'}

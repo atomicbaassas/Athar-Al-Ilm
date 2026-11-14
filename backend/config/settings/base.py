@@ -173,7 +173,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Athar Al 'Ilm <no-reply@atharulilm.or.tz>')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Athar Al Ilm <no-reply@atharulilm.or.tz>')
 
 # YouTube Data API v3
 YOUTUBE_API_KEY    = config('YOUTUBE_API_KEY',    default='')

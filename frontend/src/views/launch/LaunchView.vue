@@ -6,7 +6,7 @@
     <!-- Minimal top bar -->
     <header class="launch__bar">
       <RouterLink to="/" class="launch__brand">
-        <img src="/logo-rounded.png" alt="Athar Al 'Ilm" class="launch__logo" />
+        <img src="/logo-rounded.png" alt="Athar Al Ilm" class="launch__logo" />
       </RouterLink>
       <RouterLink to="/" class="launch__back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -87,7 +87,7 @@
           <h2 class="launch__card-title">{{ alreadyRegistered ? "You're already in!" : "You're registered!" }}</h2>
           <p class="launch__card-sub">{{ successMessage }}</p>
           <p class="launch__thanks-when">{{ eventDateLabel }}</p>
-          <RouterLink to="/" class="launch__thanks-link">Explore Athar Al 'Ilm while you wait →</RouterLink>
+          <RouterLink to="/" class="launch__thanks-link">Explore Athar Al Ilm while you wait →</RouterLink>
         </div>
       </section>
     </main>
@@ -109,8 +109,8 @@ const SSR_KEY = 'launchSettings'
 const cached = ssr.get(SSR_KEY)
 
 const eventAt = ref(cached?.event_at || '2026-07-15T18:30:00+05:30')   // ISO 8601 with timezone offset
-const headline = ref(cached?.headline || 'Be there when Athar Al 'Ilm goes live.')
-const intro = ref(cached?.intro || 'Join us for the official launch of Athar Al 'Ilm — a free, structured, scholar-verified Islamic learning platform. Register below to get the live link and event reminders.')
+const headline = ref(cached?.headline || 'Be there when Athar Al Ilm goes live.')
+const intro = ref(cached?.intro || 'Join us for the official launch of Athar Al Ilm — a free, structured, scholar-verified Islamic learning platform. Register below to get the live link and event reminders.')
 
 function applySettings(s) {
   if (s?.event_at) eventAt.value = s.event_at
@@ -152,7 +152,7 @@ function formatEventLabel(iso) {
 
 useSeo({
   title: 'Live Launch — Register',
-  description: 'Register for the live launch of Athar Al 'Ilm, a free, scholar-verified Islamic learning platform. Get the live link and reminders.',
+  description: 'Register for the live launch of Athar Al Ilm, a free, scholar-verified Islamic learning platform. Get the live link and reminders.',
   url: `${SEO_ORIGIN}/launch`,
 })
 

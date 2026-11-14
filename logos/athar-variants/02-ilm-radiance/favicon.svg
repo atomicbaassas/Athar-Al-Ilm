@@ -1,0 +1,26 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Athar Al Ilm  Ilm Radiance mark">
+  <!-- Concentric knowledge rings with contemplative void center (tadabbur) -->
+  <g fill="#0B3D2E">
+    <!-- Inner ring: 6 dots -->
+    <circle cx="50" cy="36" r="3.2"/>
+    <circle cx="62.12" cy="43" r="3.2"/>
+    <circle cx="62.12" cy="57" r="3.2"/>
+    <circle cx="50" cy="64" r="3.2"/>
+    <circle cx="37.88" cy="57" r="3.2"/>
+    <circle cx="37.88" cy="43" r="3.2"/>
+    <!-- Outer ring: 12 dots -->
+    <circle cx="50" cy="24" r="2.4"/>
+    <circle cx="63" cy="27.5" r="2.4"/>
+    <circle cx="72.5" cy="37" r="2.4"/>
+    <circle cx="76" cy="50" r="2.4"/>
+    <circle cx="72.5" cy="63" r="2.4"/>
+    <circle cx="63" cy="72.5" r="2.4"/>
+    <circle cx="50" cy="76" r="2.4"/>
+    <circle cx="37" cy="72.5" r="2.4"/>
+    <circle cx="27.5" cy="63" r="2.4"/>
+    <circle cx="24" cy="50" r="2.4"/>
+    <circle cx="27.5" cy="37" r="2.4"/>
+    <circle cx="37" cy="27.5" r="2.4"/>
+  </g>
+  <circle cx="50" cy="50" r="5" fill="none" stroke="#0B3D2E" stroke-width="2.5"/>
+</svg>

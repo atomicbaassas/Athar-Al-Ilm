@@ -159,7 +159,7 @@
               :style="{ backgroundImage: coverGradient(book) }"
             >
               <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">
-                {{ book.category || 'Athar Al 'Ilm' }}
+                {{ book.category || 'Athar Al Ilm' }}
               </span>
               <span class="text-base font-extrabold leading-tight line-clamp-4 drop-shadow-sm">
                 {{ book.title }}

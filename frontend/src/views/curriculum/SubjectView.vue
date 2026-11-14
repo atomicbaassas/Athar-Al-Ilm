@@ -184,7 +184,7 @@ useSeo(() => {
       name: s.title,
       description: s.description,
       url,
-      provider: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
+      provider: { '@type': 'Organization', name: 'Athar Al Ilm', url: SEO_ORIGIN },
       isPartOf: s.track_title
         ? { '@type': 'Course', name: s.track_title, url: `${SEO_ORIGIN}/learn/${s.track_slug}` }
         : undefined,

@@ -56,7 +56,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">From address</label>
-            <input v-model="form.from_email" type="text" placeholder="Athar Al 'Ilm <no-reply@atharulilm.or.tz>"
+            <input v-model="form.from_email" type="text" placeholder="Athar Al Ilm <no-reply@atharulilm.or.tz>"
               class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
           </div>
           <div class="flex items-end gap-4 pb-1">
