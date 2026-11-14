@@ -11,7 +11,7 @@ const DEFAULTS = {
   description:
     'Athar Al Ilm is a free, open-source Islamic learning platform with scholar-verified curriculum, structured tracks, progress tracking, and a growing resource library. Built for the global Ummah.',
   url: `${ORIGIN}/`,
-  image: `${ORIGIN}/logo-rounded.png`,
+  image: `${ORIGIN}/logo-rounded.png?v=quiet-mihrab`,
 }
 
 /**

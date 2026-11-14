@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 96" role="img" aria-label="Athar Al Ilm">
+  <g transform="translate(8,8) scale(0.8)">
+    <g fill="none" stroke="#0B3D2E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M28 78 V42 A22 22 0 0 1 72 42 V78"/>
+    </g>
+    <circle cx="50" cy="52" r="5.5" fill="#0B3D2E"/>
+  </g>
+  <text x="108" y="52" fill="#0B3D2E" font-family="Baskerville, Georgia, serif" font-size="42" font-weight="600" letter-spacing="-0.5">Athar Al 'Ilm</text>
+  <text x="108" y="76" fill="#5A6F66" font-family="Baskerville, Georgia, serif" font-size="15">Structured Islamic Learning</text>
+</svg>

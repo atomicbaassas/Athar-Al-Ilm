@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Athar Al 'Ilm — Better Design asset pack</title>
+  <style>
+    :root {
+      --green: #0B3D2E;
+      --ink: #12241c;
+      --muted: #5A6F66;
+      --bg: #F4F7F5;
+      --surface: #ffffff;
+      --line: rgba(11, 61, 46, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Literata, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.75rem 1.5rem 1.5rem;
+    }
+    header h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.85rem;
+      letter-spacing: -0.02em;
+      font-weight: 650;
+      text-wrap: balance;
+    }
+    header p {
+      margin: 0;
+      max-width: 40rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    header .meta {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    header a { color: var(--green); }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3.5rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    section h2 {
+      margin: 0;
+      padding: 1rem 1.15rem 0.85rem;
+      font-size: 1.05rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+    section .note {
+      margin: 0;
+      padding: 0 1.15rem 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 180px;
+    }
+    .on-light, .on-green {
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+    }
+    .on-light { background: #fff; }
+    .on-green { background: var(--green); }
+    .pair img, .pair svg { width: 112px; height: 112px; }
+    .on-green img.invert { filter: brightness(0) invert(1); }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.15rem 1.25rem;
+    }
+    .row img { display: block; }
+    .chip {
+      display: grid;
+      place-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .og { width: 100%; height: auto; display: block; border-top: 1px solid var(--line); }
+    .wm {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      background:
+        linear-gradient(45deg, #e8ece9 25%, transparent 25%),
+        linear-gradient(-45deg, #e8ece9 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e8ece9 75%),
+        linear-gradient(-45deg, transparent 75%, #e8ece9 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+      background-color: #fff;
+      border-radius: 8px;
+    }
+    footer {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82em;
+      background: rgba(11, 61, 46, 0.08);
+      padding: 0.12rem 0.35rem;
+      border-radius: 4px;
+    }
+    @media (max-width: 640px) {
+      .pair { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiet Mihrab — Better Design pack</h1>
+    <p>
+      Modern, simple Athar Al 'Ilm mark on Atelier calm scholarship + live primary
+      <code>#0B3D2E</code> / <code>oklch(0.3231 0.0584 168.33)</code>.
+      Separate from <code>logos/athar-variants/</code> (01–05). Does not overwrite
+      <code>frontend/public/</code>.
+    </p>
+    <p class="meta">
+      Design system preview:
+      <a href="https://better-design.com/preview/f171c419-444d-4ea1-898b-b5e927e8261f">Atelier × Athar (generated)</a>
+      · Concept: architectural niche + knowledge node
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Primary mark</h2>
+      <p class="note">Transparent SVG / PNG on light and brand green.</p>
+      <div class="pair">
+        <div class="on-light"><img src="mark.svg" width="112" height="112" alt="Mark on light" /></div>
+        <div class="on-green"><img class="invert" src="mark.svg" width="112" height="112" alt="Mark on green" /></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>App / PWA icons</h2>
+      <p class="note">180 · 192 · 512 app · 512 maskable</p>
+      <div class="row">
+        <div class="chip"><img src="icon-180.png" width="90" height="90" alt="180" />icon-180</div>
+        <div class="chip"><img src="icon-192.png" width="96" height="96" alt="192" />icon-192</div>
+        <div class="chip"><img src="icon-app-512.png" width="128" height="128" alt="app 512" />icon-app-512</div>
+        <div class="chip"><img src="icon-maskable-512.png" width="128" height="128" alt="maskable" />icon-maskable-512</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Favicons</h2>
+      <div class="row">
+        <div class="chip"><img src="favicon.svg" width="48" height="48" alt="favicon svg" />favicon.svg</div>
+        <div class="chip"><img src="favicon-32.png" width="32" height="32" alt="32" />32</div>
+        <div class="chip"><img src="favicon-64.png" width="64" height="64" alt="64" />64</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Wordmarks</h2>
+      <p class="note">EN (Baskerville lockup) and AR (Naskh, RTL).</p>
+      <div class="row">
+        <img class="wm" src="wordmark-en.png" alt="English wordmark" />
+        <img class="wm" src="wordmark-ar.png" alt="Arabic wordmark" />
+      </div>
+    </section>
+
+    <section>
+      <h2>Open Graph · 1200×630</h2>
+      <img class="og" src="og-1200x630.png" alt="OG image" width="1200" height="630" />
+    </section>
+  </main>
+
+  <footer>
+    Promote only after you pick this pack over <code>athar-variants</code>.
+    Commands live in <code>README.md</code>.
+  </footer>
+</body>
+</html>
