@@ -58,6 +58,7 @@ services:
       context: ./frontend
       args:
         VITE_API_BASE_URL: /api/v1
+        VITE_SITE_ORIGIN: ${VITE_SITE_ORIGIN:-https://atharulilm.or.tz}
         SSG_ORIGIN: ${SSG_ORIGIN:-https://atharulilm.or.tz}
         CACHEBUST: ${CACHEBUST:-0}
         SSG_ALLOW_FALLBACK: ${SSG_ALLOW_FALLBACK:-1}

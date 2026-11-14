@@ -2,7 +2,7 @@ import { isRef, unref } from 'vue'
 import { useHead } from '@unhead/vue'
 
 const SITE_NAME = 'Tadabbur | تدبّر'
-const ORIGIN = 'https://thetadabbur.org'
+const ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
 
 // Fallbacks used for any field a page doesn't supply, so every page emits a
 // complete, coherent set of tags.

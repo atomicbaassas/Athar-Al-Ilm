@@ -6,9 +6,11 @@ RUN npm install
 COPY . .
 ARG VITE_API_BASE_URL=/api/v1
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ARG VITE_SITE_ORIGIN=https://atharulilm.or.tz
+ENV VITE_SITE_ORIGIN=$VITE_SITE_ORIGIN
 # Origin the SSG build fetches sitemap.xml + public content from at build time
 # (the build stage can't reach the internal backend, but has outbound network).
-ARG SSG_ORIGIN=https://thetadabbur.org
+ARG SSG_ORIGIN=https://atharulilm.or.tz
 ENV SSG_ORIGIN=$SSG_ORIGIN
 # First Athar deploys have empty curriculum; allow static-route-only prerender.
 ARG SSG_ALLOW_FALLBACK=0

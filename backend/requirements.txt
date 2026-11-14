@@ -18,7 +18,7 @@ boto3==1.35.0
 
 # Task queue
 celery==5.4.0
-redis==5.0.8
+redis==6.1.0
 
 # HTTP client (used by apps/videos for YouTube API calls)
 requests==2.32.3
