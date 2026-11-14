@@ -15,19 +15,20 @@ Product base switched from LearnHouse AGPL fork to **Tadabbur** (Vue 3 + Django 
 - Carried `apps/athar-gateway` + `docs/SOURCES_SALAFI.md` + contracts (rewritten)
 - Agent root moved to this worktree
 
-## What was NOT done (on purpose)
+## Live (2026-11-14)
 
-- Contabo / live `https://atharulilm.or.tz` still LearnHouse image — **not torn down**
-- GitHub `main` / `feat/athar-foundation` LearnHouse history **not force-rewritten**
-- Old checkout at `~/AIO Devs/Athar Alilm` **not deleted**
-- No commit/push yet
-- No Athar brand skin on Tadabbur UI yet
-- No Contabo deploy scripts for Django/Vue stack yet
+- Branch pushed: `feat/tadabbur-athar` → origin
+- Contabo: `/opt/athar-tadabbur` compose on `127.0.0.1:8080`
+- Host nginx `atharulilm` proxies `/` → `:8080` (was LearnHouse `:9080`)
+- Gateway still `/athar/` → `:9091` (healthy)
+- Celery redis-py bumped; SSG first build used `SSG_ALLOW_FALLBACK=1`
+- UI title still **Tadabbur** branding — Athar skin pending
+- LearnHouse containers still running on `:9080` but **not** public
 
-## Next cutover steps
+## Still open
 
-1. Brand Tadabbur UI as Athar Al 'Ilm (EN/AR)
-2. Wire learner routes to `/athar/` gateway (kill AI-as-source paths)
-3. `docker compose -f docker-compose.dev.yml up --build` smoke
-4. Push `feat/tadabbur-athar` when ready; cut Contabo only after green local
-5. Only then retire LearnHouse container + optional delete old checkout
+- Athar brand / EN-AR chrome on Vue
+- Wire Salafi pages to gateway; strip AI-as-source of truth
+- Retire LearnHouse containers when stable
+- Do **not** force-rewrite GitHub `main` without explicit ask
+- Old checkout `~/AIO Devs/Athar Alilm` still on disk
