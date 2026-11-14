@@ -1,0 +1,14 @@
+{
+  "name": "athar-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Salafi sources proxy: QuranEnc, HadeethEnc, IslamHouse",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --test check.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

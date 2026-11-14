@@ -1,0 +1,17 @@
+[Unit]
+Description=Athar Al Ilm Salafi sources gateway
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/athar-gateway
+EnvironmentFile=-/root/.learnhouse-secrets/athar-gateway.env
+Environment=ATHAR_GATEWAY_HOST=127.0.0.1
+Environment=ATHAR_GATEWAY_PORT=9091
+ExecStart=/usr/bin/node /opt/athar-gateway/server.js
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

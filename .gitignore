@@ -108,4 +108,7 @@ yarn-error.log*
 # Added by code-review-graph
 .code-review-graph/
 .mcp.json
-docs
+# Tadabbur ignores local docs dumps; keep Athar contracts tracked
+docs/*
+!docs/ENGINEERING_CONTRACTS.md
+!docs/SOURCES_SALAFI.md
