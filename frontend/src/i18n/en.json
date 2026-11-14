@@ -50,6 +50,27 @@
     "heroCta1": "Start Learning",
     "heroCta2": "Contribute on GitHub",
 
+    "prayer": {
+      "ariaLabel": "Prayer times",
+      "until": "Until",
+      "remaining": "remaining",
+      "now": "Now",
+      "fajr": "Fajr",
+      "dhuhr": "Dhuhr",
+      "asr": "Asr",
+      "maghrib": "Maghrib",
+      "isha": "Isha",
+      "nearYou": "Near you",
+      "useLocation": "Use my location",
+      "changeCity": "Change city",
+      "cityDar": "Dar es Salaam",
+      "cityDodoma": "Dodoma",
+      "cityArusha": "Arusha",
+      "cityZanzibar": "Zanzibar",
+      "cityNairobi": "Nairobi",
+      "methodNote": "Local times · Egyptian method · timing aid only"
+    },
+
     "problemBadge": "The problem",
     "problemTitle": "1.8 billion Muslims. Zero platforms worth their time.",
     "problemSub": "Islamic learning has been stuck for a decade. Here is what every existing platform gets wrong.",
