@@ -16,15 +16,11 @@
       ]"
     >
 
-      <!-- ── Logo ──────────────────────────────────────────────── -->
-      <RouterLink to="/" class="flex items-center gap-2.5 shrink-0 group">
-        <img
-          src="/logo-mark.svg?v=quiet-mihrab"
-          alt="Athar Al Ilm logo"
-          class="h-9 w-9 shrink-0 transition-transform duration-200 group-hover:scale-105"
-          :class="logoOnDark ? 'brightness-0 invert' : ''"
-        />
-      </RouterLink>
+      <!-- ── Brand lockup (mark + locale wordmark) ─────────────── -->
+      <BrandLockup
+        :invert-mark="logoOnDark"
+        :wordmark-class="lockupWordmarkClass"
+      />
 
       <!-- ── Desktop Nav ─────────────────────────────────────── -->
       <nav class="hidden md:flex items-center gap-1" role="navigation" aria-label="Main navigation">
@@ -412,6 +408,7 @@ import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { setLocale } from '@/i18n'
 import { useHomeTheme } from '@/composables/useHomeTheme'
+import BrandLockup from '@/components/common/BrandLockup.vue'
 
 const auth      = useAuthStore()
 const route     = useRoute()
@@ -457,6 +454,11 @@ const navLinkClass = computed(() => {
 const logoOnDark = computed(() =>
   isHomePage.value && !isScrolled.value && homeTheme.theme.value === 'dark',
 )
+
+const lockupWordmarkClass = computed(() => {
+  if (!isHomePage.value || isScrolled.value) return 'text-gray-900'
+  return homeTheme.theme.value === 'dark' ? 'text-white' : 'text-gray-900'
+})
 
 // ── Auth ───────────────────────────────────────────────────────────
 function handleLogout() {

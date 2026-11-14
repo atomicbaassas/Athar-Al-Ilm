@@ -81,28 +81,61 @@
           {{ ayahError }}
         </div>
         <div v-else>
-          <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+          <header class="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 class="text-2xl font-black text-gray-900">
                 {{ activeSurah?.englishname || activeSurah?.name }}
               </h2>
               <p class="text-lg text-gray-500 font-arabic" dir="rtl">{{ activeSurah?.arabicname }}</p>
+              <p class="text-xs text-gray-400 mt-1">
+                {{ t('quran.listen') }} · {{ t('quran.reciter') }}
+              </p>
             </div>
-            <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">
-              {{ activeSurah?.revelation }} · {{ ayahs.length }} {{ t('quran.ayahs') }}
-            </p>
+            <div class="flex flex-wrap items-center gap-2">
+              <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 me-2">
+                {{ activeSurah?.revelation }} · {{ ayahs.length }} {{ t('quran.ayahs') }}
+              </p>
+              <button
+                type="button"
+                class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm font-semibold text-gray-800 hover:border-brand/40 hover:text-brand transition-colors"
+                :aria-pressed="surahPlaying"
+                @click="toggleSurah"
+              >
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path v-if="surahPlaying" d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
+                  <path v-else d="M8 5v14l11-7L8 5z" />
+                </svg>
+                {{ surahPlaying ? t('quran.pause') : t('quran.playSurah') }}
+              </button>
+            </div>
           </header>
+
+          <p v-if="audioError" class="mb-4 text-sm text-red-600">{{ audioError }}</p>
 
           <div class="space-y-5">
             <article
               v-for="ayah in ayahs"
               :key="ayah.verse"
-              class="rounded-2xl border border-gray-100 bg-white p-5 sm:p-6 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.35)]"
+              class="rounded-2xl border bg-white p-5 sm:p-6 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.35)] transition-colors"
+              :class="playingVerse === ayah.verse
+                ? 'border-brand/40 ring-2 ring-brand/10'
+                : 'border-gray-100'"
             >
               <div class="flex items-start justify-between gap-3 mb-4">
                 <span class="inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-full bg-brand-muted text-brand text-xs font-bold">
                   {{ selectedChapter }}:{{ ayah.verse }}
                 </span>
+                <button
+                  type="button"
+                  class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 text-gray-600 hover:border-brand/40 hover:text-brand transition-colors"
+                  :aria-label="playingVerse === ayah.verse && isPlaying ? t('quran.pauseAyah') : t('quran.playAyah')"
+                  @click="toggleAyah(ayah.verse)"
+                >
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path v-if="playingVerse === ayah.verse && isPlaying" d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
+                    <path v-else d="M8 5v14l11-7L8 5z" />
+                  </svg>
+                </button>
               </div>
               <p class="font-arabic text-2xl sm:text-3xl leading-[2] text-gray-900 text-end mb-4" dir="rtl" lang="ar">
                 {{ ayah.arabic }}
@@ -115,14 +148,16 @@
         </div>
       </section>
     </div>
+
+    <audio ref="audioEl" preload="none" class="hidden" @ended="onAudioEnded" @error="onAudioError" />
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
-import { quranApi, QURAN_EDITIONS } from '@/api/quran'
+import { ayahAudioUrl, quranApi, QURAN_EDITIONS } from '@/api/quran'
 
 const SEO_ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
 const { t, locale } = useI18n({ useScope: 'global' })
@@ -145,6 +180,12 @@ const translationMap = ref({})
 const ayahLoading = ref(false)
 const ayahError = ref('')
 
+const audioEl = ref(null)
+const playingVerse = ref(null)
+const isPlaying = ref(false)
+const queueMode = ref(false)
+const audioError = ref('')
+
 const activeSurah = computed(() => surahs.value.find(s => s.chapter === selectedChapter.value) || null)
 
 const ayahs = computed(() => {
@@ -158,6 +199,10 @@ const ayahs = computed(() => {
   }))
 })
 
+const surahPlaying = computed(() =>
+  queueMode.value && isPlaying.value && playingVerse.value != null,
+)
+
 function verseCount(s) {
   if (Array.isArray(s.verses)) return s.verses.length
   return s.verses || ''
@@ -170,6 +215,76 @@ function chapterToMap(payload) {
     map[row.verse] = row.text
   }
   return map
+}
+
+function stopAudio() {
+  const el = audioEl.value
+  if (el) {
+    el.pause()
+    el.removeAttribute('src')
+    el.load()
+  }
+  playingVerse.value = null
+  isPlaying.value = false
+  queueMode.value = false
+}
+
+async function playVerse(verse, { queue = false } = {}) {
+  const el = audioEl.value
+  if (!el || !selectedChapter.value) return
+  audioError.value = ''
+  queueMode.value = queue
+  playingVerse.value = verse
+  el.src = ayahAudioUrl(selectedChapter.value, verse)
+  try {
+    await el.play()
+    isPlaying.value = true
+  } catch {
+    isPlaying.value = false
+    audioError.value = t('quran.audioError')
+  }
+}
+
+function toggleAyah(verse) {
+  if (playingVerse.value === verse && isPlaying.value) {
+    audioEl.value?.pause()
+    isPlaying.value = false
+    queueMode.value = false
+    return
+  }
+  playVerse(verse, { queue: false })
+}
+
+function toggleSurah() {
+  if (surahPlaying.value) {
+    audioEl.value?.pause()
+    isPlaying.value = false
+    queueMode.value = false
+    return
+  }
+  const start = ayahs.value[0]?.verse
+  if (start == null) return
+  playVerse(start, { queue: true })
+}
+
+function onAudioEnded() {
+  if (!queueMode.value || !playingVerse.value) {
+    isPlaying.value = false
+    return
+  }
+  const verses = ayahs.value.map(a => a.verse)
+  const idx = verses.indexOf(playingVerse.value)
+  const next = verses[idx + 1]
+  if (next == null) {
+    stopAudio()
+    return
+  }
+  playVerse(next, { queue: true })
+}
+
+function onAudioError() {
+  isPlaying.value = false
+  audioError.value = t('quran.audioError')
 }
 
 async function loadInfo() {
@@ -190,6 +305,7 @@ async function loadInfo() {
 
 async function loadAyahs() {
   if (!selectedChapter.value) return
+  stopAudio()
   ayahLoading.value = true
   ayahError.value = ''
   try {
@@ -218,4 +334,5 @@ watch([selectedChapter, translationLang], () => {
 })
 
 onMounted(loadInfo)
+onBeforeUnmount(stopAudio)
 </script>

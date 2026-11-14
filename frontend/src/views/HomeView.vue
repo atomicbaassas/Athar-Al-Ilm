@@ -871,7 +871,7 @@
           <!-- Brand column -->
           <div class="sm:col-span-2 lg:col-span-1">
             <div class="flex items-center mb-4">
-              <img src="/logo-mark.svg?v=quiet-mihrab" alt="Athar Al Ilm" class="h-10 w-10" />
+              <BrandLockup invert-mark wordmark-class="text-white" />
             </div>
             <p class="text-sm leading-relaxed mb-5" style="color:rgba(255,255,255,0.3);">
               Structured Islamic learning for the global Ummah. Free forever.
@@ -955,6 +955,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { useSeo } from '@/composables/useSeo'
+import BrandLockup from '@/components/common/BrandLockup.vue'
 
 const quizAnswered = ref(false)
 

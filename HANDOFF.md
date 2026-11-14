@@ -29,7 +29,8 @@ Product base switched from LearnHouse AGPL fork to **Athar Al 'Ilm** (Vue 3 + Dj
 
 - UI chrome uses `/logo-mark.svg` (Quiet Mihrab mark). OG/Twitter still `/logo-rounded.png` (1200×630 card).
 - Library empty on live because Mongo `books` collection had no published rows (API `[]`, not a routing bug). Fix: `python manage.py seed_library` + absolute IslamHouse CDN URLs in `cover_key`/`pdf_key`.
-- Quran tab → `/quran`; gateway `/athar/v1/quranapi/*` → fawazahmed0 CDN (AR/EN/SW). See **C-SRC delta** in `docs/ENGINEERING_CONTRACTS.md`.
+- Quran tab → `/quran`; gateway `/athar/v1/quranapi/*` → fawazahmed0 CDN (AR/EN/SW). Listen uses EveryAyah HTML5 MP3 (Alafasy) per quran-api guidance — not gateway JSON. See **C-SRC delta** in `docs/ENGINEERING_CONTRACTS.md`.
+- Header/footer/launch show locale lockup: EN `Athar Al 'Ilm` / AR `أثر العلم` beside `/logo-mark.svg` via `vue-i18n` (`athar-locale`).
 
 ## Still open
 

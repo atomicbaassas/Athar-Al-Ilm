@@ -52,6 +52,14 @@ Filter featured books to known Salafi publishers/authors in product UI — API i
   - `/athar/v1/quranapi/editions/eng-muhammadtaqiudd/1`
   - `/athar/v1/quranapi/editions/swa-alimuhsinalbarw/1`
 - First languages in UI: Arabic mushaf + English + Swahili translations.
+- **Audio / listen:** quran-api itself has no recitation JSON. Author recommends
+  [EveryAyah](https://everyayah.com/) MP3s
+  ([issue #64](https://github.com/fawazahmed0/quran-api/issues/64)); companion
+  YouTube chapter maps are in [quran-videos](https://github.com/fawazahmed0/quran-videos)
+  (`uploaded/{edition}.txt`). Learner `/quran` uses HTML5 audio from
+  `https://everyayah.com/data/Alafasy_128kbps/{SSS}{AAA}.mp3` (CORS `*`).
+  Binary audio is **not** proxied through the JSON gateway — direct CDN keeps
+  Range streaming intact; text/editions still go through `/athar/v1/quranapi/*`.
 - **C-SRC note:** QuranEnc remains the preferred Salafi translation API and still
   has EN/SW keys (`english_*`, `swahili_*`). The `/quran` reader ships on
   fawazahmed0 first for Uthmani mushaf + EN/SW in one edition shape; migrate

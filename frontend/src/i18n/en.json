@@ -1,4 +1,7 @@
 {
+  "brand": {
+    "lockup": "Athar Al 'Ilm"
+  },
   "nav": {
     "learn": "Learn",
     "quran": "Quran",
@@ -17,7 +20,14 @@
     "surahs": "Surahs",
     "ayahs": "ayahs",
     "pickSurah": "Select a surah to begin reading.",
-    "loadError": "Could not load Quran text. Please try again."
+    "loadError": "Could not load Quran text. Please try again.",
+    "listen": "Listen",
+    "playSurah": "Play surah",
+    "pause": "Pause",
+    "playAyah": "Play ayah",
+    "pauseAyah": "Pause ayah",
+    "audioError": "Could not play recitation. Please try again.",
+    "reciter": "Mishary Rashid Alafasy"
   },
   "home": {
     "verseTranslation": "\"And say: My Lord, increase me in knowledge.\" — Quran 20:114",
