@@ -65,6 +65,13 @@ export const routes = [
     meta: { requiresAuth: true, noindex: true },
   },
 
+  // Quran reader (gateway → fawazahmed0/quran-api)
+  {
+    path: '/quran',
+    name: 'quran',
+    component: () => import('@/views/quran/QuranView.vue'),
+  },
+
   // Library
   {
     path: '/library',

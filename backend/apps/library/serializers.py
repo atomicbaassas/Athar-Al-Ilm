@@ -7,9 +7,12 @@ def _public_url(key):
 
     Works because tadabbur-media has a public-read bucket policy.
     Simpler and more reliable than presigned URLs — no signatures, no expiry.
+    Absolute http(s) keys are returned as-is (IslamHouse / CDN seeds).
     """
     if not key:
         return ''
+    if key.startswith('http://') or key.startswith('https://'):
+        return key
     public_base = getattr(settings, 'MINIO_PUBLIC_URL', settings.AWS_S3_ENDPOINT_URL).rstrip('/')
     return f"{public_base}/{settings.AWS_STORAGE_BUCKET_NAME}/{key}"
 

@@ -19,9 +19,9 @@
       <!-- ── Logo ──────────────────────────────────────────────── -->
       <RouterLink to="/" class="flex items-center gap-2.5 shrink-0 group">
         <img
-          src="/logo-rounded.png?v=quiet-mihrab"
+          src="/logo-mark.svg?v=quiet-mihrab"
           alt="Athar Al Ilm logo"
-          class="h-11 w-auto rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
+          class="h-9 w-9 shrink-0 transition-transform duration-200 group-hover:scale-105"
         />
       </RouterLink>
 
@@ -41,6 +41,20 @@
         </RouterLink>
 
         <RouterLink
+          to="/quran"
+          :class="navLinkClass"
+          active-class="!text-brand bg-brand-muted"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+        >
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            <path d="M8 7h8M8 11h6"/>
+          </svg>
+          {{ t('nav.quran') }}
+        </RouterLink>
+
+        <RouterLink
           to="/library"
           :class="navLinkClass"
           active-class="!text-brand bg-brand-muted"
@@ -49,7 +63,7 @@
           <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
           </svg>
-          Library
+          {{ t('nav.library') }}
         </RouterLink>
 
         <RouterLink
@@ -246,6 +260,20 @@
             </RouterLink>
 
             <RouterLink
+              to="/quran"
+              active-class="bg-brand-muted text-brand"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              @click="mobileMenuOpen = false"
+            >
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                <path d="M8 7h8M8 11h6"/>
+              </svg>
+              {{ t('nav.quran') }}
+            </RouterLink>
+
+            <RouterLink
               to="/library"
               active-class="bg-brand-muted text-brand"
               class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
@@ -254,7 +282,7 @@
               <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
               </svg>
-              Library
+              {{ t('nav.library') }}
             </RouterLink>
 
             <RouterLink

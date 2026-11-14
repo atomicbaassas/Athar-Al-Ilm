@@ -871,7 +871,7 @@
           <!-- Brand column -->
           <div class="sm:col-span-2 lg:col-span-1">
             <div class="flex items-center mb-4">
-              <img src="/logo-rounded.png?v=quiet-mihrab" alt="Athar Al Ilm" class="h-14 w-auto rounded-lg" />
+              <img src="/logo-mark.svg?v=quiet-mihrab" alt="Athar Al Ilm" class="h-10 w-10" />
             </div>
             <p class="text-sm leading-relaxed mb-5" style="color:rgba(255,255,255,0.3);">
               Structured Islamic learning for the global Ummah. Free forever.
@@ -1022,6 +1022,7 @@ const stats = [
 // appears in the footer for those users — not students or the public.
 const footerPlatform = computed(() => [
   { label: 'Start Learning', to: '/learn' },
+  { label: 'Quran',          to: '/quran' },
   { label: 'Library',        to: '/library' },
   ...(auth.can('videos') ? [{ label: 'Videos', to: '/videos' }] : []),
   { label: 'Dashboard',      to: '/dashboard' },

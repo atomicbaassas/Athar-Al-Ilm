@@ -25,10 +25,17 @@ Product base switched from LearnHouse AGPL fork to **Athar Al 'Ilm** (Vue 3 + Dj
 - UI title still **Athar Al 'Ilm** branding — Athar skin pending
 - LearnHouse containers still running on `:9080` but **not** public
 
+## 2026-11-14 — Quran + logo + library seed
+
+- UI chrome uses `/logo-mark.svg` (Quiet Mihrab mark). OG/Twitter still `/logo-rounded.png` (1200×630 card).
+- Library empty on live because Mongo `books` collection had no published rows (API `[]`, not a routing bug). Fix: `python manage.py seed_library` + absolute IslamHouse CDN URLs in `cover_key`/`pdf_key`.
+- Quran tab → `/quran`; gateway `/athar/v1/quranapi/*` → fawazahmed0 CDN (AR/EN/SW). See **C-SRC delta** in `docs/ENGINEERING_CONTRACTS.md`.
+
 ## Still open
 
-- Wire Salafi learner pages to `/athar/` gateway
-- Wire Salafi pages to gateway; strip AI-as-source of truth
+- Migrate `/quran` translations to QuranEnc when product wants stricter Salafi-only editions
+- Wire more Salafi learner pages to `/athar/` gateway; strip AI-as-source of truth
+- Ingest library PDFs into MinIO instead of hotlinking IslamHouse CDN
 - Retire LearnHouse containers when stable
 - Do **not** force-rewrite GitHub `main` without explicit ask
 - Old checkout `~/AIO Devs/Athar Alilm` still on disk

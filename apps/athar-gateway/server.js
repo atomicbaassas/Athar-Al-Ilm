@@ -1,6 +1,7 @@
 /**
  * Athar Al 'Ilm sources gateway.
- * Proxies QuranEnc, HadeethEnc, IslamHouse. No HTML scrape; JSON only.
+ * Proxies QuranEnc, HadeethEnc, IslamHouse, and fawazahmed0/quran-api (CDN).
+ * No HTML scrape; JSON only.
  * shortcut: no cache layer yet — add Redis when traffic warrants it.
  */
 import http from "node:http";
@@ -14,13 +15,17 @@ const TIMEOUT_MS = Number(process.env.ATHAR_FETCH_TIMEOUT_MS || 20000);
 const UPSTREAM = {
   quran: "https://quranenc.com/api/v1",
   hadeeth: "https://hadeethenc.com/api/v1",
+  // C-SRC delta: learner Quran reader uses fawazahmed0 for AR mushaf + EN/SW
+  // (QuranEnc also has EN/SW; Swahili + Uthmani mushaf shipped via this CDN first).
+  quranapi: "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1",
+  quranapiFallback: "https://raw.githubusercontent.com/fawazahmed0/quran-api/1",
 };
 
 function json(res, status, body) {
   const raw = JSON.stringify(body);
   res.writeHead(status, {
     "content-type": "application/json; charset=utf-8",
-    "cache-control": "public, max-age=60",
+    "cache-control": "public, max-age=300",
     "access-control-allow-origin": "*",
   });
   res.end(raw);
@@ -67,6 +72,19 @@ function buildUpstream(kind, path, searchParams) {
     searchParams.forEach((v, k) => u.searchParams.set(k, v));
     return u.toString();
   }
+  if (kind === "quranapi") {
+    // Normalize to .min.json endpoints (CDN prefers min; fallback uses same path).
+    let p = path.startsWith("/") ? path : `/${path}`;
+    if (!p.endsWith(".json")) {
+      p = `${p.replace(/\/+$/, "")}.min.json`;
+    } else if (!p.endsWith(".min.json") && p.endsWith(".json")) {
+      p = p.replace(/\.json$/, ".min.json");
+    }
+    return {
+      primary: `${UPSTREAM.quranapi}${p}`,
+      fallback: `${UPSTREAM.quranapiFallback}${p.replace(/\.min\.json$/, ".json")}`,
+    };
+  }
   return null;
 }
 
@@ -91,7 +109,7 @@ const server = http.createServer(async (req, res) => {
     return json(res, 200, {
       service: "athar-gateway",
       ok: true,
-      sources: ["quranenc", "hadeethenc", "islamhouse", "dorar"],
+      sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi"],
       dorar: process.env.DORAR_API_KEY ? "configured" : "token_required",
     });
   }
@@ -115,12 +133,12 @@ const server = http.createServer(async (req, res) => {
     });
   }
 
-  // /v1/quran/...  /v1/hadeeth/...  /v1/islamhouse/...
-  const m = pathname.match(/^\/v1\/(quran|hadeeth|islamhouse)(\/.*)?$/);
+  // /v1/quran/...  /v1/hadeeth/...  /v1/islamhouse/...  /v1/quranapi/...
+  const m = pathname.match(/^\/v1\/(quran|hadeeth|islamhouse|quranapi)(\/.*)?$/);
   if (!m) {
     return json(res, 404, {
       error: "not_found",
-      hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/dorar/status, /health",
+      hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/dorar/status, /health",
     });
   }
 
@@ -132,6 +150,18 @@ const server = http.createServer(async (req, res) => {
   }
 
   try {
+    if (kind === "quranapi") {
+      let out = await fetchUpstream(upstream.primary);
+      if (!out.ok) {
+        out = await fetchUpstream(upstream.fallback);
+      }
+      return json(res, out.ok ? 200 : out.status, {
+        source: "quranapi",
+        upstream_status: out.status,
+        data: out.data,
+      });
+    }
+
     const out = await fetchUpstream(upstream);
     return json(res, out.ok ? 200 : out.status, {
       source: kind,

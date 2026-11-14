@@ -4,12 +4,13 @@ Amend this file when a rule must change. Code that violates an active contract i
 
 ## C-SRC — Salafi sources
 
-1. Quran translation/tafsir JSON: **QuranEnc** (`quranenc.com/api/v1`) via gateway only.
-2. Hadith encyclopedia JSON: **HadeethEnc** (`hadeethenc.com/api/v1`) via gateway only.
-3. Books / multimedia catalog: **IslamHouse** via gateway only — live base `api.islamhouse.com/v1/{KEY}` (path key). Do not use dead `api3.islamhouse.com`.
-4. Dorar.net only when `DORAR_API_KEY` is set on the gateway host; never scrape HTML for content. Without a token, gateway returns **501** `dorar_token_required`.
-5. Do **not** treat LLM/AI output, Quran.com, or random scrapers as religious source of truth.
-6. Browser never holds IslamHouse or Dorar keys; server/gateway only.
+1. Quran translation/tafsir JSON: **QuranEnc** (`quranenc.com/api/v1`) via gateway only for catalog/tafsir-style product surfaces.
+2. **C-SRC delta (2026-11-14):** Learner `/quran` reader may use **fawazahmed0/quran-api** via gateway `/athar/v1/quranapi/*` for Arabic mushaf + English/Swahili editions (`ara-quranuthmanihaf`, `eng-muhammadtaqiudd`, `swa-alimuhsinalbarw`). QuranEnc still preferred long-term for Salafi-curated translations (it also exposes EN/SW). Do not call the CDN from the browser.
+3. Hadith encyclopedia JSON: **HadeethEnc** (`hadeethenc.com/api/v1`) via gateway only.
+4. Books / multimedia catalog: **IslamHouse** via gateway only — live base `api.islamhouse.com/v1/{KEY}` (path key). Do not use dead `api3.islamhouse.com`. Published Mongo library rows may store IslamHouse CDN absolute URLs for PDF/cover until MinIO ingest exists.
+5. Dorar.net only when `DORAR_API_KEY` is set on the gateway host; never scrape HTML for content. Without a token, gateway returns **501** `dorar_token_required`.
+6. Do **not** treat LLM/AI output, Quran.com, or random scrapers as religious source of truth.
+7. Browser never holds IslamHouse or Dorar keys; server/gateway only.
 
 ## C-GATE — Athar gateway
 

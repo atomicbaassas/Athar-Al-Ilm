@@ -1,11 +1,23 @@
 {
   "nav": {
     "learn": "Learn",
+    "quran": "Quran",
+    "library": "Library",
     "dashboard": "Dashboard",
     "admin": "Admin",
     "logout": "Logout",
     "login": "Login",
     "getStarted": "Get Started"
+  },
+  "quran": {
+    "eyebrow": "Quran",
+    "title": "Read the Quran",
+    "subtitle": "Arabic mushaf with English or Swahili translation — first languages only.",
+    "translation": "Translation",
+    "surahs": "Surahs",
+    "ayahs": "ayahs",
+    "pickSurah": "Select a surah to begin reading.",
+    "loadError": "Could not load Quran text. Please try again."
   },
   "home": {
     "verseTranslation": "\"And say: My Lord, increase me in knowledge.\" — Quran 20:114",

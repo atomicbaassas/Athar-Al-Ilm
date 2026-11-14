@@ -6,7 +6,7 @@
     <!-- Minimal top bar -->
     <header class="launch__bar">
       <RouterLink to="/" class="launch__brand">
-        <img src="/logo-rounded.png?v=quiet-mihrab" alt="Athar Al Ilm" class="launch__logo" />
+        <img src="/logo-mark.svg?v=quiet-mihrab" alt="Athar Al Ilm" class="launch__logo" />
       </RouterLink>
       <RouterLink to="/" class="launch__back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -245,7 +245,7 @@ async function submit() {
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.25rem clamp(1.25rem, 4vw, 2.5rem);
 }
-.launch__logo { height: 3rem; width: auto; border-radius: 0.6rem; }
+.launch__logo { height: 2.5rem; width: 2.5rem; }
 .launch__back {
   display: inline-flex; align-items: center; gap: 0.45rem;
   font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.55); text-decoration: none;

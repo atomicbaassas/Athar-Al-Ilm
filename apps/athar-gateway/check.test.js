@@ -45,4 +45,12 @@ test("health + quran translations list", async (t) => {
   const bBody = await books.json();
   assert.equal(bBody.source, "islamhouse");
   assert.ok(bBody.data);
+
+  const quranapi = await fetch(
+    `http://127.0.0.1:${PORT}/v1/quranapi/editions/ara-quranuthmanihaf/1`,
+  );
+  assert.equal(quranapi.status, 200);
+  const qaBody = await quranapi.json();
+  assert.equal(qaBody.source, "quranapi");
+  assert.ok(qaBody.data?.chapter?.length);
 });

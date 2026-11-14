@@ -41,11 +41,27 @@ Filter featured books to known Salafi publishers/authors in product UI — API i
 - Requires host env `DORAR_API_KEY`. Without it the gateway returns **501** `dorar_token_required` (no HTML scrape).
 - Upstream adapter ships after an Athar token is issued.
 
+## 5. fawazahmed0/quran-api (learner Quran reader)
+
+- CDN: `https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1`
+- Fallback: `https://raw.githubusercontent.com/fawazahmed0/quran-api/1`
+- Gateway: `GET /athar/v1/quranapi/{path}` (auto `.min.json`)
+- Examples:
+  - `/athar/v1/quranapi/info`
+  - `/athar/v1/quranapi/editions/ara-quranuthmanihaf/1`
+  - `/athar/v1/quranapi/editions/eng-muhammadtaqiudd/1`
+  - `/athar/v1/quranapi/editions/swa-alimuhsinalbarw/1`
+- First languages in UI: Arabic mushaf + English + Swahili translations.
+- **C-SRC note:** QuranEnc remains the preferred Salafi translation API and still
+  has EN/SW keys (`english_*`, `swahili_*`). The `/quran` reader ships on
+  fawazahmed0 first for Uthmani mushaf + EN/SW in one edition shape; migrate
+  translations to QuranEnc when product wants stricter Salafi-only editions.
+
 ## Not wired yet
 
 | Source | Status |
 |---|---|
-| Tanzil / KFGQPC mushaf | Optional Arabic text layer |
+| Tanzil / KFGQPC mushaf as primary | Optional; currently via fawazahmed0 Uthmani Hafs |
 
 ## Policy
 
