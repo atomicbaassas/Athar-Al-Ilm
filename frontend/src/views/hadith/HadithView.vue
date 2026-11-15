@@ -8,7 +8,7 @@
         {{ t('hadith.subtitle') }}
       </p>
 
-      <div class="mt-5 flex flex-col sm:flex-row gap-3">
+      <div class="mt-5 flex flex-col sm:flex-row gap-2 sm:gap-3 sm:items-end max-w-sm">
         <label class="flex flex-col gap-1 flex-1 min-w-0">
           <span class="text-sm font-medium text-gray-600">{{ t('hadith.language') }}</span>
           <select v-model="language" class="athar-control cursor-pointer" @change="onLanguageChange">

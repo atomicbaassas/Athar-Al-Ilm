@@ -15,6 +15,7 @@ import {
   stripHtml,
   wordSyncIdForReciter,
   wordSyncReciters,
+  VERIFIED_WORD_SYNC_IDS,
   QURAN_RECITERS,
   QURAN_SPEEDS,
   DEFAULT_QURAN_MODES,
@@ -27,6 +28,10 @@ describe('quran audio helpers', () => {
     expect(getReciterById('Abdurrahmaan_As-Sudais_192kbps').wordSyncId).toBe(3)
     expect(wordSyncReciters().length).toBeGreaterThanOrEqual(8)
     expect(wordSyncIdForReciter('Husary_128kbps')).toBe(6)
+    expect(VERIFIED_WORD_SYNC_IDS).toEqual([2, 3, 4, 5, 6, 7, 9, 10, 97])
+    for (const r of wordSyncReciters()) {
+      expect(VERIFIED_WORD_SYNC_IDS).toContain(r.wordSyncId)
+    }
   })
 
   it('builds padded EveryAyah URLs for a chosen reciter', () => {

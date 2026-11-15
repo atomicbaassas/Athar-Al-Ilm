@@ -13,7 +13,7 @@
 
     <!-- ── Search + filters ─────────────────────────────────────────── -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-8">
-      <div class="flex flex-col sm:flex-row gap-3 sm:items-end">
+      <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 sm:items-end">
 
         <!-- Search -->
         <div class="relative flex-1">

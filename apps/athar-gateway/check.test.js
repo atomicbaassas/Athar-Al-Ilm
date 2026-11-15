@@ -66,4 +66,11 @@ test("health + quran translations list", async (t) => {
     `http://127.0.0.1:${PORT}/v1/qurancom/verses/uthmani`,
   );
   assert.equal(blocked.status, 403);
+
+  // Dorar stays gated without DORAR_API_KEY — no HTML scrape.
+  const dorar = await fetch(`http://127.0.0.1:${PORT}/v1/dorar/status`);
+  assert.equal(dorar.status, 501);
+  const dorarBody = await dorar.json();
+  assert.equal(dorarBody.error, "dorar_token_required");
+  assert.equal(dorarBody.source, "dorar");
 });

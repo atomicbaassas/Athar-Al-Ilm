@@ -58,7 +58,7 @@
         {{ t('quran.experience.customHint') }}
       </p>
 
-      <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+      <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-end sm:gap-3">
         <label class="flex flex-col gap-1 min-w-0 flex-1 sm:max-w-sm">
           <span class="text-sm font-medium text-gray-600">{{ t('quran.searchSurah') }}</span>
           <input
@@ -70,7 +70,7 @@
           />
         </label>
 
-        <div class="flex flex-row gap-3 min-w-0 items-end sm:contents">
+        <div class="flex flex-row gap-2 sm:gap-3 min-w-0 items-end sm:contents">
           <label v-if="modes.translation" class="flex flex-col gap-1 min-w-0 flex-1 sm:w-52 sm:flex-none">
             <span class="text-sm font-medium text-gray-600" for="quran-translation">{{ t('quran.translation') }}</span>
             <select
@@ -159,30 +159,34 @@
           class="border border-gray-100 rounded-2xl overflow-hidden bg-gray-50/60 lg:sticky lg:top-28"
           :class="surahDrawerOpen ? 'block' : 'hidden lg:block'"
         >
-          <div class="px-4 py-3 border-b border-gray-100 bg-white space-y-2">
+          <div class="px-4 py-3 border-b border-gray-100 bg-white space-y-3">
             <p class="text-sm font-semibold text-gray-800">{{ t('quran.surahs') }}</p>
-            <div class="flex gap-2">
-              <label class="flex-1 min-w-0">
-                <span class="sr-only">{{ t('quran.juz') }}</span>
-                <select
+            <div class="grid grid-cols-2 gap-2">
+              <label class="min-w-0 flex flex-col gap-1">
+                <span class="text-xs font-medium text-gray-500">{{ t('quran.juz') }}</span>
+                <input
                   v-model.number="jumpJuz"
-                  class="athar-control text-sm py-2 min-h-10 cursor-pointer"
-                  @change="goJuz"
-                >
-                  <option :value="0">{{ t('quran.juz') }}</option>
-                  <option v-for="j in 30" :key="j" :value="j">{{ t('quran.juzN', { n: j }) }}</option>
-                </select>
+                  type="number"
+                  min="1"
+                  max="30"
+                  inputmode="numeric"
+                  :placeholder="t('quran.juz')"
+                  class="athar-control text-sm min-h-10"
+                  @keydown.enter.prevent="goJuz"
+                />
               </label>
-              <label class="flex-1 min-w-0">
-                <span class="sr-only">{{ t('quran.page') }}</span>
-                <select
+              <label class="min-w-0 flex flex-col gap-1">
+                <span class="text-xs font-medium text-gray-500">{{ t('quran.page') }}</span>
+                <input
                   v-model.number="jumpPage"
-                  class="athar-control text-sm py-2 min-h-10 cursor-pointer"
-                  @change="goPage"
-                >
-                  <option :value="0">{{ t('quran.page') }}</option>
-                  <option v-for="p in 604" :key="p" :value="p">{{ t('quran.pageN', { n: p }) }}</option>
-                </select>
+                  type="number"
+                  min="1"
+                  max="604"
+                  inputmode="numeric"
+                  :placeholder="t('quran.page')"
+                  class="athar-control text-sm min-h-10"
+                  @keydown.enter.prevent="goPage"
+                />
               </label>
             </div>
           </div>
@@ -656,8 +660,8 @@ saveExperience(experience.value)
 const playbackSpeed = ref(loadSavedSpeed())
 const progressPct = ref(0)
 const optionsOpen = ref(false)
-const jumpJuz = ref(0)
-const jumpPage = ref(0)
+const jumpJuz = ref(null)
+const jumpPage = ref(null)
 const juzRefs = ref([])
 const pageRefs = ref([])
 const abLoop = reactive({ start: null, end: null })
@@ -1070,12 +1074,16 @@ function goSurah(delta) {
 }
 
 function goJuz() {
-  const chapter = chapterForJuz(juzRefs.value, jumpJuz.value)
+  const n = Number(jumpJuz.value)
+  if (!n || n < 1 || n > 30) return
+  const chapter = chapterForJuz(juzRefs.value, n)
   if (chapter) selectChapter(chapter)
 }
 
 function goPage() {
-  const chapter = chapterForPage(pageRefs.value, jumpPage.value)
+  const n = Number(jumpPage.value)
+  if (!n || n < 1 || n > 604) return
+  const chapter = chapterForPage(pageRefs.value, n)
   if (chapter) selectChapter(chapter)
 }
 
@@ -1270,8 +1278,8 @@ async function loadAyahs() {
 function selectChapter(n) {
   selectedChapter.value = n
   surahDrawerOpen.value = false
-  jumpJuz.value = 0
-  jumpPage.value = 0
+  jumpJuz.value = null
+  jumpPage.value = null
   syncShareQuery(1)
 }
 

@@ -207,8 +207,11 @@ export function getReciterById(id) {
   return QURAN_RECITERS.find(r => r.id === id) || QURAN_RECITERS[0]
 }
 
+/** Quran.com chapter_reciter ids verified with segments=true (Al-Fatiha). */
+export const VERIFIED_WORD_SYNC_IDS = [2, 3, 4, 5, 6, 7, 9, 10, 97]
+
 export function wordSyncReciters() {
-  return QURAN_RECITERS.filter(r => Number(r.wordSyncId) > 0)
+  return QURAN_RECITERS.filter(r => VERIFIED_WORD_SYNC_IDS.includes(Number(r.wordSyncId)))
 }
 
 export function wordSyncIdForReciter(reciter) {
