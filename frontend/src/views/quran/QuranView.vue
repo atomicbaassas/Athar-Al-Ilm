@@ -1,5 +1,8 @@
 <template>
-  <div class="quran-page min-h-screen bg-white overflow-x-hidden pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-20">
+  <div
+    class="quran-page min-h-screen bg-white overflow-x-hidden"
+    :class="modes.player ? 'pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-20' : 'pb-10'"
+  >
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-4 sm:pt-12 sm:pb-6">
       <p class="text-xs font-bold uppercase tracking-widest text-brand mb-4 flex items-center gap-2">
         <span class="w-4 h-px bg-brand inline-block"></span>
@@ -27,6 +30,30 @@
         </div>
       </div>
 
+      <!-- Mode toggles -->
+      <div
+        class="mt-5 flex flex-wrap gap-2"
+        role="group"
+        :aria-label="t('quran.modes.label')"
+      >
+        <button
+          v-for="m in modeButtons"
+          :key="m.key"
+          type="button"
+          class="inline-flex items-center min-h-10 px-3 rounded-xl border text-sm font-semibold transition-colors touch-manipulation"
+          :class="modes[m.key]
+            ? 'border-brand/40 bg-brand-muted text-brand'
+            : 'border-gray-200 bg-white text-gray-600 hover:border-brand/30'"
+          :aria-pressed="modes[m.key] ? 'true' : 'false'"
+          @click="toggleMode(m.key)"
+        >
+          {{ m.label }}
+        </button>
+      </div>
+      <p v-if="modes.wordSync && modes.player" class="mt-2 text-xs text-gray-400">
+        {{ t('quran.modes.wordSyncHint') }}
+      </p>
+
       <!-- Controls row -->
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
         <label class="flex flex-col gap-1 min-w-0 flex-1 sm:max-w-xs">
@@ -41,7 +68,7 @@
           />
         </label>
 
-        <label class="flex flex-col gap-1 min-w-0 sm:w-52">
+        <label v-if="modes.player && !modes.wordSync" class="flex flex-col gap-1 min-w-0 sm:w-52">
           <span class="text-xs font-semibold text-gray-500" for="quran-reciter">{{ t('quran.reciterLabel') }}</span>
           <select
             id="quran-reciter"
@@ -55,7 +82,7 @@
           </select>
         </label>
 
-        <label class="flex flex-col gap-1 min-w-0 sm:w-48">
+        <label v-if="modes.translation" class="flex flex-col gap-1 min-w-0 sm:w-48">
           <span class="text-xs font-semibold text-gray-500" for="quran-translation">{{ t('quran.translation') }}</span>
           <select
             id="quran-translation"
@@ -72,7 +99,6 @@
     </div>
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-      <!-- Surah list: drawer on mobile, sidebar on lg -->
       <aside class="lg:col-span-4 xl:col-span-3">
         <button
           type="button"
@@ -131,7 +157,6 @@
         </div>
       </aside>
 
-      <!-- Ayah view -->
       <section class="lg:col-span-8 xl:col-span-9 min-w-0">
         <div v-if="!selectedChapter" class="text-center py-24 text-gray-400">
           {{ t('quran.pickSurah') }}
@@ -153,7 +178,7 @@
                 {{ activeSurah?.revelation }} · {{ ayahs.length }} {{ t('quran.ayahs') }}
               </p>
             </div>
-            <div class="flex flex-wrap items-center gap-2">
+            <div v-if="modes.player" class="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 class="inline-flex items-center justify-center min-h-11 min-w-11 rounded-xl border border-gray-200
@@ -198,22 +223,26 @@
           </header>
 
           <p v-if="audioError" class="mb-4 text-sm text-red-600">{{ audioError }}</p>
+          <p v-if="timingError" class="mb-4 text-sm text-amber-700">{{ timingError }}</p>
 
-          <div class="space-y-4 sm:space-y-5">
+          <div :class="modes.compact ? 'space-y-2' : 'space-y-4 sm:space-y-5'">
             <article
               v-for="ayah in ayahs"
               :id="`ayah-${ayah.verse}`"
               :key="ayah.verse"
-              class="rounded-2xl border p-4 sm:p-6 transition-colors duration-200 scroll-mt-28"
-              :class="playingVerse === ayah.verse
-                ? 'border-brand/50 bg-[#0B3D2E]/[0.06] ring-2 ring-brand/15 shadow-[0_0_0_1px_rgba(11,61,46,0.08)]'
-                : 'border-gray-100 bg-white shadow-[0_8px_24px_-18px_rgba(0,0,0,0.35)]'"
+              class="rounded-2xl border transition-colors duration-200 scroll-mt-28"
+              :class="[
+                modes.compact ? 'p-3 sm:p-4' : 'p-4 sm:p-6',
+                playingVerse === ayah.verse
+                  ? 'border-brand/50 bg-[#0B3D2E]/[0.06] ring-2 ring-brand/15 shadow-[0_0_0_1px_rgba(11,61,46,0.08)]'
+                  : 'border-gray-100 bg-white shadow-[0_8px_24px_-18px_rgba(0,0,0,0.35)]',
+              ]"
             >
               <div class="flex items-start justify-between gap-3 mb-3">
                 <span class="inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-full bg-brand-muted text-brand text-xs font-bold tabular-nums">
                   {{ selectedChapter }}:{{ ayah.verse }}
                 </span>
-                <div class="flex items-center gap-1">
+                <div v-if="modes.player" class="flex items-center gap-1">
                   <button
                     type="button"
                     class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-gray-200
@@ -256,29 +285,67 @@
                   </button>
                 </div>
               </div>
+
               <p
-                class="font-arabic text-[1.65rem] sm:text-3xl leading-[2.05] text-gray-900 text-end mb-3 break-words"
+                class="font-arabic leading-[2.05] text-gray-900 text-end mb-3 break-words"
+                :class="modes.compact ? 'text-xl sm:text-2xl' : 'text-[1.65rem] sm:text-3xl'"
                 dir="rtl"
                 lang="ar"
               >
-                {{ ayah.arabic }}
+                <template v-if="modes.wordSync && modes.player && ayah.words.length">
+                  <span
+                    v-for="(word, wi) in ayah.words"
+                    :key="`${ayah.verse}-${wi}`"
+                    class="inline transition-colors duration-100 rounded-sm px-0.5"
+                    :class="playingVerse === ayah.verse && activeWordIndex === wi + 1
+                      ? 'bg-brand text-white'
+                      : playingVerse === ayah.verse
+                        ? 'text-brand'
+                        : ''"
+                  >{{ word }}{{ wi < ayah.words.length - 1 ? ' ' : '' }}</span>
+                </template>
+                <template v-else>{{ ayah.arabic }}</template>
               </p>
+
               <p
-                v-if="translationLang !== 'none' && ayah.translation"
+                v-if="showTranslation && ayah.translation"
                 class="text-sm sm:text-base text-gray-600 leading-relaxed break-words"
                 dir="ltr"
                 :lang="translationLang"
               >
                 {{ ayah.translation }}
               </p>
+
+              <div
+                v-if="modes.tafsir"
+                class="mt-3 pt-3 border-t border-gray-100"
+              >
+                <p class="text-[11px] font-semibold uppercase tracking-wide text-brand/80 mb-1">
+                  {{ t('quran.tafsir.label') }} · {{ tafsirName }}
+                </p>
+                <p v-if="tafsirLoadingVerse === ayah.verse" class="text-sm text-gray-400">
+                  {{ t('quran.tafsir.loading') }}
+                </p>
+                <p v-else-if="tafsirMap[ayah.verse]" class="text-sm text-gray-700 leading-relaxed font-arabic" dir="rtl" lang="ar">
+                  {{ tafsirMap[ayah.verse] }}
+                </p>
+                <button
+                  v-else
+                  type="button"
+                  class="text-sm font-semibold text-brand hover:underline"
+                  @click="loadTafsir(ayah.verse)"
+                >
+                  {{ t('quran.tafsir.show') }}
+                </button>
+              </div>
             </article>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Sticky player bar (mobile-first) -->
     <div
+      v-if="modes.player"
       class="fixed inset-x-0 bottom-0 z-40 border-t border-brand/15 bg-white/95 backdrop-blur-md
              px-3 pt-2.5 pb-[max(0.65rem,env(safe-area-inset-bottom))] shadow-[0_-8px_28px_-16px_rgba(11,61,46,0.35)]"
       role="region"
@@ -344,27 +411,33 @@
       @pause="isPlaying = false"
       @ended="onAudioEnded"
       @error="onAudioError"
+      @timeupdate="onTimeUpdate"
     />
   </div>
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
 import {
+  activeWordAt,
   ayahAudioUrl,
   getReciterById,
+  loadSavedModes,
   loadSavedPosition,
   loadSavedReciterId,
   loadSavedTranslation,
   quranApi,
   QURAN_EDITIONS,
   QURAN_RECITERS,
+  saveModes,
   savePosition,
   saveReciterId,
   saveTranslation,
+  splitAyahWords,
+  WORD_SYNC_RECITER_ID,
 } from '@/api/quran'
 
 const SEO_ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
@@ -379,6 +452,15 @@ useHead({
     { property: 'og:url', content: `${SEO_ORIGIN}/quran` },
   ],
 })
+
+const modes = reactive(loadSavedModes())
+const modeButtons = computed(() => [
+  { key: 'player', label: t('quran.modes.player') },
+  { key: 'wordSync', label: t('quran.modes.wordSync') },
+  { key: 'tafsir', label: t('quran.modes.tafsir') },
+  { key: 'translation', label: t('quran.modes.translation') },
+  { key: 'compact', label: t('quran.modes.compact') },
+])
 
 const surahs = ref([])
 const infoLoading = ref(true)
@@ -395,23 +477,35 @@ const surahDrawerOpen = ref(false)
 
 const audioEl = ref(null)
 const playingVerse = ref(null)
+const activeWordIndex = ref(null)
 const isPlaying = ref(false)
 const queueMode = ref(false)
 const audioError = ref('')
+const timingError = ref('')
 const pendingScrollVerse = ref(null)
+const chapterTiming = ref(null)
+const usingChapterAudio = ref(false)
+const tafsirMap = ref({})
+const tafsirLoadingVerse = ref(null)
+const tafsirName = ref("Al-Sa'di")
 
 const activeSurah = computed(() => surahs.value.find(s => s.chapter === selectedChapter.value) || null)
 const activeReciter = computed(() => getReciterById(reciterId.value))
+const showTranslation = computed(() => modes.translation && translationLang.value !== 'none')
 
 const ayahs = computed(() => {
   const verses = Object.keys(arabicMap.value)
     .map(Number)
     .sort((a, b) => a - b)
-  return verses.map(verse => ({
-    verse,
-    arabic: arabicMap.value[verse] || '',
-    translation: translationMap.value[verse] || '',
-  }))
+  return verses.map(verse => {
+    const arabic = arabicMap.value[verse] || ''
+    return {
+      verse,
+      arabic,
+      words: splitAyahWords(arabic),
+      translation: translationMap.value[verse] || '',
+    }
+  })
 })
 
 const filteredSurahs = computed(() => {
@@ -432,15 +526,36 @@ const surahPlaying = computed(() =>
 const stickyTitle = computed(() => {
   if (!activeSurah.value) return t('quran.pickSurah')
   const name = activeSurah.value.englishname || activeSurah.value.name
-  if (playingVerse.value) return `${name} · ${selectedChapter.value}:${playingVerse.value}`
+  if (playingVerse.value) {
+    const wordBit = activeWordIndex.value ? ` · w${activeWordIndex.value}` : ''
+    return `${name} · ${selectedChapter.value}:${playingVerse.value}${wordBit}`
+  }
   return name
 })
 
 const stickySubtitle = computed(() => {
+  if (modes.wordSync && usingChapterAudio.value) {
+    return `${t('quran.listen')} · ${t('quran.modes.wordSyncReciter')}`
+  }
   const label = locale.value === 'ar' ? activeReciter.value.labelAr : activeReciter.value.label
   if (isPlaying.value) return `${t('quran.listen')} · ${label}`
   return label
 })
+
+function toggleMode(key) {
+  modes[key] = !modes[key]
+  saveModes(modes)
+  if (key === 'player' && !modes.player) stopAudio()
+  if (key === 'wordSync' && isPlaying.value && playingVerse.value) {
+    playVerse(playingVerse.value, { queue: queueMode.value })
+  }
+  if (key === 'translation' && !modes.translation) {
+    // keep stored lang; just hide
+  }
+  if (key === 'tafsir' && modes.tafsir && playingVerse.value) {
+    loadTafsir(playingVerse.value)
+  }
+}
 
 function verseCount(s) {
   if (Array.isArray(s.verses)) return s.verses.length
@@ -464,8 +579,10 @@ function stopAudio() {
     el.load()
   }
   playingVerse.value = null
+  activeWordIndex.value = null
   isPlaying.value = false
   queueMode.value = false
+  usingChapterAudio.value = false
 }
 
 async function scrollToVerse(verse) {
@@ -474,24 +591,108 @@ async function scrollToVerse(verse) {
   el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
+async function ensureChapterTiming() {
+  if (!selectedChapter.value) return null
+  if (chapterTiming.value?.chapter === selectedChapter.value && chapterTiming.value.audioUrl) {
+    return chapterTiming.value
+  }
+  timingError.value = ''
+  try {
+    const timing = await quranApi.getChapterTiming(selectedChapter.value, WORD_SYNC_RECITER_ID)
+    if (!timing.audioUrl || !timing.verses.length) {
+      timingError.value = t('quran.modes.wordSyncUnavailable')
+      return null
+    }
+    chapterTiming.value = { chapter: selectedChapter.value, ...timing }
+    return chapterTiming.value
+  } catch {
+    timingError.value = t('quran.modes.wordSyncUnavailable')
+    return null
+  }
+}
+
 async function playVerse(verse, { queue = false } = {}) {
   const el = audioEl.value
-  if (!el || !selectedChapter.value) return
+  if (!el || !selectedChapter.value || !modes.player) return
   const target = Number(verse)
   if (!ayahs.value.some(a => a.verse === target)) return
   audioError.value = ''
   queueMode.value = queue
   playingVerse.value = target
+  activeWordIndex.value = null
   savePosition(selectedChapter.value, target)
+
+  if (modes.wordSync) {
+    const timing = await ensureChapterTiming()
+    if (timing?.audioUrl) {
+      const vt = timing.verses.find(v => v.verse === target)
+      usingChapterAudio.value = true
+      const needLoad = !el.src || !el.src.includes(timing.audioUrl.split('/').pop())
+      if (needLoad) {
+        el.src = timing.audioUrl
+        await new Promise((resolve) => {
+          const onMeta = () => {
+            el.removeEventListener('loadedmetadata', onMeta)
+            resolve()
+          }
+          el.addEventListener('loadedmetadata', onMeta)
+          el.load()
+        })
+      }
+      if (vt) el.currentTime = Math.max(0, vt.timestampFrom / 1000)
+      try {
+        await el.play()
+        isPlaying.value = true
+        scrollToVerse(target)
+        if (modes.tafsir) loadTafsir(target)
+      } catch {
+        isPlaying.value = false
+        audioError.value = t('quran.audioError')
+      }
+      return
+    }
+    // Fall back to EveryAyah ayah audio without word sync
+    usingChapterAudio.value = false
+  }
+
+  usingChapterAudio.value = false
   el.src = ayahAudioUrl(selectedChapter.value, target, activeReciter.value)
   try {
     await el.play()
     isPlaying.value = true
     scrollToVerse(target)
+    if (modes.tafsir) loadTafsir(target)
   } catch {
     isPlaying.value = false
     audioError.value = t('quran.audioError')
   }
+}
+
+function onTimeUpdate() {
+  const el = audioEl.value
+  if (!el || !usingChapterAudio.value || !chapterTiming.value) return
+  const ms = el.currentTime * 1000
+
+  // Single-ayah mode: stop at verse end (chapter file continues otherwise).
+  if (!queueMode.value && playingVerse.value != null) {
+    const vt = chapterTiming.value.verses.find(v => v.verse === playingVerse.value)
+    if (vt && ms >= vt.timestampTo - 40) {
+      el.pause()
+      isPlaying.value = false
+      activeWordIndex.value = null
+      return
+    }
+  }
+
+  const hit = activeWordAt(ms, chapterTiming.value.verses)
+  if (!hit) return
+  if (hit.verse && hit.verse !== playingVerse.value) {
+    playingVerse.value = hit.verse
+    savePosition(selectedChapter.value, hit.verse)
+    scrollToVerse(hit.verse)
+    if (modes.tafsir) loadTafsir(hit.verse)
+  }
+  activeWordIndex.value = hit.wordIndex
 }
 
 function toggleAyah(verse) {
@@ -545,6 +746,10 @@ function goSurah(delta) {
 }
 
 function onAudioEnded() {
+  if (usingChapterAudio.value) {
+    stopAudio()
+    return
+  }
   if (!queueMode.value || !playingVerse.value) {
     isPlaying.value = false
     return
@@ -562,6 +767,21 @@ function onAudioEnded() {
 function onAudioError() {
   isPlaying.value = false
   audioError.value = t('quran.audioError')
+}
+
+async function loadTafsir(verse) {
+  if (!selectedChapter.value || !modes.tafsir) return
+  if (tafsirMap.value[verse]) return
+  tafsirLoadingVerse.value = verse
+  try {
+    const result = await quranApi.getTafsir(selectedChapter.value, verse)
+    tafsirName.value = result.name || tafsirName.value
+    tafsirMap.value = { ...tafsirMap.value, [verse]: result.text }
+  } catch {
+    tafsirMap.value = { ...tafsirMap.value, [verse]: t('quran.tafsir.error') }
+  } finally {
+    tafsirLoadingVerse.value = null
+  }
 }
 
 async function loadInfo() {
@@ -594,19 +814,25 @@ async function loadInfo() {
 async function loadAyahs() {
   if (!selectedChapter.value) return
   stopAudio()
+  chapterTiming.value = null
+  tafsirMap.value = {}
   ayahLoading.value = true
   ayahError.value = ''
   try {
     const requests = [
       quranApi.getChapter(QURAN_EDITIONS.ar.id, selectedChapter.value),
     ]
-    if (translationLang.value !== 'none') {
+    if (showTranslation.value) {
       const edition = QURAN_EDITIONS[translationLang.value] || QURAN_EDITIONS.en
       requests.push(quranApi.getChapter(edition.id, selectedChapter.value))
     }
     const [ar, tr] = await Promise.all(requests)
     arabicMap.value = chapterToMap(ar)
     translationMap.value = tr ? chapterToMap(tr) : {}
+
+    if (modes.wordSync && modes.player) {
+      ensureChapterTiming()
+    }
 
     const scrollTo = pendingScrollVerse.value
     pendingScrollVerse.value = null
@@ -636,7 +862,7 @@ function selectChapter(n) {
 
 watch(reciterId, (id) => {
   saveReciterId(id)
-  if (isPlaying.value && playingVerse.value) {
+  if (isPlaying.value && playingVerse.value && !modes.wordSync) {
     playVerse(playingVerse.value, { queue: queueMode.value })
   }
 })
@@ -645,7 +871,7 @@ watch(translationLang, (lang) => {
   saveTranslation(lang)
 })
 
-watch([selectedChapter, translationLang], () => {
+watch([selectedChapter, translationLang, () => modes.translation], () => {
   loadAyahs()
 })
 

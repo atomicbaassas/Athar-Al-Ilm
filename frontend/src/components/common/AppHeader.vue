@@ -64,6 +64,15 @@
         </RouterLink>
 
         <RouterLink
+          to="/contributors"
+          :class="navLinkClass"
+          active-class="!text-brand bg-brand-muted"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+        >
+          {{ t('nav.contributors') }}
+        </RouterLink>
+
+        <RouterLink
           v-if="auth.can('videos')"
           to="/videos"
           :class="navLinkClass"
@@ -133,11 +142,11 @@
           </svg>
         </button>
 
-        <!-- Language toggle (desktop only) -->
+        <!-- Language cycle EN → SW → AR (desktop) -->
         <button
           id="lang-toggle-btn"
           @click="toggleLocale"
-          :title="locale === 'en' ? 'Switch to Arabic' : 'Switch to English'"
+          :title="nextLocaleTitle"
           :class="isHomePage && !isScrolled
             ? homeTheme.theme.value === 'dark'
               ? 'text-white/70 hover:text-white border-white/20 hover:border-white/50 hover:bg-white/10'
@@ -149,7 +158,7 @@
             <circle cx="12" cy="12" r="10"/>
             <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
           </svg>
-          {{ locale === 'en' ? 'العربية' : 'English' }}
+          {{ localeLabel(locale) }}
         </button>
 
         <!-- Auth: logged in (desktop) -->
@@ -283,6 +292,15 @@
             </RouterLink>
 
             <RouterLink
+              to="/contributors"
+              active-class="bg-brand-muted text-brand"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              @click="mobileMenuOpen = false"
+            >
+              {{ t('nav.contributors') }}
+            </RouterLink>
+
+            <RouterLink
               v-if="auth.can('videos')"
               to="/videos"
               active-class="bg-brand-muted text-brand"
@@ -338,7 +356,7 @@
                 <circle cx="12" cy="12" r="10"/>
                 <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
               </svg>
-              {{ locale === 'en' ? 'العربية' : 'English' }}
+              {{ localeLabel(locale) }}
             </button>
 
             <!-- Dark / Light toggle (home page only) -->
@@ -406,7 +424,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
-import { setLocale } from '@/i18n'
+import { cycleLocale, localeLabel } from '@/i18n'
 import { useHomeTheme } from '@/composables/useHomeTheme'
 import BrandLockup from '@/components/common/BrandLockup.vue'
 
@@ -467,8 +485,14 @@ function handleLogout() {
   router.push('/')
 }
 
-// ── Locale toggle ──────────────────────────────────────────────────
+// ── Locale cycle EN → SW → AR ──────────────────────────────────────
+const nextLocaleTitle = computed(() => {
+  if (locale.value === 'en') return 'Switch to Kiswahili'
+  if (locale.value === 'sw') return 'التبديل إلى العربية'
+  return 'Switch to English'
+})
+
 function toggleLocale() {
-  setLocale(locale.value === 'en' ? 'ar' : 'en')
+  cycleLocale(locale.value)
 }
 </script>

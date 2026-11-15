@@ -37,6 +37,32 @@ function egyptianParams() {
   return CalculationMethod.Egyptian()
 }
 
+/** Haversine km — pick nearest preset city label when geo is close enough. */
+function distanceKm(aLat, aLon, bLat, bLon) {
+  const toRad = (d) => (d * Math.PI) / 180
+  const R = 6371
+  const dLat = toRad(bLat - aLat)
+  const dLon = toRad(bLon - aLon)
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLon / 2) ** 2
+  return 2 * R * Math.asin(Math.sqrt(s))
+}
+
+export function nearestCityLabelKey(lat, lon, maxKm = 80) {
+  let best = null
+  let bestKm = Infinity
+  for (const city of CITY_OPTIONS) {
+    const km = distanceKm(lat, lon, city.latitude, city.longitude)
+    if (km < bestKm) {
+      bestKm = km
+      best = city
+    }
+  }
+  if (best && bestKm <= maxKm) return best.nameKey
+  return 'home.prayer.nearYou'
+}
+
 function dayKey(date) {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 }
@@ -82,7 +108,8 @@ function formatRemaining(ms) {
 
 function formatClock(date, locale) {
   try {
-    return new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : 'en', {
+    const tag = locale === 'ar' ? 'ar' : locale === 'sw' ? 'sw' : 'en'
+    return new Intl.DateTimeFormat(tag, {
       hour: 'numeric',
       minute: '2-digit',
     }).format(date)
@@ -193,11 +220,13 @@ export function usePrayerTimes() {
     geoStatus.value = 'prompting'
     navigator.geolocation.getCurrentPosition(
       (pos) => {
+        const lat = pos.coords.latitude
+        const lon = pos.coords.longitude
         applyCoords({
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude,
+          lat,
+          lon,
           source: 'geo',
-          labelKey: 'home.prayer.nearYou',
+          labelKey: nearestCityLabelKey(lat, lon),
           id: 'geo',
         })
         geoStatus.value = 'granted'
@@ -227,11 +256,13 @@ export function usePrayerTimes() {
         if (isClient && navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             (pos) => {
+              const lat = pos.coords.latitude
+              const lon = pos.coords.longitude
               applyCoords({
-                lat: pos.coords.latitude,
-                lon: pos.coords.longitude,
+                lat,
+                lon,
                 source: 'geo',
-                labelKey: 'home.prayer.nearYou',
+                labelKey: nearestCityLabelKey(lat, lon),
                 id: 'geo',
               })
             },

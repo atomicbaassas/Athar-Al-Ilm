@@ -22,6 +22,14 @@ function nextAfterIsha(latitude, longitude, now) {
 }
 
 describe('prayer schedule (adhan / Egyptian, muslimtify-style local calc)', () => {
+  it('exposes Dar es Salaam fallback with Tanzania country in city options', async () => {
+    const { FALLBACK_CITY, CITY_OPTIONS, nearestCityLabelKey } = await import('./usePrayerTimes.js')
+    expect(FALLBACK_CITY.nameKey).toBe('home.prayer.cityDar')
+    expect(CITY_OPTIONS.some(c => c.id === 'dar')).toBe(true)
+    expect(nearestCityLabelKey(-6.7924, 39.2083)).toBe('home.prayer.cityDar')
+    expect(nearestCityLabelKey(0, 0)).toBe('home.prayer.nearYou')
+  })
+
   it('rolls to tomorrow fajr after isha in Dar es Salaam', () => {
     const evening = new Date(2026, 10, 15, 21, 0, 0)
     const { nextId, nextAt } = nextAfterIsha(-6.7924, 39.2083, evening)

@@ -10,12 +10,13 @@
     "admin": "Admin",
     "logout": "Logout",
     "login": "Login",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "contributors": "Contributors"
   },
   "quran": {
     "eyebrow": "Quran",
     "title": "Read the Quran",
-    "subtitle": "Arabic mushaf with English or Swahili translation — first languages only.",
+    "subtitle": "Arabic mushaf with English or Swahili translation, optional Al-Sa'di tafsir, and word-synced recitation.",
     "translation": "Translation",
     "arabicOnly": "Arabic only",
     "surahs": "Surahs",
@@ -57,6 +58,23 @@
         "ease": "Ease",
         "trust": "Trust"
       }
+    },
+    "modes": {
+      "label": "Reader modes",
+      "player": "Player",
+      "wordSync": "Word highlight",
+      "tafsir": "Tafsir",
+      "translation": "Translation",
+      "compact": "Compact",
+      "wordSyncHint": "Word sync uses verified Al-Afasy chapter timings (via Athar gateway). EveryAyah has no word timestamps.",
+      "wordSyncUnavailable": "Word timings unavailable for this surah — falling back to ayah audio.",
+      "wordSyncReciter": "Al-Afasy · timed chapter"
+    },
+    "tafsir": {
+      "label": "Tafsir",
+      "show": "Show Al-Sa'di",
+      "loading": "Loading tafsir…",
+      "error": "Could not load tafsir."
     }
   },
   "home": {
@@ -72,14 +90,12 @@
     "feature2Desc": "Every lesson is reviewed and verified by qualified scholars before it goes live.",
     "feature3Title": "For the Ummah",
     "feature3Desc": "Multilingual, open source, free forever. No paywalls, no subscriptions. Built by Muslims, for Muslims.",
-
     "heroDecor": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     "heroHeadline": "Structured Islamic Learning for the Ummah",
     "heroSub": "Not another prayer app. Athar Al 'Ilm gives you a rigorous, scholar-verified curriculum — from beginner to advanced — grounded in authentic knowledge. Free forever.",
     "heroScrollHint": "Scroll to explore",
     "heroCta1": "Start Learning",
     "heroCta2": "Contribute on GitHub",
-
     "prayer": {
       "ariaLabel": "Prayer times",
       "until": "Until",
@@ -93,14 +109,13 @@
       "nearYou": "Near you",
       "useLocation": "Use my location",
       "changeCity": "Change city",
-      "cityDar": "Dar es Salaam",
-      "cityDodoma": "Dodoma",
-      "cityArusha": "Arusha",
-      "cityZanzibar": "Zanzibar",
-      "cityNairobi": "Nairobi",
+      "cityDar": "Dar es Salaam, Tanzania",
+      "cityDodoma": "Dodoma, Tanzania",
+      "cityArusha": "Arusha, Tanzania",
+      "cityZanzibar": "Zanzibar, Tanzania",
+      "cityNairobi": "Nairobi, Kenya",
       "methodNote": "Local times · Egyptian method · timing aid only"
     },
-
     "problemBadge": "The problem",
     "problemTitle": "1.8 billion Muslims. Zero platforms worth their time.",
     "problemSub": "Islamic learning has been stuck for a decade. Here is what every existing platform gets wrong.",
@@ -110,7 +125,6 @@
     "pain2Desc": "Anyone can post anything. There is no review process, no vetting, and no way to know if a source is reliable.",
     "pain3Title": "Designed for Passive Consumption",
     "pain3Desc": "No progress tracking, no quizzes, no retention tools. You watch, forget, and start over.",
-
     "diffBadge": "The solution",
     "diffTitle": "This is different. Built for serious learners.",
     "diffSub": "Athar Al 'Ilm was designed from the ground up to solve every one of these problems.",
@@ -118,11 +132,10 @@
     "diff1Desc": "Six progressive learning tracks. Each lesson builds on the last. You always know exactly where you are and what comes next.",
     "diff2Title": "Scholar-Verified",
     "diff2Desc": "Every lesson is reviewed and approved by qualified scholars before publication. No guesswork, no unreliable sources.",
-    "diff3Title": "AI-Augmented Learning",
-    "diff3Desc": "Ask questions about any lesson. Get context-aware answers grounded in the curriculum you are studying.",
+    "diff3Title": "Guided study tools",
+    "diff3Desc": "Ask about lessons within the curriculum. Answers stay grounded in published Athar content — never treated as a religious source of truth.",
     "diff4Title": "Open Source & Free Forever",
     "diff4Desc": "No paywalls. No subscriptions. The code is public. The knowledge belongs to the Ummah — always.",
-
     "roadmapBadge": "Roadmap",
     "roadmapTitle": "Six phases. One mission.",
     "roadmapSub": "We are building this in public. Here is exactly what is planned and when.",
@@ -132,16 +145,15 @@
     "phase1Title": "Structured Learning Paths",
     "phase1Desc": "Curriculum tracks, rich lessons, progress tracking, the reader, admin authoring, RTL & AI translations — shipped and live.",
     "phase2Title": "Active Learning",
-    "phase2Desc": "Spaced repetition, AI Socratic questioning, and teach-it-back to make every lesson stick.",
-    "phase3Title": "AI Research Assistant",
-    "phase3Desc": "Ask anything and get cited answers cross-referenced across Quran, Hadith, and classical scholarship.",
+    "phase2Desc": "Spaced repetition, guided questioning, and teach-it-back to make every lesson stick.",
+    "phase3Title": "Research assistant (planned)",
+    "phase3Desc": "Cited answers cross-referenced across Quran, Hadith, and classical scholarship — Salafi sources only.",
     "phase4Title": "Primary Source Library",
     "phase4Desc": "Unified Quran, Hadith, and classical texts — searchable, contextual, and linked by isnad.",
     "phase5Title": "Interdisciplinary Connections",
     "phase5Desc": "How Golden Age scholars connected theology, science, mathematics, philosophy, and medicine.",
     "phase6Title": "Community & Verification",
     "phase6Desc": "Scholar review, discussion threads anchored to texts, study groups, and open contribution.",
-
     "audienceBadge": "Who it is for",
     "audienceTitle": "Built for every Muslim on the path to knowledge",
     "audience1Title": "Muslim Youth",
@@ -154,7 +166,6 @@
     "audience4Desc": "Author, review, and publish lessons using our scholar-only authoring platform.",
     "audience5Title": "Developers",
     "audience5Desc": "Contribute to an open-source platform that serves the global Ummah.",
-
     "openSourceBadge": "Open Source",
     "openSourceTitle": "Islamic knowledge belongs to the Ummah",
     "openSourceSub": "Athar Al 'Ilm is free, open source, and will always remain so. No venture capital. No ads. No data harvesting. Built by Muslims who believe knowledge should be free.",
@@ -163,7 +174,6 @@
     "statLanguages": "Languages",
     "ctaGithub": "Star on GitHub",
     "ctaDocs": "Read the Docs",
-
     "finalBadge": "Join us",
     "finalTitle": "Start learning today.",
     "finalTitleAccent": "It is free.",
@@ -376,6 +386,58 @@
       "message": "Please verify your email address.",
       "resend": "Resend email",
       "sent": "Sent! Check your inbox."
+    }
+  },
+  "contributors": {
+    "eyebrow": "Credits",
+    "title": "Contributors & sources",
+    "subtitle": "Athar Al 'Ilm stands on open Islamic software and Salafi content APIs. Here is what we took, and a duʿāʾ for everyone who shared knowledge.",
+    "duaTitle": "Duʿāʾ for those who helped",
+    "duaArabic": "رَبَّنَا ٱغْفِرْ لَنَا وَلِإِخْوَٰنِنَا ٱلَّذِينَ سَبَقُونَا بِٱلْإِيمَٰنِ وَلَا تَجْعَلْ فِى قُلُوبِنَا غِلًّا لِّلَّذِينَ ءَامَنُوا۟ رَبَّنَآ إِنَّكَ رَءُوفٌۭ رَّحِيمٌ",
+    "duaTranslation": "Our Lord, forgive us and our brothers who preceded us in faith, and put not in our hearts any resentment toward those who have believed. Our Lord, indeed You are Kind and Merciful.",
+    "duaSource": "Quran 59:10 (Al-Ḥashr) — Uthmani text via Athar gateway / fawazahmed0; meaning aligned with common English renderings. Not AI-invented.",
+    "mitNote": "Athar Al 'Ilm remains MIT-licensed with upstream attribution where required. Brand voice and learner product are Athar Al 'Ilm / أثر العلم.",
+    "items": {
+      "tadabbur": {
+        "name": "Tadabbur (upstream Vue/Django fork)",
+        "taken": "Base learner/admin app structure, curriculum, library, and auth flows. Rebranded and extended for Athar Al 'Ilm."
+      },
+      "quranapi": {
+        "name": "fawazahmed0/quran-api",
+        "taken": "Uthmani Hafs mushaf JSON plus EN/SW edition shapes for /quran (proxied via athar-gateway)."
+      },
+      "everyayah": {
+        "name": "EveryAyah",
+        "taken": "Per-ayah MP3 recitations and multi-reciter picker when word-sync is off."
+      },
+      "qurancom": {
+        "name": "Quran.com Content API",
+        "taken": "Verified chapter audio word segments for realtime highlighting, and Al-Sa'di tafsir text delivery (timing/tafsir metadata via gateway allowlist)."
+      },
+      "quranfi": {
+        "name": "Quranfi patterns",
+        "taken": "Chapter listen UX, verse seek, and sticky mobile player patterns adapted for Athar."
+      },
+      "ibnuh": {
+        "name": "ibnuh/quran",
+        "taken": "Word-by-word highlight while listening pattern (timing from Quran.com segments, not invented clocks)."
+      },
+      "adhan": {
+        "name": "adhan-js / muslimtify method inspiration",
+        "taken": "On-device prayer times with Egyptian calculation method; city presets for Tanzania/Kenya."
+      },
+      "islamhouse": {
+        "name": "IslamHouse",
+        "taken": "Books/PDFs including Hisn Al-Muslim for /quran/dua (keys stay on gateway)."
+      },
+      "quranenc": {
+        "name": "QuranEnc",
+        "taken": "Salafi-aligned translation API (still preferred C-SRC path; gateway /v1/quran)."
+      },
+      "betterdesign": {
+        "name": "Better Design",
+        "taken": "UI/UX review principles applied to Athar learner chrome and prayer card composition."
+      }
     }
   }
 }

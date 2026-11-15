@@ -1,6 +1,7 @@
 /**
  * Athar Al 'Ilm sources gateway.
- * Proxies QuranEnc, HadeethEnc, IslamHouse, and fawazahmed0/quran-api (CDN).
+ * Proxies QuranEnc, HadeethEnc, IslamHouse, fawazahmed0/quran-api (CDN),
+ * and Quran.com Content API (timing metadata + Salafi tafsir text only).
  * No HTML scrape; JSON only.
  * shortcut: no cache layer yet — add Redis when traffic warrants it.
  */
@@ -19,6 +20,8 @@ const UPSTREAM = {
   // (QuranEnc also has EN/SW; Swahili + Uthmani mushaf shipped via this CDN first).
   quranapi: "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1",
   quranapiFallback: "https://raw.githubusercontent.com/fawazahmed0/quran-api/1",
+  // Technical audio timestamps + Al-Sa'di tafsir delivery (not a mushaf source).
+  qurancom: "https://api.quran.com/api/v4",
 };
 
 function json(res, status, body) {
@@ -85,6 +88,19 @@ function buildUpstream(kind, path, searchParams) {
       fallback: `${UPSTREAM.quranapiFallback}${p.replace(/\.min\.json$/, ".json")}`,
     };
   }
+  if (kind === "qurancom") {
+    // Allowlist: chapter audio + segments, tafsir resources / by_ayah only.
+    const p = path.startsWith("/") ? path : `/${path}`;
+    const allowed =
+      /^\/chapter_recitations\/\d+\/\d+$/.test(p) ||
+      /^\/tafsirs\/\d+\/by_ayah\/\d+:\d+$/.test(p) ||
+      p === "/resources/tafsirs" ||
+      p === "/resources/chapter_reciters";
+    if (!allowed) return null;
+    const u = new URL(`${UPSTREAM.qurancom}${p}`);
+    searchParams.forEach((v, k) => u.searchParams.set(k, v));
+    return u.toString();
+  }
   return null;
 }
 
@@ -109,7 +125,7 @@ const server = http.createServer(async (req, res) => {
     return json(res, 200, {
       service: "athar-gateway",
       ok: true,
-      sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi"],
+      sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi", "qurancom"],
       dorar: process.env.DORAR_API_KEY ? "configured" : "token_required",
     });
   }
@@ -133,12 +149,12 @@ const server = http.createServer(async (req, res) => {
     });
   }
 
-  // /v1/quran/...  /v1/hadeeth/...  /v1/islamhouse/...  /v1/quranapi/...
-  const m = pathname.match(/^\/v1\/(quran|hadeeth|islamhouse|quranapi)(\/.*)?$/);
+  // /v1/quran/...  /v1/hadeeth/...  /v1/islamhouse/...  /v1/quranapi/...  /v1/qurancom/...
+  const m = pathname.match(/^\/v1\/(quran|hadeeth|islamhouse|quranapi|qurancom)(\/.*)?$/);
   if (!m) {
     return json(res, 404, {
       error: "not_found",
-      hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/dorar/status, /health",
+      hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, /v1/dorar/status, /health",
     });
   }
 
@@ -146,7 +162,9 @@ const server = http.createServer(async (req, res) => {
   const path = m[2] || "/";
   const upstream = buildUpstream(kind, path, url.searchParams);
   if (!upstream) {
-    return json(res, 400, { error: "bad_source" });
+    return json(res, kind === "qurancom" ? 403 : 400, {
+      error: kind === "qurancom" ? "path_not_allowed" : "bad_source",
+    });
   }
 
   try {

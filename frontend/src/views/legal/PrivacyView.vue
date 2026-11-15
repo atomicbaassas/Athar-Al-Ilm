@@ -10,7 +10,7 @@
       <p class="text-sm text-gray-400 mb-10">Last updated: 25 June 2026</p>
 
       <p>
-        Athar Al Ilm ("we", "us", "our") is a free, open-source Islamic learning platform. This Privacy
+        Athar Al 'Ilm ("we", "us", "our") is a free, open-source Islamic learning platform. This Privacy
         Policy explains what information we collect, how we use it, and the choices you have. By using
         <a href="https://atharulilm.or.tz">atharulilm.or.tz</a> you agree to this policy.
       </p>
@@ -61,7 +61,7 @@
 
       <h2>Children's privacy</h2>
       <p>
-        Athar Al Ilm is intended for general audiences. We do not knowingly collect personal information from
+        Athar Al 'Ilm is intended for general audiences. We do not knowingly collect personal information from
         children under 13. If you believe a child has provided us information, please contact us and we
         will remove it.
       </p>
@@ -86,7 +86,7 @@ import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
 useSeo({
   title: 'Privacy Policy',
-  description: 'How Athar Al Ilm collects, uses, and protects your information.',
+  description: 'How Athar Al 'Ilm collects, uses, and protects your information.',
   url: `${SEO_ORIGIN}/privacy`,
 })
 </script>

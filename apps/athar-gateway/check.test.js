@@ -53,4 +53,17 @@ test("health + quran translations list", async (t) => {
   const qaBody = await quranapi.json();
   assert.equal(qaBody.source, "quranapi");
   assert.ok(qaBody.data?.chapter?.length);
+
+  const timed = await fetch(
+    `http://127.0.0.1:${PORT}/v1/qurancom/chapter_recitations/7/1?segments=true`,
+  );
+  assert.equal(timed.status, 200);
+  const timedBody = await timed.json();
+  assert.equal(timedBody.source, "qurancom");
+  assert.ok(timedBody.data?.audio_file?.timestamps?.length);
+
+  const blocked = await fetch(
+    `http://127.0.0.1:${PORT}/v1/qurancom/verses/uthmani`,
+  );
+  assert.equal(blocked.status, 403);
 });

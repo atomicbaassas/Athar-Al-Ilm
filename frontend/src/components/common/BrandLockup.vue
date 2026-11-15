@@ -16,7 +16,7 @@
         locale === 'ar' ? 'font-arabic text-[1.05rem] sm:text-lg font-bold' : 'text-sm sm:text-base font-semibold',
         wordmarkClass,
       ]"
-      :lang="locale === 'ar' ? 'ar' : 'en'"
+      :lang="locale === 'ar' ? 'ar' : locale === 'sw' ? 'sw' : 'en'"
     >
       {{ t('brand.lockup') }}
     </span>

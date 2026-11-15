@@ -225,7 +225,7 @@ useSeo(() => {
       name: tr.title,
       description: tr.description,
       url,
-      provider: { '@type': 'Organization', name: 'Athar Al Ilm', url: SEO_ORIGIN },
+      provider: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
     },
   }
 })

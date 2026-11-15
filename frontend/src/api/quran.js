@@ -2,14 +2,21 @@
  * Quran reader client — fawazahmed0/quran-api via Athar gateway (/athar/v1/quranapi).
  * Editions (first languages): Arabic mushaf + EN/SW translations only.
  *
- * Audio: quran-api has no recitation endpoint. Author points to EveryAyah
- * (https://github.com/fawazahmed0/quran-api/issues/64). HTML5 MP3 from
- * EveryAyah (CORS *). Binary audio is not proxied through the JSON gateway.
+ * Audio:
+ * - Per-ayah: EveryAyah MP3 (CORS *). One file per ayah → ayah highlight.
+ * - Word sync: Quran.com chapter audio + verified word segments via
+ *   /athar/v1/qurancom (Al-Afasy murattal id 7). EveryAyah has no word timings.
  *
- * Highlight: per-ayah queue (EveryAyah ships one MP3 per ayah). Word-level
- * timestamps would need mp3quran.net chapter audio — not wired here.
+ * Tafsir: Al-Sa'di (resource 91) via /athar/v1/qurancom — Salafi text, not invented.
  */
-const GATEWAY = '/athar/v1/quranapi'
+const GATEWAY_QURANAPI = '/athar/v1/quranapi'
+const GATEWAY_QURANCOM = '/athar/v1/qurancom'
+
+/** Quran.com chapter-reciter id with verified word segments (Al-Afasy murattal). */
+export const WORD_SYNC_RECITER_ID = 7
+
+/** Al-Sa'di Arabic tafsir (Quran.com resource id). */
+export const TAFSIR_SAADI_ID = 91
 
 /** EveryAyah reciter folders (verified 200 on 001001.mp3). */
 export const QURAN_RECITERS = [
@@ -18,6 +25,7 @@ export const QURAN_RECITERS = [
     label: 'Mishary Rashid Alafasy',
     labelAr: 'مشاري راشد العفاسي',
     base: 'https://everyayah.com/data/Alafasy_128kbps',
+    wordSyncId: WORD_SYNC_RECITER_ID,
   },
   {
     id: 'Abdul_Basit_Murattal_192kbps',
@@ -105,9 +113,18 @@ export const QURAN_EDITIONS = {
 const STORAGE_RECITER = 'athar-quran-reciter'
 const STORAGE_POSITION = 'athar-quran-position'
 const STORAGE_TRANSLATION = 'athar-quran-translation'
+const STORAGE_MODES = 'athar-quran-modes'
 
-async function gatewayGet(path) {
-  const res = await fetch(`${GATEWAY}${path.startsWith('/') ? path : `/${path}`}`)
+export const DEFAULT_QURAN_MODES = {
+  tafsir: false,
+  player: true,
+  translation: true,
+  compact: false,
+  wordSync: true,
+}
+
+async function gatewayGet(base, path) {
+  const res = await fetch(`${base}${path.startsWith('/') ? path : `/${path}`}`)
   if (!res.ok) {
     throw new Error(`Quran gateway ${res.status}`)
   }
@@ -151,6 +168,36 @@ export function saveTranslation(lang) {
   localStorage.setItem(STORAGE_TRANSLATION, lang)
 }
 
+export function loadSavedModes() {
+  const base = { ...DEFAULT_QURAN_MODES }
+  if (typeof localStorage === 'undefined') return base
+  try {
+    const raw = localStorage.getItem(STORAGE_MODES)
+    if (!raw) return base
+    const parsed = JSON.parse(raw)
+    return {
+      tafsir: Boolean(parsed?.tafsir),
+      player: parsed?.player !== false,
+      translation: parsed?.translation !== false,
+      compact: Boolean(parsed?.compact),
+      wordSync: parsed?.wordSync !== false,
+    }
+  } catch {
+    return base
+  }
+}
+
+export function saveModes(modes) {
+  if (typeof localStorage === 'undefined') return
+  localStorage.setItem(STORAGE_MODES, JSON.stringify({
+    tafsir: Boolean(modes.tafsir),
+    player: modes.player !== false,
+    translation: modes.translation !== false,
+    compact: Boolean(modes.compact),
+    wordSync: modes.wordSync !== false,
+  }))
+}
+
 export function loadSavedPosition() {
   if (typeof localStorage === 'undefined') return null
   try {
@@ -174,8 +221,111 @@ export function savePosition(chapter, verse) {
   }))
 }
 
+/** Split Uthmani ayah into display words (space-separated). */
+export function splitAyahWords(arabic) {
+  return String(arabic || '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+}
+
+/**
+ * Normalize Quran.com segments to { wordIndex (1-based), startMs, endMs }.
+ * Drops incomplete rows like [1] without times (repeats / placeholders).
+ */
+export function normalizeSegments(segments) {
+  if (!Array.isArray(segments)) return []
+  const out = []
+  for (const row of segments) {
+    if (!Array.isArray(row) || row.length < 3) continue
+    const wordIndex = Number(row[0])
+    const startMs = Number(row[1])
+    const endMs = Number(row[2])
+    if (!wordIndex || !Number.isFinite(startMs) || !Number.isFinite(endMs)) continue
+    out.push({ wordIndex, startMs, endMs })
+  }
+  return out
+}
+
+/**
+ * Find active word index (1-based) for current chapter audio time in ms.
+ * Returns null if outside known segments.
+ */
+export function activeWordAt(ms, verseTimings) {
+  if (!verseTimings?.length || !Number.isFinite(ms)) return null
+  for (const vt of verseTimings) {
+    if (ms < vt.timestampFrom || ms > vt.timestampTo) continue
+    const segs = vt.segments || []
+    for (let i = segs.length - 1; i >= 0; i -= 1) {
+      const s = segs[i]
+      if (ms >= s.startMs) {
+        return { verse: vt.verse, wordIndex: s.wordIndex }
+      }
+    }
+    return { verse: vt.verse, wordIndex: segs[0]?.wordIndex || 1 }
+  }
+  // Between verses: pick verse by timestamp envelope
+  for (const vt of verseTimings) {
+    if (ms >= vt.timestampFrom && ms < vt.timestampTo) {
+      return { verse: vt.verse, wordIndex: null }
+    }
+  }
+  return null
+}
+
+export function parseVerseKey(key) {
+  const [c, v] = String(key || '').split(':').map(Number)
+  return { chapter: c || 0, verse: v || 0 }
+}
+
+/** Strip HTML from tafsir payloads for safe plain-text display. */
+export function stripHtml(html) {
+  return String(html || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 export const quranApi = {
-  getInfo: () => gatewayGet('/info'),
+  getInfo: () => gatewayGet(GATEWAY_QURANAPI, '/info'),
   getChapter: (editionId, chapter) =>
-    gatewayGet(`/editions/${editionId}/${Number(chapter)}`),
+    gatewayGet(GATEWAY_QURANAPI, `/editions/${editionId}/${Number(chapter)}`),
+
+  /**
+   * Chapter audio + word segments (Quran.com via gateway).
+   * @returns {{ audioUrl, durationMs, verses: Array<{verse, timestampFrom, timestampTo, segments}> }}
+   */
+  async getChapterTiming(chapter, reciterId = WORD_SYNC_RECITER_ID) {
+    const data = await gatewayGet(
+      GATEWAY_QURANCOM,
+      `/chapter_recitations/${Number(reciterId)}/${Number(chapter)}?segments=true`,
+    )
+    const file = data?.audio_file || data
+    const timestamps = file?.timestamps || []
+    return {
+      audioUrl: file?.audio_url || '',
+      durationMs: Number(file?.duration) || 0,
+      verses: timestamps.map((row) => {
+        const { verse } = parseVerseKey(row.verse_key)
+        return {
+          verse,
+          timestampFrom: Number(row.timestamp_from) || 0,
+          timestampTo: Number(row.timestamp_to) || 0,
+          segments: normalizeSegments(row.segments),
+        }
+      }).filter(v => v.verse >= 1),
+    }
+  },
+
+  async getTafsir(chapter, verse, tafsirId = TAFSIR_SAADI_ID) {
+    const data = await gatewayGet(
+      GATEWAY_QURANCOM,
+      `/tafsirs/${Number(tafsirId)}/by_ayah/${Number(chapter)}:${Number(verse)}`,
+    )
+    const tafsir = data?.tafsir || data
+    return {
+      name: tafsir?.resource_name || tafsir?.translated_name?.name || "Al-Sa'di",
+      text: stripHtml(tafsir?.text || ''),
+    }
+  },
 }
