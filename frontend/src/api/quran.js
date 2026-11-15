@@ -114,6 +114,11 @@ const STORAGE_RECITER = 'athar-quran-reciter'
 const STORAGE_POSITION = 'athar-quran-position'
 const STORAGE_TRANSLATION = 'athar-quran-translation'
 const STORAGE_MODES = 'athar-quran-modes'
+const STORAGE_SPEED = 'athar-quran-speed'
+const STORAGE_EXPERIENCE = 'athar-quran-experience'
+
+export const QURAN_SPEEDS = [0.75, 1, 1.25, 1.5]
+export const QURAN_EXPERIENCES = ['read', 'learn', 'listen']
 
 export const DEFAULT_QURAN_MODES = {
   tafsir: false,
@@ -196,6 +201,39 @@ export function saveModes(modes) {
     compact: Boolean(modes.compact),
     wordSync: modes.wordSync !== false,
   }))
+}
+
+export function loadSavedSpeed() {
+  if (typeof localStorage === 'undefined') return 1
+  const n = Number(localStorage.getItem(STORAGE_SPEED))
+  return QURAN_SPEEDS.includes(n) ? n : 1
+}
+
+export function saveSpeed(rate) {
+  if (typeof localStorage === 'undefined') return
+  localStorage.setItem(STORAGE_SPEED, String(rate))
+}
+
+export function loadSavedExperience() {
+  if (typeof localStorage === 'undefined') return 'learn'
+  const v = localStorage.getItem(STORAGE_EXPERIENCE)
+  return QURAN_EXPERIENCES.includes(v) ? v : 'learn'
+}
+
+export function saveExperience(exp) {
+  if (typeof localStorage === 'undefined') return
+  localStorage.setItem(STORAGE_EXPERIENCE, exp)
+}
+
+/** Presets for reading / learning / listening experiences. */
+export function modesForExperience(exp) {
+  if (exp === 'read') {
+    return { player: false, wordSync: false, tafsir: false, translation: true, compact: false }
+  }
+  if (exp === 'listen') {
+    return { player: true, wordSync: true, tafsir: false, translation: false, compact: true }
+  }
+  return { player: true, wordSync: true, tafsir: true, translation: true, compact: false }
 }
 
 export function loadSavedPosition() {

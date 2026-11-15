@@ -1,21 +1,21 @@
 <template>
   <div
-    class="quran-page min-h-screen bg-white overflow-x-hidden"
-    :class="modes.player ? 'pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-20' : 'pb-10'"
+    class="quran-page min-h-screen overflow-x-hidden"
+    :class="modes.player ? 'pb-[calc(7.5rem+env(safe-area-inset-bottom))] sm:pb-28' : 'pb-10'"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-4 sm:pt-12 sm:pb-6">
-      <p class="text-xs font-bold uppercase tracking-widest text-brand mb-4 flex items-center gap-2">
-        <span class="w-4 h-px bg-brand inline-block"></span>
+      <p class="text-sm font-semibold text-brand mb-3 flex items-center gap-2 text-balance">
+        <span class="w-4 h-px bg-brand inline-block" aria-hidden="true"></span>
         {{ t('quran.eyebrow') }}
       </p>
 
       <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div class="min-w-0">
-          <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-2">
+          <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-2 text-balance">
             {{ t('quran.title') }}
           </h1>
-          <p class="text-gray-500 text-base sm:text-lg max-w-xl">
-            {{ t('quran.subtitle') }}
+          <p class="text-gray-500 text-base sm:text-lg max-w-xl text-pretty">
+            {{ experienceHint }}
           </p>
         </div>
 
@@ -30,9 +30,31 @@
         </div>
       </div>
 
-      <!-- Mode toggles -->
+      <!-- Experience: Reading / Learning / Listening -->
       <div
-        class="mt-5 flex flex-wrap gap-2"
+        class="mt-6 p-1 rounded-2xl bg-white/80 border border-brand/10 shadow-sm inline-flex flex-wrap gap-1 max-w-full"
+        role="tablist"
+        :aria-label="t('quran.experience.label')"
+      >
+        <button
+          v-for="exp in experienceButtons"
+          :key="exp.key"
+          type="button"
+          role="tab"
+          class="inline-flex items-center min-h-11 px-4 rounded-xl text-sm font-semibold transition-all duration-200 touch-manipulation"
+          :class="experience === exp.key
+            ? 'bg-brand text-white shadow-md shadow-brand/25'
+            : 'text-gray-600 hover:bg-brand-muted/60 hover:text-brand'"
+          :aria-selected="experience === exp.key ? 'true' : 'false'"
+          @click="setExperience(exp.key)"
+        >
+          {{ exp.label }}
+        </button>
+      </div>
+
+      <!-- Secondary options -->
+      <div
+        class="mt-4 flex flex-wrap gap-2"
         role="group"
         :aria-label="t('quran.modes.label')"
       >
@@ -43,16 +65,17 @@
           class="inline-flex items-center min-h-10 px-3 rounded-xl border text-sm font-semibold transition-colors touch-manipulation"
           :class="modes[m.key]
             ? 'border-brand/40 bg-brand-muted text-brand'
-            : 'border-gray-200 bg-white text-gray-600 hover:border-brand/30'"
+            : 'border-gray-200/80 bg-white/70 text-gray-600 hover:border-brand/30'"
           :aria-pressed="modes[m.key] ? 'true' : 'false'"
           @click="toggleMode(m.key)"
         >
           {{ m.label }}
         </button>
       </div>
-      <p v-if="modes.wordSync && modes.player" class="mt-2 text-xs text-gray-400">
+      <p v-if="modes.wordSync && modes.player" class="mt-2 text-xs text-gray-400 text-pretty">
         {{ t('quran.modes.wordSyncHint') }}
       </p>
+      <p class="sr-only" role="status" aria-live="polite">{{ liveStatus }}</p>
 
       <!-- Controls row -->
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
@@ -80,6 +103,29 @@
               {{ locale === 'ar' ? r.labelAr : r.label }}
             </option>
           </select>
+        </label>
+
+        <label v-if="modes.player" class="flex flex-col gap-1 min-w-0">
+          <span class="text-xs font-semibold text-gray-500" id="quran-speed-label">{{ t('quran.speedLabel') }}</span>
+          <div
+            class="inline-flex rounded-xl border border-gray-200 bg-white p-0.5 gap-0.5"
+            role="group"
+            aria-labelledby="quran-speed-label"
+          >
+            <button
+              v-for="rate in QURAN_SPEEDS"
+              :key="rate"
+              type="button"
+              class="min-h-10 min-w-12 px-2 rounded-lg text-sm font-semibold tabular-nums transition-colors touch-manipulation"
+              :class="playbackSpeed === rate
+                ? 'bg-brand text-white'
+                : 'text-gray-600 hover:bg-gray-50'"
+              :aria-pressed="playbackSpeed === rate ? 'true' : 'false'"
+              @click="setSpeed(rate)"
+            >
+              {{ rate === 1 ? '1×' : `${rate}×` }}
+            </button>
+          </div>
         </label>
 
         <label v-if="modes.translation" class="flex flex-col gap-1 min-w-0 sm:w-48">
@@ -230,12 +276,12 @@
               v-for="ayah in ayahs"
               :id="`ayah-${ayah.verse}`"
               :key="ayah.verse"
-              class="rounded-2xl border transition-colors duration-200 scroll-mt-28"
+              class="ayah-card rounded-2xl border scroll-mt-28"
               :class="[
                 modes.compact ? 'p-3 sm:p-4' : 'p-4 sm:p-6',
                 playingVerse === ayah.verse
-                  ? 'border-brand/50 bg-[#0B3D2E]/[0.06] ring-2 ring-brand/15 shadow-[0_0_0_1px_rgba(11,61,46,0.08)]'
-                  : 'border-gray-100 bg-white shadow-[0_8px_24px_-18px_rgba(0,0,0,0.35)]',
+                  ? 'ayah-card--active border-brand/50 bg-[#0B3D2E]/[0.07] ring-2 ring-brand/20'
+                  : 'border-gray-100/90 bg-white/90 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.35)]',
               ]"
             >
               <div class="flex items-start justify-between gap-3 mb-3">
@@ -296,11 +342,11 @@
                   <span
                     v-for="(word, wi) in ayah.words"
                     :key="`${ayah.verse}-${wi}`"
-                    class="inline transition-colors duration-100 rounded-sm px-0.5"
+                    class="quran-word inline rounded-sm px-0.5"
                     :class="playingVerse === ayah.verse && activeWordIndex === wi + 1
-                      ? 'bg-brand text-white'
+                      ? 'quran-word--active bg-brand text-white'
                       : playingVerse === ayah.verse
-                        ? 'text-brand'
+                        ? 'text-brand/90'
                         : ''"
                   >{{ word }}{{ wi < ayah.words.length - 1 ? ' ' : '' }}</span>
                 </template>
@@ -346,11 +392,24 @@
 
     <div
       v-if="modes.player"
-      class="fixed inset-x-0 bottom-0 z-40 border-t border-brand/15 bg-white/95 backdrop-blur-md
-             px-3 pt-2.5 pb-[max(0.65rem,env(safe-area-inset-bottom))] shadow-[0_-8px_28px_-16px_rgba(11,61,46,0.35)]"
+      class="quran-dock fixed inset-x-0 bottom-0 z-40 border-t border-brand/15 bg-white/95 backdrop-blur-md
+             px-3 pt-2 pb-[max(0.65rem,env(safe-area-inset-bottom))] shadow-[0_-8px_28px_-16px_rgba(11,61,46,0.35)]"
       role="region"
       :aria-label="t('quran.listen')"
     >
+      <div
+        class="max-w-6xl mx-auto h-1 rounded-full bg-brand/10 overflow-hidden mb-2"
+        role="progressbar"
+        :aria-valuenow="Math.round(progressPct)"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        :aria-label="t('quran.nowPlaying')"
+      >
+        <div
+          class="h-full bg-brand transition-[width] duration-150 ease-out"
+          :style="{ width: `${progressPct}%` }"
+        />
+      </div>
       <div class="max-w-6xl mx-auto flex items-center gap-2 sm:gap-3 min-w-0">
         <button
           type="button"
@@ -367,8 +426,9 @@
 
         <button
           type="button"
-          class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand text-white
+          class="quran-play-btn inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand text-white
                  shadow-lg shadow-brand/25 touch-manipulation shrink-0 disabled:opacity-40"
+          :class="{ 'quran-play-btn--pulse': isPlaying }"
           :aria-label="isPlaying ? t('quran.pause') : t('quran.playSurah')"
           :disabled="!selectedChapter || !ayahs.length"
           @click="toggleStickyPlay"
@@ -397,9 +457,22 @@
             {{ stickyTitle }}
           </p>
           <p class="text-xs text-gray-500 truncate">
-            {{ stickySubtitle }}
+            {{ stickySubtitle }} · {{ playbackSpeed }}×
           </p>
         </div>
+
+        <label v-if="!modes.wordSync" class="hidden sm:flex flex-col gap-0.5 shrink-0 max-w-[10rem]">
+          <span class="sr-only">{{ t('quran.reciterLabel') }}</span>
+          <select
+            v-model="reciterId"
+            class="min-h-10 text-sm border border-gray-200 rounded-lg px-2 bg-white cursor-pointer
+                   focus:outline-none focus:ring-2 focus:ring-brand/15"
+          >
+            <option v-for="r in QURAN_RECITERS" :key="r.id" :value="r.id">
+              {{ locale === 'ar' ? r.labelAr : r.label }}
+            </option>
+          </select>
+        </label>
       </div>
     </div>
 
@@ -407,7 +480,7 @@
       ref="audioEl"
       preload="none"
       class="hidden"
-      @play="isPlaying = true"
+      @play="onAudioPlay"
       @pause="isPlaying = false"
       @ended="onAudioEnded"
       @error="onAudioError"
@@ -415,6 +488,50 @@
     />
   </div>
 </template>
+
+<style scoped>
+.quran-page {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(11, 61, 46, 0.08), transparent 55%),
+    linear-gradient(180deg, #f7faf8 0%, #ffffff 40%, #f4f7f5 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ayah-card {
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.ayah-card--active {
+  box-shadow: 0 12px 32px -18px rgba(11, 61, 46, 0.45);
+}
+
+.quran-word {
+  transition: color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.quran-word--active {
+  box-shadow: 0 0 0 2px rgba(11, 61, 46, 0.2);
+}
+
+.quran-play-btn--pulse {
+  animation: quran-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes quran-pulse {
+  0%, 100% { box-shadow: 0 10px 24px -8px rgba(11, 61, 46, 0.45); }
+  50% { box-shadow: 0 10px 28px -4px rgba(11, 61, 46, 0.65); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ayah-card,
+  .quran-word {
+    transition: none;
+  }
+  .quran-play-btn--pulse {
+    animation: none;
+  }
+}
+</style>
 
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
@@ -425,16 +542,22 @@ import {
   activeWordAt,
   ayahAudioUrl,
   getReciterById,
+  loadSavedExperience,
   loadSavedModes,
   loadSavedPosition,
   loadSavedReciterId,
+  loadSavedSpeed,
   loadSavedTranslation,
+  modesForExperience,
   quranApi,
   QURAN_EDITIONS,
   QURAN_RECITERS,
+  QURAN_SPEEDS,
+  saveExperience,
   saveModes,
   savePosition,
   saveReciterId,
+  saveSpeed,
   saveTranslation,
   splitAyahWords,
   WORD_SYNC_RECITER_ID,
@@ -454,6 +577,22 @@ useHead({
 })
 
 const modes = reactive(loadSavedModes())
+const experience = ref(loadSavedExperience())
+const playbackSpeed = ref(loadSavedSpeed())
+const progressPct = ref(0)
+
+const experienceButtons = computed(() => [
+  { key: 'read', label: t('quran.experience.read') },
+  { key: 'learn', label: t('quran.experience.learn') },
+  { key: 'listen', label: t('quran.experience.listen') },
+])
+
+const experienceHint = computed(() => {
+  if (experience.value === 'read') return t('quran.experience.readHint')
+  if (experience.value === 'listen') return t('quran.experience.listenHint')
+  return t('quran.experience.learnHint')
+})
+
 const modeButtons = computed(() => [
   { key: 'player', label: t('quran.modes.player') },
   { key: 'wordSync', label: t('quran.modes.wordSync') },
@@ -488,6 +627,11 @@ const usingChapterAudio = ref(false)
 const tafsirMap = ref({})
 const tafsirLoadingVerse = ref(null)
 const tafsirName = ref("Al-Sa'di")
+
+const liveStatus = computed(() => {
+  if (!isPlaying.value || !playingVerse.value) return ''
+  return `${t('quran.nowPlaying')}: ${selectedChapter.value}:${playingVerse.value}`
+})
 
 const activeSurah = computed(() => surahs.value.find(s => s.chapter === selectedChapter.value) || null)
 const activeReciter = computed(() => getReciterById(reciterId.value))
@@ -542,15 +686,44 @@ const stickySubtitle = computed(() => {
   return label
 })
 
+function applyModePatch(patch) {
+  Object.assign(modes, patch)
+  saveModes(modes)
+}
+
+function setExperience(exp) {
+  experience.value = exp
+  saveExperience(exp)
+  applyModePatch(modesForExperience(exp))
+  if (!modes.player) stopAudio()
+  if (modes.tafsir && playingVerse.value) loadTafsir(playingVerse.value)
+}
+
+function setSpeed(rate) {
+  if (!QURAN_SPEEDS.includes(rate)) return
+  playbackSpeed.value = rate
+  saveSpeed(rate)
+  applyPlaybackRate()
+}
+
+function applyPlaybackRate() {
+  const el = audioEl.value
+  if (!el) return
+  el.playbackRate = playbackSpeed.value
+  if ('preservesPitch' in el) el.preservesPitch = true
+}
+
+function onAudioPlay() {
+  isPlaying.value = true
+  applyPlaybackRate()
+}
+
 function toggleMode(key) {
   modes[key] = !modes[key]
   saveModes(modes)
   if (key === 'player' && !modes.player) stopAudio()
   if (key === 'wordSync' && isPlaying.value && playingVerse.value) {
     playVerse(playingVerse.value, { queue: queueMode.value })
-  }
-  if (key === 'translation' && !modes.translation) {
-    // keep stored lang; just hide
   }
   if (key === 'tafsir' && modes.tafsir && playingVerse.value) {
     loadTafsir(playingVerse.value)
@@ -583,6 +756,7 @@ function stopAudio() {
   isPlaying.value = false
   queueMode.value = false
   usingChapterAudio.value = false
+  progressPct.value = 0
 }
 
 async function scrollToVerse(verse) {
@@ -641,6 +815,7 @@ async function playVerse(verse, { queue = false } = {}) {
       }
       if (vt) el.currentTime = Math.max(0, vt.timestampFrom / 1000)
       try {
+        applyPlaybackRate()
         await el.play()
         isPlaying.value = true
         scrollToVerse(target)
@@ -658,6 +833,7 @@ async function playVerse(verse, { queue = false } = {}) {
   usingChapterAudio.value = false
   el.src = ayahAudioUrl(selectedChapter.value, target, activeReciter.value)
   try {
+    applyPlaybackRate()
     await el.play()
     isPlaying.value = true
     scrollToVerse(target)
@@ -670,7 +846,20 @@ async function playVerse(verse, { queue = false } = {}) {
 
 function onTimeUpdate() {
   const el = audioEl.value
-  if (!el || !usingChapterAudio.value || !chapterTiming.value) return
+  if (!el) return
+
+  if (usingChapterAudio.value && chapterTiming.value && playingVerse.value != null) {
+    const vt = chapterTiming.value.verses.find(v => v.verse === playingVerse.value)
+    if (vt) {
+      const span = Math.max(1, vt.timestampTo - vt.timestampFrom)
+      const ms = el.currentTime * 1000
+      progressPct.value = Math.min(100, Math.max(0, ((ms - vt.timestampFrom) / span) * 100))
+    }
+  } else if (el.duration && Number.isFinite(el.duration)) {
+    progressPct.value = Math.min(100, Math.max(0, (el.currentTime / el.duration) * 100))
+  }
+
+  if (!usingChapterAudio.value || !chapterTiming.value) return
   const ms = el.currentTime * 1000
 
   // Single-ayah mode: stop at verse end (chapter file continues otherwise).
@@ -680,6 +869,7 @@ function onTimeUpdate() {
       el.pause()
       isPlaying.value = false
       activeWordIndex.value = null
+      progressPct.value = 100
       return
     }
   }

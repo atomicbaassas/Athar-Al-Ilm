@@ -64,15 +64,6 @@
         </RouterLink>
 
         <RouterLink
-          to="/contributors"
-          :class="navLinkClass"
-          active-class="!text-brand bg-brand-muted"
-          class="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-        >
-          {{ t('nav.contributors') }}
-        </RouterLink>
-
-        <RouterLink
           v-if="auth.can('videos')"
           to="/videos"
           :class="navLinkClass"
@@ -289,15 +280,6 @@
                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
               </svg>
               {{ t('nav.library') }}
-            </RouterLink>
-
-            <RouterLink
-              to="/contributors"
-              active-class="bg-brand-muted text-brand"
-              class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
-              @click="mobileMenuOpen = false"
-            >
-              {{ t('nav.contributors') }}
             </RouterLink>
 
             <RouterLink

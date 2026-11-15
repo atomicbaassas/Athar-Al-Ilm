@@ -3,10 +3,12 @@ import {
   activeWordAt,
   ayahAudioUrl,
   getReciterById,
+  modesForExperience,
   normalizeSegments,
   splitAyahWords,
   stripHtml,
   QURAN_RECITERS,
+  QURAN_SPEEDS,
   DEFAULT_QURAN_MODES,
 } from './quran.js'
 
@@ -70,5 +72,12 @@ describe('word timing helpers', () => {
     expect(DEFAULT_QURAN_MODES.wordSync).toBe(true)
     expect(DEFAULT_QURAN_MODES.player).toBe(true)
     expect(DEFAULT_QURAN_MODES.tafsir).toBe(false)
+  })
+
+  it('maps experience presets for read/learn/listen', () => {
+    expect(modesForExperience('read').player).toBe(false)
+    expect(modesForExperience('learn').tafsir).toBe(true)
+    expect(modesForExperience('listen').wordSync).toBe(true)
+    expect(QURAN_SPEEDS).toContain(1.25)
   })
 })

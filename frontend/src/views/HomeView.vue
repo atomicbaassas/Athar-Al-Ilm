@@ -78,16 +78,14 @@
               <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
               {{ t('home.heroCta1') }}
             </RouterLink>
-            <a
+            <RouterLink
               data-h-cta
-              href="https://github.com/atomicbaassas/Athar-Al-Ilm"
-              target="_blank" rel="noopener noreferrer"
+              to="/quran"
               class="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/35 hover:bg-white/5
                      text-white/70 hover:text-white px-6 py-3.5 rounded-xl font-semibold text-base transition-all duration-200"
             >
-              <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
               {{ t('home.heroCta2') }}
-            </a>
+            </RouterLink>
           </div>
 
           <!-- Prayer times — timing UX only (C-SRC unchanged) -->
@@ -447,31 +445,26 @@
             </div>
           </div>
 
-          <!-- Card 6: Free + Open Source -->
+          <!-- Card 6: Free for the Ummah -->
           <div
             data-bento-card
             class="bento-card lg:col-span-6 rounded-2xl p-6 sm:p-7 flex flex-col"
             style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);"
           >
-            <div class="icon-circle mb-5" style="background:rgba(35,78,204,0.15);">
-              <svg class="w-6 h-6" style="color:#3d65e8;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            <div class="icon-circle mb-5" style="background:rgba(11,61,46,0.2);">
+              <svg class="w-6 h-6 text-brand-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <h3 class="text-white text-xl font-bold mb-2">{{ t('home.diff4Title') }}</h3>
             <p class="text-white/40 text-sm leading-relaxed mb-6">{{ t('home.diff4Desc') }}</p>
-            <!-- Badges -->
             <div class="mt-auto flex flex-wrap gap-2">
-              <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style="background:rgba(35,78,204,0.12); color:#3d65e8; border:1px solid rgba(35,78,204,0.25);">
-                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                Open Source
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style="background:rgba(11,61,46,0.25); color:#a7f3d0; border:1px solid rgba(11,61,46,0.45);">
+                {{ t('home.badgeFree') }}
               </span>
               <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white/40" style="border:1px solid rgba(255,255,255,0.08);">
-                No Paywalls
+                {{ t('home.badgeNoPaywalls') }}
               </span>
               <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white/40" style="border:1px solid rgba(255,255,255,0.08);">
-                No Ads
-              </span>
-              <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white/40" style="border:1px solid rgba(255,255,255,0.08);">
-                Free Forever
+                {{ t('home.badgeNoAds') }}
               </span>
             </div>
           </div>
@@ -752,71 +745,7 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════════ -->
-    <!-- SECTION 8 — OPEN SOURCE                                       -->
-    <!-- ══════════════════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 px-4 relative overflow-hidden" style="background:#040408;">
-
-      <!-- Decorative Arabic -->
-      <div class="absolute inset-0 flex items-center justify-end pe-8 pointer-events-none select-none" aria-hidden="true">
-        <span class="arabic-text font-bold float-arabic-slow" style="font-size:clamp(4rem,20vw,18rem); color:rgba(255,255,255,0.018);">علم</span>
-      </div>
-
-      <div class="relative z-10 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-          <!-- Left: mission -->
-          <div>
-            <p data-reveal class="section-eyebrow text-brand-light mb-6">
-              <span class="w-4 h-px bg-brand-light inline-block align-middle me-2"></span>
-              {{ t('home.openSourceBadge') }}
-            </p>
-            <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-white mb-6">
-              {{ t('home.openSourceTitle') }}
-            </h2>
-            <p data-reveal class="text-white/40 leading-relaxed mb-10">{{ t('home.openSourceSub') }}</p>
-            <div data-reveal class="flex flex-col sm:flex-row gap-3">
-              <a
-                href="https://github.com/atomicbaassas/Athar-Al-Ilm"
-                target="_blank" rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-2.5 bg-brand hover:bg-brand-dark text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 shadow-lg shadow-brand/30 hover:-translate-y-0.5"
-              >
-                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                {{ t('home.ctaGithub') }}
-              </a>
-              <RouterLink
-                to="/learn"
-                class="inline-flex items-center justify-center border text-white/60 hover:text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200"
-                style="border-color:rgba(255,255,255,0.15);"
-              >
-                {{ t('home.ctaDocs') }}
-              </RouterLink>
-            </div>
-          </div>
-
-          <!-- Right: stats -->
-          <div data-reveal class="space-y-3">
-            <div
-              v-for="stat in stats"
-              :key="stat.labelKey"
-              class="flex items-center gap-5 rounded-2xl px-5 py-5 transition-all duration-200"
-              style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);"
-            >
-              <div class="icon-circle shrink-0" style="background:rgba(35,78,204,0.12);">
-                <svg class="w-5 h-5 text-brand-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="stat.iconPath"></svg>
-              </div>
-              <div>
-                <p class="text-2xl sm:text-3xl font-black text-white leading-none mb-1">{{ stat.value }}</p>
-                <p class="text-[11px] font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">{{ t(`home.${stat.labelKey}`) }}</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════════════ -->
-    <!-- SECTION 9 — FINAL CTA                                         -->
+    <!-- SECTION 8 — FINAL CTA                                         -->
     <!-- ══════════════════════════════════════════════════════════════ -->
     <section
       class="relative py-24 sm:py-36 px-4 overflow-hidden text-white"
@@ -879,17 +808,8 @@
               <BrandLockup invert-mark wordmark-class="text-white" />
             </div>
             <p class="text-sm leading-relaxed mb-5" style="color:rgba(255,255,255,0.3);">
-              Structured Islamic learning for the global Ummah. Free forever.
+              {{ t('home.footerTagline') }}
             </p>
-            <a
-              href="https://github.com/atomicbaassas/Athar-Al-Ilm"
-              target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg transition-all duration-200"
-              style="color:rgba(255,255,255,0.4); border:1px solid rgba(255,255,255,0.08);"
-            >
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              Open Source
-            </a>
           </div>
 
           <!-- Platform links -->
@@ -954,12 +874,14 @@
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8" style="border-top:1px solid rgba(255,255,255,0.06);">
-          <p class="text-xs" style="color:rgba(255,255,255,0.2);">
-            © {{ new Date().getFullYear() }} Athar Al 'Ilm. Built with
-            <svg style="color:#f87171;" class="w-3.5 h-3.5 inline shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
-            for the Ummah.
+          <p class="text-xs max-w-xl text-center sm:text-start" style="color:rgba(255,255,255,0.35);">
+            © {{ new Date().getFullYear() }} Athar Al 'Ilm.
+            {{ t('home.madeWithLove') }}
           </p>
-          <p class="arabic-text text-sm" style="color:rgba(255,255,255,0.2); line-height:1.4;">Developed By <a href="http://shapesky.net" target="_blank" rel="noopener ">shapesky.net</a></p>
+          <p class="text-xs text-center sm:text-end" style="color:rgba(255,255,255,0.35); line-height:1.4;">
+            {{ t('home.developedBy') }}
+            <a href="https://aionexus.co.tz" target="_blank" rel="noopener noreferrer" class="underline decoration-white/20 hover:decoration-white/50">AIO Nexus Solutions</a>
+          </p>
         </div>
 
       </div>
@@ -997,7 +919,7 @@ const heroStats = [
   { value: '1.8B', label: 'Muslims Worldwide' },
   { value: '6',    label: 'Learning Tracks'   },
   { value: '100%', label: 'Free Forever'       },
-  { value: '∞',    label: 'Open Source'        },
+  { value: '3',    label: 'Languages'          },
 ]
 
 const painPoints = [
@@ -1032,12 +954,6 @@ const audience = [
   { key: 'audience5', accent: '#475569', bgColor: 'rgba(71,85,105,0.1)',  iconPath: `<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>` },
 ]
 
-const stats = [
-  { labelKey: 'statStars',        value: '0', iconPath: `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>` },
-  { labelKey: 'statContributors', value: '1', iconPath: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>` },
-  { labelKey: 'statLanguages',    value: '2', iconPath: `<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>` },
-]
-
 // Videos is gated to the 'videos' section (admins/content roles), so it only
 // appears in the footer for those users — not students or the public.
 const footerPlatform = computed(() => [
@@ -1051,16 +967,12 @@ const footerPlatform = computed(() => [
 ])
 
 const footerCommunity = [
-  { label: 'GitHub',         href: 'https://github.com/atomicbaassas/Athar-Al-Ilm' },
-  { label: 'Contributors',   to: '/contributors' },
-  { label: 'Contribute',     href: 'https://github.com/atomicbaassas/Athar-Al-Ilm/blob/main/CONTRIBUTING.md' },
-  { label: 'Report a Bug',   href: 'https://github.com/atomicbaassas/Athar-Al-Ilm/issues' },
+  { label: 'Contributors', to: '/contributors' },
 ]
 
 const footerLegal = [
-  { label: 'Privacy Policy',      to: '/privacy' },
-  { label: 'Terms & Conditions',  to: '/terms' },
-  { label: 'MIT License',         href: 'https://github.com/atomicbaassas/Athar-Al-Ilm/blob/main/LICENSE' },
+  { label: 'Privacy Policy',     to: '/privacy' },
+  { label: 'Terms & Conditions', to: '/terms' },
 ]
 
 // ── Lifecycle ──────────────────────────────────────────────────────
