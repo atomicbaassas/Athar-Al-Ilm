@@ -15,8 +15,10 @@
   },
   "quran": {
     "eyebrow": "Quran",
-    "title": "Read the Quran",
-    "subtitle": "Arabic mushaf with English or Swahili translation, optional Al-Sa'di tafsir, and word-synced recitation.",
+    "title": "Quran",
+    "subtitle": "Read, learn, or listen — Arabic with translation and recitation.",
+    "optionsMore": "More options",
+    "optionsLess": "Hide options",
     "translation": "Translation",
     "arabicOnly": "Arabic only",
     "surahs": "Surahs",

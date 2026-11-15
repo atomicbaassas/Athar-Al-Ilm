@@ -15,8 +15,10 @@
   },
   "quran": {
     "eyebrow": "Qurani",
-    "title": "Soma Qurani",
-    "subtitle": "Mushaf wa Kiarabu na tafsiri ya Kiingereza au Kiswahili, tafsiri ya Al-Sa'di hiari, na usomaji unaolingana neno kwa neno.",
+    "title": "Qurani",
+    "subtitle": "Soma, jifunze, au sikiliza — Kiarabu na tafsiri na usomaji.",
+    "optionsMore": "Chaguo zaidi",
+    "optionsLess": "Ficha chaguo",
     "translation": "Tafsiri",
     "arabicOnly": "Kiarabu pekee",
     "surahs": "Sura",
