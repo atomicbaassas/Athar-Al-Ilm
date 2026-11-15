@@ -5,7 +5,7 @@
  * Audio:
  * - Per-ayah: EveryAyah MP3 (CORS *). One file per ayah → ayah highlight.
  * - Word sync: Quran.com chapter audio + verified word segments via
- *   /athar/v1/qurancom (Al-Afasy murattal id 7). EveryAyah has no word timings.
+ *   /athar/v1/qurancom (per-reciter wordSyncId). EveryAyah has no word timings.
  *
  * Tafsir: Al-Sa'di (resource 91) via /athar/v1/qurancom — Salafi text, not invented.
  */
@@ -18,7 +18,10 @@ export const WORD_SYNC_RECITER_ID = 7
 /** Al-Sa'di Arabic tafsir (Quran.com resource id). */
 export const TAFSIR_SAADI_ID = 91
 
-/** EveryAyah reciter folders (verified 200 on 001001.mp3). */
+/**
+ * EveryAyah folders (verified 200 on 001001.mp3).
+ * wordSyncId = Quran.com chapter_reciter id with working segments=true.
+ */
 export const QURAN_RECITERS = [
   {
     id: 'Alafasy_128kbps',
@@ -32,18 +35,62 @@ export const QURAN_RECITERS = [
     label: 'Abdul Basit (Murattal)',
     labelAr: 'عبد الباسط عبد الصمد',
     base: 'https://everyayah.com/data/Abdul_Basit_Murattal_192kbps',
+    wordSyncId: 2,
+  },
+  {
+    id: 'Abdurrahmaan_As-Sudais_192kbps',
+    label: 'Abdurrahman As-Sudais',
+    labelAr: 'عبد الرحمن السديس',
+    base: 'https://everyayah.com/data/Abdurrahmaan_As-Sudais_192kbps',
+    wordSyncId: 3,
+  },
+  {
+    id: 'Abu_Bakr_Ash-Shaatree_128kbps',
+    label: 'Abu Bakr Ash-Shatri',
+    labelAr: 'أبو بكر الشاطري',
+    base: 'https://everyayah.com/data/Abu_Bakr_Ash-Shaatree_128kbps',
+    wordSyncId: 4,
+  },
+  {
+    id: 'Hani_Rifai_192kbps',
+    label: 'Hani Ar-Rifai',
+    labelAr: 'هاني الرفاعي',
+    base: 'https://everyayah.com/data/Hani_Rifai_192kbps',
+    wordSyncId: 5,
   },
   {
     id: 'Husary_128kbps',
     label: 'Mahmoud Khalil Al-Husary',
     labelAr: 'محمود خليل الحصري',
     base: 'https://everyayah.com/data/Husary_128kbps',
+    wordSyncId: 6,
   },
   {
     id: 'Minshawy_Murattal_128kbps',
     label: 'Mohamed Siddiq El-Minshawi',
     labelAr: 'محمد صديق المنشاوي',
     base: 'https://everyayah.com/data/Minshawy_Murattal_128kbps',
+    wordSyncId: 9,
+  },
+  {
+    id: 'Saood_ash-Shuraym_128kbps',
+    label: 'Saood Ash-Shuraym',
+    labelAr: 'سعود الشريم',
+    base: 'https://everyayah.com/data/Saood_ash-Shuraym_128kbps',
+    wordSyncId: 10,
+  },
+  {
+    id: 'Yasser_Ad-Dussary_128kbps',
+    label: 'Yasser Al-Dosari',
+    labelAr: 'ياسر الدوسري',
+    base: 'https://everyayah.com/data/Yasser_Ad-Dussary_128kbps',
+    wordSyncId: 97,
+  },
+  {
+    id: 'Husary_Muallim_128kbps',
+    label: 'Al-Husary (Muallim)',
+    labelAr: 'الحصري (معلم)',
+    base: 'https://everyayah.com/data/Husary_Muallim_128kbps',
   },
   {
     id: 'MaherAlMuaiqly128kbps',
@@ -52,22 +99,10 @@ export const QURAN_RECITERS = [
     base: 'https://everyayah.com/data/MaherAlMuaiqly128kbps',
   },
   {
-    id: 'Yasser_Ad-Dussary_128kbps',
-    label: 'Yasser Al-Dosari',
-    labelAr: 'ياسر الدوسري',
-    base: 'https://everyayah.com/data/Yasser_Ad-Dussary_128kbps',
-  },
-  {
-    id: 'Hani_Rifai_192kbps',
-    label: 'Hani Ar-Rifai',
-    labelAr: 'هاني الرفاعي',
-    base: 'https://everyayah.com/data/Hani_Rifai_192kbps',
-  },
-  {
-    id: 'Abu_Bakr_Ash-Shaatree_128kbps',
-    label: 'Abu Bakr Ash-Shatri',
-    labelAr: 'أبو بكر الشاطري',
-    base: 'https://everyayah.com/data/Abu_Bakr_Ash-Shaatree_128kbps',
+    id: 'Muhammad_Jibreel_128kbps',
+    label: 'Muhammad Jibreel',
+    labelAr: 'محمد جبريل',
+    base: 'https://everyayah.com/data/Muhammad_Jibreel_128kbps',
   },
   {
     id: 'Hudhaify_128kbps',
@@ -80,6 +115,24 @@ export const QURAN_RECITERS = [
     label: 'Abdullah Basfar',
     labelAr: 'عبد الله بصفر',
     base: 'https://everyayah.com/data/Abdullah_Basfar_192kbps',
+  },
+  {
+    id: 'Abdullah_Matroud_128kbps',
+    label: 'Abdullah Matroud',
+    labelAr: 'عبد الله المطرود',
+    base: 'https://everyayah.com/data/Abdullah_Matroud_128kbps',
+  },
+  {
+    id: 'Muhsin_Al_Qasim_192kbps',
+    label: 'Muhsin Al-Qasim',
+    labelAr: 'محسن القاسم',
+    base: 'https://everyayah.com/data/Muhsin_Al_Qasim_192kbps',
+  },
+  {
+    id: 'Nasser_Alqatami_128kbps',
+    label: 'Nasser Al-Qatami',
+    labelAr: 'ناصر القطامي',
+    base: 'https://everyayah.com/data/Nasser_Alqatami_128kbps',
   },
   {
     id: 'Ghamadi_40kbps',
@@ -119,6 +172,7 @@ const STORAGE_EXPERIENCE = 'athar-quran-experience'
 
 export const QURAN_SPEEDS = [0.75, 1, 1.25, 1.5]
 export const QURAN_EXPERIENCES = ['read', 'learn', 'listen']
+export const QURAN_SLEEP_MINUTES = [0, 5, 15, 30, 45]
 
 export const DEFAULT_QURAN_MODES = {
   tafsir: false,
@@ -127,6 +181,8 @@ export const DEFAULT_QURAN_MODES = {
   compact: false,
   wordSync: true,
 }
+
+const MODE_KEYS = ['player', 'wordSync', 'tafsir', 'translation', 'compact']
 
 async function gatewayGet(base, path) {
   const res = await fetch(`${base}${path.startsWith('/') ? path : `/${path}`}`)
@@ -149,6 +205,15 @@ export function ayahAudioUrl(chapter, verse, reciter = QURAN_RECITERS[0]) {
 
 export function getReciterById(id) {
   return QURAN_RECITERS.find(r => r.id === id) || QURAN_RECITERS[0]
+}
+
+export function wordSyncReciters() {
+  return QURAN_RECITERS.filter(r => Number(r.wordSyncId) > 0)
+}
+
+export function wordSyncIdForReciter(reciter) {
+  const r = typeof reciter === 'string' ? getReciterById(reciter) : (reciter || QURAN_RECITERS[0])
+  return Number(r?.wordSyncId) || WORD_SYNC_RECITER_ID
 }
 
 export function loadSavedReciterId() {
@@ -234,6 +299,50 @@ export function modesForExperience(exp) {
     return { player: true, wordSync: true, tafsir: false, translation: false, compact: true }
   }
   return { player: true, wordSync: true, tafsir: true, translation: true, compact: false }
+}
+
+export function modesEqual(a, b) {
+  return MODE_KEYS.every(k => Boolean(a?.[k]) === Boolean(b?.[k]))
+}
+
+/** Experience tab label from flags; "custom" when More options left a preset. */
+export function experienceFromModes(modes) {
+  for (const exp of QURAN_EXPERIENCES) {
+    if (modesEqual(modes, modesForExperience(exp))) return exp
+  }
+  return 'custom'
+}
+
+/**
+ * On load, experience owns presets (finding 1). Saved modes are ignored so
+ * the green tab and cards cannot disagree after refresh.
+ */
+export function resolveInitialModes(experience, _savedModes) {
+  const exp = QURAN_EXPERIENCES.includes(experience) ? experience : 'learn'
+  return { experience: exp, modes: modesForExperience(exp) }
+}
+
+/** Shareable reader deep link path + query. */
+export function quranSharePath(chapter, verse) {
+  const c = Number(chapter)
+  const v = Number(verse)
+  if (!c || c < 1 || c > 114) return '/quran'
+  if (v >= 1) return `/quran?surah=${c}&ayah=${v}`
+  return `/quran?surah=${c}`
+}
+
+/** First chapter of a juz (1–30) from quranapi info.juzs.references. */
+export function chapterForJuz(juzRefs, juz) {
+  const n = Number(juz)
+  const row = (juzRefs || []).find(r => Number(r.juz) === n)
+  return Number(row?.start?.chapter) || null
+}
+
+/** First chapter of a mushaf page from quranapi info.pages.references. */
+export function chapterForPage(pageRefs, page) {
+  const n = Number(page)
+  const row = (pageRefs || []).find(r => Number(r.page) === n)
+  return Number(row?.start?.chapter) || null
 }
 
 export function loadSavedPosition() {

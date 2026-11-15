@@ -3,10 +3,6 @@
 
     <!-- ── Page header ──────────────────────────────────────────────── -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6 sm:pt-12 sm:pb-8">
-      <p class="text-xs font-bold uppercase tracking-widest text-brand mb-4 flex items-center gap-2">
-        <span class="w-4 h-px bg-brand inline-block"></span>
-        Islamic Library
-      </p>
       <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-3">
         Books for the Ummah
       </h1>
@@ -17,7 +13,7 @@
 
     <!-- ── Search + filters ─────────────────────────────────────────── -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-8">
-      <div class="flex flex-col sm:flex-row gap-3">
+      <div class="flex flex-col sm:flex-row gap-3 sm:items-end">
 
         <!-- Search -->
         <div class="relative flex-1">
@@ -31,9 +27,7 @@
             v-model="searchQuery"
             type="search"
             placeholder="Search books…"
-            class="w-full bg-white border border-gray-200 text-gray-900 placeholder-gray-400 text-sm
-                   rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-brand/50 focus:ring-2
-                   focus:ring-brand/10 transition-all duration-200"
+            class="athar-control pl-9"
             @input="debouncedSearch"
           />
         </div>
@@ -42,9 +36,7 @@
         <select
           v-model="langFilter"
           @change="fetchBooks"
-          class="bg-white border border-gray-200 text-gray-700 text-sm rounded-xl px-4 py-2.5
-                 focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10
-                 transition-all duration-200 cursor-pointer"
+          class="athar-control cursor-pointer sm:w-48"
         >
           <option value="">All Languages</option>
           <option value="en">English</option>
@@ -59,10 +51,8 @@
       <div v-if="categories.length" class="flex flex-wrap gap-2 mt-4">
         <button
           @click="categoryFilter = ''; fetchBooks()"
-          :class="categoryFilter === ''
-            ? 'bg-brand text-white border-brand'
-            : 'bg-white text-gray-600 border-gray-200 hover:border-brand/40 hover:text-brand'"
-          class="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150"
+          class="athar-chip"
+          :class="categoryFilter === '' ? 'athar-chip--on' : ''"
         >
           All
         </button>
@@ -70,10 +60,8 @@
           v-for="cat in categories"
           :key="cat"
           @click="categoryFilter = cat; fetchBooks()"
-          :class="categoryFilter === cat
-            ? 'bg-brand text-white border-brand'
-            : 'bg-white text-gray-600 border-gray-200 hover:border-brand/40 hover:text-brand'"
-          class="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150"
+          class="athar-chip"
+          :class="categoryFilter === cat ? 'athar-chip--on' : ''"
         >
           {{ cat }}
         </button>

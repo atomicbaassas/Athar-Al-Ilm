@@ -1,7 +1,10 @@
 <template>
   <div
     class="quran-page min-h-screen overflow-x-hidden"
-    :class="modes.player ? 'pb-[calc(7.5rem+env(safe-area-inset-bottom))] sm:pb-28' : 'pb-10'"
+    :class="[
+      modes.player ? 'pb-[calc(8.5rem+env(safe-area-inset-bottom))] sm:pb-32' : 'pb-10',
+      `quran-page--${experience}`,
+    ]"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-3 sm:pt-10 sm:pb-5">
       <div class="flex items-start justify-between gap-3 mb-5">
@@ -13,16 +16,23 @@
             {{ experienceHint }}
           </p>
         </div>
-        <RouterLink
-          to="/quran/dua"
-          class="inline-flex items-center min-h-11 px-3.5 rounded-xl border border-brand/20
-                 text-sm font-semibold text-brand hover:bg-brand-muted transition-colors shrink-0"
-        >
-          {{ t('quran.dua.nav') }}
-        </RouterLink>
+        <div class="flex items-center gap-2 shrink-0">
+          <RouterLink
+            to="/hadith"
+            class="athar-btn-secondary hidden sm:inline-flex"
+          >
+            {{ t('nav.hadith') }}
+          </RouterLink>
+          <RouterLink
+            to="/quran/dua"
+            class="inline-flex items-center min-h-11 px-3.5 rounded-xl border border-brand/20
+                   text-sm font-semibold text-brand hover:bg-brand-muted transition-colors"
+          >
+            {{ t('quran.dua.nav') }}
+          </RouterLink>
+        </div>
       </div>
 
-      <!-- Experience: Reading / Learning / Listening -->
       <div
         class="w-full p-1 rounded-2xl bg-white border border-gray-200/80 flex gap-1"
         role="tablist"
@@ -44,6 +54,9 @@
           {{ exp.label }}
         </button>
       </div>
+      <p v-if="experience === 'custom'" class="mt-2 text-sm text-amber-700">
+        {{ t('quran.experience.customHint') }}
+      </p>
 
       <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
         <label class="flex flex-col gap-1 min-w-0 flex-1 sm:max-w-sm">
@@ -53,8 +66,7 @@
             type="search"
             autocomplete="off"
             :placeholder="t('quran.searchPlaceholder')"
-            class="w-full min-h-11 bg-white border border-gray-200 text-gray-800 text-base rounded-xl px-3
-                   focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10"
+            class="athar-control"
           />
         </label>
 
@@ -64,8 +76,7 @@
             <select
               id="quran-translation"
               v-model="translationLang"
-              class="min-h-11 w-full bg-white border border-gray-200 text-gray-700 text-base rounded-xl px-3
-                     focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10 cursor-pointer"
+              class="athar-control cursor-pointer"
             >
               <option value="en">{{ locale === 'ar' ? QURAN_EDITIONS.en.labelAr : QURAN_EDITIONS.en.label }}</option>
               <option value="sw">{{ locale === 'ar' ? QURAN_EDITIONS.sw.labelAr : QURAN_EDITIONS.sw.label }}</option>
@@ -75,9 +86,7 @@
 
           <button
             type="button"
-            class="inline-flex items-center justify-center min-h-11 px-3.5 rounded-xl border border-gray-200
-                   text-sm font-semibold text-gray-700 hover:border-brand/30 hover:text-brand transition-colors
-                   touch-manipulation sm:ms-auto shrink-0"
+            class="athar-btn-secondary sm:ms-auto shrink-0"
             :aria-expanded="optionsOpen ? 'true' : 'false'"
             @click="optionsOpen = !optionsOpen"
           >
@@ -97,10 +106,8 @@
             v-for="m in modeButtons"
             :key="m.key"
             type="button"
-            class="inline-flex items-center min-h-10 px-3 rounded-xl border text-sm font-semibold transition-colors touch-manipulation"
-            :class="modes[m.key]
-              ? 'border-brand/40 bg-brand-muted text-brand'
-              : 'border-gray-200 text-gray-600 hover:border-brand/30'"
+            class="athar-chip"
+            :class="modes[m.key] ? 'athar-chip--on' : ''"
             :aria-pressed="modes[m.key] ? 'true' : 'false'"
             @click="toggleMode(m.key)"
           >
@@ -108,17 +115,16 @@
           </button>
         </div>
         <label
-          v-if="modes.player && !modes.wordSync"
+          v-if="modes.player"
           class="mt-3 flex flex-col gap-1 md:hidden"
         >
           <span class="text-sm font-medium text-gray-600" for="quran-reciter-mobile">{{ t('quran.reciterLabel') }}</span>
           <select
             id="quran-reciter-mobile"
             v-model="reciterId"
-            class="min-h-11 bg-white border border-gray-200 text-gray-700 text-base rounded-xl px-3
-                   focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10 cursor-pointer"
+            class="athar-control cursor-pointer"
           >
-            <option v-for="r in QURAN_RECITERS" :key="r.id" :value="r.id">
+            <option v-for="r in visibleReciters" :key="r.id" :value="r.id">
               {{ locale === 'ar' ? r.labelAr : r.label }}
             </option>
           </select>
@@ -150,12 +156,35 @@
         </button>
 
         <div
-          class="border border-gray-100 rounded-2xl overflow-hidden bg-gray-50/60
-                 lg:sticky lg:top-28"
+          class="border border-gray-100 rounded-2xl overflow-hidden bg-gray-50/60 lg:sticky lg:top-28"
           :class="surahDrawerOpen ? 'block' : 'hidden lg:block'"
         >
-          <div class="px-4 py-3 border-b border-gray-100 bg-white">
+          <div class="px-4 py-3 border-b border-gray-100 bg-white space-y-2">
             <p class="text-sm font-semibold text-gray-800">{{ t('quran.surahs') }}</p>
+            <div class="flex gap-2">
+              <label class="flex-1 min-w-0">
+                <span class="sr-only">{{ t('quran.juz') }}</span>
+                <select
+                  v-model.number="jumpJuz"
+                  class="athar-control text-sm py-2 min-h-10 cursor-pointer"
+                  @change="goJuz"
+                >
+                  <option :value="0">{{ t('quran.juz') }}</option>
+                  <option v-for="j in 30" :key="j" :value="j">{{ t('quran.juzN', { n: j }) }}</option>
+                </select>
+              </label>
+              <label class="flex-1 min-w-0">
+                <span class="sr-only">{{ t('quran.page') }}</span>
+                <select
+                  v-model.number="jumpPage"
+                  class="athar-control text-sm py-2 min-h-10 cursor-pointer"
+                  @change="goPage"
+                >
+                  <option :value="0">{{ t('quran.page') }}</option>
+                  <option v-for="p in 604" :key="p" :value="p">{{ t('quran.pageN', { n: p }) }}</option>
+                </select>
+              </label>
+            </div>
           </div>
           <div v-if="infoLoading" class="p-4 space-y-2">
             <div v-for="n in 8" :key="n" class="h-10 rounded-lg bg-gray-200 animate-pulse" />
@@ -242,15 +271,47 @@
 
           <p v-if="audioError" class="mb-4 text-sm text-red-600">{{ audioError }}</p>
           <p v-if="timingError" class="mb-4 text-sm text-amber-700">{{ timingError }}</p>
+          <p v-if="shareCopied" class="mb-4 text-sm text-brand" role="status">{{ t('quran.shareCopied') }}</p>
 
-          <div :class="modes.compact ? 'space-y-2' : 'space-y-4 sm:space-y-5'">
+          <!-- Reading: mushaf column -->
+          <div v-if="experience === 'read'" class="quran-mushaf rounded-2xl border border-gray-100 bg-white px-4 sm:px-8 py-6 sm:py-10 space-y-8">
+            <article
+              v-for="ayah in ayahs"
+              :id="`ayah-${ayah.verse}`"
+              :key="ayah.verse"
+              class="scroll-mt-28"
+            >
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-bold text-brand/70 tabular-nums">{{ selectedChapter }}:{{ ayah.verse }}</span>
+                <button type="button" class="text-xs font-semibold text-gray-400 hover:text-brand" @click="copyShare(ayah.verse)">
+                  {{ t('quran.share') }}
+                </button>
+              </div>
+              <p class="font-arabic text-[1.85rem] sm:text-4xl leading-[2.15] text-gray-900 text-end break-words" dir="rtl" lang="ar">
+                {{ ayah.arabic }}
+              </p>
+              <p
+                v-if="showTranslation && ayah.translation"
+                class="mt-3 text-sm text-gray-500 leading-relaxed border-s-2 border-gray-100 ps-3"
+                dir="ltr"
+                :lang="translationLang"
+              >
+                {{ ayah.translation }}
+              </p>
+            </article>
+          </div>
+
+          <!-- Learn / Listen / Custom cards -->
+          <div v-else :class="modes.compact || experience === 'listen' ? 'space-y-2' : 'space-y-4 sm:space-y-5'">
             <article
               v-for="ayah in ayahs"
               :id="`ayah-${ayah.verse}`"
               :key="ayah.verse"
               class="ayah-card rounded-2xl border scroll-mt-28"
               :class="[
-                modes.compact ? 'p-3 sm:p-4' : 'p-4 sm:p-6',
+                experience === 'listen' || modes.compact ? 'p-3 sm:p-4' : 'p-4 sm:p-6',
+                experience === 'listen' ? 'ayah-card--listen' : '',
+                experience === 'learn' ? 'ayah-card--learn' : '',
                 playingVerse === ayah.verse
                   ? 'ayah-card--active border-brand/40 bg-brand-muted/40'
                   : 'border-gray-100 bg-white',
@@ -260,26 +321,38 @@
                 <span class="inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-full bg-brand-muted text-brand text-xs font-bold tabular-nums">
                   {{ selectedChapter }}:{{ ayah.verse }}
                 </span>
-                <button
-                  v-if="modes.player"
-                  type="button"
-                  class="inline-flex items-center justify-center w-11 h-11 rounded-full border transition-colors touch-manipulation"
-                  :class="playingVerse === ayah.verse && isPlaying
-                    ? 'border-brand bg-brand text-white'
-                    : 'border-gray-200 text-gray-600 hover:border-brand/40 hover:text-brand'"
-                  :aria-label="playingVerse === ayah.verse && isPlaying ? t('quran.pauseAyah') : t('quran.playAyah')"
-                  @click="toggleAyah(ayah.verse)"
-                >
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path v-if="playingVerse === ayah.verse && isPlaying" d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
-                    <path v-else d="M8 5v14l11-7L8 5z" />
-                  </svg>
-                </button>
+                <div class="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    class="text-xs font-semibold text-gray-400 hover:text-brand px-2 min-h-11"
+                    @click="copyShare(ayah.verse)"
+                  >
+                    {{ t('quran.share') }}
+                  </button>
+                  <button
+                    v-if="modes.player"
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-full border transition-colors touch-manipulation"
+                    :class="[
+                      experience === 'listen' ? 'w-12 h-12' : 'w-11 h-11',
+                      playingVerse === ayah.verse && isPlaying
+                        ? 'border-brand bg-brand text-white'
+                        : 'border-gray-200 text-gray-600 hover:border-brand/40 hover:text-brand',
+                    ]"
+                    :aria-label="playingVerse === ayah.verse && isPlaying ? t('quran.pauseAyah') : t('quran.playAyah')"
+                    @click="toggleAyah(ayah.verse)"
+                  >
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path v-if="playingVerse === ayah.verse && isPlaying" d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
+                      <path v-else d="M8 5v14l11-7L8 5z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               <p
                 class="font-arabic leading-[2.05] text-gray-900 text-end mb-3 break-words"
-                :class="modes.compact ? 'text-xl sm:text-2xl' : 'text-[1.65rem] sm:text-3xl'"
+                :class="experience === 'listen' || modes.compact ? 'text-xl sm:text-2xl' : 'text-[1.65rem] sm:text-3xl'"
                 dir="rtl"
                 lang="ar"
               >
@@ -301,6 +374,7 @@
               <p
                 v-if="showTranslation && ayah.translation"
                 class="text-sm sm:text-base text-gray-600 leading-relaxed break-words"
+                :class="experience === 'learn' ? 'font-medium' : ''"
                 dir="ltr"
                 :lang="translationLang"
               >
@@ -408,6 +482,16 @@
 
         <button
           type="button"
+          class="hidden sm:inline-flex items-center justify-center min-h-11 px-2 rounded-xl border text-xs font-semibold shrink-0"
+          :class="abLoop.start ? 'border-brand bg-brand-muted text-brand' : 'border-gray-200 text-gray-600'"
+          :aria-label="t('quran.abLoop')"
+          @click="setAbMarker"
+        >
+          {{ abLabel }}
+        </button>
+
+        <button
+          type="button"
           class="inline-flex items-center justify-center min-h-11 min-w-11 px-2 rounded-xl border border-gray-200
                  text-sm font-semibold tabular-nums text-gray-700 touch-manipulation shrink-0
                  hover:border-brand/30"
@@ -417,14 +501,23 @@
           {{ playbackSpeed === 1 ? '1×' : `${playbackSpeed}×` }}
         </button>
 
-        <label v-if="!modes.wordSync" class="hidden md:flex shrink-0 max-w-[11rem]">
+        <button
+          type="button"
+          class="hidden sm:inline-flex items-center justify-center min-h-11 px-2 rounded-xl border border-gray-200
+                 text-xs font-semibold text-gray-700 shrink-0"
+          :aria-label="t('quran.sleep')"
+          @click="cycleSleep"
+        >
+          {{ sleepLabel }}
+        </button>
+
+        <label class="hidden md:flex shrink-0 max-w-[11rem]">
           <span class="sr-only">{{ t('quran.reciterLabel') }}</span>
           <select
             v-model="reciterId"
-            class="min-h-11 w-full text-sm border border-gray-200 rounded-xl px-2 bg-white cursor-pointer
-                   focus:outline-none focus:ring-2 focus:ring-brand/15"
+            class="athar-control text-sm cursor-pointer min-h-11"
           >
-            <option v-for="r in QURAN_RECITERS" :key="r.id" :value="r.id">
+            <option v-for="r in visibleReciters" :key="r.id" :value="r.id">
               {{ locale === 'ar' ? r.labelAr : r.label }}
             </option>
           </select>
@@ -451,8 +544,25 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.quran-page--read {
+  background: linear-gradient(180deg, #f3f7f4 0%, #eef4f0 100%);
+}
+
+.quran-page--listen .quran-dock {
+  box-shadow: 0 -12px 40px -24px rgba(11, 61, 46, 0.35);
+}
+
 .ayah-card {
   transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.ayah-card--learn {
+  border-inline-start-width: 3px;
+  border-inline-start-color: rgba(11, 61, 46, 0.25);
+}
+
+.ayah-card--listen {
+  background: #fbfcfb;
 }
 
 .ayah-card--active {
@@ -495,6 +605,9 @@ import { useRoute, useRouter, RouterLink } from 'vue-router'
 import {
   activeWordAt,
   ayahAudioUrl,
+  chapterForJuz,
+  chapterForPage,
+  experienceFromModes,
   getReciterById,
   loadSavedExperience,
   loadSavedModes,
@@ -504,9 +617,12 @@ import {
   loadSavedTranslation,
   modesForExperience,
   quranApi,
+  quranSharePath,
   QURAN_EDITIONS,
   QURAN_RECITERS,
+  QURAN_SLEEP_MINUTES,
   QURAN_SPEEDS,
+  resolveInitialModes,
   saveExperience,
   saveModes,
   savePosition,
@@ -514,7 +630,8 @@ import {
   saveSpeed,
   saveTranslation,
   splitAyahWords,
-  WORD_SYNC_RECITER_ID,
+  wordSyncIdForReciter,
+  wordSyncReciters,
 } from '@/api/quran'
 
 const SEO_ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
@@ -530,11 +647,24 @@ useHead({
   ],
 })
 
-const modes = reactive(loadSavedModes())
-const experience = ref(loadSavedExperience())
+const boot = resolveInitialModes(loadSavedExperience(), loadSavedModes())
+const modes = reactive({ ...boot.modes })
+const experience = ref(boot.experience)
+saveModes(modes)
+saveExperience(experience.value)
+
 const playbackSpeed = ref(loadSavedSpeed())
 const progressPct = ref(0)
 const optionsOpen = ref(false)
+const jumpJuz = ref(0)
+const jumpPage = ref(0)
+const juzRefs = ref([])
+const pageRefs = ref([])
+const abLoop = reactive({ start: null, end: null })
+const sleepMinutes = ref(0)
+let sleepTimer = null
+const shareCopied = ref(false)
+let shareCopiedTimer = null
 
 const experienceButtons = computed(() => [
   { key: 'read', label: t('quran.experience.read') },
@@ -545,6 +675,7 @@ const experienceButtons = computed(() => [
 const experienceHint = computed(() => {
   if (experience.value === 'read') return t('quran.experience.readHint')
   if (experience.value === 'listen') return t('quran.experience.listenHint')
+  if (experience.value === 'custom') return t('quran.experience.customHint')
   return t('quran.experience.learnHint')
 })
 
@@ -591,6 +722,9 @@ const liveStatus = computed(() => {
 const activeSurah = computed(() => surahs.value.find(s => s.chapter === selectedChapter.value) || null)
 const activeReciter = computed(() => getReciterById(reciterId.value))
 const showTranslation = computed(() => modes.translation && translationLang.value !== 'none')
+const visibleReciters = computed(() =>
+  modes.wordSync ? wordSyncReciters() : QURAN_RECITERS,
+)
 
 const ayahs = computed(() => {
   const verses = Object.keys(arabicMap.value)
@@ -633,12 +767,23 @@ const stickyTitle = computed(() => {
 })
 
 const stickySubtitle = computed(() => {
-  if (modes.wordSync && usingChapterAudio.value) {
-    return `${t('quran.listen')} · ${t('quran.modes.wordSyncReciter')}`
-  }
   const label = locale.value === 'ar' ? activeReciter.value.labelAr : activeReciter.value.label
+  if (abLoop.start && abLoop.end) {
+    return `${t('quran.abLoop')}: ${abLoop.start}–${abLoop.end}`
+  }
   if (isPlaying.value) return `${t('quran.listen')} · ${label}`
   return label
+})
+
+const abLabel = computed(() => {
+  if (abLoop.start && abLoop.end) return `A–B ${abLoop.start}–${abLoop.end}`
+  if (abLoop.start) return `A ${abLoop.start}`
+  return 'A–B'
+})
+
+const sleepLabel = computed(() => {
+  if (!sleepMinutes.value) return t('quran.sleepOff')
+  return t('quran.sleepN', { n: sleepMinutes.value })
 })
 
 function applyModePatch(patch) {
@@ -650,8 +795,17 @@ function setExperience(exp) {
   experience.value = exp
   saveExperience(exp)
   applyModePatch(modesForExperience(exp))
+  syncReciterForWordSync()
   if (!modes.player) stopAudio()
   if (modes.tafsir && playingVerse.value) loadTafsir(playingVerse.value)
+}
+
+function syncReciterForWordSync() {
+  if (!modes.wordSync) return
+  if (!activeReciter.value.wordSyncId) {
+    reciterId.value = wordSyncReciters()[0]?.id || QURAN_RECITERS[0].id
+    saveReciterId(reciterId.value)
+  }
 }
 
 function setSpeed(rate) {
@@ -677,13 +831,18 @@ function applyPlaybackRate() {
 function onAudioPlay() {
   isPlaying.value = true
   applyPlaybackRate()
+  updateMediaSession()
 }
 
 function toggleMode(key) {
   modes[key] = !modes[key]
   saveModes(modes)
+  experience.value = experienceFromModes(modes)
+  if (experience.value !== 'custom') saveExperience(experience.value)
+  syncReciterForWordSync()
   if (key === 'player' && !modes.player) stopAudio()
   if (key === 'wordSync' && isPlaying.value && playingVerse.value) {
+    chapterTiming.value = null
     playVerse(playingVerse.value, { queue: queueMode.value })
   }
   if (key === 'tafsir' && modes.tafsir && playingVerse.value) {
@@ -728,17 +887,22 @@ async function scrollToVerse(verse) {
 
 async function ensureChapterTiming() {
   if (!selectedChapter.value) return null
-  if (chapterTiming.value?.chapter === selectedChapter.value && chapterTiming.value.audioUrl) {
+  const syncId = wordSyncIdForReciter(reciterId.value)
+  if (
+    chapterTiming.value?.chapter === selectedChapter.value
+    && chapterTiming.value.reciterId === syncId
+    && chapterTiming.value.audioUrl
+  ) {
     return chapterTiming.value
   }
   timingError.value = ''
   try {
-    const timing = await quranApi.getChapterTiming(selectedChapter.value, WORD_SYNC_RECITER_ID)
+    const timing = await quranApi.getChapterTiming(selectedChapter.value, syncId)
     if (!timing.audioUrl || !timing.verses.length) {
       timingError.value = t('quran.modes.wordSyncUnavailable')
       return null
     }
-    chapterTiming.value = { chapter: selectedChapter.value, ...timing }
+    chapterTiming.value = { chapter: selectedChapter.value, reciterId: syncId, ...timing }
     return chapterTiming.value
   } catch {
     timingError.value = t('quran.modes.wordSyncUnavailable')
@@ -756,6 +920,7 @@ async function playVerse(verse, { queue = false } = {}) {
   playingVerse.value = target
   activeWordIndex.value = null
   savePosition(selectedChapter.value, target)
+  syncShareQuery(target)
 
   if (modes.wordSync) {
     const timing = await ensureChapterTiming()
@@ -781,13 +946,13 @@ async function playVerse(verse, { queue = false } = {}) {
         isPlaying.value = true
         scrollToVerse(target)
         if (modes.tafsir) loadTafsir(target)
+        updateMediaSession()
       } catch {
         isPlaying.value = false
         audioError.value = t('quran.audioError')
       }
       return
     }
-    // Fall back to EveryAyah ayah audio without word sync
     usingChapterAudio.value = false
   }
 
@@ -799,6 +964,7 @@ async function playVerse(verse, { queue = false } = {}) {
     isPlaying.value = true
     scrollToVerse(target)
     if (modes.tafsir) loadTafsir(target)
+    updateMediaSession()
   } catch {
     isPlaying.value = false
     audioError.value = t('quran.audioError')
@@ -823,10 +989,13 @@ function onTimeUpdate() {
   if (!usingChapterAudio.value || !chapterTiming.value) return
   const ms = el.currentTime * 1000
 
-  // Single-ayah mode: stop at verse end (chapter file continues otherwise).
   if (!queueMode.value && playingVerse.value != null) {
     const vt = chapterTiming.value.verses.find(v => v.verse === playingVerse.value)
     if (vt && ms >= vt.timestampTo - 40) {
+      if (abLoop.start && abLoop.end && playingVerse.value === abLoop.end) {
+        playVerse(abLoop.start, { queue: true })
+        return
+      }
       el.pause()
       isPlaying.value = false
       activeWordIndex.value = null
@@ -838,6 +1007,10 @@ function onTimeUpdate() {
   const hit = activeWordAt(ms, chapterTiming.value.verses)
   if (!hit) return
   if (hit.verse && hit.verse !== playingVerse.value) {
+    if (abLoop.start && abLoop.end && hit.verse > abLoop.end) {
+      playVerse(abLoop.start, { queue: true })
+      return
+    }
     playingVerse.value = hit.verse
     savePosition(selectedChapter.value, hit.verse)
     scrollToVerse(hit.verse)
@@ -896,7 +1069,94 @@ function goSurah(delta) {
   selectChapter(next)
 }
 
+function goJuz() {
+  const chapter = chapterForJuz(juzRefs.value, jumpJuz.value)
+  if (chapter) selectChapter(chapter)
+}
+
+function goPage() {
+  const chapter = chapterForPage(pageRefs.value, jumpPage.value)
+  if (chapter) selectChapter(chapter)
+}
+
+function setAbMarker() {
+  const v = playingVerse.value || 1
+  if (!abLoop.start) {
+    abLoop.start = v
+    abLoop.end = null
+    return
+  }
+  if (!abLoop.end) {
+    abLoop.end = Math.max(abLoop.start, v)
+    queueMode.value = true
+    return
+  }
+  abLoop.start = null
+  abLoop.end = null
+}
+
+function cycleSleep() {
+  const idx = QURAN_SLEEP_MINUTES.indexOf(sleepMinutes.value)
+  sleepMinutes.value = QURAN_SLEEP_MINUTES[(idx + 1) % QURAN_SLEEP_MINUTES.length]
+  if (sleepTimer) {
+    clearTimeout(sleepTimer)
+    sleepTimer = null
+  }
+  if (sleepMinutes.value > 0) {
+    sleepTimer = setTimeout(() => {
+      stopAudio()
+      sleepMinutes.value = 0
+    }, sleepMinutes.value * 60 * 1000)
+  }
+}
+
+async function copyShare(verse) {
+  const path = quranSharePath(selectedChapter.value, verse)
+  const url = `${SEO_ORIGIN}${path}`
+  try {
+    await navigator.clipboard.writeText(url)
+    shareCopied.value = true
+    if (shareCopiedTimer) clearTimeout(shareCopiedTimer)
+    shareCopiedTimer = setTimeout(() => { shareCopied.value = false }, 2000)
+  } catch {
+    /* ignore */
+  }
+  syncShareQuery(verse)
+}
+
+function syncShareQuery(verse) {
+  if (!selectedChapter.value) return
+  router.replace({
+    name: 'quran',
+    query: {
+      surah: String(selectedChapter.value),
+      ...(verse ? { ayah: String(verse) } : {}),
+    },
+  })
+}
+
+function updateMediaSession() {
+  if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) return
+  const name = activeSurah.value?.englishname || activeSurah.value?.name || 'Quran'
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: playingVerse.value ? `${name} ${selectedChapter.value}:${playingVerse.value}` : name,
+    artist: activeReciter.value.label,
+    album: "Athar Al 'Ilm",
+  })
+  navigator.mediaSession.setActionHandler('play', () => toggleStickyPlay())
+  navigator.mediaSession.setActionHandler('pause', () => {
+    audioEl.value?.pause()
+    isPlaying.value = false
+  })
+  navigator.mediaSession.setActionHandler('previoustrack', () => stepAyah(-1))
+  navigator.mediaSession.setActionHandler('nexttrack', () => stepAyah(1))
+}
+
 function onAudioEnded() {
+  if (abLoop.start && abLoop.end) {
+    playVerse(abLoop.start, { queue: true })
+    return
+  }
   if (usingChapterAudio.value) {
     stopAudio()
     return
@@ -941,6 +1201,8 @@ async function loadInfo() {
   try {
     const data = await quranApi.getInfo()
     surahs.value = data.chapters || []
+    juzRefs.value = data.juzs?.references || []
+    pageRefs.value = data.pages?.references || []
 
     const qSurah = Number(route.query.surah)
     const qAyah = Number(route.query.ayah)
@@ -991,8 +1253,10 @@ async function loadAyahs() {
       await nextTick()
       scrollToVerse(scrollTo)
       savePosition(selectedChapter.value, scrollTo)
+      if (modes.tafsir) loadTafsir(scrollTo)
     } else {
       savePosition(selectedChapter.value, 1)
+      if (modes.tafsir) loadTafsir(1)
     }
   } catch {
     ayahError.value = t('quran.loadError')
@@ -1006,14 +1270,34 @@ async function loadAyahs() {
 function selectChapter(n) {
   selectedChapter.value = n
   surahDrawerOpen.value = false
-  if (route.query.surah || route.query.ayah) {
-    router.replace({ name: 'quran' })
+  jumpJuz.value = 0
+  jumpPage.value = 0
+  syncShareQuery(1)
+}
+
+function onKeydown(e) {
+  const tag = (e.target?.tagName || '').toLowerCase()
+  if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target?.isContentEditable) return
+  if (e.code === 'Space' && modes.player) {
+    e.preventDefault()
+    toggleStickyPlay()
+    return
+  }
+  if (e.code === 'ArrowLeft') {
+    e.preventDefault()
+    stepAyah(-1)
+    return
+  }
+  if (e.code === 'ArrowRight') {
+    e.preventDefault()
+    stepAyah(1)
   }
 }
 
 watch(reciterId, (id) => {
   saveReciterId(id)
-  if (isPlaying.value && playingVerse.value && !modes.wordSync) {
+  chapterTiming.value = null
+  if (isPlaying.value && playingVerse.value) {
     playVerse(playingVerse.value, { queue: queueMode.value })
   }
 })
@@ -1032,6 +1316,16 @@ watch(playingVerse, (verse) => {
   }
 })
 
-onMounted(loadInfo)
-onBeforeUnmount(stopAudio)
+onMounted(() => {
+  syncReciterForWordSync()
+  loadInfo()
+  window.addEventListener('keydown', onKeydown)
+})
+
+onBeforeUnmount(() => {
+  stopAudio()
+  window.removeEventListener('keydown', onKeydown)
+  if (sleepTimer) clearTimeout(sleepTimer)
+  if (shareCopiedTimer) clearTimeout(shareCopiedTimer)
+})
 </script>

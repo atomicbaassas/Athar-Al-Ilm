@@ -76,6 +76,11 @@ export const routes = [
     name: 'quran-dua',
     component: () => import('@/views/quran/DuaView.vue'),
   },
+  {
+    path: '/hadith',
+    name: 'hadith',
+    component: () => import('@/views/hadith/HadithView.vue'),
+  },
 
   {
     path: '/contributors',

@@ -5,6 +5,7 @@
   "nav": {
     "learn": "Jifunze",
     "quran": "Qurani",
+    "hadith": "Hadithi",
     "library": "Maktaba",
     "dashboard": "Dashibodi",
     "admin": "Usimamizi",
@@ -12,6 +13,19 @@
     "login": "Ingia",
     "getStarted": "Anza",
     "contributors": "Wachangiaji"
+  },
+  "hadith": {
+    "title": "Hadithi",
+    "subtitle": "Hadithi sahihi kutoka HadeethEnc — kupitia lango la Athar. Si za AI.",
+    "language": "Lugha",
+    "categories": "Kategoria",
+    "pickCategory": "Chagua kategoria ili kuvinjari hadithi.",
+    "back": "Rudi kwenye orodha",
+    "explanation": "Maelezo",
+    "sourceNote": "Chanzo: HadeethEnc kupitia lango la Athar (C-SRC).",
+    "empty": "Hakuna hadithi katika kategoria hii.",
+    "more": "Pakia zaidi",
+    "loadError": "Imeshindikana kupakia hadithi. Jaribu tena."
   },
   "quran": {
     "eyebrow": "Qurani",
@@ -23,6 +37,16 @@
     "arabicOnly": "Kiarabu pekee",
     "surahs": "Sura",
     "ayahs": "aya",
+    "juz": "Juzuu",
+    "juzN": "Juzuu {n}",
+    "page": "Ukurasa",
+    "pageN": "Ukurasa {n}",
+    "share": "Shiriki",
+    "shareCopied": "Kiungo kimenakiliwa.",
+    "abLoop": "Rudia A–B",
+    "sleep": "Kipima muda cha usingizi",
+    "sleepOff": "Usingizi",
+    "sleepN": "{n}d",
     "pickSurah": "Chagua sura ili kuanza kusoma.",
     "loadError": "Imeshindikana kupakia maandishi ya Qurani. Jaribu tena.",
     "listen": "Sikiliza",
@@ -68,7 +92,8 @@
       "listen": "Kusikiliza",
       "readHint": "Mushaf wa Kiarabu na tafsiri — kujifunza kimya.",
       "learnHint": "Tafsiri, tafsir, na usomaji wenye angaza la maneno.",
-      "listenHint": "Zingatia usomaji na angaza la maneno na aya fupi."
+      "listenHint": "Zingatia usomaji na angaza la maneno na aya fupi.",
+      "customHint": "Chaguo maalum — vichupo havilingani tena na preset."
     },
     "speed": "Kasi",
     "speedLabel": "Kasi ya kucheza",

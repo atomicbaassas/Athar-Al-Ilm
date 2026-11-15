@@ -2,20 +2,31 @@ import { describe, expect, it } from 'vitest'
 import {
   activeWordAt,
   ayahAudioUrl,
+  chapterForJuz,
+  chapterForPage,
+  experienceFromModes,
   getReciterById,
+  modesEqual,
   modesForExperience,
   normalizeSegments,
+  quranSharePath,
+  resolveInitialModes,
   splitAyahWords,
   stripHtml,
+  wordSyncIdForReciter,
+  wordSyncReciters,
   QURAN_RECITERS,
   QURAN_SPEEDS,
   DEFAULT_QURAN_MODES,
 } from './quran.js'
 
 describe('quran audio helpers', () => {
-  it('lists multiple EveryAyah reciters', () => {
-    expect(QURAN_RECITERS.length).toBeGreaterThanOrEqual(5)
+  it('lists EveryAyah reciters including Sudais and word-sync map', () => {
+    expect(QURAN_RECITERS.length).toBeGreaterThanOrEqual(15)
     expect(QURAN_RECITERS[0].id).toBe('Alafasy_128kbps')
+    expect(getReciterById('Abdurrahmaan_As-Sudais_192kbps').wordSyncId).toBe(3)
+    expect(wordSyncReciters().length).toBeGreaterThanOrEqual(8)
+    expect(wordSyncIdForReciter('Husary_128kbps')).toBe(6)
   })
 
   it('builds padded EveryAyah URLs for a chosen reciter', () => {
@@ -79,5 +90,24 @@ describe('word timing helpers', () => {
     expect(modesForExperience('learn').tafsir).toBe(true)
     expect(modesForExperience('listen').wordSync).toBe(true)
     expect(QURAN_SPEEDS).toContain(1.25)
+  })
+
+  it('resolveInitialModes prefers experience over stale saved modes', () => {
+    expect(resolveInitialModes('learn', { ...DEFAULT_QURAN_MODES, tafsir: false }).modes.tafsir).toBe(true)
+    expect(resolveInitialModes('read', DEFAULT_QURAN_MODES).modes.player).toBe(false)
+    expect(resolveInitialModes('listen', DEFAULT_QURAN_MODES).modes.translation).toBe(false)
+  })
+
+  it('detects custom when toggles leave a preset', () => {
+    const listen = modesForExperience('listen')
+    expect(experienceFromModes(listen)).toBe('listen')
+    expect(experienceFromModes({ ...listen, translation: true })).toBe('custom')
+    expect(modesEqual(listen, modesForExperience('listen'))).toBe(true)
+  })
+
+  it('builds share paths and juz/page chapter jumps', () => {
+    expect(quranSharePath(2, 255)).toBe('/quran?surah=2&ayah=255')
+    expect(chapterForJuz([{ juz: 1, start: { chapter: 1, verse: 1 } }], 1)).toBe(1)
+    expect(chapterForPage([{ page: 2, start: { chapter: 2, verse: 1 } }], 2)).toBe(2)
   })
 })

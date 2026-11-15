@@ -5,6 +5,7 @@
   "nav": {
     "learn": "Learn",
     "quran": "Quran",
+    "hadith": "Hadith",
     "library": "Library",
     "dashboard": "Dashboard",
     "admin": "Admin",
@@ -12,6 +13,19 @@
     "login": "Login",
     "getStarted": "Get Started",
     "contributors": "Contributors"
+  },
+  "hadith": {
+    "title": "Hadith",
+    "subtitle": "Authentic narrations from HadeethEnc — via Athar gateway. Not AI-generated.",
+    "language": "Language",
+    "categories": "Categories",
+    "pickCategory": "Choose a category to browse narrations.",
+    "back": "Back to list",
+    "explanation": "Explanation",
+    "sourceNote": "Source: HadeethEnc via Athar gateway (C-SRC).",
+    "empty": "No narrations in this category.",
+    "more": "Load more",
+    "loadError": "Could not load hadith. Please try again."
   },
   "quran": {
     "eyebrow": "Quran",
@@ -23,6 +37,16 @@
     "arabicOnly": "Arabic only",
     "surahs": "Surahs",
     "ayahs": "ayahs",
+    "juz": "Juz",
+    "juzN": "Juz {n}",
+    "page": "Page",
+    "pageN": "Page {n}",
+    "share": "Share",
+    "shareCopied": "Link copied.",
+    "abLoop": "A–B repeat",
+    "sleep": "Sleep timer",
+    "sleepOff": "Sleep",
+    "sleepN": "{n}m",
     "pickSurah": "Select a surah to begin reading.",
     "loadError": "Could not load Quran text. Please try again.",
     "listen": "Listen",
@@ -68,7 +92,8 @@
       "listen": "Listening",
       "readHint": "Arabic mushaf with translation — quiet study.",
       "learnHint": "Translation, tafsir, and word-synced recitation together.",
-      "listenHint": "Focus on recitation with word highlight and compact ayahs."
+      "listenHint": "Focus on recitation with word highlight and compact ayahs.",
+      "customHint": "Custom options — tabs no longer match a preset."
     },
     "speed": "Speed",
     "speedLabel": "Playback speed",
@@ -80,9 +105,9 @@
       "tafsir": "Tafsir",
       "translation": "Translation",
       "compact": "Compact",
-      "wordSyncHint": "Word sync uses verified Al-Afasy chapter timings (via Athar gateway). EveryAyah has no word timestamps.",
+      "wordSyncHint": "Word sync uses verified Quran.com chapter timings for the selected reciter (via Athar gateway).",
       "wordSyncUnavailable": "Word timings unavailable for this surah — falling back to ayah audio.",
-      "wordSyncReciter": "Al-Afasy · timed chapter"
+      "wordSyncReciter": "Timed chapter audio"
     },
     "tafsir": {
       "label": "Tafsir",
