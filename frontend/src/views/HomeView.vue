@@ -982,7 +982,7 @@ const { t } = useI18n()
 const auth = useAuthStore()
 
 useSeo({
-  title:       'Athar Al 'Ilm — Structured Islamic Learning for the Ummah',
+  title:       'Athar Al \'Ilm — Structured Islamic Learning for the Ummah',
   description: 'A rigorous, scholar-verified Islamic curriculum. Structured tracks from beginner to advanced. Free forever. Built for the Ummah.',
   url:         'https://atharulilm.or.tz/',
 })

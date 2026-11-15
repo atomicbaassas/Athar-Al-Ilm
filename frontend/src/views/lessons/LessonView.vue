@@ -291,7 +291,7 @@ useSeo(() => {
               : undefined,
           }
         : undefined,
-      provider: { '@type': 'Organization', name: 'Athar Al 'Ilm', url: SEO_ORIGIN },
+      provider: { '@type': 'Organization', name: 'Athar Al \'Ilm', url: SEO_ORIGIN },
     },
   }
 })

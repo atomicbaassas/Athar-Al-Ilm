@@ -92,7 +92,7 @@ import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
 useSeo({
   title: 'Terms & Conditions',
-  description: 'The terms that govern your use of the Athar Al 'Ilm Islamic learning platform.',
+  description: 'The terms that govern your use of the Athar Al \'Ilm Islamic learning platform.',
   url: `${SEO_ORIGIN}/terms`,
 })
 </script>

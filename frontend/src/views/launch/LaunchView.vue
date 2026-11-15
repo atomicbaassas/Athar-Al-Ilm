@@ -108,8 +108,8 @@ const SSR_KEY = 'launchSettings'
 const cached = ssr.get(SSR_KEY)
 
 const eventAt = ref(cached?.event_at || '2026-07-15T18:30:00+05:30')   // ISO 8601 with timezone offset
-const headline = ref(cached?.headline || 'Be there when Athar Al 'Ilm goes live.')
-const intro = ref(cached?.intro || 'Join us for the official launch of Athar Al 'Ilm — a free, structured, scholar-verified Islamic learning platform. Register below to get the live link and event reminders.')
+const headline = ref(cached?.headline || 'Be there when Athar Al \'Ilm goes live.')
+const intro = ref(cached?.intro || 'Join us for the official launch of Athar Al \'Ilm — a free, structured, scholar-verified Islamic learning platform. Register below to get the live link and event reminders.')
 
 function applySettings(s) {
   if (s?.event_at) eventAt.value = s.event_at
@@ -151,7 +151,7 @@ function formatEventLabel(iso) {
 
 useSeo({
   title: 'Live Launch — Register',
-  description: 'Register for the live launch of Athar Al 'Ilm, a free, scholar-verified Islamic learning platform. Get the live link and reminders.',
+  description: 'Register for the live launch of Athar Al \'Ilm, a free, scholar-verified Islamic learning platform. Get the live link and reminders.',
   url: `${SEO_ORIGIN}/launch`,
 })
 

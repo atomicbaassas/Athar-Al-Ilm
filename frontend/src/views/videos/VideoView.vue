@@ -138,7 +138,7 @@ useSeo(() => {
   if (!v) return {}
   return {
     title: `${v.title} — Athar Al 'Ilm Videos`,
-    description: v.description?.slice(0, 160) || 'Watch this Islamic video on Athar Al 'Ilm.',
+    description: v.description?.slice(0, 160) || 'Watch this Islamic video on Athar Al \'Ilm.',
   }
 })
 

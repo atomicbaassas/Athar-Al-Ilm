@@ -86,7 +86,7 @@ import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
 useSeo({
   title: 'Privacy Policy',
-  description: 'How Athar Al 'Ilm collects, uses, and protects your information.',
+  description: 'How Athar Al \'Ilm collects, uses, and protects your information.',
   url: `${SEO_ORIGIN}/privacy`,
 })
 </script>
