@@ -71,6 +71,11 @@ export const routes = [
     name: 'quran',
     component: () => import('@/views/quran/QuranView.vue'),
   },
+  {
+    path: '/quran/dua',
+    name: 'quran-dua',
+    component: () => import('@/views/quran/DuaView.vue'),
+  },
 
   // Library
   {

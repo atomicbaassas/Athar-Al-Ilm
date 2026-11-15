@@ -1,0 +1,87 @@
+{
+  "_meta": {
+    "purpose": "Quran-based du'a entry points for Athar /quran/dua",
+    "policy": "C-SRC: only Quran ayahs via Athar gateway; full prophetic adhkar → Hisn Al-Muslim (IslamHouse) library book",
+    "hisn": {
+      "slug": "hisn-al-muslim",
+      "title": "Hisn Al-Muslim (Fortress of the Muslim)",
+      "author": "Saeed Bin Ali Bin Wahf Al-Qahtani",
+      "publisher": "IslamHouse",
+      "pdf": "https://d1.islamhouse.com/data/en/ih_books/single/risala_en_hisnulmuslim.pdf"
+    }
+  },
+  "items": [
+    {
+      "id": "ayat-al-kursi",
+      "category": "protection",
+      "titleEn": "Ayat al-Kursi",
+      "titleAr": "آية الكرسي",
+      "chapter": 2,
+      "verse": 255,
+      "verseEnd": 255
+    },
+    {
+      "id": "last-two-baqarah",
+      "category": "evening",
+      "titleEn": "Last two ayahs of Al-Baqarah",
+      "titleAr": "خواتيم البقرة",
+      "chapter": 2,
+      "verse": 285,
+      "verseEnd": 286
+    },
+    {
+      "id": "al-ikhlas",
+      "category": "protection",
+      "titleEn": "Surah Al-Ikhlas",
+      "titleAr": "سورة الإخلاص",
+      "chapter": 112,
+      "verse": 1,
+      "verseEnd": 4
+    },
+    {
+      "id": "al-falaq",
+      "category": "protection",
+      "titleEn": "Surah Al-Falaq",
+      "titleAr": "سورة الفلق",
+      "chapter": 113,
+      "verse": 1,
+      "verseEnd": 5
+    },
+    {
+      "id": "an-nas",
+      "category": "protection",
+      "titleEn": "Surah An-Nas",
+      "titleAr": "سورة الناس",
+      "chapter": 114,
+      "verse": 1,
+      "verseEnd": 6
+    },
+    {
+      "id": "rabbi-zidni",
+      "category": "knowledge",
+      "titleEn": "My Lord, increase me in knowledge",
+      "titleAr": "رَبِّ زِدْنِي عِلْمًا",
+      "chapter": 20,
+      "verse": 114,
+      "verseEnd": 114
+    },
+    {
+      "id": "rabbi-ishrah",
+      "category": "ease",
+      "titleEn": "Expand my breast for me",
+      "titleAr": "رَبِّ اشْرَحْ لِي صَدْرِي",
+      "chapter": 20,
+      "verse": 25,
+      "verseEnd": 28
+    },
+    {
+      "id": "hasbuna-allah",
+      "category": "trust",
+      "titleEn": "Allah is sufficient for us",
+      "titleAr": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+      "chapter": 3,
+      "verse": 173,
+      "verseEnd": 173
+    }
+  ]
+}

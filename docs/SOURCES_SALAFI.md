@@ -57,7 +57,11 @@ Filter featured books to known Salafi publishers/authors in product UI — API i
   ([issue #64](https://github.com/fawazahmed0/quran-api/issues/64)); companion
   YouTube chapter maps are in [quran-videos](https://github.com/fawazahmed0/quran-videos)
   (`uploaded/{edition}.txt`). Learner `/quran` uses HTML5 audio from
-  `https://everyayah.com/data/Alafasy_128kbps/{SSS}{AAA}.mp3` (CORS `*`).
+  `https://everyayah.com/data/{ReciterFolder}/{SSS}{AAA}.mp3` (CORS `*`).
+  Default reciter `Alafasy_128kbps`; learner UI offers a verified EveryAyah
+  picker (persisted in `localStorage`). Highlight-while-play is **per-ayah**
+  (one MP3 per ayah). `/quran/dua` uses Quran ayat via this gateway plus the
+  seeded Hisn Al-Muslim library book (IslamHouse PDF) — no invented dua text.
   Binary audio is **not** proxied through the JSON gateway — direct CDN keeps
   Range streaming intact; text/editions still go through `/athar/v1/quranapi/*`.
 - **C-SRC note:** QuranEnc remains the preferred Salafi translation API and still

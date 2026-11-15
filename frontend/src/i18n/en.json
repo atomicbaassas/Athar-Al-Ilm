@@ -17,6 +17,7 @@
     "title": "Read the Quran",
     "subtitle": "Arabic mushaf with English or Swahili translation — first languages only.",
     "translation": "Translation",
+    "arabicOnly": "Arabic only",
     "surahs": "Surahs",
     "ayahs": "ayahs",
     "pickSurah": "Select a surah to begin reading.",
@@ -27,7 +28,36 @@
     "playAyah": "Play ayah",
     "pauseAyah": "Pause ayah",
     "audioError": "Could not play recitation. Please try again.",
-    "reciter": "Mishary Rashid Alafasy"
+    "reciter": "Mishary Rashid Alafasy",
+    "reciterLabel": "Reciter",
+    "searchSurah": "Find surah",
+    "searchPlaceholder": "Name or number…",
+    "noSurahMatch": "No surah matches that search.",
+    "prevSurah": "Previous surah",
+    "nextSurah": "Next surah",
+    "prevAyah": "Previous ayah",
+    "nextAyah": "Next ayah",
+    "dua": {
+      "nav": "Du'a",
+      "eyebrow": "Du'a & Adhkar",
+      "title": "Du'a from the Quran",
+      "subtitle": "Quran-based supplications here; full prophetic adhkar in Hisn Al-Muslim (IslamHouse).",
+      "hisnBadge": "IslamHouse · Hisn Al-Muslim",
+      "hisnTitle": "Fortress of the Muslim",
+      "hisnAuthor": "Saeed Bin Ali Bin Wahf Al-Qahtani",
+      "hisnDesc": "Classic pocket collection of authentic adhkar from the Quran and Sunnah. Open the seeded library book (PDF on IslamHouse).",
+      "openHisn": "Open Hisn Al-Muslim",
+      "fromQuran": "From the Quran",
+      "fromQuranNote": "Arabic text loaded via Athar gateway (Uthmani Hafs). Not AI-generated.",
+      "openInReader": "Open in reader",
+      "cat": {
+        "protection": "Protection",
+        "evening": "Evening",
+        "knowledge": "Knowledge",
+        "ease": "Ease",
+        "trust": "Trust"
+      }
+    }
   },
   "home": {
     "verseTranslation": "\"And say: My Lord, increase me in knowledge.\" — Quran 20:114",
