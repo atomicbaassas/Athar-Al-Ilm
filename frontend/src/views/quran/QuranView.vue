@@ -45,7 +45,7 @@
         </button>
       </div>
 
-      <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
         <label class="flex flex-col gap-1 min-w-0 flex-1 sm:max-w-sm">
           <span class="text-sm font-medium text-gray-600">{{ t('quran.searchSurah') }}</span>
           <input
@@ -58,30 +58,32 @@
           />
         </label>
 
-        <label v-if="modes.translation" class="flex flex-col gap-1 min-w-0 sm:w-52">
-          <span class="text-sm font-medium text-gray-600" for="quran-translation">{{ t('quran.translation') }}</span>
-          <select
-            id="quran-translation"
-            v-model="translationLang"
-            class="min-h-11 bg-white border border-gray-200 text-gray-700 text-base rounded-xl px-3
-                   focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10 cursor-pointer"
-          >
-            <option value="en">{{ locale === 'ar' ? QURAN_EDITIONS.en.labelAr : QURAN_EDITIONS.en.label }}</option>
-            <option value="sw">{{ locale === 'ar' ? QURAN_EDITIONS.sw.labelAr : QURAN_EDITIONS.sw.label }}</option>
-            <option value="none">{{ t('quran.arabicOnly') }}</option>
-          </select>
-        </label>
+        <div class="flex flex-row gap-3 min-w-0 items-end sm:contents">
+          <label v-if="modes.translation" class="flex flex-col gap-1 min-w-0 flex-1 sm:w-52 sm:flex-none">
+            <span class="text-sm font-medium text-gray-600" for="quran-translation">{{ t('quran.translation') }}</span>
+            <select
+              id="quran-translation"
+              v-model="translationLang"
+              class="min-h-11 w-full bg-white border border-gray-200 text-gray-700 text-base rounded-xl px-3
+                     focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10 cursor-pointer"
+            >
+              <option value="en">{{ locale === 'ar' ? QURAN_EDITIONS.en.labelAr : QURAN_EDITIONS.en.label }}</option>
+              <option value="sw">{{ locale === 'ar' ? QURAN_EDITIONS.sw.labelAr : QURAN_EDITIONS.sw.label }}</option>
+              <option value="none">{{ t('quran.arabicOnly') }}</option>
+            </select>
+          </label>
 
-        <button
-          type="button"
-          class="inline-flex items-center justify-center min-h-11 px-3.5 rounded-xl border border-gray-200
-                 text-sm font-semibold text-gray-700 hover:border-brand/30 hover:text-brand transition-colors
-                 touch-manipulation sm:ms-auto"
-          :aria-expanded="optionsOpen ? 'true' : 'false'"
-          @click="optionsOpen = !optionsOpen"
-        >
-          {{ optionsOpen ? t('quran.optionsLess') : t('quran.optionsMore') }}
-        </button>
+          <button
+            type="button"
+            class="inline-flex items-center justify-center min-h-11 px-3.5 rounded-xl border border-gray-200
+                   text-sm font-semibold text-gray-700 hover:border-brand/30 hover:text-brand transition-colors
+                   touch-manipulation sm:ms-auto shrink-0"
+            :aria-expanded="optionsOpen ? 'true' : 'false'"
+            @click="optionsOpen = !optionsOpen"
+          >
+            {{ optionsOpen ? t('quran.optionsLess') : t('quran.optionsMore') }}
+          </button>
+        </div>
       </div>
 
       <div
