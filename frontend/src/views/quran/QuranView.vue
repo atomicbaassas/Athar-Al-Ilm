@@ -486,9 +486,9 @@
 
         <button
           type="button"
-          class="hidden sm:inline-flex items-center justify-center min-h-11 px-2 rounded-xl border text-xs font-semibold shrink-0"
+          class="inline-flex items-center justify-center min-h-11 px-2 rounded-xl border text-xs font-semibold shrink-0 touch-manipulation"
           :class="abLoop.start ? 'border-brand bg-brand-muted text-brand' : 'border-gray-200 text-gray-600'"
-          :aria-label="t('quran.abLoop')"
+          :aria-label="abLabel"
           @click="setAbMarker"
         >
           {{ abLabel }}
@@ -507,9 +507,9 @@
 
         <button
           type="button"
-          class="hidden sm:inline-flex items-center justify-center min-h-11 px-2 rounded-xl border border-gray-200
-                 text-xs font-semibold text-gray-700 shrink-0"
-          :aria-label="t('quran.sleep')"
+          class="inline-flex items-center justify-center min-h-11 px-2 rounded-xl border border-gray-200
+                 text-xs font-semibold text-gray-700 shrink-0 touch-manipulation"
+          :aria-label="sleepLabel"
           @click="cycleSleep"
         >
           {{ sleepLabel }}
