@@ -30,10 +30,10 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider">
-              <th class="px-5 py-3 text-left font-medium">Name</th>
-              <th class="px-4 py-3 text-left font-medium">Status</th>
-              <th class="px-4 py-3 text-left font-medium hidden sm:table-cell">Segment</th>
-              <th class="px-4 py-3 text-right font-medium">Sent</th>
+              <th class="px-5 py-3 text-start font-medium">Name</th>
+              <th class="px-4 py-3 text-start font-medium">Status</th>
+              <th class="px-4 py-3 text-start font-medium hidden sm:table-cell">Segment</th>
+              <th class="px-4 py-3 text-end font-medium">Sent</th>
             </tr>
           </thead>
           <tbody>
@@ -41,7 +41,7 @@
               <td class="px-5 py-3 font-medium text-gray-800">{{ c.name }}</td>
               <td class="px-4 py-3"><span class="text-xs font-semibold px-2 py-0.5 rounded-full" :class="statusClass(c.status)">{{ c.status }}</span></td>
               <td class="px-4 py-3 text-gray-500 text-xs hidden sm:table-cell">{{ c.segment }}</td>
-              <td class="px-4 py-3 text-right text-gray-700 font-semibold">{{ c.stats?.sent ?? '—' }}</td>
+              <td class="px-4 py-3 text-end text-gray-700 font-semibold">{{ c.stats?.sent ?? '—' }}</td>
             </tr>
           </tbody>
         </table>

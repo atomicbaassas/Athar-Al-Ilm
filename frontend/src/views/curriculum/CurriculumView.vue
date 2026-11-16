@@ -129,11 +129,13 @@
           <button
             @click="viewMode = 'icon'"
             :title="t('curriculum.viewIcon')"
+            :aria-label="t('curriculum.viewIcon')"
+            :aria-pressed="viewMode === 'icon' ? 'true' : 'false'"
             :class="viewMode === 'icon' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-400 hover:text-gray-600'"
-            class="p-2 rounded-lg transition-all"
+            class="w-11 h-9 inline-flex items-center justify-center rounded-lg transition-all"
           >
             <!-- 2×2 grid (icon view) -->
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7" rx="1.5" stroke-width="1.75"/>
               <rect x="14" y="3" width="7" height="7" rx="1.5" stroke-width="1.75"/>
               <rect x="3" y="14" width="7" height="7" rx="1.5" stroke-width="1.75"/>
@@ -143,11 +145,13 @@
           <button
             @click="viewMode = 'card'"
             :title="t('curriculum.viewCard')"
+            :aria-label="t('curriculum.viewCard')"
+            :aria-pressed="viewMode === 'card' ? 'true' : 'false'"
             :class="viewMode === 'card' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-400 hover:text-gray-600'"
-            class="p-2 rounded-lg transition-all"
+            class="w-11 h-9 inline-flex items-center justify-center rounded-lg transition-all"
           >
             <!-- Card with image header (card view) -->
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.75"/>
               <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.75"/>
               <line x1="7" y1="14" x2="17" y2="14" stroke-width="1.5" stroke-linecap="round"/>

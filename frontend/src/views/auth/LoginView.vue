@@ -28,7 +28,7 @@
           <div>
             <div class="flex items-center justify-between mb-1">
               <label class="block text-sm font-medium text-gray-700">{{ t('auth.login.password') }}</label>
-              <RouterLink to="/forgot-password" class="text-xs text-emerald-700 hover:underline font-medium">
+              <RouterLink to="/forgot-password" class="text-xs text-emerald-700 hover:underline font-medium py-2 -my-2">
                 {{ t('auth.forgotLink') }}
               </RouterLink>
             </div>

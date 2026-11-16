@@ -48,7 +48,7 @@
             <div class="flex items-center gap-2 text-xs pt-2 border-t border-gray-100">
               <span class="text-gray-400">Source:</span>
               <input v-model="block.body.source" placeholder="Optional reference (e.g. book/page, scholar, link)…"
-                class="flex-1 text-gray-500 bg-transparent border-0 focus:outline-none placeholder:text-gray-300" />
+                class="flex-1 text-gray-500 bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 placeholder:text-gray-300" />
             </div>
           </div>
         </template>
@@ -63,11 +63,11 @@
             <div class="flex items-center gap-2 text-xs text-emerald-700 font-medium flex-wrap">
               <span class="text-emerald-400">Surah</span>
               <input v-model="block.body.surah" placeholder="Name"
-                class="flex-1 min-w-[6rem] bg-transparent border-0 focus:outline-none text-emerald-700 placeholder:text-emerald-300 font-medium" />
+                class="flex-1 min-w-[6rem] bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 text-emerald-700 placeholder:text-emerald-300 font-medium" />
               <span class="text-emerald-300 mx-1">·</span>
               <span class="text-emerald-400">Ayah</span>
               <input v-model.number="block.body.ayah" type="number" placeholder="0"
-                class="w-16 text-right bg-transparent border-0 focus:outline-none text-emerald-700 placeholder:text-emerald-300" />
+                class="w-16 text-right bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 text-emerald-700 placeholder:text-emerald-300" />
             </div>
           </div>
         </template>
@@ -80,12 +80,12 @@
             <div class="flex items-center gap-2 text-xs">
               <span class="text-amber-400 font-medium">—</span>
               <input v-model="block.body.source" placeholder="Source (e.g. Sahih Bukhari 1)"
-                class="flex-1 text-amber-700 font-medium bg-transparent border-0 focus:outline-none placeholder:text-amber-300" />
+                class="flex-1 text-amber-700 font-medium bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 placeholder:text-amber-300" />
             </div>
             <div class="flex items-center gap-2 text-xs">
               <span class="text-amber-300">Narrated by:</span>
               <input v-model="block.body.narrator" placeholder="Narrator (optional)"
-                class="flex-1 text-amber-600 bg-transparent border-0 focus:outline-none placeholder:text-amber-300" />
+                class="flex-1 text-amber-600 bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 placeholder:text-amber-300" />
             </div>
           </div>
         </template>
@@ -167,7 +167,7 @@
           <div class="bg-gray-50 px-5 py-4 border-b border-gray-200">
             <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Quick Check</p>
             <input v-model="block.body.question" :dir="dir" placeholder="Enter your question…"
-              class="w-full font-medium text-gray-900 bg-transparent border-0 focus:outline-none text-base placeholder:text-gray-300" />
+              class="w-full font-medium text-gray-900 bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 text-base placeholder:text-gray-300" />
           </div>
           <div class="bg-white px-4 py-4 space-y-2">
             <div v-for="(opt, oi) in (block.body.options || ['', '', '', ''])" :key="oi" class="flex items-center gap-2.5">

@@ -4,7 +4,13 @@
     class="fixed inset-0 bg-black/60 flex items-center justify-center z-[60] p-4 backdrop-blur-sm"
     @click.self="$emit('close')"
   >
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
+    <div
+      role="dialog"
+      aria-modal="true"
+      :aria-label="t('feedback.trackCompleted')"
+      tabindex="-1"
+      class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden focus:outline-none"
+    >
       <!-- Header -->
       <div class="px-6 pt-6 pb-2 text-center">
         <div class="mx-auto w-12 h-12 rounded-full bg-[#0B3D2E]/10 flex items-center justify-center mb-3">
@@ -62,9 +68,10 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { feedbackApi } from '@/api/feedback'
+import { useModalA11y } from '@/composables/useModalA11y'
 
 const props = defineProps({
   show: { type: Boolean, default: false },
@@ -84,6 +91,8 @@ const error = ref('')
 watch(() => props.show, (open) => {
   if (open) { rating.value = 0; hover.value = 0; comment.value = ''; error.value = ''; submitting.value = false }
 })
+
+useModalA11y(toRef(props, 'show'), () => emit('close'))
 
 async function submit() {
   if (!rating.value) return

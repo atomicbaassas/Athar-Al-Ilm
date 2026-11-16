@@ -5,7 +5,9 @@
     <button v-else @click="resend" :disabled="sending" class="font-semibold underline hover:no-underline disabled:opacity-60">
       {{ t('auth.verifyBanner.resend') }}
     </button>
-    <button @click="dismiss" class="ms-2 text-amber-500 hover:text-amber-700" aria-label="Dismiss">✕</button>
+    <button @click="dismiss" class="-me-2 flex items-center justify-center w-8 h-8 rounded-lg text-amber-500 hover:text-amber-700 hover:bg-amber-100/60 transition-colors" aria-label="Dismiss">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
   </div>
 </template>
 

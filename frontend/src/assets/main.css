@@ -24,7 +24,7 @@
            transition-colors touch-manipulation;
   }
   .athar-chip {
-    @apply inline-flex items-center min-h-10 px-3 rounded-xl border border-gray-200 text-sm font-semibold
+    @apply inline-flex items-center min-h-11 px-3 rounded-xl border border-gray-200 text-sm font-semibold
            text-gray-600 hover:border-brand/30 transition-colors touch-manipulation;
   }
   .athar-chip--on {
@@ -133,6 +133,28 @@ select:disabled {
   p {
     font-size: 1.125rem;
     line-height: 1.75;
+  }
+
+  /* Respect reduced-motion: kill decorative/scroll-triggered animation globally.
+     (JS-driven motion — Lenis + GSAP on the home page — checks this separately.) */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 }
 
@@ -288,10 +310,13 @@ select:disabled {
 
 /* ─── Text — inline color (author form) ──────────────────────── */
 :root.home-light .home-page [style*="color:rgba(255,255,255"]     { color: #374151 !important; }
-:root.home-light .home-page [style*="color:rgba(255,255,255,0.0"] { color: rgba(0,0,0,0.05) !important; }
 /* ─── Text — inline color (browser form, spaces) ─────────────── */
 :root.home-light .home-page [style*="color: rgba(255, 255, 255"]      { color: #374151 !important; }
-:root.home-light .home-page [style*="color: rgba(255, 255, 255, 0.0"] { color: rgba(0,0,0,0.05) !important; }
+
+/* Roadmap ghost numbers (01–06) are decorative — keep them faint in light mode.
+   Never target them via [style*="color:...0.0x"]: that substring also matches
+   border-color declarations and turns real text invisible (see audit 2026-11-16). */
+:root.home-light .home-page [data-ghost-num] { color: rgba(0, 0, 0, 0.10) !important; }
 
 /* ─── Card / panel backgrounds (author form) ─────────────────── */
 :root.home-light .home-page .rounded-2xl[style*="background:rgba(255,255,255"]  { background: #ffffff !important; }

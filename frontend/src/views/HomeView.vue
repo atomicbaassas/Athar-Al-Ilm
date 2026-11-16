@@ -47,7 +47,7 @@
             <p class="arabic-text text-base text-brand-light leading-none" style="line-height:1.2;">
               وَقُل رَّبِّ زِدْنِي عِلْمًا
             </p>
-            <span class="text-white/25 text-xs font-medium hidden sm:inline">Quran 20:114</span>
+            <span class="text-white/50 text-xs font-medium hidden sm:inline">Quran 20:114</span>
           </div>
 
           <!-- Headline -->
@@ -688,7 +688,7 @@
                 <svg v-if="phase.done" class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
                 {{ phase.done ? t('home.roadmapCompleteBadge') : phase.current ? t('home.roadmapCurrentBadge') : t('home.roadmapPlannedBadge') }}
               </span>
-              <span class="text-2xl font-black select-none" style="color:rgba(255,255,255,0.06);">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="text-2xl font-black select-none" data-ghost-num style="color:rgba(255,255,255,0.06);">{{ String(i + 1).padStart(2, '0') }}</span>
             </div>
             <div class="icon-circle mb-4" :style="phase.current ? 'background:rgba(35,78,204,0.2);' : phase.done ? 'background:rgba(5,150,105,0.18);' : 'background:rgba(255,255,255,0.04);'">
               <svg class="w-5 h-5" :style="phase.current ? 'color:#3d65e8;' : phase.done ? 'color:#10b981;' : 'color:rgba(255,255,255,0.2);'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="phase.iconPath"></svg>
@@ -976,6 +976,10 @@ const footerLegal = [
 
 // ── Lifecycle ──────────────────────────────────────────────────────
 onMounted(async () => {
+  // Reduced motion: skip Lenis smooth scroll + GSAP scroll animations entirely.
+  // Content stays visible (no gsap.from() opacity-0 states ever applied).
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
   // Dynamic imports — don't block initial render
   const [{ gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
     import('gsap'),

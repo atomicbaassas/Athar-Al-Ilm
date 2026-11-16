@@ -47,7 +47,7 @@
           <template v-else-if="block.type === 'header'">
             <div class="bg-white px-5 py-4 space-y-2">
               <input v-model="block.body.text" placeholder="Heading text…"
-                class="w-full font-semibold text-lg text-gray-900 bg-transparent border-0 focus:outline-none placeholder:text-gray-300" />
+                class="w-full font-semibold text-lg text-gray-900 bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 placeholder:text-gray-300" />
               <div class="flex items-center gap-2 text-xs">
                 <span class="text-gray-400">Size:</span>
                 <select v-model="block.body.level" class="border border-gray-200 rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40">
@@ -88,9 +88,9 @@
           <template v-else-if="block.type === 'button'">
             <div class="bg-white px-5 py-4 space-y-2">
               <input v-model="block.body.label" placeholder="Button label (e.g. Verify email)"
-                class="w-full font-medium text-gray-900 bg-transparent border-0 focus:outline-none placeholder:text-gray-300" />
+                class="w-full font-medium text-gray-900 bg-transparent border-0 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 placeholder:text-gray-300" />
               <input v-model="block.body.url" placeholder="URL (or a merge tag like {{verify_url}})"
-                class="w-full text-sm text-[#0B3D2E] font-mono bg-transparent border-0 border-t border-gray-100 pt-2 focus:outline-none placeholder:text-gray-300 placeholder:font-sans" />
+                class="w-full text-sm text-[#0B3D2E] font-mono bg-transparent border-0 border-t border-gray-100 pt-2 focus:outline-none focus:rounded-sm focus:ring-1 focus:ring-emerald-400/50 placeholder:text-gray-300 placeholder:font-sans" />
             </div>
           </template>
 

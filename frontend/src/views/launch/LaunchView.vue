@@ -67,7 +67,7 @@
 
             <div>
               <label>Country / City <span>(optional)</span></label>
-              <input v-model="form.country" type="text" placeholder="e.g. Punbjab, India" />
+              <input v-model="form.country" type="text" placeholder="e.g. Punjab, India" />
             </div>
 
             <button type="submit" class="launch__submit" :disabled="loading">

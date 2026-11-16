@@ -28,7 +28,7 @@
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-50">
         <button v-for="t in items" :key="t.id" @click="startEdit(t)"
-          class="w-full text-left px-5 py-4 hover:bg-gray-50/60 transition-colors flex items-center justify-between gap-4">
+          class="w-full text-start px-5 py-4 hover:bg-gray-50/60 transition-colors flex items-center justify-between gap-4">
           <div class="min-w-0 flex items-center gap-2.5">
             <div class="min-w-0">
               <p class="font-medium text-gray-800 truncate">{{ t.name }}</p>

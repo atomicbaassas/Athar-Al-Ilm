@@ -4,7 +4,14 @@
     class="fixed inset-0 bg-black/70 flex items-center justify-center z-[70] p-4 backdrop-blur-sm"
     @click.self="close"
   >
-    <div ref="card" class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden text-center">
+    <div
+      ref="card"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="current.name"
+      tabindex="-1"
+      class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden text-center focus:outline-none"
+    >
       <!-- Celebration header band -->
       <div class="bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8] px-6 pt-7 pb-10 relative">
         <p class="text-white/80 text-xs font-semibold tracking-wider uppercase">{{ t('badges.unlocked') }}</p>
@@ -43,6 +50,7 @@ import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useBadgesStore } from '@/stores/badges'
+import { useModalA11y } from '@/composables/useModalA11y'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -134,6 +142,8 @@ watch(current, (b) => {
     celebrate()
   }
 }, { immediate: true })
+
+useModalA11y(current, close)
 
 // Fetch unseen badges once the user is logged in + profile loaded.
 watch(

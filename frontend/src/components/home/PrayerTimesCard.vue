@@ -305,7 +305,8 @@ const {
   color: var(--prayer-mint);
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 0.35rem 0.65rem;
+  /* 0.6rem vertical padding keeps the tap target ≥ 44px tall */
+  padding: 0.6rem 0.85rem;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background 160ms ease, border-color 160ms ease;

@@ -53,7 +53,7 @@
                 v-for="d in [7, 30, 90]"
                 :key="d"
                 @click="days = d"
-                class="px-2.5 py-1 transition-colors"
+                class="px-3 min-h-[36px] min-w-[44px] transition-colors"
                 :class="days === d ? 'bg-[#0B3D2E] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
               >
                 {{ d }}d
