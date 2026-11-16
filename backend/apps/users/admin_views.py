@@ -88,7 +88,18 @@ class AdminUserListView(APIView):
         if active in ('true', 'false'):
             qs = qs.filter(is_active=(active == 'true'))
 
-        users = list(qs.order_by('-created_at'))
+        try:
+            page = max(1, int(request.query_params.get('page', 1)))
+        except (TypeError, ValueError):
+            page = 1
+        try:
+            page_size = min(100, max(1, int(request.query_params.get('page_size', 20))))
+        except (TypeError, ValueError):
+            page_size = 20
+
+        total = qs.count()
+        start = (page - 1) * page_size
+        users = list(qs.order_by('-created_at').skip(start).limit(page_size))
 
         # Two aggregate passes (raw ids, no per-user dereference) instead of N queries.
         completions = {
@@ -123,7 +134,12 @@ class AdminUserListView(APIView):
                 'last_login': _iso(u.last_login),
                 'created_at': _iso(u.created_at),
             })
-        return Response(data)
+        return Response({
+            'count': total,
+            'page': page,
+            'page_size': page_size,
+            'results': data,
+        })
 
 
 class AdminUserDetailView(APIView):

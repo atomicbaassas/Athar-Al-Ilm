@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,6 +10,8 @@ from apps.curriculum.models import Track, Subject
 from apps.common.permissions import section_required
 from .models import LessonProgress, UserProgress, QuizAttempt
 from .completion import track_is_complete, track_completion
+
+logger = logging.getLogger(__name__)
 
 
 def _get_or_create_user_progress(user):
@@ -78,7 +81,7 @@ class MarkCompleteView(APIView):
             from apps.badges.awards import evaluate_awards
             evaluate_awards(request.user)
         except Exception:
-            pass
+            logger.exception('badge evaluate_awards failed for user=%s lesson=%s', request.user.id, slug)
 
         # Evaluate email automation rules (lesson_completed always; also
         # track_completed the moment the last lesson in the track is done).
@@ -89,7 +92,7 @@ class MarkCompleteView(APIView):
             if not already_done and track_slug and track_is_complete(request.user, track_slug):
                 handle_trigger(request.user, 'track_completed', track_slug)
         except Exception:
-            pass
+            logger.exception('automation handle_trigger failed for user=%s lesson=%s', request.user.id, slug)
 
         return Response({'lesson_slug': slug, 'completed': True})
 

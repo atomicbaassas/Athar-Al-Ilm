@@ -21,13 +21,21 @@ ssh -o BatchMode=yes "$HOST" 'bash -s' <<'REMOTE'
 set -euo pipefail
 mkdir -p /root/.athar-secrets
 chmod 700 /root/.athar-secrets
-if [[ ! -f /root/.athar-secrets/athar-gateway.env ]]; then
-  cat > /root/.athar-secrets/athar-gateway.env <<'EOF'
+ENV=/root/.athar-secrets/athar-gateway.env
+if [[ ! -f "$ENV" ]]; then
+  cat > "$ENV" <<'EOF'
 ATHAR_GATEWAY_HOST=127.0.0.1
 ATHAR_GATEWAY_PORT=9091
+ISLAMHOUSE_API_KEY=
+ATHAR_CORS_ORIGINS=https://atharulilm.or.tz,https://www.atharulilm.or.tz
 EOF
-  chmod 600 /root/.athar-secrets/athar-gateway.env
 fi
+chmod 600 "$ENV"
+# Upsert missing keys on older hosts without wiping ISLAMHOUSE_API_KEY.
+grep -q '^ATHAR_GATEWAY_HOST=' "$ENV" || echo 'ATHAR_GATEWAY_HOST=127.0.0.1' >> "$ENV"
+grep -q '^ATHAR_GATEWAY_PORT=' "$ENV" || echo 'ATHAR_GATEWAY_PORT=9091' >> "$ENV"
+grep -q '^ISLAMHOUSE_API_KEY=' "$ENV" || echo 'ISLAMHOUSE_API_KEY=' >> "$ENV"
+grep -q '^ATHAR_CORS_ORIGINS=' "$ENV" || echo 'ATHAR_CORS_ORIGINS=https://atharulilm.or.tz,https://www.atharulilm.or.tz' >> "$ENV"
 
 SITE=/etc/nginx/sites-available/atharulilm
 if [[ -f "$SITE" ]] && ! grep -q 'location /athar/' "$SITE"; then

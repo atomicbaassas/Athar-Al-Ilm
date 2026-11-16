@@ -50,7 +50,10 @@ export const adminApi = {
   deleteBook: (slug)        => client.delete(`/library/admin/books/${slug}/`),
 
   // Users (section: users)
-  listUsers:       (params)       => client.get('/auth/admin/users/', { params }).then(r => r.data),
+  listUsers:       (params)       => client.get('/auth/admin/users/', { params: { page_size: 100, ...params } }).then(r => {
+    const d = r.data
+    return Array.isArray(d) ? d : (d.results || [])
+  }),
   getUser:         (id)           => client.get(`/auth/admin/users/${id}/`).then(r => r.data),
   updateUser:      (id, data)     => client.patch(`/auth/admin/users/${id}/`, data).then(r => r.data),
   setUserPassword: (id, password) => client.post(`/auth/admin/users/${id}/password/`, { password }).then(r => r.data),

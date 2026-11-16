@@ -392,6 +392,7 @@
       "signIn": "Ingia",
       "error": "Usajili umeshindikana. Jaribu tena.",
       "invalidEmail": "Weka barua pepe sahihi.",
+      "checkEmail": "Akaunti imeundwa. Angalia barua pepe yako kwa kiungo cha uthibitisho kabla ya kuingia.",
       "namePlaceholder": "Jina lako",
       "usernamePlaceholder": "mwanafunzi123",
       "emailPlaceholder": "wewe{'@'}mfano.com"

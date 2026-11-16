@@ -128,6 +128,7 @@ REST_FRAMEWORK = {
         'auth-resend': '5/hour',
         'auth-verify': '30/hour',
         'auth-refresh': '60/min',
+        'event-register': '5/hour',
     },
 }
 

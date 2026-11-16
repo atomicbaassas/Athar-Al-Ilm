@@ -11,7 +11,13 @@ const PORT = 19091;
 test("health + quran translations list", async (t) => {
   const child = spawn(process.execPath, ["server.js"], {
     cwd: __dirname,
-    env: { ...process.env, ATHAR_GATEWAY_PORT: String(PORT), ATHAR_GATEWAY_HOST: "127.0.0.1" },
+    env: {
+      ...process.env,
+      ATHAR_GATEWAY_PORT: String(PORT),
+      ATHAR_GATEWAY_HOST: "127.0.0.1",
+      // Force empty so this suite asserts the no-fallback behavior.
+      ISLAMHOUSE_API_KEY: "",
+    },
     stdio: ["ignore", "pipe", "pipe"],
   });
   t.after(() => {
@@ -23,6 +29,7 @@ test("health + quran translations list", async (t) => {
   assert.equal(health.status, 200);
   const healthBody = await health.json();
   assert.equal(healthBody.ok, true);
+  assert.equal(healthBody.islamhouse, "key_required");
 
   const quran = await fetch(
     `http://127.0.0.1:${PORT}/v1/quran/translations/list`,
@@ -41,10 +48,9 @@ test("health + quran translations list", async (t) => {
   const books = await fetch(
     `http://127.0.0.1:${PORT}/v1/islamhouse/main/sitecontent/ar/ar/json`,
   );
-  assert.equal(books.status, 200);
+  assert.equal(books.status, 501);
   const bBody = await books.json();
-  assert.equal(bBody.source, "islamhouse");
-  assert.ok(bBody.data);
+  assert.equal(bBody.error, "islamhouse_key_required");
 
   const quranapi = await fetch(
     `http://127.0.0.1:${PORT}/v1/quranapi/editions/ara-quranuthmanihaf/1`,

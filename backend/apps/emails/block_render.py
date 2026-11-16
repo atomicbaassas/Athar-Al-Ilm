@@ -4,13 +4,9 @@ vocabulary (layout blocks, not lesson content blocks) and its own renderer,
 since email HTML must avoid flexbox/grid and inline every style."""
 from django.utils.html import escape
 
-EMAIL_BLOCK_TYPES = ('text', 'header', 'image', 'button', 'divider', 'spacer')
+from .brand_layout import INK, BORDER, wrap_email, cta_button
 
-_WRAPPER_OPEN = (
-    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
-    'style="max-width:600px;margin:0 auto;font-family:system-ui,sans-serif">'
-)
-_WRAPPER_CLOSE = '</table>'
+EMAIL_BLOCK_TYPES = ('text', 'header', 'image', 'button', 'divider', 'spacer')
 
 
 def normalize_email_blocks(raw_list):
@@ -27,29 +23,36 @@ def normalize_email_blocks(raw_list):
 def render_blocks_to_html(blocks):
     """Pure function: ordered list of {type, order, body} dicts -> one email-safe
     HTML string. Each block emits its own inline style="" — no <style> tag, no
-    flexbox/grid (stripped by Outlook/Gmail), table-based wrapper for consistent
-    rendering across clients."""
+    flexbox/grid (stripped by Outlook/Gmail), Athar branded shell for clients."""
     rows = []
     for block in sorted(blocks or [], key=lambda b: b.get('order', 0)):
         renderer = _RENDERERS.get(block.get('type'))
         if not renderer:
             continue
-        rows.append(f'<tr><td style="padding:0">{renderer(block.get("body") or {})}</td></tr>')
+        html = renderer(block.get('body') or {})
+        if html:
+            rows.append(html)
     if not rows:
         return ''
-    return _WRAPPER_OPEN + ''.join(rows) + _WRAPPER_CLOSE
+    return wrap_email(''.join(rows))
 
 
 def _render_text(body):
     text = escape(body.get('text', ''))
-    return f'<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#222">{text}</p>'
+    return (
+        f'<p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;'
+        f'font-size:15px;line-height:1.65;color:{INK};">{text}</p>'
+    )
 
 
 def _render_header(body):
     level = body.get('level') if body.get('level') in ('h1', 'h2') else 'h2'
     text = escape(body.get('text', ''))
-    size = '24px' if level == 'h1' else '19px'
-    return f'<{level} style="margin:0 0 16px;font-size:{size};line-height:1.3;color:#111">{text}</{level}>'
+    size = '22px' if level == 'h1' else '18px'
+    return (
+        f'<{level} style="margin:0 0 12px;font-family:Arial,Helvetica,sans-serif;'
+        f'font-size:{size};line-height:1.3;font-weight:700;color:{INK};">{text}</{level}>'
+    )
 
 
 def _render_image(body):
@@ -57,7 +60,11 @@ def _render_image(body):
     alt = escape(body.get('alt', ''))
     if not url:
         return ''
-    img = f'<img src="{url}" alt="{alt}" style="max-width:100%;display:block;border:0;margin:0 0 16px" />'
+    img = (
+        f'<img src="{url}" alt="{alt}" width="504" border="0" '
+        f'style="max-width:100%;width:100%;height:auto;display:block;border:0;'
+        f'margin:0 0 16px;border-radius:8px;" />'
+    )
     link = escape(body.get('link', ''))
     if link:
         return f'<a href="{link}" style="text-decoration:none">{img}</a>'
@@ -65,19 +72,15 @@ def _render_image(body):
 
 
 def _render_button(body):
-    url = escape(body.get('url', ''))
-    label = escape(body.get('label', ''))
+    url = body.get('url', '')
+    label = body.get('label', '')
     if not url or not label:
         return ''
-    return (
-        f'<p style="text-align:center;margin:28px 0">'
-        f'<a href="{url}" style="background:#0B3D2E;color:#fff;text-decoration:none;'
-        f'padding:12px 28px;border-radius:8px;font-weight:600;display:inline-block">{label}</a></p>'
-    )
+    return cta_button(url, label)
 
 
 def _render_divider(body):
-    return '<hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0" />'
+    return f'<hr style="border:none;border-top:1px solid {BORDER};margin:24px 0" />'
 
 
 def _render_spacer(body):
@@ -85,7 +88,7 @@ def _render_spacer(body):
         height = max(0, min(200, int(body.get('height', 24))))
     except (TypeError, ValueError):
         height = 24
-    return f'<div style="height:{height}px;line-height:{height}px">&nbsp;</div>'
+    return f'<div style="height:{height}px;line-height:{height}px;font-size:1px;">&nbsp;</div>'
 
 
 _RENDERERS = {
@@ -96,3 +99,4 @@ _RENDERERS = {
     'divider': _render_divider,
     'spacer': _render_spacer,
 }
+

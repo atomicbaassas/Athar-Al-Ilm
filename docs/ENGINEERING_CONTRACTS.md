@@ -7,7 +7,7 @@ Amend this file when a rule must change. Code that violates an active contract i
 1. Quran translation/tafsir JSON: **QuranEnc** (`quranenc.com/api/v1`) via gateway only for catalog/tafsir-style product surfaces.
 2. **C-SRC delta (2026-11-14):** Learner `/quran` reader may use **fawazahmed0/quran-api** via gateway `/athar/v1/quranapi/*` for Arabic mushaf + English/Swahili editions (`ara-quranuthmanihaf`, `eng-muhammadtaqiudd`, `swa-alimuhsinalbarw`). QuranEnc still preferred long-term for Salafi-curated translations (it also exposes EN/SW). Do not call the CDN from the browser for edition JSON. Recitation listen uses EveryAyah HTML5 MP3 (author-recommended companion to quran-api; CORS `*`) — binary audio is not JSON-gateway traffic.
 3. Hadith encyclopedia JSON: **HadeethEnc** (`hadeethenc.com/api/v1`) via gateway only.
-4. Books / multimedia catalog: **IslamHouse** via gateway only — live base `api.islamhouse.com/v1/{KEY}` (path key). Do not use dead `api3.islamhouse.com`. Published Mongo library rows may store IslamHouse CDN absolute URLs for PDF/cover until MinIO ingest exists.
+4. Books / multimedia catalog: **IslamHouse** via gateway only — live base `api.islamhouse.com/v1/{KEY}` (path key). Key from host env `ISLAMHOUSE_API_KEY` only (no committed fallback; gateway returns **501** `islamhouse_key_required` if unset). Do not use dead `api3.islamhouse.com`. Published Mongo library rows may store IslamHouse CDN absolute URLs for PDF/cover until MinIO ingest exists.
 5. Dorar.net only when `DORAR_API_KEY` is set on the gateway host; never scrape HTML for content. Without a token, gateway returns **501** `dorar_token_required`.
 6. Do **not** treat LLM/AI output, Quran.com, or random scrapers as religious source of truth.
 7. Browser never holds IslamHouse or Dorar keys; server/gateway only.
@@ -18,6 +18,7 @@ Amend this file when a rule must change. Code that violates an active contract i
 2. Gateway binds loopback only on Contabo (`127.0.0.1:9091`).
 3. Responses are JSON envelopes `{ source, upstream_status, data }` (except health / Dorar status errors).
 4. No write/mutate proxies to upstream; GET only.
+5. CORS allowlist via `ATHAR_CORS_ORIGINS` (default apex + www + local Vite). No `*`.
 
 ## C-DEP — Deploy
 

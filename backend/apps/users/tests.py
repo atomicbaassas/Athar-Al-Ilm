@@ -3,7 +3,7 @@ from rest_framework.test import APIClient
 
 from .google import GoogleTokenError, verify_google_id_token
 from .models import User
-from .utils import generate_action_token
+from .utils import generate_action_token, generate_tokens
 
 
 @pytest.fixture
@@ -28,19 +28,27 @@ def clean_test_users():
     User.objects(email__endswith='@example.com').delete()
 
 
+def _register(client, email, username, password='strongpass123', **extra):
+    return client.post('/api/v1/auth/register/', {
+        'email': email, 'username': username, 'password': password, **extra,
+    }, format='json')
+
+
+def _verify_user(email):
+    user = User.objects.get(email=email)
+    user.is_verified = True
+    user.save()
+    return user
+
+
 @pytest.mark.django_db
 class TestAuthEndpoints:
 
-    def test_register_success(self, client):
-        response = client.post('/api/v1/auth/register/', {
-            'email': 'test@example.com',
-            'username': 'testuser',
-            'password': 'strongpass123',
-            'full_name': 'Test User',
-        }, format='json')
+    def test_register_success_without_tokens(self, client):
+        response = _register(client, 'test@example.com', 'testuser', full_name='Test User')
         assert response.status_code == 201
-        assert 'access' in response.data
-        assert 'refresh' in response.data
+        assert 'access' not in response.data
+        assert 'refresh' not in response.data
         assert response.data['user']['email'] == 'test@example.com'
 
     def test_register_duplicate_email(self, client):
@@ -50,11 +58,8 @@ class TestAuthEndpoints:
         assert response.status_code == 400
 
     def test_login_success(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'login@example.com',
-            'username': 'loginuser',
-            'password': 'strongpass123',
-        }, format='json')
+        _register(client, 'login@example.com', 'loginuser')
+        _verify_user('login@example.com')
         response = client.post('/api/v1/auth/login/', {
             'email': 'login@example.com',
             'password': 'strongpass123',
@@ -62,12 +67,18 @@ class TestAuthEndpoints:
         assert response.status_code == 200
         assert 'access' in response.data
 
-    def test_login_wrong_password(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'wrong@example.com',
-            'username': 'wronguser',
-            'password': 'correctpass123',
+    def test_login_unverified_blocked(self, client):
+        _register(client, 'blocked@example.com', 'blockeduser')
+        response = client.post('/api/v1/auth/login/', {
+            'email': 'blocked@example.com',
+            'password': 'strongpass123',
         }, format='json')
+        assert response.status_code == 403
+        assert response.data.get('code') == 'email_unverified'
+
+    def test_login_wrong_password(self, client):
+        _register(client, 'wrong@example.com', 'wronguser', password='correctpass123')
+        _verify_user('wrong@example.com')
         response = client.post('/api/v1/auth/login/', {
             'email': 'wrong@example.com',
             'password': 'wrongpassword',
@@ -79,13 +90,10 @@ class TestAuthEndpoints:
         assert response.status_code == 401
 
     def test_profile_with_token(self, client):
-        reg = client.post('/api/v1/auth/register/', {
-            'email': 'profile@example.com',
-            'username': 'profileuser',
-            'password': 'strongpass123',
-        }, format='json')
-        token = reg.data['access']
-        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+        _register(client, 'profile@example.com', 'profileuser')
+        user = _verify_user('profile@example.com')
+        tokens = generate_tokens(user)
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {tokens['access']}")
         response = client.get('/api/v1/auth/profile/')
         assert response.status_code == 200
         assert response.data['email'] == 'profile@example.com'
@@ -95,21 +103,19 @@ class TestAuthEndpoints:
 class TestEmailVerification:
 
     def test_register_leaves_user_unverified(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'unverified@example.com', 'username': 'unverifieduser', 'password': 'strongpass123',
-        }, format='json')
+        _register(client, 'unverified@example.com', 'unverifieduser')
         user = User.objects.get(email='unverified@example.com')
         assert user.is_verified is False
 
-    def test_verify_email_success(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'verify@example.com', 'username': 'verifyuser', 'password': 'strongpass123',
-        }, format='json')
+    def test_verify_email_success_issues_tokens(self, client):
+        _register(client, 'verify@example.com', 'verifyuser')
         user = User.objects.get(email='verify@example.com')
         token = generate_action_token(user, 'verify_email', minutes=60)
 
         response = client.post('/api/v1/auth/verify-email/', {'token': token}, format='json')
         assert response.status_code == 200
+        assert response.data['verified'] is True
+        assert 'access' in response.data
         user.reload()
         assert user.is_verified is True
 
@@ -118,9 +124,7 @@ class TestEmailVerification:
         assert response.status_code == 400
 
     def test_verify_email_wrong_action_token_rejected(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'wrongaction@example.com', 'username': 'wrongactionuser', 'password': 'strongpass123',
-        }, format='json')
+        _register(client, 'wrongaction@example.com', 'wrongactionuser')
         user = User.objects.get(email='wrongaction@example.com')
         reset_token = generate_action_token(user, 'reset_password', minutes=30)
 
@@ -129,22 +133,15 @@ class TestEmailVerification:
         user.reload()
         assert user.is_verified is False
 
-    def test_resend_verification_requires_auth(self, client):
-        response = client.post('/api/v1/auth/resend-verification/')
-        assert response.status_code == 401
+    def test_resend_verification_requires_email_when_anonymous(self, client):
+        response = client.post('/api/v1/auth/resend-verification/', {}, format='json')
+        assert response.status_code == 400
 
     def test_resend_verification_when_already_verified(self, client):
-        reg = client.post('/api/v1/auth/register/', {
-            'email': 'already@example.com', 'username': 'alreadyuser', 'password': 'strongpass123',
-        }, format='json')
-        user = User.objects.get(email='already@example.com')
-        user.is_verified = True
-        user.save()
-        client.credentials(HTTP_AUTHORIZATION=f"Bearer {reg.data['access']}")
-
-        response = client.post('/api/v1/auth/resend-verification/')
+        _register(client, 'already@example.com', 'alreadyuser')
+        user = _verify_user('already@example.com')
+        response = client.post('/api/v1/auth/resend-verification/', {'email': user.email}, format='json')
         assert response.status_code == 200
-        assert 'already verified' in response.data['detail']
 
 
 @pytest.mark.django_db
@@ -171,9 +168,7 @@ class TestForgotResetPassword:
         assert response.status_code == 200
 
     def test_reset_password_success(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'reset@example.com', 'username': 'resetuser', 'password': 'oldpassword1',
-        }, format='json')
+        _register(client, 'reset@example.com', 'resetuser', password='oldpassword1')
         user = User.objects.get(email='reset@example.com')
         token = generate_action_token(user, 'reset_password', minutes=30)
 
@@ -183,14 +178,29 @@ class TestForgotResetPassword:
         login = client.post('/api/v1/auth/login/', {'email': 'reset@example.com', 'password': 'newpassword1'}, format='json')
         assert login.status_code == 200
 
+    def test_reset_password_link_not_reusable(self, client):
+        _register(client, 'once@example.com', 'onceuser', password='oldpassword1')
+        user = User.objects.get(email='once@example.com')
+        token = generate_action_token(user, 'reset_password', minutes=30)
+        assert client.post('/api/v1/auth/reset-password/', {'token': token, 'password': 'newpassword1'}, format='json').status_code == 200
+        again = client.post('/api/v1/auth/reset-password/', {'token': token, 'password': 'anotherpass1'}, format='json')
+        assert again.status_code == 400
+
+    def test_reset_kills_old_refresh(self, client):
+        _register(client, 'kill@example.com', 'killuser', password='oldpassword1')
+        user = _verify_user('kill@example.com')
+        old_refresh = generate_tokens(user)['refresh']
+        token = generate_action_token(user, 'reset_password', minutes=30)
+        client.post('/api/v1/auth/reset-password/', {'token': token, 'password': 'newpassword1'}, format='json')
+        refresh = client.post('/api/v1/auth/token/refresh/', {'refresh': old_refresh}, format='json')
+        assert refresh.status_code == 401
+
     def test_reset_password_invalid_token(self, client):
         response = client.post('/api/v1/auth/reset-password/', {'token': 'garbage', 'password': 'newpassword1'}, format='json')
         assert response.status_code == 400
 
     def test_reset_password_wrong_action_token_rejected(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'verifynotreset@example.com', 'username': 'verifynotresetuser', 'password': 'strongpass123',
-        }, format='json')
+        _register(client, 'verifynotreset@example.com', 'verifynotresetuser')
         user = User.objects.get(email='verifynotreset@example.com')
         verify_token = generate_action_token(user, 'verify_email', minutes=60)
 
@@ -198,9 +208,7 @@ class TestForgotResetPassword:
         assert response.status_code == 400
 
     def test_reset_password_too_short(self, client):
-        client.post('/api/v1/auth/register/', {
-            'email': 'shortpass@example.com', 'username': 'shortpassuser', 'password': 'strongpass123',
-        }, format='json')
+        _register(client, 'shortpass@example.com', 'shortpassuser')
         user = User.objects.get(email='shortpass@example.com')
         token = generate_action_token(user, 'reset_password', minutes=30)
 
@@ -256,9 +264,7 @@ class TestGoogleSignIn:
 
     def test_existing_user_keeps_role_and_password(self, client, settings, monkeypatch):
         settings.GOOGLE_CLIENT_ID = 'web-client'
-        client.post('/api/v1/auth/register/', {
-            'email': 'both@example.com', 'username': 'bothuser', 'password': 'strongpass123',
-        }, format='json')
+        _register(client, 'both@example.com', 'bothuser')
         user = User.objects.get(email='both@example.com')
         user.role = 'admin'
         user.save()

@@ -6,7 +6,15 @@ from .models import Lesson, ContentBlock
 class ContentBlockSerializer(serializers.Serializer):
     type = serializers.CharField()
     order = serializers.IntegerField()
-    body = serializers.DictField()
+    body = serializers.SerializerMethodField()
+
+    def get_body(self, obj):
+        raw = obj.body if hasattr(obj, 'body') else (obj.get('body') if isinstance(obj, dict) else {})
+        body = dict(raw or {})
+        # Never leak quiz answer keys to the learner client.
+        if (getattr(obj, 'type', None) or (obj.get('type') if isinstance(obj, dict) else None)) == 'quiz':
+            body.pop('correct', None)
+        return body
 
 
 class LessonListSerializer(serializers.Serializer):

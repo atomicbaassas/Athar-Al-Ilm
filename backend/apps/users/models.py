@@ -1,5 +1,5 @@
 from mongoengine import (
-    Document, StringField, EmailField, DateTimeField,
+    Document, StringField, EmailField, DateTimeField, IntField,
     BooleanField, EmbeddedDocument, EmbeddedDocumentField, ListField,
 )
 from django.contrib.auth.hashers import make_password, check_password as django_check_password
@@ -51,6 +51,8 @@ class User(Document):
     profile = EmbeddedDocumentField(UserProfile)
     is_active = BooleanField(default=True)
     is_verified = BooleanField(default=False)
+    # Bumped on password change so outstanding JWTs / reset links die.
+    token_version = IntField(default=0)
     created_at = DateTimeField(default=lambda: datetime.now(timezone.utc))
     last_login = DateTimeField()
 
@@ -61,6 +63,7 @@ class User(Document):
 
     def set_password(self, raw_password):
         self.password_hash = make_password(raw_password)
+        self.token_version = int(getattr(self, 'token_version', 0) or 0) + 1
 
     def check_password(self, raw_password):
         return django_check_password(raw_password, self.password_hash)

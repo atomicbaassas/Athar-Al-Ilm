@@ -27,7 +27,6 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { authApi } from '@/api/auth'
 import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
@@ -43,9 +42,8 @@ onMounted(async () => {
     return
   }
   try {
-    await authApi.verifyEmail(token)
+    await auth.completeEmailVerification(token)
     state.value = 'success'
-    if (auth.isLoggedIn) auth.fetchUser().catch(() => {})
   } catch {
     state.value = 'error'
   }

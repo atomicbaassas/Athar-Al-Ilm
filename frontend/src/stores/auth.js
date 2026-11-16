@@ -45,7 +45,12 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function register(email, username, password, fullName) {
-    persistSession(await authApi.register(email, username, password, fullName))
+    // No session until email is verified — response has user + detail only.
+    return authApi.register(email, username, password, fullName)
+  }
+
+  async function completeEmailVerification(token) {
+    persistSession(await authApi.verifyEmail(token))
   }
 
   async function fetchUser() {
@@ -53,8 +58,8 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = data
   }
 
-  async function resendVerification() {
-    return authApi.resendVerification()
+  async function resendVerification(email) {
+    return authApi.resendVerification(email || user.value?.email)
   }
 
   function logout() {
@@ -78,7 +83,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     user, token, isLoggedIn, isAdmin, isAuthor,
     sections, can, hasAdminAccess, homePath, postAuthPath,
-    login, loginWithGoogle, register, logout, fetchUser, resendVerification,
+    login, loginWithGoogle, register, completeEmailVerification, logout, fetchUser, resendVerification,
   }
 })
 

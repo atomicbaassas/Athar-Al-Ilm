@@ -24,8 +24,8 @@ export const authApi = {
   verifyEmail: (token) =>
     client.post('/auth/verify-email/', { token }).then(r => r.data),
 
-  resendVerification: () =>
-    client.post('/auth/resend-verification/').then(r => r.data),
+  resendVerification: (email) =>
+    client.post('/auth/resend-verification/', email ? { email } : {}).then(r => r.data),
 
   forgotPassword: (email) =>
     client.post('/auth/forgot-password/', { email }).then(r => r.data),

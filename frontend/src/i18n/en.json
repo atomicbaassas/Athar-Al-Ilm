@@ -392,6 +392,7 @@
       "signIn": "Sign in",
       "error": "Registration failed. Please try again.",
       "invalidEmail": "Enter a valid email address.",
+      "checkEmail": "Account created. Check your email for a verification link before signing in.",
       "namePlaceholder": "Your name",
       "usernamePlaceholder": "learner123",
       "emailPlaceholder": "you{'@'}example.com"

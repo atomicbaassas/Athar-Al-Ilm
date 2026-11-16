@@ -4,6 +4,7 @@ from mongoengine.errors import ValidationError
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from apps.common.permissions import section_required
@@ -35,6 +36,8 @@ def _row(r):
 class RegisterView(APIView):
     """Public: capture a registration for the live launch."""
     permission_classes = [AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'event-register'
 
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)

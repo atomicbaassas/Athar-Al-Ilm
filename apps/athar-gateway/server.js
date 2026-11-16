@@ -10,8 +10,15 @@ import { URL } from "node:url";
 
 const PORT = Number(process.env.ATHAR_GATEWAY_PORT || 9091);
 const HOST = process.env.ATHAR_GATEWAY_HOST || "127.0.0.1";
-const ISLAMHOUSE_KEY = process.env.ISLAMHOUSE_API_KEY || "";
+const ISLAMHOUSE_KEY = (process.env.ISLAMHOUSE_API_KEY || "").trim();
 const TIMEOUT_MS = Number(process.env.ATHAR_FETCH_TIMEOUT_MS || 20000);
+const CORS_ORIGINS = (
+  process.env.ATHAR_CORS_ORIGINS ||
+  "https://atharulilm.or.tz,https://www.atharulilm.or.tz,http://localhost:5173,http://127.0.0.1:5173"
+)
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 const UPSTREAM = {
   quran: "https://quranenc.com/api/v1",
@@ -24,13 +31,21 @@ const UPSTREAM = {
   qurancom: "https://api.quran.com/api/v4",
 };
 
-function json(res, status, body) {
+function allowOrigin(req) {
+  const origin = req.headers.origin || "";
+  if (origin && CORS_ORIGINS.includes(origin)) return origin;
+  return "";
+}
+
+function json(res, status, body, req) {
   const raw = JSON.stringify(body);
-  res.writeHead(status, {
+  const headers = {
     "content-type": "application/json; charset=utf-8",
     "cache-control": "public, max-age=300",
-    "access-control-allow-origin": "*",
-  });
+  };
+  const origin = allowOrigin(req);
+  if (origin) headers["access-control-allow-origin"] = origin;
+  res.writeHead(status, headers);
   res.end(raw);
 }
 
@@ -67,10 +82,10 @@ function buildUpstream(kind, path, searchParams) {
     return u.toString();
   }
   if (kind === "islamhouse") {
-    // Prefer env key; fall back to public research key.
     // Live host is api.islamhouse.com (v1 path-key). api3.islamhouse.com is dead.
-    const key = ISLAMHOUSE_KEY || "paV29H2gm56kvLP";
-    const base = `https://api.islamhouse.com/v1/${key}`;
+    // Key must come from env — never commit a fallback.
+    if (!ISLAMHOUSE_KEY) return { error: "islamhouse_key_required" };
+    const base = `https://api.islamhouse.com/v1/${ISLAMHOUSE_KEY}`;
     const u = new URL(`${base}${path.startsWith("/") ? path : `/${path}`}`);
     searchParams.forEach((v, k) => u.searchParams.set(k, v));
     return u.toString();
@@ -106,8 +121,13 @@ function buildUpstream(kind, path, searchParams) {
 
 const server = http.createServer(async (req, res) => {
   if (req.method === "OPTIONS") {
+    const origin = allowOrigin(req);
+    if (!origin) {
+      res.writeHead(403, { "content-type": "application/json; charset=utf-8" });
+      return res.end(JSON.stringify({ error: "origin_not_allowed" }));
+    }
     res.writeHead(204, {
-      "access-control-allow-origin": "*",
+      "access-control-allow-origin": origin,
       "access-control-allow-methods": "GET, OPTIONS",
       "access-control-allow-headers": "content-type",
     });
@@ -115,56 +135,94 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.method !== "GET") {
-    return json(res, 405, { error: "method_not_allowed" });
+    return json(res, 405, { error: "method_not_allowed" }, req);
   }
 
   const url = new URL(req.url || "/", `http://${HOST}`);
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
 
   if (pathname === "/" || pathname === "/health") {
-    return json(res, 200, {
-      service: "athar-gateway",
-      ok: true,
-      sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi", "qurancom"],
-      dorar: process.env.DORAR_API_KEY ? "configured" : "token_required",
-    });
+    return json(
+      res,
+      200,
+      {
+        service: "athar-gateway",
+        ok: true,
+        sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi", "qurancom"],
+        dorar: process.env.DORAR_API_KEY ? "configured" : "token_required",
+        islamhouse: ISLAMHOUSE_KEY ? "configured" : "key_required",
+      },
+      req,
+    );
   }
 
   // Dorar requires an approved API token — do not scrape dorar.net HTML.
   if (pathname === "/v1/dorar/status" || pathname.startsWith("/v1/dorar/")) {
     const key = process.env.DORAR_API_KEY || "";
     if (!key) {
-      return json(res, 501, {
-        error: "dorar_token_required",
-        source: "dorar",
-        message:
-          "Set DORAR_API_KEY on the gateway host when Dorar issues an Athar token. No HTML scrape.",
-      });
+      return json(
+        res,
+        501,
+        {
+          error: "dorar_token_required",
+          source: "dorar",
+          message:
+            "Set DORAR_API_KEY on the gateway host when Dorar issues an Athar token. No HTML scrape.",
+        },
+        req,
+      );
     }
     // shortcut: no Dorar upstream adapter yet — wire when token + docs arrive
-    return json(res, 501, {
-      error: "dorar_not_wired",
-      source: "dorar",
-      message: "Token present but upstream adapter not implemented yet.",
-    });
+    return json(
+      res,
+      501,
+      {
+        error: "dorar_not_wired",
+        source: "dorar",
+        message: "Token present but upstream adapter not implemented yet.",
+      },
+      req,
+    );
   }
 
   // /v1/quran/...  /v1/hadeeth/...  /v1/islamhouse/...  /v1/quranapi/...  /v1/qurancom/...
   const m = pathname.match(/^\/v1\/(quran|hadeeth|islamhouse|quranapi|qurancom)(\/.*)?$/);
   if (!m) {
-    return json(res, 404, {
-      error: "not_found",
-      hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, /v1/dorar/status, /health",
-    });
+    return json(
+      res,
+      404,
+      {
+        error: "not_found",
+        hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, /v1/dorar/status, /health",
+      },
+      req,
+    );
   }
 
   const kind = m[1];
   const path = m[2] || "/";
   const upstream = buildUpstream(kind, path, url.searchParams);
+  if (upstream && typeof upstream === "object" && upstream.error === "islamhouse_key_required") {
+    return json(
+      res,
+      501,
+      {
+        error: "islamhouse_key_required",
+        source: "islamhouse",
+        message: "Set ISLAMHOUSE_API_KEY on the gateway host. No committed fallback key.",
+      },
+      req,
+    );
+  }
   if (!upstream) {
-    return json(res, kind === "qurancom" ? 403 : 400, {
-      error: kind === "qurancom" ? "path_not_allowed" : "bad_source",
-    });
+    return json(
+      res,
+      kind === "qurancom" ? 403 : 400,
+      {
+        error: kind === "qurancom" ? "path_not_allowed" : "bad_source",
+      },
+      req,
+    );
   }
 
   try {
@@ -173,25 +231,40 @@ const server = http.createServer(async (req, res) => {
       if (!out.ok) {
         out = await fetchUpstream(upstream.fallback);
       }
-      return json(res, out.ok ? 200 : out.status, {
-        source: "quranapi",
-        upstream_status: out.status,
-        data: out.data,
-      });
+      return json(
+        res,
+        out.ok ? 200 : out.status,
+        {
+          source: "quranapi",
+          upstream_status: out.status,
+          data: out.data,
+        },
+        req,
+      );
     }
 
     const out = await fetchUpstream(upstream);
-    return json(res, out.ok ? 200 : out.status, {
-      source: kind,
-      upstream_status: out.status,
-      data: out.data,
-    });
+    return json(
+      res,
+      out.ok ? 200 : out.status,
+      {
+        source: kind,
+        upstream_status: out.status,
+        data: out.data,
+      },
+      req,
+    );
   } catch (err) {
-    return json(res, 502, {
-      error: "upstream_failed",
-      source: kind,
-      message: err instanceof Error ? err.message : String(err),
-    });
+    return json(
+      res,
+      502,
+      {
+        error: "upstream_failed",
+        source: kind,
+        message: err instanceof Error ? err.message : String(err),
+      },
+      req,
+    );
   }
 });
 

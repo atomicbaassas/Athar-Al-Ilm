@@ -23,7 +23,7 @@ from .serializers import (
 )
 from .utils import (
     generate_tokens, decode_refresh_token,
-    generate_action_token, decode_action_token,
+    generate_action_token, decode_action_token, assert_token_version,
 )
 
 _USERNAME_SAFE = re.compile(r'[^a-z0-9_-]')
@@ -69,9 +69,12 @@ class RegisterView(APIView):
         user.save()
         _send_verification_email(user)
 
-        tokens = generate_tokens(user)
+        # No session until the mailbox is proven (stops email squatting).
         return Response(
-            {'user': UserProfileSerializer(user).data, **tokens},
+            {
+                'user': UserProfileSerializer(user).data,
+                'detail': 'Check your email to verify your account before signing in.',
+            },
             status=status.HTTP_201_CREATED,
         )
 
@@ -104,6 +107,15 @@ class LoginView(APIView):
         if not user.is_active:
             return Response(
                 {'error': 'This account has been deactivated.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        if not user.is_verified:
+            return Response(
+                {
+                    'error': 'Please verify your email before signing in.',
+                    'code': 'email_unverified',
+                },
                 status=status.HTTP_403_FORBIDDEN,
             )
 
@@ -197,6 +209,12 @@ class TokenRefreshView(APIView):
                     {'error': 'This account has been deactivated.'},
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
+            if not user.is_verified:
+                return Response(
+                    {'error': 'Please verify your email before signing in.', 'code': 'email_unverified'},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+            assert_token_version(payload, user)
             tokens = generate_tokens(user)
             return Response({'access': tokens['access']})
         except jwt.ExpiredSignatureError:
@@ -246,6 +264,7 @@ class VerifyEmailView(APIView):
         try:
             payload = decode_action_token(serializer.validated_data['token'], 'verify_email')
             user = User.objects.get(id=payload['user_id'])
+            assert_token_version(payload, user)
         except jwt.ExpiredSignatureError:
             return Response({'error': 'This verification link has expired.'}, status=status.HTTP_400_BAD_REQUEST)
         except (jwt.InvalidTokenError, User.DoesNotExist):
@@ -254,20 +273,30 @@ class VerifyEmailView(APIView):
         if not user.is_verified:
             user.is_verified = True
             user.save()
-        return Response({'verified': True})
+
+        tokens = generate_tokens(user)
+        return Response({'verified': True, 'user': UserProfileSerializer(user).data, **tokens})
 
 
 class ResendVerificationView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = 'auth-resend'
 
     def post(self, request):
-        user = request.user
-        if user.is_verified:
-            return Response({'detail': 'Your email is already verified.'})
-        _send_verification_email(user)
-        return Response({'detail': 'Verification email sent.'})
+        email = (request.data.get('email') or '').strip().lower()
+        user = None
+        if getattr(request.user, 'is_authenticated', False):
+            user = request.user
+        elif email:
+            user = User.objects(email=email).first()
+        else:
+            return Response({'email': 'Email is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Same shape whether or not the account exists / is already verified.
+        if user and not user.is_verified:
+            _send_verification_email(user)
+        return Response({'detail': 'If that account needs verification, a new email has been sent.'})
 
 
 class ForgotPasswordView(APIView):
@@ -306,11 +335,14 @@ class ResetPasswordView(APIView):
         try:
             payload = decode_action_token(serializer.validated_data['token'], 'reset_password')
             user = User.objects.get(id=payload['user_id'])
+            assert_token_version(payload, user)
         except jwt.ExpiredSignatureError:
             return Response({'error': 'This reset link has expired.'}, status=status.HTTP_400_BAD_REQUEST)
         except (jwt.InvalidTokenError, User.DoesNotExist):
             return Response({'error': 'Invalid reset link.'}, status=status.HTTP_400_BAD_REQUEST)
 
         user.set_password(serializer.validated_data['password'])
+        # Reset link landed in the mailbox — treat as verified.
+        user.is_verified = True
         user.save()
         return Response({'reset': True})

@@ -392,6 +392,7 @@
       "signIn": "تسجيل الدخول",
       "error": "فشل إنشاء الحساب. حاول مرة أخرى.",
       "invalidEmail": "أدخل بريدًا إلكترونيًا صالحًا.",
+      "checkEmail": "تم إنشاء الحساب. تحقق من بريدك لرابط التأكيد قبل تسجيل الدخول.",
       "namePlaceholder": "اسمك",
       "usernamePlaceholder": "learner123",
       "emailPlaceholder": "example{'@'}mail.com"

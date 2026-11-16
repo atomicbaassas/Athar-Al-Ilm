@@ -3,6 +3,7 @@ from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from .models import User
+from .utils import assert_token_version
 
 
 class MongoJWTAuthentication(BaseAuthentication):
@@ -38,6 +39,14 @@ class MongoJWTAuthentication(BaseAuthentication):
 
         if not user.is_active:
             raise AuthenticationFailed('User account is deactivated.')
+
+        if not user.is_verified:
+            raise AuthenticationFailed('Please verify your email before continuing.')
+
+        try:
+            assert_token_version(payload, user)
+        except jwt.InvalidTokenError:
+            raise AuthenticationFailed('Token has been revoked. Please log in again.')
 
         return (user, token)
 

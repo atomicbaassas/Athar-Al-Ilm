@@ -3,6 +3,9 @@ Fires through the same admin-configured SMTP connection as campaigns
 (`deliver_message`), but async via Celery so request handlers never block on
 SMTP. Unlike campaigns these are not logged/tracked — just best-effort sends."""
 from celery import shared_task
+from django.utils.html import escape
+
+from .brand_layout import wrap_email, cta_button, heading, paragraph
 
 
 @shared_task(ignore_result=True)
@@ -11,39 +14,46 @@ def send_transactional_email(subject, html_body, to_email):
     deliver_message(subject, html_body, to_email)
 
 
-def _button(url, label):
-    return (
-        f'<p style="text-align:center;margin:28px 0">'
-        f'<a href="{url}" style="background:#0B3D2E;color:#fff;text-decoration:none;'
-        f'padding:12px 28px;border-radius:8px;font-weight:600;display:inline-block">{label}</a></p>'
-    )
-
-
 def verification_email_body(url):
-    return (
-        '<p>Assalamu alaikum,</p>'
-        '<p>Please confirm your email address to finish setting up your Athar Al Ilm account.</p>'
-        f'{_button(url, "Verify email")}'
-        '<p style="font-size:13px;color:#888">This link expires in 24 hours. '
-        'If you didn\'t create this account, you can ignore this email.</p>'
+    inner = (
+        heading('Confirm your email')
+        + paragraph('Assalamu alaikum,')
+        + paragraph('Please confirm this address to finish setting up your Athar Al Ilm account.')
+        + cta_button(url, 'Verify email')
+        + paragraph(
+            'This link expires in 24 hours. If you did not create an account, you can ignore this message.',
+            muted=True,
+        )
     )
+    return wrap_email(inner, preheader='Confirm your Athar Al Ilm email to start learning.')
 
 
 def password_reset_email_body(url):
-    return (
-        '<p>Assalamu alaikum,</p>'
-        '<p>We received a request to reset your Athar Al Ilm password.</p>'
-        f'{_button(url, "Reset password")}'
-        '<p style="font-size:13px;color:#888">This link expires in 30 minutes. '
-        'If you didn\'t request this, you can safely ignore this email.</p>'
+    inner = (
+        heading('Reset your password')
+        + paragraph('Assalamu alaikum,')
+        + paragraph('We received a request to reset your Athar Al Ilm password.')
+        + cta_button(url, 'Reset password')
+        + paragraph(
+            'This link expires in 30 minutes. If you did not request a reset, you can ignore this message.',
+            muted=True,
+        )
     )
+    return wrap_email(inner, preheader='Use this link to set a new Athar Al Ilm password.')
 
 
 def badge_earned_email_body(badge):
-    reward = f'<p>{badge.reward}</p>' if badge.reward else ''
-    return (
-        f'<p>Assalamu alaikum,</p>'
-        f'<p>You just earned the <strong>{badge.name}</strong> badge on Athar Al Ilm!</p>'
-        f'{reward}'
-        f'<p style="font-size:13px;color:#888">Log in to see it on your dashboard.</p>'
+    reward = paragraph(badge.reward) if badge.reward else ''
+    name = escape(badge.name)
+    inner = (
+        heading('You earned a badge')
+        + paragraph('Assalamu alaikum,')
+        + paragraph(
+            f'You just earned the <strong>{name}</strong> badge on Athar Al Ilm.',
+            safe=True,
+        )
+        + reward
+        + cta_button('https://atharulilm.or.tz/dashboard', 'Open dashboard')
+        + paragraph('Keep going. Every lesson brings you closer to mastery.', muted=True)
     )
+    return wrap_email(inner, preheader='A new badge is waiting on your Athar Al Ilm dashboard.')
