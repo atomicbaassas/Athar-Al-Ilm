@@ -37,7 +37,8 @@ grep -q '^ATHAR_GATEWAY_PORT=' "$ENV" || echo 'ATHAR_GATEWAY_PORT=9091' >> "$ENV
 grep -q '^ISLAMHOUSE_API_KEY=' "$ENV" || echo 'ISLAMHOUSE_API_KEY=' >> "$ENV"
 grep -q '^ATHAR_CORS_ORIGINS=' "$ENV" || echo 'ATHAR_CORS_ORIGINS=https://atharulilm.or.tz,https://www.atharulilm.or.tz' >> "$ENV"
 # Prefer Admin → Integrations keys via Django internal endpoint (token must match backend .env).
-grep -q '^ATHAR_KEYS_URL=' "$ENV" || echo 'ATHAR_KEYS_URL=http://127.0.0.1:8080/api/v1/integrations/internal/keys/' >> "$ENV"
+# Public HTTPS — loopback :8080 hits Django SECURE_SSL_REDIRECT (301).
+grep -q '^ATHAR_KEYS_URL=' "$ENV" || echo 'ATHAR_KEYS_URL=https://atharulilm.or.tz/api/v1/integrations/internal/keys/' >> "$ENV"
 grep -q '^ATHAR_INTERNAL_TOKEN=' "$ENV" || echo 'ATHAR_INTERNAL_TOKEN=' >> "$ENV"
 
 SITE=/etc/nginx/sites-available/atharulilm
