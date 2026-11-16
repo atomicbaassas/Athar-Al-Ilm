@@ -3,6 +3,7 @@
  * Proxies QuranEnc, HadeethEnc, IslamHouse, fawazahmed0/quran-api (CDN),
  * and Quran.com Content API (timing metadata + Salafi tafsir text only).
  * No HTML scrape; JSON only.
+ * Keys: Admin → Integrations (via ATHAR_KEYS_URL) preferred; env fallback.
  * shortcut: no cache layer yet — add Redis when traffic warrants it.
  */
 import http from "node:http";
@@ -10,8 +11,10 @@ import { URL } from "node:url";
 
 const PORT = Number(process.env.ATHAR_GATEWAY_PORT || 9091);
 const HOST = process.env.ATHAR_GATEWAY_HOST || "127.0.0.1";
-const ISLAMHOUSE_KEY = (process.env.ISLAMHOUSE_API_KEY || "").trim();
 const TIMEOUT_MS = Number(process.env.ATHAR_FETCH_TIMEOUT_MS || 20000);
+const KEYS_URL = (process.env.ATHAR_KEYS_URL || "").trim();
+const INTERNAL_TOKEN = (process.env.ATHAR_INTERNAL_TOKEN || "").trim();
+const KEYS_TTL_MS = Number(process.env.ATHAR_KEYS_TTL_MS || 60000);
 const CORS_ORIGINS = (
   process.env.ATHAR_CORS_ORIGINS ||
   "https://atharulilm.or.tz,https://www.atharulilm.or.tz,http://localhost:5173,http://127.0.0.1:5173"
@@ -30,6 +33,53 @@ const UPSTREAM = {
   // Technical audio timestamps + Al-Sa'di tafsir delivery (not a mushaf source).
   qurancom: "https://api.quran.com/api/v4",
 };
+
+let keysCache = { islamhouse: "", dorar: "", fetchedAt: 0 };
+
+function envKeys() {
+  return {
+    islamhouse: (process.env.ISLAMHOUSE_API_KEY || "").trim(),
+    dorar: (process.env.DORAR_API_KEY || "").trim(),
+  };
+}
+
+async function resolveKeys() {
+  const fallback = envKeys();
+  if (!KEYS_URL || !INTERNAL_TOKEN) {
+    return fallback;
+  }
+  if (Date.now() - keysCache.fetchedAt < KEYS_TTL_MS) {
+    return {
+      islamhouse: keysCache.islamhouse || fallback.islamhouse,
+      dorar: keysCache.dorar || fallback.dorar,
+    };
+  }
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), Math.min(TIMEOUT_MS, 5000));
+    const res = await fetch(KEYS_URL, {
+      signal: ctrl.signal,
+      headers: {
+        accept: "application/json",
+        "x-athar-internal-token": INTERNAL_TOKEN,
+      },
+    });
+    clearTimeout(timer);
+    if (!res.ok) return fallback;
+    const data = await res.json();
+    keysCache = {
+      islamhouse: String(data.islamhouse_api_key || "").trim(),
+      dorar: String(data.dorar_api_key || "").trim(),
+      fetchedAt: Date.now(),
+    };
+    return {
+      islamhouse: keysCache.islamhouse || fallback.islamhouse,
+      dorar: keysCache.dorar || fallback.dorar,
+    };
+  } catch {
+    return fallback;
+  }
+}
 
 function allowOrigin(req) {
   const origin = req.headers.origin || "";
@@ -70,7 +120,7 @@ async function fetchUpstream(url) {
   }
 }
 
-function buildUpstream(kind, path, searchParams) {
+function buildUpstream(kind, path, searchParams, keys) {
   if (kind === "quran") {
     const u = new URL(`${UPSTREAM.quran}${path.startsWith("/") ? path : `/${path}`}`);
     searchParams.forEach((v, k) => u.searchParams.set(k, v));
@@ -83,9 +133,9 @@ function buildUpstream(kind, path, searchParams) {
   }
   if (kind === "islamhouse") {
     // Live host is api.islamhouse.com (v1 path-key). api3.islamhouse.com is dead.
-    // Key must come from env — never commit a fallback.
-    if (!ISLAMHOUSE_KEY) return { error: "islamhouse_key_required" };
-    const base = `https://api.islamhouse.com/v1/${ISLAMHOUSE_KEY}`;
+    // Key from Admin Integrations (via keys URL) or host env — never commit a fallback.
+    if (!keys.islamhouse) return { error: "islamhouse_key_required" };
+    const base = `https://api.islamhouse.com/v1/${keys.islamhouse}`;
     const u = new URL(`${base}${path.startsWith("/") ? path : `/${path}`}`);
     searchParams.forEach((v, k) => u.searchParams.set(k, v));
     return u.toString();
@@ -140,6 +190,7 @@ const server = http.createServer(async (req, res) => {
 
   const url = new URL(req.url || "/", `http://${HOST}`);
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
+  const keys = await resolveKeys();
 
   if (pathname === "/" || pathname === "/health") {
     return json(
@@ -149,8 +200,8 @@ const server = http.createServer(async (req, res) => {
         service: "athar-gateway",
         ok: true,
         sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi", "qurancom"],
-        dorar: process.env.DORAR_API_KEY ? "configured" : "token_required",
-        islamhouse: ISLAMHOUSE_KEY ? "configured" : "key_required",
+        dorar: keys.dorar ? "configured" : "token_required",
+        islamhouse: keys.islamhouse ? "configured" : "key_required",
       },
       req,
     );
@@ -158,8 +209,7 @@ const server = http.createServer(async (req, res) => {
 
   // Dorar requires an approved API token — do not scrape dorar.net HTML.
   if (pathname === "/v1/dorar/status" || pathname.startsWith("/v1/dorar/")) {
-    const key = process.env.DORAR_API_KEY || "";
-    if (!key) {
+    if (!keys.dorar) {
       return json(
         res,
         501,
@@ -167,7 +217,7 @@ const server = http.createServer(async (req, res) => {
           error: "dorar_token_required",
           source: "dorar",
           message:
-            "Set DORAR_API_KEY on the gateway host when Dorar issues an Athar token. No HTML scrape.",
+            "Set Dorar token in Admin → Integrations (or DORAR_API_KEY on the gateway host). No HTML scrape.",
         },
         req,
       );
@@ -201,7 +251,7 @@ const server = http.createServer(async (req, res) => {
 
   const kind = m[1];
   const path = m[2] || "/";
-  const upstream = buildUpstream(kind, path, url.searchParams);
+  const upstream = buildUpstream(kind, path, url.searchParams, keys);
   if (upstream && typeof upstream === "object" && upstream.error === "islamhouse_key_required") {
     return json(
       res,
@@ -209,7 +259,8 @@ const server = http.createServer(async (req, res) => {
       {
         error: "islamhouse_key_required",
         source: "islamhouse",
-        message: "Set ISLAMHOUSE_API_KEY on the gateway host. No committed fallback key.",
+        message:
+          "Set IslamHouse key in Admin → Integrations (or ISLAMHOUSE_API_KEY on the gateway host). No committed fallback key.",
       },
       req,
     );

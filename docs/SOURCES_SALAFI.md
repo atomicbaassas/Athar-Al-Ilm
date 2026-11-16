@@ -26,7 +26,7 @@ Prefer Salafi-aligned translation keys from the list endpoint (verify labels bef
 
 - Base: `https://api.islamhouse.com/v1/{KEY}` (path includes key)
 - Gateway: `GET /athar/v1/islamhouse/{path}`
-- Env: `ISLAMHOUSE_API_KEY` (host only). Gateway returns **501** `islamhouse_key_required` if unset — no committed fallback.
+- Keys: Admin → Integrations (superadmin) preferred; else host `ISLAMHOUSE_API_KEY`. Gateway returns **501** `islamhouse_key_required` if unset — no committed fallback.
 - Examples:
   - `/athar/v1/islamhouse/main/sitecontent/ar/ar/json`
   - `/athar/v1/islamhouse/main/books/ar/ar/1/25/json/`

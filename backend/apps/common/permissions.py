@@ -30,6 +30,21 @@ def any_section_required(sections):
     return _AnySectionPermission
 
 
+def admin_role_required():
+    """DRF permission: allow only users whose role name is `admin` (superadmin)."""
+
+    class _AdminRolePermission(BasePermission):
+        def has_permission(self, request, view):
+            user = request.user
+            return bool(
+                user
+                and getattr(user, 'is_authenticated', False)
+                and getattr(user, 'role', None) == 'admin'
+            )
+
+    return _AdminRolePermission
+
+
 # Back-compat alias for any imports still referencing the old coarse gate. Means
 # "can author content" (curriculum/library/videos). Specific views are gated to
 # their exact section below.

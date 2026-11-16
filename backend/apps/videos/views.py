@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.common.permissions import section_required
+from apps.integrations.models import IntegrationSettings
 
 YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
 CACHE_TTL   = 3600  # seconds
@@ -28,11 +29,17 @@ def _set(key, value):
 
 
 def _api_key():
-    return getattr(settings, 'YOUTUBE_API_KEY', '')
+    db = (IntegrationSettings.get_solo().youtube_api_key or '').strip()
+    if db:
+        return db
+    return getattr(settings, 'YOUTUBE_API_KEY', '') or ''
 
 
 def _channel_id():
-    return getattr(settings, 'YOUTUBE_CHANNEL_ID', '')
+    db = (IntegrationSettings.get_solo().youtube_channel_id or '').strip()
+    if db:
+        return db
+    return getattr(settings, 'YOUTUBE_CHANNEL_ID', '') or ''
 
 
 class VideoListView(APIView):

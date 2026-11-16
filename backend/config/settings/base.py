@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'apps.emails',
     'apps.analytics',
     'apps.automations',
+    'apps.integrations',
 ]
 
 MIDDLEWARE = [
@@ -184,6 +185,14 @@ YOUTUBE_CHANNEL_ID = config('YOUTUBE_CHANNEL_ID', default='')
 # admin panel (stored in TranslationSettings); this env var is only a fallback
 # for when the DB value is empty. Never exposed to the frontend.
 GEMINI_API_KEY = config('GEMINI_API_KEY', default='')
+
+# Integration secrets — preferred path is Admin → Integrations (role=admin).
+# These env vars are fallbacks when Mongo IntegrationSettings fields are empty.
+ISLAMHOUSE_API_KEY = config('ISLAMHOUSE_API_KEY', default='')
+DORAR_API_KEY = config('DORAR_API_KEY', default='')
+RESEND_API_KEY = config('RESEND_API_KEY', default='')
+# Shared secret so athar-gateway can pull raw keys from /integrations/internal/keys/.
+ATHAR_INTERNAL_TOKEN = config('ATHAR_INTERNAL_TOKEN', default='')
 
 # Public Web client ID for Google Identity Services ID-token sign-in.
 # Empty disables Google login. No client secret (no redirect flow).

@@ -170,6 +170,7 @@ export const routes = [
       { path: 'email/templates', name: 'admin-email-templates', meta: { section: 'email' }, component: () => import('@/views/admin/AdminEmailTemplatesView.vue') },
       { path: 'email/settings',  name: 'admin-email-settings',  meta: { section: 'email' }, component: () => import('@/views/admin/AdminEmailSettingsView.vue') },
       { path: 'automations',   name: 'admin-automations',   meta: { section: 'automations' }, component: () => import('@/views/admin/AdminAutomationsView.vue') },
+      { path: 'integrations',  name: 'admin-integrations',  meta: { requiresAdminRole: true }, component: () => import('@/views/admin/AdminIntegrationsView.vue') },
     ],
   },
 
@@ -210,6 +211,8 @@ export function setupRouterGuards(router) {
     if (to.meta.requiresAdminAccess) {
       if (!auth.isLoggedIn) return next({ name: 'login', query: { redirect: to.fullPath } })
       if (!auth.hasAdminAccess) return next({ name: 'home' })
+      // Superadmin-only children (integration secrets).
+      if (to.meta.requiresAdminRole && auth.user?.role !== 'admin') return next({ name: 'admin' })
       // Lacks the specific section for this child → send to the admin overview.
       if (to.meta.section && !auth.can(to.meta.section)) return next({ name: 'admin' })
     } else if (to.meta.requiresAuth && !auth.isLoggedIn) {

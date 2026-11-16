@@ -27,6 +27,7 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Resend SMTP on Contabo `.env` + Mongo `EmailSettings` (`smtp.resend.com:465`, from `ops@atharulilm.or.tz`)
 - Receiving MX at Cloudflare apex → `receive-euw1.forge.rmta.net` (inbox `ops@`)
 - Gateway: `ISLAMHOUSE_API_KEY` + CORS on host; admin passwords in `/root/.athar-secrets/admin-credentials` only
+- Superadmin **Admin → Integrations** stores IslamHouse / Dorar / Resend / YouTube keys (masked); gateway pulls via `ATHAR_KEYS_URL` + `ATHAR_INTERNAL_TOKEN`
 
 ## Still open
 

@@ -127,6 +127,10 @@ export const adminApi = {
   getEmailSettings:    ()         => client.get('/emails/admin/settings/').then(r => r.data),
   updateEmailSettings: (data)     => client.patch('/emails/admin/settings/', data).then(r => r.data),
 
+  // Integrations — superadmin (role=admin) only
+  getIntegrationSettings:    ()     => client.get('/integrations/admin/settings/').then(r => r.data),
+  updateIntegrationSettings: (data) => client.patch('/integrations/admin/settings/', data).then(r => r.data),
+
   // Generic single test-send (synchronous — returns the real SMTP error on failure)
   testSendEmail:       (data)     => client.post('/emails/admin/test-send/', data).then(r => r.data),
 

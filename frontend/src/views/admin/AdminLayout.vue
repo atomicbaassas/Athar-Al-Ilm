@@ -265,6 +265,20 @@
             </svg>
             Roles
           </RouterLink>
+
+          <!-- Integrations (superadmin only) -->
+          <RouterLink
+            v-if="auth.user?.role === 'admin'"
+            :to="{ name: 'admin-integrations' }"
+            class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors"
+            :class="isActive('integrations') ? 'bg-[#0B3D2E] text-white font-medium' : 'text-white/50 hover:text-white hover:bg-white/5'"
+            @click="sidebarOpen = false"
+          >
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 7h2a5 5 0 0 1 0 10h-2"/><path d="M9 17H7A5 5 0 0 1 7 7h2"/><line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            Integrations
+          </RouterLink>
         </nav>
 
         <!-- Divider -->
@@ -348,6 +362,7 @@ function isActive(section) {
   if (section === 'email-templates') return p.startsWith('/admin/email/templates')
   if (section === 'email-settings')  return p.startsWith('/admin/email/settings')
   if (section === 'automations') return p.startsWith('/admin/automations')
+  if (section === 'integrations') return p.startsWith('/admin/integrations')
   return false
 }
 
