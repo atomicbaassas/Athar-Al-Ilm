@@ -8,7 +8,7 @@
           <p class="text-emerald-700 text-sm bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3">
             {{ t('auth.verifyEmail.success') }}
           </p>
-          <RouterLink :to="auth.isLoggedIn ? '/dashboard' : '/login'" class="inline-block mt-4 text-emerald-700 hover:underline font-medium text-sm">
+          <RouterLink :to="auth.isLoggedIn ? auth.homePath : '/login'" class="inline-block mt-4 text-emerald-700 hover:underline font-medium text-sm">
             {{ auth.isLoggedIn ? t('auth.verifyEmail.goToDashboard') : t('auth.verifyEmail.goToLogin') }}
           </RouterLink>
         </template>

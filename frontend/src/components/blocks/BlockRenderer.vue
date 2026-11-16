@@ -65,6 +65,18 @@
         </p>
       </div>
 
+      <!-- Audio lecture -->
+      <div v-else-if="block.type === 'audio'" class="rounded-2xl border border-sky-100 bg-sky-50/60 px-4 py-4 sm:px-5 sm:py-5">
+        <p v-if="block.body.speaker" class="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">
+          {{ block.body.speaker }}
+        </p>
+        <p v-if="block.body.caption" class="text-sm text-gray-700 mb-3">{{ block.body.caption }}</p>
+        <audio v-if="block.body.url" controls preload="metadata" class="w-full">
+          <source :src="block.body.url" />
+        </audio>
+        <p v-if="block.body.source" class="text-xs text-gray-400 mt-2">— {{ block.body.source }}</p>
+      </div>
+
       <!-- Quiz -->
       <div v-else-if="block.type === 'quiz'" class="border border-gray-200 rounded-2xl overflow-hidden">
         <div class="bg-gray-50 px-5 py-4 border-b border-gray-200">

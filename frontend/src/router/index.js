@@ -172,6 +172,15 @@ export const routes = [
       { path: 'automations',   name: 'admin-automations',   meta: { section: 'automations' }, component: () => import('@/views/admin/AdminAutomationsView.vue') },
     ],
   },
+
+  // Unknown URLs currently fall through to the homepage shell (200 + home
+  // canonical). This route lets the rendered app noindex them. Not prerendered.
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFoundView.vue'),
+    meta: { noindex: true },
+  },
 ]
 
 export const scrollBehavior = () => ({ top: 0 })
@@ -184,11 +193,11 @@ export function setupRouterGuards(router) {
     if (import.meta.env.SSR) return next()
     const auth = useAuthStore()
 
-    // On a hard load/refresh of a gated route the token exists but the profile
-    // (and its sections) isn't fetched yet — load it before deciding, so admin
-    // refreshes resolve correctly instead of bouncing to home.
+    // On a hard load/refresh the token exists but the profile (and its sections)
+    // isn't fetched yet — load it before deciding, so admin refreshes and
+    // guestOnly → role home resolve correctly.
     if (auth.isLoggedIn && !auth.user &&
-        (to.meta.requiresAdminAccess || to.meta.requiresAuth || to.meta.requiresSection)) {
+        (to.meta.requiresAdminAccess || to.meta.requiresAuth || to.meta.requiresSection || to.meta.guestOnly)) {
       try { await auth.fetchUser() } catch { /* invalid token falls through to checks */ }
     }
 
@@ -206,7 +215,7 @@ export function setupRouterGuards(router) {
     } else if (to.meta.requiresAuth && !auth.isLoggedIn) {
       return next({ name: 'login', query: { redirect: to.fullPath } })
     } else if (to.meta.guestOnly && auth.isLoggedIn) {
-      return next({ name: 'dashboard' })
+      return next(auth.hasAdminAccess ? { name: 'admin' } : { name: 'dashboard' })
     }
     next()
   })

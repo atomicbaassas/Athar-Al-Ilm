@@ -11,7 +11,7 @@ from apps.common.permissions import any_section_required
 
 ALLOWED_TYPES = {
     'image/jpeg', 'image/png', 'image/webp', 'image/gif',
-    'audio/mpeg', 'audio/mp4', 'audio/ogg', 'audio/wav',
+    'audio/mpeg', 'audio/mp4', 'audio/ogg', 'audio/opus', 'audio/wav',
     'video/mp4', 'video/webm',
     'application/pdf',
 }

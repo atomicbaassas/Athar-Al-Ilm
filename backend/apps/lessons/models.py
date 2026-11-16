@@ -10,7 +10,7 @@ from config.rebuild import RebuildOnChange
 
 
 class ContentBlock(EmbeddedDocument):
-    type = StringField(required=True, choices=['text', 'verse', 'hadith', 'image', 'video', 'quiz'])
+    type = StringField(required=True, choices=['text', 'verse', 'hadith', 'image', 'video', 'audio', 'quiz'])
     order = IntField(default=0)
     body = DictField()  # flexible payload — schema varies per type
 

@@ -31,6 +31,7 @@ services:
     volumes:
       - static_files:/app/staticfiles
       - sqlite_data:/app/data
+      - /var/www/athar-lessons:/var/www/athar-lessons:ro
     depends_on:
       - mongo
       - redis
@@ -45,6 +46,8 @@ services:
     restart: unless-stopped
     command: celery -A celery_app worker --loglevel=info
     env_file: .env
+    volumes:
+      - /var/www/athar-lessons:/var/www/athar-lessons:ro
     depends_on:
       - redis
       - mongo
@@ -83,6 +86,7 @@ services:
       - "8080:80"
     volumes:
       - static_files:/app/staticfiles:ro
+      - /var/www/athar-lessons:/var/www/athar-lessons:ro
     depends_on:
       - backend
       - frontend

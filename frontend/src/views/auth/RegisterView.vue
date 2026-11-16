@@ -117,7 +117,8 @@ async function handleRegister() {
   loading.value = true
   try {
     await auth.register(form.value.email, form.value.username, form.value.password, form.value.fullName)
-    router.push('/dashboard')
+    router.push(auth.homePath)
+
   } catch (e) {
     const data = e.response?.data || {}
     if (data.email) errors.value.email = Array.isArray(data.email) ? data.email[0] : data.email

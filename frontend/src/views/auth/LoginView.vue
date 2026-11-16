@@ -87,8 +87,8 @@ async function handleLogin() {
   loading.value = true
   try {
     await auth.login(form.value.email, form.value.password)
-    const redirect = route.query.redirect || '/dashboard'
-    router.push(redirect)
+    router.push(auth.postAuthPath(route.query.redirect))
+
   } catch (e) {
     error.value = e.response?.data?.error || t('auth.login.error')
   } finally {

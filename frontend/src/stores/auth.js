@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { authApi } from '@/api/auth'
+import { postAuthHomePath, resolvePostAuthPath } from '@/auth/postAuthPath'
 import { useProgressStore } from '@/stores/progress'
 import { useFeaturesStore } from '@/stores/features'
 import { useBadgesStore } from '@/stores/badges'
@@ -23,6 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
   const sections = computed(() => user.value?.sections || [])
   const can = (section) => sections.value.includes(section)
   const hasAdminAccess = computed(() => sections.value.length > 0)
+  const homePath = computed(() => postAuthHomePath(user.value))
 
   async function login(email, password) {
     const response = await authApi.login(email, password)
@@ -68,9 +70,14 @@ export const useAuthStore = defineStore('auth', () => {
     features.loadFlags()
   }
 
+  function postAuthPath(redirect) {
+    return resolvePostAuthPath(user.value, redirect)
+  }
+
   return {
     user, token, isLoggedIn, isAdmin, isAuthor,
-    sections, can, hasAdminAccess,
+    sections, can, hasAdminAccess, homePath, postAuthPath,
     login, register, logout, fetchUser, resendVerification,
   }
 })
+

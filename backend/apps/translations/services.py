@@ -32,6 +32,7 @@ TRANSLATABLE_BLOCK_FIELDS = {
     'hadith': ['text', 'source', 'narrator'],
     'image':  ['caption'],
     'video':  ['caption'],
+    'audio':  ['caption', 'speaker'],
     'quiz':   ['question', 'explanation'],
 }
 

@@ -135,6 +135,33 @@
           </div>
         </template>
 
+        <!-- AUDIO -->
+        <template v-else-if="block.type === 'audio'">
+          <div class="bg-white p-4 space-y-3">
+            <audio v-if="block.body.url" controls preload="metadata" class="w-full">
+              <source :src="block.body.url" />
+            </audio>
+            <div v-else class="rounded-xl border-2 border-dashed border-sky-200 bg-sky-50 h-24 flex items-center justify-center text-sky-700/70 text-sm">
+              Paste an audio URL or upload an MP3/Opus file
+            </div>
+            <div class="flex gap-2">
+              <input v-model="block.body.url" type="url" placeholder="Audio URL…"
+                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
+              <button type="button" @click="audioInputRefs[idx]?.click()" :disabled="audioUploading[idx]"
+                class="shrink-0 px-3 py-2 text-xs font-medium border border-[#0B3D2E]/30 text-[#0B3D2E] rounded-xl hover:bg-[#0B3D2E]/5 disabled:opacity-60 transition-colors">
+                {{ audioUploading[idx] ? 'Uploading…' : 'Upload' }}
+              </button>
+              <input :ref="el => audioInputRefs[idx] = el" type="file" accept="audio/mpeg,audio/ogg,audio/opus,audio/wav,audio/mp4" class="hidden" @change="handleAudioUpload(idx, $event)" />
+            </div>
+            <input v-model="block.body.speaker" placeholder="Speaker / lecturer"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
+            <input v-model="block.body.caption" placeholder="Caption (optional)"
+              class="w-full text-xs text-center text-gray-400 border-0 border-b border-dashed border-gray-200 pb-1 focus:outline-none focus:border-gray-400 bg-transparent placeholder:text-gray-300" />
+            <input v-model="block.body.source" placeholder="Source attribution (optional)"
+              class="w-full text-xs text-center text-gray-400 border-0 border-b border-dashed border-gray-200 pb-1 focus:outline-none focus:border-gray-400 bg-transparent placeholder:text-gray-300" />
+          </div>
+        </template>
+
         <!-- QUIZ -->
         <template v-else-if="block.type === 'quiz'">
           <div class="bg-gray-50 px-5 py-4 border-b border-gray-200">
@@ -192,6 +219,8 @@ const blocks = computed(() => props.modelValue)
 
 const imageUploading = reactive({})
 const imageInputRefs = ref([])
+const audioUploading = reactive({})
+const audioInputRefs = ref([])
 
 function addBlock(type) {
   blocks.value.push({ type, body: { ...BLOCK_DEFAULTS[type] } })
@@ -231,6 +260,24 @@ async function handleImageUpload(idx, event) {
   } finally {
     imageUploading[idx] = false
     if (imageInputRefs.value[idx]) imageInputRefs.value[idx].value = ''
+  }
+}
+
+async function handleAudioUpload(idx, event) {
+  const file = event.target.files?.[0]
+  if (!file) return
+  audioUploading[idx] = true
+  try {
+    const contentType = file.type || 'audio/mpeg'
+    const { upload_url, public_url } = await adminApi.getUploadUrl(file.name, contentType, 'audio')
+    const res = await fetch(upload_url, { method: 'PUT', body: file, headers: { 'Content-Type': contentType } })
+    if (!res.ok) throw new Error(`Upload failed: ${res.status}`)
+    blocks.value[idx].body.url = public_url
+  } catch {
+    emit('error', 'Audio upload failed. Please try again or paste a URL.')
+  } finally {
+    audioUploading[idx] = false
+    if (audioInputRefs.value[idx]) audioInputRefs.value[idx].value = ''
   }
 }
 </script>
