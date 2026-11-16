@@ -11,11 +11,17 @@ ssh -o BatchMode=yes "$HOST" "bash -s" <<REMOTE
 set -euo pipefail
 mkdir -p '$REMOTE_DIR'
 if [[ ! -d '$REMOTE_DIR/.git' ]]; then
-  git clone --branch '$BRANCH' https://github.com/atomicbaassas/Athar-Al-Ilm.git '$REMOTE_DIR'
+  git clone --branch '$BRANCH' --no-single-branch https://github.com/atomicbaassas/Athar-Al-Ilm.git '$REMOTE_DIR'
 else
   cd '$REMOTE_DIR'
+  # An older clone pinned origin.fetch to feat/tadabbur-athar. That ref is
+  # gone, so a plain fetch fails before checkout. Track every branch, then
+  # fast-forward the deploy branch only.
+  git config --unset-all remote.origin.fetch || true
+  git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
   git fetch origin
   git checkout '$BRANCH'
+  git branch --set-upstream-to=origin/'$BRANCH' '$BRANCH'
   git pull --ff-only origin '$BRANCH'
 fi
 if [[ ! -f '$REMOTE_DIR/.env' ]]; then
