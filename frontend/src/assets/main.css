@@ -157,25 +157,43 @@ select:disabled {
     }
   }
 
-  /* Home GSAP targets: hide only after JS opts into motion (sync, before import).
-     Prevents SSG paint → gsap.from snap-to-0 flicker. */
+  /* Home GSAP targets: hidden from first paint when motion is allowed (SSG-safe).
+     Reduced-motion users keep full opacity via the reduce block above.
+     Failsafe: html.no-home-motion forces visible if GSAP never runs. */
   @media (prefers-reduced-motion: no-preference) {
-    html.js-home-motion .home-page [data-h-badge],
-    html.js-home-motion .home-page [data-h-line],
-    html.js-home-motion .home-page [data-h-sub],
-    html.js-home-motion .home-page [data-h-cta],
-    html.js-home-motion .home-page [data-h-prayer],
-    html.js-home-motion .home-page [data-h-mockup],
-    html.js-home-motion .home-page [data-reveal],
-    html.js-home-motion .home-page [data-stat-item],
-    html.js-home-motion .home-page [data-bento-card],
-    html.js-home-motion .home-page [data-hero-badge-streak],
-    html.js-home-motion .home-page [data-hero-track-card],
-    html.js-home-motion .home-page [data-hero-lesson-row],
-    html.js-home-motion .home-page [data-hero-badge-success],
-    html.js-home-motion .home-page [data-reader-verse],
-    html.js-home-motion .home-page [data-reader-quiz] {
+    .home-page [data-h-badge],
+    .home-page [data-h-line],
+    .home-page [data-h-sub],
+    .home-page [data-h-cta],
+    .home-page [data-h-prayer],
+    .home-page [data-h-mockup],
+    .home-page [data-reveal],
+    .home-page [data-stat-item],
+    .home-page [data-bento-card],
+    .home-page [data-hero-badge-streak],
+    .home-page [data-hero-track-card],
+    .home-page [data-hero-lesson-row],
+    .home-page [data-hero-badge-success],
+    .home-page [data-reader-verse],
+    .home-page [data-reader-quiz] {
       opacity: 0;
+    }
+    html.no-home-motion .home-page [data-h-badge],
+    html.no-home-motion .home-page [data-h-line],
+    html.no-home-motion .home-page [data-h-sub],
+    html.no-home-motion .home-page [data-h-cta],
+    html.no-home-motion .home-page [data-h-prayer],
+    html.no-home-motion .home-page [data-h-mockup],
+    html.no-home-motion .home-page [data-reveal],
+    html.no-home-motion .home-page [data-stat-item],
+    html.no-home-motion .home-page [data-bento-card],
+    html.no-home-motion .home-page [data-hero-badge-streak],
+    html.no-home-motion .home-page [data-hero-track-card],
+    html.no-home-motion .home-page [data-hero-lesson-row],
+    html.no-home-motion .home-page [data-hero-badge-success],
+    html.no-home-motion .home-page [data-reader-verse],
+    html.no-home-motion .home-page [data-reader-quiz] {
+      opacity: 1;
     }
   }
 }

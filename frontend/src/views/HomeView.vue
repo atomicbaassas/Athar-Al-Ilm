@@ -976,13 +976,16 @@ const footerLegal = [
 
 // ── Lifecycle ──────────────────────────────────────────────────────
 onMounted(async () => {
-  // Reduced motion: skip Lenis smooth scroll + GSAP scroll animations entirely.
-  // Content stays visible (no gsap.from() opacity-0 states ever applied).
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  // Reduced motion: skip Lenis/GSAP; CSS already keeps content visible.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('no-home-motion')
+    return
+  }
 
-  // Hide motion targets BEFORE the async GSAP import. Without this, SSG/hydration
-  // paints opacity:1, then gsap.from() snaps to 0 → visible flicker (Measured).
-  document.documentElement.classList.add('js-home-motion')
+  // CSS already hides motion targets from first paint (SSG-safe). Reveal if GSAP never starts.
+  const failSafe = window.setTimeout(() => {
+    document.documentElement.classList.add('no-home-motion')
+  }, 4000)
 
   try {
   // Dynamic imports — don't block initial render
@@ -991,6 +994,7 @@ onMounted(async () => {
     import('gsap/ScrollTrigger'),
     import('lenis'),
   ])
+  window.clearTimeout(failSafe)
 
   gsap.registerPlugin(ScrollTrigger)
 
@@ -1112,14 +1116,15 @@ onMounted(async () => {
   }, '.home-page')
   } catch {
     // GSAP/Lenis failed — show content instead of leaving it at opacity 0
-    document.documentElement.classList.remove('js-home-motion')
+    window.clearTimeout(failSafe)
+    document.documentElement.classList.add('no-home-motion')
   }
 })
 
 onUnmounted(() => {
   gsapCtx?.revert()
   lenis?.destroy()
-  document.documentElement.classList.remove('js-home-motion')
+  document.documentElement.classList.remove('no-home-motion')
   quizAnswered.value = false
 })
 </script>
