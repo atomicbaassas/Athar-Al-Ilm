@@ -25,10 +25,10 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 ## 2026-11-17 — UI/UX responsive + a11y (merged `#1` → `e3cb7295` / tip `e5c95b7`)
 
 - Squash-merged `fix/ui-ux-responsive-a11y` (contrast, admin tables, RTL, touch targets, modal a11y).
-- Canonical worktree + `~/AIO Devs/Athar Alilm` both on `origin/main`.
-- Contabo app: `deploy/contabo/deploy-tadabbur.sh` → `/opt/athar-tadabbur` at `e5c95b7`.
-- Contabo gateway: `deploy/contabo/deploy-gateway.sh` restarted; public `/athar/health` ok (`islamhouse=configured`, `dorar=token_required`).
-- GitHub Actions Deploy secrets set (`SSH_HOST`/`SSH_USER`/`SSH_PORT`/`SSH_PRIVATE_KEY`/`DEPLOY_PATH=/opt/athar-tadabbur`); workflow run succeeded at tip `e5c95b7`.
+- Single local clone: `~/AIO Devs/Athar Alilm` on `origin/main` (`.worktrees/Athar-Al-Ilm` removed).
+- Contabo app: `deploy/contabo/deploy-tadabbur.sh` → `/opt/athar-tadabbur`.
+- Contabo gateway: `deploy/contabo/deploy-gateway.sh`; public `/athar/health` ok (`islamhouse=configured`, `dorar=token_required`).
+- GitHub Actions Deploy secrets set; Deploy green on Contabo tip.
 - Live spot-check @375/320: home hero contrast ~20:1, no horizontal overflow on `/`, `/login`, `/learn`, `/library`.
 
 ## 2026-11-16 — Resend + audit harden (deployed `e7a08d6e`)
@@ -43,5 +43,4 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Migrate `/quran` translations to QuranEnc when product wants stricter Salafi-only editions
 - Wire more Salafi learner pages to `/athar/` gateway; strip AI-as-source of truth
 - Ingest library PDFs into MinIO instead of hotlinking IslamHouse CDN
-- Optionally remove leftover `.worktrees/Athar-Al-Ilm/feat-tadabbur` if still on disk (canonical is `~/AIO Devs/Athar Alilm`)
 - Dorar token still unset (`dorar_token_required`); Athar-owned IslamHouse key when issued (host research key for now)
