@@ -1,8 +1,8 @@
 # HANDOFF — Athar Al 'Ilm (Tadabbur)
 
 **Date:** 2026-11-17  
-**Branch:** `main`  
-**Workspace:** `~/AIO Devs/.worktrees/Athar-Al-Ilm/feat-tadabbur`
+**Branch:** `main` only (no feature branches / no git worktrees)  
+**Workspace:** `~/AIO Devs/Athar Alilm`
 
 ## Decision
 
@@ -43,5 +43,5 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Migrate `/quran` translations to QuranEnc when product wants stricter Salafi-only editions
 - Wire more Salafi learner pages to `/athar/` gateway; strip AI-as-source of truth
 - Ingest library PDFs into MinIO instead of hotlinking IslamHouse CDN
-- Optionally archive or delete duplicate checkout `~/AIO Devs/Athar Alilm` (canonical worktree is feat-tadabbur)
+- Optionally remove leftover `.worktrees/Athar-Al-Ilm/feat-tadabbur` if still on disk (canonical is `~/AIO Devs/Athar Alilm`)
 - Dorar token still unset (`dorar_token_required`); Athar-owned IslamHouse key when issued (host research key for now)
