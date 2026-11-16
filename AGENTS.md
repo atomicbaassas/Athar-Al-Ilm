@@ -1,13 +1,13 @@
 # Athar Al 'Ilm (أثر العلم) — Agent Instructions
 
-Islamic educational platform on a **Athar Al 'Ilm MIT fork** (Vue + Django), branded for Ahlul Athar / Athar Al 'Ilm. Live Contabo site may still run the old LearnHouse image until cutover. Binding contracts: **`docs/ENGINEERING_CONTRACTS.md`**. Sources: **`docs/SOURCES_SALAFI.md`**.
+Islamic educational platform on a **Tadabbur MIT fork** (Vue + Django), branded for Ahlul Athar / Athar Al 'Ilm. Live Contabo runs the Tadabbur stack. Binding contracts: **`docs/ENGINEERING_CONTRACTS.md`**. Sources: **`docs/SOURCES_SALAFI.md`**.
 
 ## Non-negotiables
 
 - **Salafi sources only** for Quran/Hadith/books: QuranEnc, HadeethEnc, IslamHouse (Dorar when `DORAR_API_KEY` exists). No Quran.com scrapers, no AI-invented religious content as source of truth. See **C-SRC**.
 - Content APIs go through **`apps/athar-gateway`** (`/athar/` on prod). Browser never holds IslamHouse/Dorar keys.
 - Secrets never committed. Branch first (`feat/`, `fix/`, `chore/`). Push to **origin** only.
-- `upstream` = `atomicbaassas/Athar-Al-Ilm`. `origin` = `atomicbaassas/Athar-Al-Ilm`.
+- `origin` = `atomicbaassas/Athar-Al-Ilm`. `upstream` = `mohhomadfarman/Tadabbur`.
 - Bilingual EN/AR + RTL (**C-I18N**). Keep MIT LICENSE + Athar Al 'Ilm attribution.
 
 ## Stack

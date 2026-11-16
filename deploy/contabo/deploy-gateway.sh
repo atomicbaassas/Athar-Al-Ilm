@@ -19,13 +19,14 @@ scp -o BatchMode=yes \
 
 ssh -o BatchMode=yes "$HOST" 'bash -s' <<'REMOTE'
 set -euo pipefail
-mkdir -p /root/.learnhouse-secrets
-if [[ ! -f /root/.learnhouse-secrets/athar-gateway.env ]]; then
-  cat > /root/.learnhouse-secrets/athar-gateway.env <<'EOF'
+mkdir -p /root/.athar-secrets
+chmod 700 /root/.athar-secrets
+if [[ ! -f /root/.athar-secrets/athar-gateway.env ]]; then
+  cat > /root/.athar-secrets/athar-gateway.env <<'EOF'
 ATHAR_GATEWAY_HOST=127.0.0.1
 ATHAR_GATEWAY_PORT=9091
 EOF
-  chmod 600 /root/.learnhouse-secrets/athar-gateway.env
+  chmod 600 /root/.athar-secrets/athar-gateway.env
 fi
 
 SITE=/etc/nginx/sites-available/atharulilm

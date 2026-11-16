@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/athar-gateway
-EnvironmentFile=-/root/.learnhouse-secrets/athar-gateway.env
+EnvironmentFile=-/root/.athar-secrets/athar-gateway.env
 Environment=ATHAR_GATEWAY_HOST=127.0.0.1
 Environment=ATHAR_GATEWAY_PORT=9091
 ExecStart=/usr/bin/node /opt/athar-gateway/server.js
