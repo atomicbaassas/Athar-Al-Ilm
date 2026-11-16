@@ -323,7 +323,7 @@ useSeo(() => {
   const url = `${SEO_ORIGIN}/library/${b.slug}`
   const desc = b.description?.slice(0, 160) || 'Read this Islamic book on Athar Al \'Ilm.'
   return {
-    title: `${b.title} — Athar Al 'Ilm Library`,
+    title: b.title,
     description: desc,
     url,
     image: b.cover_url || undefined,

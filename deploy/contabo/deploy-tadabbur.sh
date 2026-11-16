@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 HOST="${ATHAR_SSH_HOST:-contabo}"
 REMOTE_DIR=/opt/athar-tadabbur
-BRANCH="${ATHAR_DEPLOY_BRANCH:-feat/tadabbur-athar}"
+BRANCH="${ATHAR_DEPLOY_BRANCH:-main}"
 
 echo "==> ensure remote dir + clone/pull on $HOST:$REMOTE_DIR"
 ssh -o BatchMode=yes "$HOST" "bash -s" <<REMOTE

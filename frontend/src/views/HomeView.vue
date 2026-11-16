@@ -894,7 +894,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
-import { useSeo } from '@/composables/useSeo'
+import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 import BrandLockup from '@/components/common/BrandLockup.vue'
 import PrayerTimesCard from '@/components/home/PrayerTimesCard.vue'
 
@@ -904,9 +904,8 @@ const { t } = useI18n()
 const auth = useAuthStore()
 
 useSeo({
-  title:       'Athar Al \'Ilm — Structured Islamic Learning for the Ummah',
   description: 'A rigorous, scholar-verified Islamic curriculum. Structured tracks from beginner to advanced. Free forever. Built for the Ummah.',
-  url:         'https://atharulilm.or.tz/',
+  url:         `${SEO_ORIGIN}/`,
 })
 
 // ── GSAP + Lenis refs ──────────────────────────────────────────────

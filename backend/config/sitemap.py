@@ -4,7 +4,8 @@ Dynamic sitemap.xml generated from published curriculum content.
 Mirrors the Vue SPA route shape so every indexable page is discoverable:
   /                                       (home)
   /learn                                  (curriculum index)
-  /library, /videos                       (top-level sections)
+  /quran, /quran/dua, /hadith             (scripture readers)
+  /library, /contributors                 (books index, sources)
   /learn/<trackSlug>                      (track)
   /learn/<trackSlug>/<subjectSlug>        (subject)
   /lesson/<lessonSlug>                    (lesson)
@@ -60,9 +61,12 @@ def sitemap_xml(request):
     urls = [
         _url(f'{base}/',        changefreq='weekly',  priority='1.0'),
         _url(f'{base}/learn',   changefreq='weekly',  priority='0.9'),
-        _url(f'{base}/quran',   changefreq='weekly',  priority='0.9'),
-        _url(f'{base}/library', changefreq='weekly',  priority='0.8'),
-        _url(f'{base}/launch',  changefreq='daily',   priority='0.9'),
+        _url(f'{base}/quran',        changefreq='weekly',  priority='0.9'),
+        _url(f'{base}/quran/dua',    changefreq='monthly', priority='0.7'),
+        _url(f'{base}/hadith',       changefreq='weekly',  priority='0.9'),
+        _url(f'{base}/library',      changefreq='weekly',  priority='0.8'),
+        _url(f'{base}/contributors', changefreq='monthly', priority='0.4'),
+        _url(f'{base}/launch',       changefreq='daily',   priority='0.9'),
         _url(f'{base}/privacy', changefreq='yearly',  priority='0.3'),
         _url(f'{base}/terms',   changefreq='yearly',  priority='0.3'),
     ]

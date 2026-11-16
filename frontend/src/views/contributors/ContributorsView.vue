@@ -60,17 +60,39 @@
 <script setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useHead } from '@unhead/vue'
+import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
-const SEO_ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
 const { t } = useI18n({ useScope: 'global' })
 
-useHead({
-  title: () => t('contributors.title'),
-  meta: [
-    { name: 'description', content: () => t('contributors.subtitle') },
-    { property: 'og:url', content: `${SEO_ORIGIN}/contributors` },
-  ],
+useSeo(() => {
+  const title = t('contributors.title')
+  const description = t('contributors.subtitle')
+  const url = `${SEO_ORIGIN}/contributors`
+  return {
+    title,
+    description,
+    url,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'AboutPage',
+          name: title,
+          description,
+          url,
+          inLanguage: ['en', 'ar', 'sw'],
+          isPartOf: { '@id': `${SEO_ORIGIN}/#website` },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Athar Al \'Ilm', item: `${SEO_ORIGIN}/` },
+            { '@type': 'ListItem', position: 2, name: title, item: url },
+          ],
+        },
+      ],
+    },
+  }
 })
 
 const items = computed(() => [

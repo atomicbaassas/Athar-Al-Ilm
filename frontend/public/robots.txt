@@ -1,12 +1,17 @@
 User-agent: *
 Allow: /
 
-# Block admin and API from being indexed (auth-gated / non-content)
-Disallow: /admin/
+# Auth, admin, and API. These are not prerendered; a hit falls through to the
+# homepage shell, so disallow them instead of letting that shell get crawled.
+# /admin (no trailing slash) is the panel entry; /admin/ is its children.
+Disallow: /admin
 Disallow: /django-admin/
 Disallow: /api/
 Disallow: /login
 Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
 Disallow: /dashboard
 Disallow: /videos
 

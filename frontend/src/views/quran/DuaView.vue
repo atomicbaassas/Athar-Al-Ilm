@@ -96,20 +96,43 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useHead } from '@unhead/vue'
+import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 import { RouterLink } from 'vue-router'
 import { quranApi, QURAN_EDITIONS } from '@/api/quran'
 import duaCatalog from '@/data/quran-duas.json'
 
-const SEO_ORIGIN = import.meta.env.VITE_SITE_ORIGIN || 'https://atharulilm.or.tz'
 const { t, locale } = useI18n({ useScope: 'global' })
 
-useHead({
-  title: () => t('quran.dua.title'),
-  meta: [
-    { name: 'description', content: () => t('quran.dua.subtitle') },
-    { property: 'og:url', content: `${SEO_ORIGIN}/quran/dua` },
-  ],
+useSeo(() => {
+  const title = t('quran.dua.title')
+  const description = t('quran.dua.subtitle')
+  const url = `${SEO_ORIGIN}/quran/dua`
+  return {
+    title,
+    description,
+    url,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          name: title,
+          description,
+          url,
+          inLanguage: ['en', 'ar', 'sw'],
+          isPartOf: { '@id': `${SEO_ORIGIN}/#website` },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Athar Al \'Ilm', item: `${SEO_ORIGIN}/` },
+            { '@type': 'ListItem', position: 2, name: t('quran.title'), item: `${SEO_ORIGIN}/quran` },
+            { '@type': 'ListItem', position: 3, name: title, item: url },
+          ],
+        },
+      ],
+    },
+  }
 })
 
 const loading = ref(true)

@@ -420,6 +420,15 @@ useSeo(() => ({
           position: i + 1,
           name: tr.title,
           url: `${SEO_ORIGIN}/learn/${tr.slug}`,
+          item: tr.description
+            ? {
+                '@type': 'Course',
+                name: tr.title,
+                description: tr.description,
+                url: `${SEO_ORIGIN}/learn/${tr.slug}`,
+                provider: { '@type': 'Organization', name: 'Athar Al \'Ilm', url: SEO_ORIGIN },
+              }
+            : undefined,
         })),
       }
     : undefined,

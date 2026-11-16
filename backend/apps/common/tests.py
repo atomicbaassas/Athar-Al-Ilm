@@ -83,3 +83,10 @@ class TestSitemapCache:
         client.get('/sitemap.xml')
         bump_content_generation()
         assert client.get('/sitemap.xml')['X-Cache'] == 'MISS'
+
+    def test_sitemap_lists_public_sections(self, client):
+        body = client.get('/sitemap.xml').content.decode()
+        for path in ('/learn', '/quran', '/quran/dua', '/hadith', '/library', '/contributors'):
+            assert f'{path}</loc>' in body
+        # Videos are auth-gated and disallowed in robots.txt.
+        assert '/videos' not in body

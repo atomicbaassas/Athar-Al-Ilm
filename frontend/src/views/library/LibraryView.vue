@@ -232,14 +232,31 @@ import { libraryApi } from '@/api/library'
 import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 
-useSeo({
-  title: 'Islamic Library',
-  description: 'Free Islamic books: read online, listen as audiobook, or download. Scholar-reviewed collection for every Muslim.',
-  url: `${SEO_ORIGIN}/library`,
-})
-
 const ssr            = useSsrDataStore()
 const books          = ref(ssr.get('library:books') ?? [])
+
+useSeo(() => {
+  const url = `${SEO_ORIGIN}/library`
+  const published = (books.value || []).filter((b) => b && b.slug && b.title)
+  return {
+    title: 'Islamic Library',
+    description: 'Free Islamic books: read online, listen as audiobook, or download. Scholar-reviewed collection for every Muslim.',
+    url,
+    jsonLd: published.length
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Athar Al \'Ilm Library',
+          itemListElement: published.map((b, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: b.title,
+            url: `${SEO_ORIGIN}/library/${b.slug}`,
+          })),
+        }
+      : undefined,
+  }
+})
 const categories     = ref([])
 const loading        = ref(ssr.get('library:books') == null)
 const error          = ref('')

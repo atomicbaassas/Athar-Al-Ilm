@@ -15,20 +15,21 @@
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type"             content="website" />
     <meta property="og:url"              content="https://atharulilm.or.tz/" />
-    <meta property="og:title"            content="Athar Al 'Ilm — Structured Islamic Learning for the Ummah" />
+    <meta property="og:title"            content="Athar Al 'Ilm | أثر العلم — Structured Islamic Learning for the Ummah" />
     <meta property="og:description"      content="Free, open-source Islamic learning platform. Scholar-verified curriculum, structured tracks from beginner to advanced, progress tracking. Built for 1.8 billion Muslims worldwide." />
     <meta property="og:image"            content="https://atharulilm.or.tz/logo-rounded.png?v=quiet-mihrab" />
     <meta property="og:image:width"      content="1200" />
     <meta property="og:image:height"     content="630" />
     <meta property="og:image:alt"        content="Athar Al 'Ilm — Structured Islamic Learning Platform" />
     <meta property="og:locale"           content="en_US" />
-    <meta property="og:locale:alternate" content="ar_AR" />
+    <meta property="og:locale:alternate" content="ar_SA" />
+    <meta property="og:locale:alternate" content="sw_TZ" />
     <meta property="og:site_name"        content="Athar Al 'Ilm | أثر العلم" />
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:site"        content="@atharulilm" />
-    <meta name="twitter:title"       content="Athar Al 'Ilm — Structured Islamic Learning for the Ummah" />
+    <meta name="twitter:title"       content="Athar Al 'Ilm | أثر العلم — Structured Islamic Learning for the Ummah" />
     <meta name="twitter:description" content="Free, open-source Islamic learning platform with scholar-verified curriculum. Built for the global Ummah." />
     <meta name="twitter:image"       content="https://atharulilm.or.tz/logo-rounded.png?v=quiet-mihrab" />
     <meta name="twitter:image:alt"   content="Athar Al 'Ilm — Structured Islamic Learning Platform" />
@@ -48,7 +49,10 @@
     <!-- Fonts: Google Sans (UI) + Cairo (Arabic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
 
     <!-- JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -57,11 +61,17 @@
       "@type": "Organization",
       "name": "Athar Al 'Ilm",
       "alternateName": "أثر العلم",
+      "@id": "https://atharulilm.or.tz/#organization",
       "url": "https://atharulilm.or.tz",
-      "logo": "https://atharulilm.or.tz/favicon.svg",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://atharulilm.or.tz/icons/icon-512.png",
+        "width": 512,
+        "height": 512
+      },
       "description": "Free, open-source structured Islamic learning platform for the global Ummah. Scholar-verified curriculum from beginner to advanced.",
       "foundingDate": "2026",
-      "inLanguage": ["en", "ar"],
+      "inLanguage": ["en", "ar", "sw"],
       "sameAs": [
         "https://github.com/atomicbaassas/Athar-Al-Ilm"
       ],
@@ -73,20 +83,17 @@
     }
     </script>
 
-    <!-- JSON-LD: WebSite (enables Google Sitelinks Search Box) -->
+    <!-- JSON-LD: WebSite. No SearchAction: /learn?q= is not a search URL. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": "https://atharulilm.or.tz/#website",
       "name": "Athar Al 'Ilm",
       "url": "https://atharulilm.or.tz",
       "description": "Structured Islamic learning platform — free, open-source, scholar-verified.",
-      "inLanguage": ["en", "ar"],
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://atharulilm.or.tz/learn?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "inLanguage": ["en", "ar", "sw"],
+      "publisher": { "@id": "https://atharulilm.or.tz/#organization" }
     }
     </script>
   </head>

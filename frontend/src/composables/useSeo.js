@@ -14,6 +14,14 @@ const DEFAULTS = {
   image: `${ORIGIN}/logo-rounded.png?v=quiet-mihrab`,
 }
 
+// Skip the suffix when the caller already branded the string, otherwise
+// Google sees "… — Athar Al 'Ilm — Athar Al 'Ilm | أثر العلم".
+function documentTitle(raw) {
+  if (!raw) return DEFAULTS.title
+  if (raw.includes('Athar Al \'Ilm')) return raw
+  return `${raw} — ${SITE_NAME}`
+}
+
 /**
  * Set <title>, meta tags, canonical and (optional) JSON-LD for a page via
  * @unhead/vue, so they render into the prerendered HTML server-side (visible to
@@ -27,6 +35,9 @@ const DEFAULTS = {
  *   useSeo(() => track.value ? { title: track.value.title, ... } : {})
  *
  * Each field: { title, description, url, image, jsonLd, noindex }.
+ *
+ * Locale is one URL plus a localStorage preference (en / ar / sw). hreflang
+ * needs a distinct URL per language, so it is not emitted here.
  */
 export function useSeo(source = {}) {
   const resolve = () =>
@@ -53,7 +64,7 @@ export function useSeo(source = {}) {
     if (noindex) meta.push({ name: 'robots', content: 'noindex, nofollow' })
 
     return {
-      title: title ? `${title} — ${SITE_NAME}` : DEFAULTS.title,
+      title: documentTitle(title),
       meta,
       link: [{ rel: 'canonical', href: canonical }],
       script: jsonLd
