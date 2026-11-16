@@ -35,3 +35,7 @@ Audio `speaker` / `source` fields are translatable captions only; the recording 
 2. `python manage.py import_assalafiyyah_audio --audio-dir … --public-base … --publish`
 
 Lecturer credit on the lesson is **Sheikh Abu Hashim**. The on-disk folder stays `assalafiyyah-ibada` (a file path, not a credit). Opus album tags may still name the old host site; do not retag or re-upload the files for that.
+
+## Another folder
+
+`import_audio_subject` adds one Opus folder as one subject on an existing or new track. It skips lesson slugs that already exist and does not delete curriculum. Pass `--manifest` when the backend image has no `ffprobe`. Do not put the old host name in lesson text. Encode with `ffmpeg -i in.mp3 -vn -c:a libopus -b:a 24k -ac 1` and drop source album tags (`-map_metadata -1`).
