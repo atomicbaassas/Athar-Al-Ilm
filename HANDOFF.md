@@ -22,9 +22,16 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Secrets moved `/root/.learnhouse-secrets` → `/root/.athar-secrets`; systemd unit updated.
 - Local: wiped untracked LearnHouse leftovers under `~/AIO Devs/Athar Alilm`; that checkout’s `upstream` now points at Tadabbur (not LearnHouse).
 
+## 2026-11-16 — Resend + audit harden (deployed `e7a08d6e`)
+
+- Resend SMTP on Contabo `.env` + Mongo `EmailSettings` (`smtp.resend.com:465`, from `ops@atharulilm.or.tz`)
+- Receiving MX at Cloudflare apex → `receive-euw1.forge.rmta.net` (inbox `ops@`)
+- Gateway: `ISLAMHOUSE_API_KEY` + CORS on host; admin passwords in `/root/.athar-secrets/admin-credentials` only
+
 ## Still open
 
 - Migrate `/quran` translations to QuranEnc when product wants stricter Salafi-only editions
 - Wire more Salafi learner pages to `/athar/` gateway; strip AI-as-source of truth
 - Ingest library PDFs into MinIO instead of hotlinking IslamHouse CDN
 - Optionally archive or delete duplicate checkout `~/AIO Devs/Athar Alilm` (canonical worktree is feat-tadabbur)
+- Dorar token still unset (`dorar_token_required`); Athar-owned IslamHouse key when issued (host research key for now)
