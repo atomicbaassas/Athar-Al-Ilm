@@ -22,11 +22,14 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Secrets moved `/root/.learnhouse-secrets` → `/root/.athar-secrets`; systemd unit updated.
 - Local: wiped untracked LearnHouse leftovers under `~/AIO Devs/Athar Alilm`; that checkout’s `upstream` now points at Tadabbur (not LearnHouse).
 
-## 2026-11-17 — UI/UX responsive + a11y (merged `#1` → `e3cb7295`)
+## 2026-11-17 — UI/UX responsive + a11y (merged `#1` → `e3cb7295` / tip `e5c95b7`)
 
 - Squash-merged `fix/ui-ux-responsive-a11y` (contrast, admin tables, RTL, touch targets, modal a11y).
 - Canonical worktree + `~/AIO Devs/Athar Alilm` both on `origin/main`.
-- Contabo: `deploy/contabo/deploy-tadabbur.sh` for this tip.
+- Contabo app: `deploy/contabo/deploy-tadabbur.sh` → `/opt/athar-tadabbur` at `e5c95b7`.
+- Contabo gateway: `deploy/contabo/deploy-gateway.sh` restarted; public `/athar/health` ok (`islamhouse=configured`, `dorar=token_required`).
+- GitHub Actions Deploy secrets set (`SSH_HOST`/`SSH_USER`/`SSH_PORT`/`SSH_PRIVATE_KEY`/`DEPLOY_PATH=/opt/athar-tadabbur`); workflow run succeeded at tip `e5c95b7`.
+- Live spot-check @375/320: home hero contrast ~20:1, no horizontal overflow on `/`, `/login`, `/learn`, `/library`.
 
 ## 2026-11-16 — Resend + audit harden (deployed `e7a08d6e`)
 
