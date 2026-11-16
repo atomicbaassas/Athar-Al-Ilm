@@ -6,6 +6,10 @@ export default {
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
+  // Touch devices: don't sticky-hover translate/scale (Better Design hover rule).
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       fontFamily: {

@@ -132,7 +132,7 @@
             :aria-label="t('curriculum.viewIcon')"
             :aria-pressed="viewMode === 'icon' ? 'true' : 'false'"
             :class="viewMode === 'icon' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-400 hover:text-gray-600'"
-            class="w-11 h-9 inline-flex items-center justify-center rounded-lg transition-all"
+            class="w-11 h-11 inline-flex items-center justify-center rounded-lg transition-all"
           >
             <!-- 2×2 grid (icon view) -->
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -148,7 +148,7 @@
             :aria-label="t('curriculum.viewCard')"
             :aria-pressed="viewMode === 'card' ? 'true' : 'false'"
             :class="viewMode === 'card' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-400 hover:text-gray-600'"
-            class="w-11 h-9 inline-flex items-center justify-center rounded-lg transition-all"
+            class="w-11 h-11 inline-flex items-center justify-center rounded-lg transition-all"
           >
             <!-- Card with image header (card view) -->
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

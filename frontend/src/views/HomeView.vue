@@ -81,8 +81,8 @@
             <RouterLink
               data-h-cta
               to="/quran"
-              class="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/35 hover:bg-white/5
-                     text-white/70 hover:text-white px-6 py-3.5 rounded-xl font-semibold text-base transition-all duration-200"
+              class="inline-flex items-center self-center sm:self-auto underline-offset-4 hover:underline
+                     text-white/70 hover:text-white px-2 py-3.5 font-semibold text-base transition-colors duration-200"
             >
               {{ t('home.heroCta2') }}
             </RouterLink>
@@ -980,6 +980,11 @@ onMounted(async () => {
   // Content stays visible (no gsap.from() opacity-0 states ever applied).
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+  // Hide motion targets BEFORE the async GSAP import. Without this, SSG/hydration
+  // paints opacity:1, then gsap.from() snaps to 0 → visible flicker (Measured).
+  document.documentElement.classList.add('js-home-motion')
+
+  try {
   // Dynamic imports — don't block initial render
   const [{ gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
     import('gsap'),
@@ -1003,35 +1008,35 @@ onMounted(async () => {
   // ── GSAP animations ──────────────────────────────────────────────
   gsapCtx = gsap.context(() => {
 
-    // Hero entrance timeline
-    const heroTL = gsap.timeline({ delay: 0.15 })
+    // Hero entrance timeline (CSS already at opacity 0 via .js-home-motion)
+    const heroTL = gsap.timeline({ delay: 0.05 })
     heroTL
-      .from('[data-h-badge]',  { y: -24, opacity: 0, duration: 0.55, ease: 'power2.out' })
-      .from('[data-h-line]',   { y: 60, opacity: 0, stagger: 0.11, duration: 0.8, ease: 'power3.out' }, '-=0.3')
-      .from('[data-h-sub]',    { y: 22, opacity: 0, duration: 0.65, ease: 'power2.out' }, '-=0.45')
-      .from('[data-h-cta]',    { y: 20, opacity: 0, stagger: 0.1, duration: 0.5, ease: 'power2.out' }, '-=0.4')
-      .from('[data-h-prayer]', { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out' }, '-=0.25')
-      .from('[data-h-mockup]', { y: 70, opacity: 0, scale: 0.96, duration: 1.3, ease: 'power3.out' }, 0.25)
+      .fromTo('[data-h-badge]',  { y: -24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out' })
+      .fromTo('[data-h-line]',   { y: 60, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.11, duration: 0.8, ease: 'power3.out' }, '-=0.3')
+      .fromTo('[data-h-sub]',    { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power2.out' }, '-=0.45')
+      .fromTo('[data-h-cta]',    { y: 20, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+      .fromTo('[data-h-prayer]', { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.25')
+      .fromTo('[data-h-mockup]', { y: 70, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 1.3, ease: 'power3.out' }, 0.25)
 
     // ── Hero mockup internal "live demo" animations ───────────────
     // Runs after mockup entrance completes (~1.7s from page load)
-    const mockupTL = gsap.timeline({ delay: 1.9 })
+    const mockupTL = gsap.timeline({ delay: 1.7 })
     mockupTL
-      .from('[data-hero-badge-streak]', {
-        y: -20, opacity: 0, scale: 0.8, duration: 0.65, ease: 'back.out(1.8)',
-      })
-      .from('[data-hero-track-card]', {
-        y: 10, opacity: 0, stagger: 0.1, duration: 0.45, ease: 'power2.out',
-      }, '-=0.3')
+      .fromTo('[data-hero-badge-streak]', {
+        y: -20, opacity: 0, scale: 0.8,
+      }, { y: 0, opacity: 1, scale: 1, duration: 0.65, ease: 'back.out(1.8)' })
+      .fromTo('[data-hero-track-card]', {
+        y: 10, opacity: 0,
+      }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.45, ease: 'power2.out' }, '-=0.3')
       .to('[data-hero-progress]', {
         width: '34%', duration: 1.6, ease: 'power2.inOut',
       }, '-=0.1')
-      .from('[data-hero-lesson-row]', {
-        y: 10, opacity: 0, duration: 0.45, ease: 'power2.out',
-      }, '-=1.3')
-      .from('[data-hero-badge-success]', {
-        y: 20, opacity: 0, scale: 0.8, duration: 0.65, ease: 'back.out(1.8)',
-      }, '-=0.8')
+      .fromTo('[data-hero-lesson-row]', {
+        y: 10, opacity: 0,
+      }, { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }, '-=1.3')
+      .fromTo('[data-hero-badge-success]', {
+        y: 20, opacity: 0, scale: 0.8,
+      }, { y: 0, opacity: 1, scale: 1, duration: 0.65, ease: 'back.out(1.8)' }, '-=0.8')
 
     // Hero glow parallax
     gsap.to('[data-hero-glow]', {
@@ -1050,9 +1055,9 @@ onMounted(async () => {
       start: 'top 82%',
       once: true,
       onEnter: () => {
-        gsap.from('[data-stat-item]', {
-          y: 22, opacity: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out',
-        })
+        gsap.fromTo('[data-stat-item]', {
+          y: 22, opacity: 0,
+        }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: 'power2.out' })
       },
     })
 
@@ -1062,9 +1067,9 @@ onMounted(async () => {
       start: 'top 78%',
       once: true,
       onEnter: () => {
-        gsap.from('[data-bento-card]', {
-          y: 44, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power2.out',
-        })
+        gsap.fromTo('[data-bento-card]', {
+          y: 44, opacity: 0,
+        }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.7, ease: 'power2.out' })
       },
     })
 
@@ -1079,36 +1084,42 @@ onMounted(async () => {
           .to('[data-reader-progress]', {
             width: '38%', duration: 2, ease: 'power2.out',
           })
-          .from('[data-reader-line]', {
+          .fromTo('[data-reader-line]', {
             scaleX: 0, transformOrigin: 'left center',
-            stagger: 0.1, duration: 0.45, ease: 'power2.out',
-          }, '-=1.7')
-          .from('[data-reader-verse]', {
-            x: 24, opacity: 0, duration: 0.7, ease: 'power2.out',
-          }, '-=0.9')
-          .from('[data-reader-quiz]', {
-            y: 18, opacity: 0, duration: 0.6, ease: 'power2.out',
-          }, '-=0.5')
+          }, { scaleX: 1, stagger: 0.1, duration: 0.45, ease: 'power2.out' }, '-=1.7')
+          .fromTo('[data-reader-verse]', {
+            x: 24, opacity: 0,
+          }, { x: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.9')
+          .fromTo('[data-reader-quiz]', {
+            y: 18, opacity: 0,
+          }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.5')
 
         // Quiz answer selection fires ~2.4s after section enters view
         setTimeout(() => { quizAnswered.value = true }, 2400)
       },
     })
 
-    // Generic [data-reveal] elements
+    // Generic [data-reveal] elements (pre-hidden by .js-home-motion CSS)
     gsap.utils.toArray('[data-reveal]').forEach(el => {
-      gsap.from(el, {
-        y: 36, opacity: 0, duration: 0.8, ease: 'power2.out',
+      gsap.fromTo(el, {
+        y: 36, opacity: 0,
+      }, {
+        y: 0, opacity: 1, duration: 0.8, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 87%', once: true },
       })
     })
 
   }, '.home-page')
+  } catch {
+    // GSAP/Lenis failed — show content instead of leaving it at opacity 0
+    document.documentElement.classList.remove('js-home-motion')
+  }
 })
 
 onUnmounted(() => {
   gsapCtx?.revert()
   lenis?.destroy()
+  document.documentElement.classList.remove('js-home-motion')
   quizAnswered.value = false
 })
 </script>

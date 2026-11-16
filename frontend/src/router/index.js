@@ -174,6 +174,9 @@ export const routes = [
     ],
   },
 
+  // Old/mistyped path — bookmarks used /curriculum; app route is /learn.
+  { path: '/curriculum', redirect: '/learn' },
+
   // Unknown URLs currently fall through to the homepage shell (200 + home
   // canonical). This route lets the rendered app noindex them. Not prerendered.
   {

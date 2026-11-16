@@ -156,6 +156,28 @@ select:disabled {
       transform: none !important;
     }
   }
+
+  /* Home GSAP targets: hide only after JS opts into motion (sync, before import).
+     Prevents SSG paint → gsap.from snap-to-0 flicker. */
+  @media (prefers-reduced-motion: no-preference) {
+    html.js-home-motion .home-page [data-h-badge],
+    html.js-home-motion .home-page [data-h-line],
+    html.js-home-motion .home-page [data-h-sub],
+    html.js-home-motion .home-page [data-h-cta],
+    html.js-home-motion .home-page [data-h-prayer],
+    html.js-home-motion .home-page [data-h-mockup],
+    html.js-home-motion .home-page [data-reveal],
+    html.js-home-motion .home-page [data-stat-item],
+    html.js-home-motion .home-page [data-bento-card],
+    html.js-home-motion .home-page [data-hero-badge-streak],
+    html.js-home-motion .home-page [data-hero-track-card],
+    html.js-home-motion .home-page [data-hero-lesson-row],
+    html.js-home-motion .home-page [data-hero-badge-success],
+    html.js-home-motion .home-page [data-reader-verse],
+    html.js-home-motion .home-page [data-reader-quiz] {
+      opacity: 0;
+    }
+  }
 }
 
 /* ── Component layer ──────────────────────────────────────────────── */

@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "product": "Athar Al 'Ilm",
+  "features": [
+    {
+      "id": "home",
+      "name": "Home marketing",
+      "flows": [
+        {
+          "id": "land",
+          "name": "Land and start",
+          "steps": [
+            {
+              "name": "Home",
+              "route": "/",
+              "screen": "frontend/src/views/HomeView.vue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "name": "Auth",
+      "flows": [
+        {
+          "id": "login",
+          "name": "Sign in",
+          "steps": [
+            {
+              "name": "Login",
+              "route": "/login",
+              "screen": "frontend/src/views/auth/LoginView.vue"
+            },
+            {
+              "name": "Register",
+              "route": "/register",
+              "screen": "frontend/src/views/auth/RegisterView.vue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "name": "Curriculum",
+      "flows": [
+        {
+          "id": "browse",
+          "name": "Browse tracks",
+          "steps": [
+            {
+              "name": "Tracks",
+              "route": "/learn",
+              "screen": "frontend/src/views/curriculum/CurriculumView.vue"
+            },
+            {
+              "name": "Track",
+              "route": "/learn/:trackSlug",
+              "screen": "frontend/src/views/curriculum/TrackView.vue"
+            },
+            {
+              "name": "Subject",
+              "route": "/learn/:trackSlug/:subjectSlug",
+              "screen": "frontend/src/views/curriculum/SubjectView.vue"
+            },
+            {
+              "name": "Lesson",
+              "route": "/lesson/:lessonSlug",
+              "screen": "frontend/src/views/lessons/LessonView.vue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "name": "Salafi sources",
+      "flows": [
+        {
+          "id": "read",
+          "name": "Read sources",
+          "steps": [
+            {
+              "name": "Quran",
+              "route": "/quran",
+              "screen": "frontend/src/views/quran/QuranView.vue"
+            },
+            {
+              "name": "Dua",
+              "route": "/quran/dua",
+              "screen": "frontend/src/views/quran/DuaView.vue"
+            },
+            {
+              "name": "Hadith",
+              "route": "/hadith",
+              "screen": "frontend/src/views/hadith/HadithView.vue"
+            },
+            {
+              "name": "Library",
+              "route": "/library",
+              "screen": "frontend/src/views/library/LibraryView.vue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account",
+      "name": "Learner account",
+      "flows": [
+        {
+          "id": "dash",
+          "name": "Dashboard",
+          "steps": [
+            {
+              "name": "Dashboard",
+              "route": "/dashboard",
+              "screen": "frontend/src/views/dashboard/DashboardView.vue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin",
+      "name": "Admin",
+      "flows": [
+        {
+          "id": "admin-home",
+          "name": "Admin shell",
+          "steps": [
+            {
+              "name": "Admin",
+              "route": "/admin",
+              "screen": "frontend/src/views/admin/AdminDashboardView.vue"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
