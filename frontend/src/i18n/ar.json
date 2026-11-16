@@ -390,6 +390,10 @@
       "usernamePlaceholder": "learner123",
       "emailPlaceholder": "example{'@'}mail.com"
     },
+    "google": {
+      "or": "أو",
+      "error": "فشل تسجيل الدخول عبر Google. حاول مرة أخرى."
+    },
     "forgotLink": "نسيت كلمة المرور؟",
     "forgotPassword": {
       "title": "إعادة تعيين كلمة المرور",

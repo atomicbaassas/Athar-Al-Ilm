@@ -390,6 +390,10 @@
       "usernamePlaceholder": "learner123",
       "emailPlaceholder": "you{'@'}example.com"
     },
+    "google": {
+      "or": "or",
+      "error": "Google sign-in failed. Please try again."
+    },
     "forgotLink": "Forgot password?",
     "forgotPassword": {
       "title": "Reset your password",

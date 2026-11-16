@@ -184,6 +184,10 @@ YOUTUBE_CHANNEL_ID = config('YOUTUBE_CHANNEL_ID', default='')
 # for when the DB value is empty. Never exposed to the frontend.
 GEMINI_API_KEY = config('GEMINI_API_KEY', default='')
 
+# Public Web client ID for Google Identity Services ID-token sign-in.
+# Empty disables Google login. No client secret (no redirect flow).
+GOOGLE_CLIENT_ID = config('GOOGLE_CLIENT_ID', default='')
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

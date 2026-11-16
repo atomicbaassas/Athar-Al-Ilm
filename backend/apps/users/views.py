@@ -1,6 +1,11 @@
+import re
+import secrets
+
 import jwt
 from datetime import datetime, timezone
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
+from mongoengine.errors import NotUniqueError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -9,6 +14,7 @@ from rest_framework import status
 
 from apps.emails.system_templates import send_system_email
 from apps.emails.transactional import verification_email_body, password_reset_email_body
+from .google import GoogleTokenError, verify_google_id_token
 from .models import User
 from .serializers import (
     RegisterSerializer, LoginSerializer,
@@ -19,6 +25,14 @@ from .utils import (
     generate_tokens, decode_refresh_token,
     generate_action_token, decode_action_token,
 )
+
+_USERNAME_SAFE = re.compile(r'[^a-z0-9_-]')
+_GOOGLE_ERRORS = {
+    'not_configured': (status.HTTP_503_SERVICE_UNAVAILABLE, 'Google sign-in is not configured.'),
+    'unavailable': (status.HTTP_503_SERVICE_UNAVAILABLE, 'Google sign-in is temporarily unavailable.'),
+    'unverified_email': (status.HTTP_401_UNAUTHORIZED, 'Google did not verify this email.'),
+    'invalid': (status.HTTP_401_UNAUTHORIZED, 'Google sign-in failed.'),
+}
 
 
 def _send_verification_email(user):
@@ -96,6 +110,71 @@ class LoginView(APIView):
         user.last_login = datetime.now(timezone.utc)
         user.save()
 
+        tokens = generate_tokens(user)
+        return Response({'user': UserProfileSerializer(user).data, **tokens})
+
+
+def _username_from_email(email):
+    local = email.split('@', 1)[0]
+    base = _USERNAME_SAFE.sub('', local.lower())[:40] or 'learner'
+    for n in range(21):
+        suffix = '' if n == 0 else str(n)
+        candidate = f'{base[:50 - len(suffix)]}{suffix}'
+        if not User.objects(username=candidate).first():
+            return candidate
+    return f'{base[:42]}{secrets.token_hex(4)}'
+
+
+class GoogleConfigView(APIView):
+    """Public client id so the login page can render the GIS button."""
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        client_id = (settings.GOOGLE_CLIENT_ID or '').strip()
+        return Response({'client_id': client_id or None})
+
+
+class GoogleLoginView(APIView):
+    permission_classes = [AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'auth-login'
+
+    def post(self, request):
+        try:
+            claims = verify_google_id_token(request.data.get('id_token'))
+        except GoogleTokenError as exc:
+            http_status, message = _GOOGLE_ERRORS.get(exc.code, _GOOGLE_ERRORS['invalid'])
+            return Response({'error': message}, status=http_status)
+
+        user = User.objects(email=claims['email']).first()
+        if user is None:
+            user = User(
+                email=claims['email'],
+                username=_username_from_email(claims['email']),
+                full_name=claims['name'],
+                role='learner',
+                is_verified=True,
+                password_hash=make_password(None),
+            )
+            try:
+                user.save()
+            except NotUniqueError:
+                user.username = f'{user.username[:42]}{secrets.token_hex(4)}'
+                user.save()
+        else:
+            if not user.is_active:
+                return Response(
+                    {'error': 'This account has been deactivated.'},
+                    status=status.HTTP_403_FORBIDDEN,
+                )
+            # Google proved the mailbox. Never copy role or sections from the token.
+            if not user.is_verified:
+                user.is_verified = True
+            if claims['name'] and not user.full_name:
+                user.full_name = claims['name']
+
+        user.last_login = datetime.now(timezone.utc)
+        user.save()
         tokens = generate_tokens(user)
         return Response({'user': UserProfileSerializer(user).data, **tokens})
 

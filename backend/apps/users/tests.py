@@ -1,6 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 
+from .google import GoogleTokenError, verify_google_id_token
 from .models import User
 from .utils import generate_action_token
 
@@ -205,3 +206,124 @@ class TestForgotResetPassword:
 
         response = client.post('/api/v1/auth/reset-password/', {'token': token, 'password': 'short'}, format='json')
         assert response.status_code == 400
+
+
+def _claims(email='google@example.com', name='Google User'):
+    return {'email': email, 'sub': 'sub-1', 'name': name}
+
+
+class _TokenInfo:
+    def __init__(self, status_code, payload):
+        self.status_code = status_code
+        self._payload = payload
+
+    def json(self):
+        return self._payload
+
+
+@pytest.mark.django_db
+class TestGoogleSignIn:
+
+    def test_config_hides_client_when_unset(self, client, settings):
+        settings.GOOGLE_CLIENT_ID = ''
+        response = client.get('/api/v1/auth/google/config/')
+        assert response.status_code == 200
+        assert response.data['client_id'] is None
+
+    def test_config_returns_client_id(self, client, settings):
+        settings.GOOGLE_CLIENT_ID = 'web-client'
+        response = client.get('/api/v1/auth/google/config/')
+        assert response.data['client_id'] == 'web-client'
+
+    def test_login_refused_when_unconfigured(self, client, settings):
+        settings.GOOGLE_CLIENT_ID = ''
+        response = client.post('/api/v1/auth/google/', {'id_token': 'tok'}, format='json')
+        assert response.status_code == 503
+
+    def test_creates_learner_without_admin_sections(self, client, settings, monkeypatch):
+        settings.GOOGLE_CLIENT_ID = 'web-client'
+        monkeypatch.setattr('apps.users.views.verify_google_id_token', lambda token: _claims())
+        response = client.post('/api/v1/auth/google/', {'id_token': 'good'}, format='json')
+        assert response.status_code == 200
+        assert response.data['access']
+        assert response.data['refresh']
+        assert response.data['user']['email'] == 'google@example.com'
+        assert response.data['user']['role'] == 'learner'
+        assert response.data['user']['sections'] == []
+        user = User.objects.get(email='google@example.com')
+        assert user.is_verified is True
+        assert user.check_password('not-a-password') is False
+
+    def test_existing_user_keeps_role_and_password(self, client, settings, monkeypatch):
+        settings.GOOGLE_CLIENT_ID = 'web-client'
+        client.post('/api/v1/auth/register/', {
+            'email': 'both@example.com', 'username': 'bothuser', 'password': 'strongpass123',
+        }, format='json')
+        user = User.objects.get(email='both@example.com')
+        user.role = 'admin'
+        user.save()
+        monkeypatch.setattr(
+            'apps.users.views.verify_google_id_token',
+            lambda token: _claims('both@example.com', ''),
+        )
+        response = client.post('/api/v1/auth/google/', {'id_token': 'good'}, format='json')
+        assert response.status_code == 200
+        assert response.data['user']['role'] == 'admin'
+        assert response.data['user']['sections']
+        password = client.post('/api/v1/auth/login/', {
+            'email': 'both@example.com', 'password': 'strongpass123',
+        }, format='json')
+        assert password.status_code == 200
+
+    def test_deactivated_account_rejected(self, client, settings, monkeypatch):
+        settings.GOOGLE_CLIENT_ID = 'web-client'
+        monkeypatch.setattr('apps.users.views.verify_google_id_token', lambda token: _claims('off@example.com'))
+        client.post('/api/v1/auth/google/', {'id_token': 'good'}, format='json')
+        user = User.objects.get(email='off@example.com')
+        user.is_active = False
+        user.save()
+        response = client.post('/api/v1/auth/google/', {'id_token': 'good'}, format='json')
+        assert response.status_code == 403
+
+    def test_invalid_token(self, client, settings, monkeypatch):
+        settings.GOOGLE_CLIENT_ID = 'web-client'
+
+        def boom(token):
+            raise GoogleTokenError('invalid')
+
+        monkeypatch.setattr('apps.users.views.verify_google_id_token', boom)
+        response = client.post('/api/v1/auth/google/', {'id_token': 'bad'}, format='json')
+        assert response.status_code == 401
+
+    def test_verifier_rejects_wrong_audience(self, settings, monkeypatch):
+        settings.GOOGLE_CLIENT_ID = 'ours'
+        monkeypatch.setattr(
+            'apps.users.google.requests.get',
+            lambda *a, **k: _TokenInfo(200, {
+                'aud': 'theirs',
+                'iss': 'https://accounts.google.com',
+                'email': 'a@example.com',
+                'email_verified': 'true',
+                'sub': '1',
+            }),
+        )
+        with pytest.raises(GoogleTokenError) as caught:
+            verify_google_id_token('tok')
+        assert caught.value.code == 'invalid'
+
+    def test_verifier_accepts_matching_audience(self, settings, monkeypatch):
+        settings.GOOGLE_CLIENT_ID = 'ours'
+        monkeypatch.setattr(
+            'apps.users.google.requests.get',
+            lambda *a, **k: _TokenInfo(200, {
+                'aud': 'ours',
+                'iss': 'https://accounts.google.com',
+                'email': 'Learner@example.com',
+                'email_verified': True,
+                'name': 'A Learner',
+                'sub': '99',
+            }),
+        )
+        claims = verify_google_id_token('tok')
+        assert claims['email'] == 'learner@example.com'
+        assert claims['name'] == 'A Learner'

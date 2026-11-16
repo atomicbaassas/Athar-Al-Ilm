@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    RegisterView, LoginView, TokenRefreshView, ProfileView,
+    RegisterView, LoginView, GoogleConfigView, GoogleLoginView, TokenRefreshView, ProfileView,
     VerifyEmailView, ResendVerificationView, ForgotPasswordView, ResetPasswordView,
 )
 from .admin_views import (
@@ -11,6 +11,8 @@ from .admin_views import (
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='auth-register'),
     path('login/', LoginView.as_view(), name='auth-login'),
+    path('google/config/', GoogleConfigView.as_view(), name='auth-google-config'),
+    path('google/', GoogleLoginView.as_view(), name='auth-google'),
     path('token/refresh/', TokenRefreshView.as_view(), name='auth-token-refresh'),
     path('profile/', ProfileView.as_view(), name='auth-profile'),
     path('verify-email/', VerifyEmailView.as_view(), name='auth-verify-email'),

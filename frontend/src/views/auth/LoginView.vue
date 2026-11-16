@@ -7,6 +7,7 @@
       </div>
 
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
+        <GoogleSignInButton />
         <form @submit.prevent="handleLogin" class="space-y-5">
           <div v-if="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
             {{ error }}
@@ -66,6 +67,7 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

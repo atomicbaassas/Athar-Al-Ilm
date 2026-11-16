@@ -390,6 +390,10 @@
       "usernamePlaceholder": "mwanafunzi123",
       "emailPlaceholder": "wewe{'@'}mfano.com"
     },
+    "google": {
+      "or": "au",
+      "error": "Kuingia kwa Google kumeshindwa. Jaribu tena."
+    },
     "forgotLink": "Umesahau nenosiri?",
     "forgotPassword": {
       "title": "Weka upya nenosiri",

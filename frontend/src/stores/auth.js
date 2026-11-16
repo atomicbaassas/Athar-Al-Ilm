@@ -26,8 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
   const hasAdminAccess = computed(() => sections.value.length > 0)
   const homePath = computed(() => postAuthHomePath(user.value))
 
-  async function login(email, password) {
-    const response = await authApi.login(email, password)
+  function persistSession(response) {
     token.value = response.access
     refreshToken.value = response.refresh
     user.value = response.user
@@ -37,14 +36,16 @@ export const useAuthStore = defineStore('auth', () => {
     useFeaturesStore().loadFlags()
   }
 
+  async function login(email, password) {
+    persistSession(await authApi.login(email, password))
+  }
+
+  async function loginWithGoogle(idToken) {
+    persistSession(await authApi.googleLogin(idToken))
+  }
+
   async function register(email, username, password, fullName) {
-    const response = await authApi.register(email, username, password, fullName)
-    token.value = response.access
-    refreshToken.value = response.refresh
-    user.value = response.user
-    localStorage.setItem('access_token', response.access)
-    localStorage.setItem('refresh_token', response.refresh)
-    useFeaturesStore().loadFlags()
+    persistSession(await authApi.register(email, username, password, fullName))
   }
 
   async function fetchUser() {
@@ -77,7 +78,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     user, token, isLoggedIn, isAdmin, isAuthor,
     sections, can, hasAdminAccess, homePath, postAuthPath,
-    login, register, logout, fetchUser, resendVerification,
+    login, loginWithGoogle, register, logout, fetchUser, resendVerification,
   }
 })
 

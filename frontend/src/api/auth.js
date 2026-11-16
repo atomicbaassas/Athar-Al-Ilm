@@ -9,6 +9,12 @@ export const authApi = {
     client.post('/auth/login/', { email, password })
       .then(r => r.data),
 
+  googleConfig: () =>
+    client.get('/auth/google/config/').then(r => r.data),
+
+  googleLogin: (idToken) =>
+    client.post('/auth/google/', { id_token: idToken }).then(r => r.data),
+
   getProfile: () =>
     client.get('/auth/profile/').then(r => r.data),
 
