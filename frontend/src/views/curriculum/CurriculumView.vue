@@ -30,6 +30,21 @@
       >{{ bannerActive && bannerSubtitle ? bannerSubtitle : t('curriculum.subtitle') }}</p>
     </div>
 
+    <RouterLink
+      v-if="lastLesson"
+      :to="{ name: 'lesson', params: { lessonSlug: lastLesson.slug } }"
+      class="mb-6 flex items-center gap-3 rounded-2xl border border-[#0B3D2E]/15 bg-[#0B3D2E]/[0.04] px-4 py-3 transition-colors hover:border-[#0B3D2E]/40"
+    >
+      <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B3D2E] text-white" aria-hidden="true">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z" /></svg>
+      </span>
+      <span class="min-w-0">
+        <span class="block text-xs font-semibold uppercase tracking-wide text-[#0B3D2E]">{{ t('lesson.continueListening') }}</span>
+        <span class="block truncate text-sm text-gray-800">{{ lastLesson.title }}</span>
+      </span>
+      <span class="ms-auto text-sm tabular-nums text-[#0B3D2E]">{{ formatAudioTime(lastLesson.position) }}</span>
+    </RouterLink>
+
     <!-- Category tabs -->
     <div class="flex items-center gap-2 mb-4 flex-wrap">
       <button
@@ -245,7 +260,7 @@
         </h2>
 
         <!-- Description -->
-        <p class="text-sm text-gray-500 line-clamp-2 mb-3">{{ track.description }}</p>
+        <p class="text-sm text-gray-500 line-clamp-2 mb-3">{{ stripSiteBrand(track.description) }}</p>
 
         <!-- Available translation languages -->
         <TrackLanguages :languages="track.languages" :title="t('curriculum.availableIn')" class="mb-4" />
@@ -328,7 +343,7 @@
           <h2 class="text-base font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors mb-1.5">
             {{ track.title }}
           </h2>
-          <p class="text-sm text-gray-500 line-clamp-2 mb-3">{{ track.description }}</p>
+          <p class="text-sm text-gray-500 line-clamp-2 mb-3">{{ stripSiteBrand(track.description) }}</p>
 
           <!-- Available translation languages -->
           <TrackLanguages :languages="track.languages" :title="t('curriculum.availableIn')" class="mb-4" />
@@ -356,6 +371,8 @@ import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 import { useFeaturesStore } from '@/stores/features'
 import TrackLanguages from '@/components/TrackLanguages.vue'
+import { formatAudioTime, loadLastLesson } from '@/utils/lessonAudio'
+import { stripSiteBrand } from '@/utils/stripSiteBrand'
 
 const { t } = useI18n()
 const auth = useAuthStore()
@@ -424,7 +441,7 @@ useSeo(() => ({
             ? {
                 '@type': 'Course',
                 name: tr.title,
-                description: tr.description,
+                description: stripSiteBrand(tr.description),
                 url: `${SEO_ORIGIN}/learn/${tr.slug}`,
                 provider: { '@type': 'Organization', name: 'Athar Al \'Ilm', url: SEO_ORIGIN },
               }
@@ -434,6 +451,7 @@ useSeo(() => ({
     : undefined,
 }))
 
+const lastLesson = ref(null)
 const viewMode = ref('card')      // 'icon' | 'card' — default to card view
 const searchQuery = ref('')
 const sortOrder = ref('default')  // 'default' | 'az' | 'za'
@@ -489,7 +507,7 @@ const displayedTracks = computed(() => {
     const q = searchQuery.value.toLowerCase()
     result = result.filter(track =>
       track.title.toLowerCase().includes(q) ||
-      (track.description || '').toLowerCase().includes(q)
+      stripSiteBrand(track.description || '').toLowerCase().includes(q)
     )
   }
 
@@ -569,6 +587,7 @@ function trackGradient(slug) {
 }
 
 onMounted(async () => {
+  lastLesson.value = loadLastLesson()
   try {
     // The prerendered/cached list is always built anonymously, so a track
     // scoped to specific testers (audience: 'selected') is never in it — a

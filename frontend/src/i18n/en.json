@@ -330,7 +330,13 @@
     "enrolling": "Enrolling…",
     "enrolledReloading": "Enrolled! Loading lesson…",
     "language": "Language",
-    "original": "Original"
+    "original": "Original",
+    "play": "Play lecture",
+    "pause": "Pause lecture",
+    "seek": "Lecture position",
+    "playbackSpeed": "Playback speed",
+    "resumedAt": "Continues from {time}",
+    "continueListening": "Continue listening"
   },
   "dashboard": {
     "welcome": "Welcome back",

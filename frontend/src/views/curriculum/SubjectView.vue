@@ -122,7 +122,7 @@
                 {{ t('subject.statusInProgress') }}
               </span>
             </div>
-            <p v-if="lesson.summary" class="text-xs text-gray-400 truncate mt-0.5">{{ lesson.summary }}</p>
+            <p v-if="stripSiteBrand(lesson.summary)" class="text-xs text-gray-400 truncate mt-0.5">{{ stripSiteBrand(lesson.summary) }}</p>
           </div>
 
           <span v-if="lesson.estimated_minutes" class="flex-shrink-0 text-xs text-gray-400 whitespace-nowrap">
@@ -144,6 +144,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useProgressStore } from '@/stores/progress'
 import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
+import { stripSiteBrand } from '@/utils/stripSiteBrand'
 
 const route = useRoute()
 const { t } = useI18n()

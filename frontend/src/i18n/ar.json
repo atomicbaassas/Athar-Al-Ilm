@@ -330,7 +330,13 @@
     "enrolling": "جارٍ الالتحاق…",
     "enrolledReloading": "تم الالتحاق! جارٍ تحميل الدرس…",
     "language": "اللغة",
-    "original": "الأصل"
+    "original": "الأصل",
+    "play": "تشغيل الدرس",
+    "pause": "إيقاف الدرس",
+    "seek": "موضع الدرس",
+    "playbackSpeed": "سرعة التشغيل",
+    "resumedAt": "يتابع من {time}",
+    "continueListening": "تابع الاستماع"
   },
   "dashboard": {
     "welcome": "أهلاً وسهلاً",

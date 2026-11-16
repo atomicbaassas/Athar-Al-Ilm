@@ -1,4 +1,4 @@
-# Audio lesson pipeline (Assalafiyyah / lecture series)
+# Audio lesson pipeline (Sheikh Abu Hashim lecture series)
 
 ## Compress
 
@@ -34,4 +34,4 @@ Audio `speaker` / `source` fields are translatable captions only; the recording 
 1. Serve files at `/media/lessons/assalafiyyah-ibada/` (nginx alias).
 2. `python manage.py import_assalafiyyah_audio --audio-dir … --public-base … --publish`
 
-Lecturer metadata: ID3 `artist` = **Sheikh Abu Hashim**, album = **www.assalafiyyah.com**.
+Lecturer credit on the lesson is **Sheikh Abu Hashim**. The on-disk folder stays `assalafiyyah-ibada` (a file path, not a credit). Opus album tags may still name the old host site; do not retag or re-upload the files for that.

@@ -71,8 +71,8 @@
               {{ t('lesson.completed') }}
             </span>
           </div>
-          <p v-if="lesson.summary" :dir="contentDir" class="text-gray-500 mt-4 text-base leading-relaxed">
-            {{ lesson.summary }}
+          <p v-if="stripSiteBrand(lesson.summary)" :dir="contentDir" class="text-gray-500 mt-4 text-base leading-relaxed">
+            {{ stripSiteBrand(lesson.summary) }}
           </p>
         </div>
 
@@ -113,6 +113,8 @@
           v-else
           :blocks="lesson.content_blocks"
           :dir="contentDir"
+          :lesson-slug="lesson.slug"
+          :lesson-title="lesson.title"
           @quiz-answer="onQuizAnswer"
         />
 
@@ -233,6 +235,7 @@ import { useProgressStore } from '@/stores/progress'
 import { useFeaturesStore } from '@/stores/features'
 import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
+import { stripSiteBrand } from '@/utils/stripSiteBrand'
 
 const route = useRoute()
 const auth = useAuthStore()
@@ -267,7 +270,7 @@ useSeo(() => {
   const l = lesson.value
   if (!l) return {}
   const url = `${SEO_ORIGIN}/lesson/${l.slug}`
-  const desc = l.meta_description || l.summary
+  const desc = stripSiteBrand(l.meta_description || l.summary)
   return {
     title: l.meta_title || l.title,
     description: desc,

@@ -26,7 +26,7 @@
       <div class="mb-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{{ track.title }}</h1>
-          <p class="text-gray-500 max-w-2xl">{{ track.description }}</p>
+          <p class="text-gray-500 max-w-2xl">{{ stripSiteBrand(track.description) }}</p>
 
           <!-- Available translation languages -->
           <div v-if="track.languages?.length && features.isEnabled('ai_translation')" class="flex items-center gap-2 mt-3 flex-wrap">
@@ -177,6 +177,7 @@ import EnrollLanguageModal from '@/components/EnrollLanguageModal.vue'
 import TrackLanguages from '@/components/TrackLanguages.vue'
 import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
+import { stripSiteBrand } from '@/utils/stripSiteBrand'
 
 const route = useRoute()
 const auth = useAuthStore()
@@ -213,7 +214,7 @@ useSeo(() => {
   const url = `${SEO_ORIGIN}/learn/${tr.slug}`
   return {
     title: tr.meta_title || tr.title,
-    description: tr.meta_description || tr.description,
+    description: stripSiteBrand(tr.meta_description || tr.description),
     url,
     image: tr.og_image || tr.thumbnail_url || undefined,
     // Beta tracks are already excluded from the sitemap/prerender, but this
@@ -223,7 +224,7 @@ useSeo(() => {
       '@context': 'https://schema.org',
       '@type': 'Course',
       name: tr.title,
-      description: tr.description,
+      description: stripSiteBrand(tr.description),
       url,
       provider: { '@type': 'Organization', name: 'Athar Al \'Ilm', url: SEO_ORIGIN },
     },

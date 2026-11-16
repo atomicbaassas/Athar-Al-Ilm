@@ -5,10 +5,10 @@
       <!-- Text -->
       <div v-if="block.type === 'text'">
         <p class="text-gray-700 leading-relaxed text-[1.05rem] whitespace-pre-line">
-          {{ block.body.text }}
+          {{ stripSiteBrand(block.body.text) }}
         </p>
-        <p v-if="block.body.source" class="text-xs text-gray-400 mt-1.5">
-          — {{ block.body.source }}
+        <p v-if="stripSiteBrand(block.body.source)" class="text-xs text-gray-400 mt-1.5">
+          — {{ stripSiteBrand(block.body.source) }}
         </p>
       </div>
 
@@ -66,16 +66,15 @@
       </div>
 
       <!-- Audio lecture -->
-      <div v-else-if="block.type === 'audio'" class="rounded-2xl border border-sky-100 bg-sky-50/60 px-4 py-4 sm:px-5 sm:py-5">
-        <p v-if="block.body.speaker" class="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">
-          {{ block.body.speaker }}
-        </p>
-        <p v-if="block.body.caption" class="text-sm text-gray-700 mb-3">{{ block.body.caption }}</p>
-        <audio v-if="block.body.url" controls preload="metadata" class="w-full">
-          <source :src="block.body.url" />
-        </audio>
-        <p v-if="block.body.source" class="text-xs text-gray-400 mt-2">— {{ block.body.source }}</p>
-      </div>
+      <LessonAudioPlayer
+        v-else-if="block.type === 'audio'"
+        :url="block.body.url"
+        :speaker="block.body.speaker"
+        :caption="stripSiteBrand(block.body.caption)"
+        :source="block.body.source"
+        :lesson-slug="lessonSlug"
+        :lesson-title="lessonTitle"
+      />
 
       <!-- Quiz -->
       <div v-else-if="block.type === 'quiz'" class="border border-gray-200 rounded-2xl overflow-hidden">
@@ -111,10 +110,14 @@
 <script setup>
 import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
+import LessonAudioPlayer from '@/components/blocks/LessonAudioPlayer.vue'
+import { stripSiteBrand } from '@/utils/stripSiteBrand'
 
 defineProps({
   blocks: { type: Array, default: () => [] },
   dir: { type: String, default: 'ltr' },
+  lessonSlug: { type: String, default: '' },
+  lessonTitle: { type: String, default: '' },
 })
 const emit = defineEmits(['quiz-answer'])
 

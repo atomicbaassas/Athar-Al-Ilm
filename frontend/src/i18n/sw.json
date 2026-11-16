@@ -330,7 +330,13 @@
     "enrolling": "Inajiandikisha…",
     "enrolledReloading": "Umejiandikisha! Inapakia somo…",
     "language": "Lugha",
-    "original": "Asili"
+    "original": "Asili",
+    "play": "Cheza somo",
+    "pause": "Simamisha somo",
+    "seek": "Mahali pa somo",
+    "playbackSpeed": "Kasi ya kusikiliza",
+    "resumedAt": "Inaendelea kutoka {time}",
+    "continueListening": "Endelea kusikiliza"
   },
   "dashboard": {
     "welcome": "Karibu tena",

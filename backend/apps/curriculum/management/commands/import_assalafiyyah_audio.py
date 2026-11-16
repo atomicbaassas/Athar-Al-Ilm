@@ -1,4 +1,4 @@
-"""Import Sheikh Abu Hashim (Assalafiyyah) Swahili audio series as a Track.
+"""Import Sheikh Abu Hashim Swahili audio lectures as a Track.
 
 Expects Opus (or MP3) files named like ``01-….opus`` under ``--audio-dir``.
 Public URLs are built as ``{--public-base}/{filename}``.
@@ -26,7 +26,6 @@ from apps.lessons.models import ContentBlock, Lesson
 
 
 SPEAKER = 'Sheikh Abu Hashim'
-SOURCE = 'www.assalafiyyah.com'
 TRACK_SLUG = 'fiqh-ya-ibada-abu-hashim'
 
 # Inclusive number ranges → subject slug/title/order
@@ -90,7 +89,7 @@ def _subject_for(n: int):
 
 
 class Command(BaseCommand):
-    help = 'Import Assalafiyyah audio lectures as a published curriculum track.'
+    help = 'Import Sheikh Abu Hashim Swahili audio lectures as a published curriculum track.'
 
     def add_arguments(self, parser):
         parser.add_argument('--audio-dir', required=True, help='Directory of numbered .opus/.mp3 files')
@@ -134,7 +133,7 @@ class Command(BaseCommand):
                 title="Fiqh ya Ibada — Sheikh Abu Hashim",
                 slug=TRACK_SLUG,
                 description=(
-                    "Mfululizo wa mihadhara ya Kiswahili kutoka Assalafiyyah: "
+                    "Mfululizo wa mihadhara ya Kiswahili: "
                     "adabu za swala, janaza, zaka na saum. Mhutubu: Sheikh Abu Hashim."
                 ),
                 order=10,
@@ -195,11 +194,7 @@ class Command(BaseCommand):
                     type='text',
                     order=1,
                     body={
-                        'text': (
-                            f'Sikiliza somo la {title}. '
-                            f'Mhutubu: {speaker}. Chanzo: {SOURCE}.'
-                        ),
-                        'source': SOURCE,
+                        'text': f'Sikiliza somo la {title}. Mhutubu: {speaker}.',
                     },
                 ),
                 ContentBlock(
@@ -209,7 +204,6 @@ class Command(BaseCommand):
                         'url': url,
                         'caption': title,
                         'speaker': speaker,
-                        'source': SOURCE,
                     },
                 ),
             ]
@@ -217,7 +211,7 @@ class Command(BaseCommand):
                 subject=subjects[sub_slug],
                 title=title,
                 slug=lesson_slug,
-                summary=f'Muhadhara wa Kiswahili — {speaker} ({SOURCE}).',
+                summary=f'Muhadhara wa Kiswahili — {speaker}.',
                 order=n,
                 status='published' if publish else 'draft',
                 estimated_minutes=minutes,
