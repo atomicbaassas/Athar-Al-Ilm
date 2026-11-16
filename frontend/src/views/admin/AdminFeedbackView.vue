@@ -23,7 +23,7 @@
             <h2 class="text-sm font-semibold text-gray-900 truncate">{{ row.track_slug }}</h2>
             <p class="text-xs text-gray-400 mt-0.5">{{ row.count }} response{{ row.count === 1 ? '' : 's' }}</p>
           </div>
-          <div class="text-right shrink-0">
+          <div class="text-end shrink-0">
             <div class="flex items-center gap-1.5">
               <span class="text-2xl font-bold text-gray-900">{{ row.average.toFixed(1) }}</span>
               <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -39,7 +39,7 @@
             <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
               <div class="h-full bg-amber-400 rounded-full" :style="{ width: pct(row, n) + '%' }" />
             </div>
-            <span class="w-6 text-right text-gray-400">{{ row.distribution[String(n)] || 0 }}</span>
+            <span class="w-6 text-end text-gray-400">{{ row.distribution[String(n)] || 0 }}</span>
           </div>
         </div>
 

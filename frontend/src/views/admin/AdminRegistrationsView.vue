@@ -102,12 +102,12 @@
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider">
-            <th class="px-5 py-3 text-left font-medium">Name</th>
-            <th class="px-4 py-3 text-left font-medium">Email</th>
-            <th class="px-4 py-3 text-left font-medium hidden sm:table-cell">WhatsApp</th>
-            <th class="px-4 py-3 text-left font-medium hidden md:table-cell">Country / City</th>
-            <th class="px-4 py-3 text-right font-medium hidden lg:table-cell">Registered</th>
-            <th class="px-4 py-3 text-right font-medium w-px"></th>
+            <th class="px-5 py-3 text-start font-medium">Name</th>
+            <th class="px-4 py-3 text-start font-medium">Email</th>
+            <th class="px-4 py-3 text-start font-medium hidden sm:table-cell">WhatsApp</th>
+            <th class="px-4 py-3 text-start font-medium hidden md:table-cell">Country / City</th>
+            <th class="px-4 py-3 text-end font-medium hidden lg:table-cell">Registered</th>
+            <th class="px-4 py-3 text-end font-medium w-px"></th>
           </tr>
         </thead>
         <tbody>
@@ -116,9 +116,9 @@
             <td class="px-4 py-3 text-gray-600"><a :href="`mailto:${r.email}`" class="hover:text-[#0B3D2E]">{{ r.email }}</a></td>
             <td class="px-4 py-3 text-gray-600 hidden sm:table-cell">{{ r.phone || '—' }}</td>
             <td class="px-4 py-3 text-gray-600 hidden md:table-cell">{{ r.country || '—' }}</td>
-            <td class="px-4 py-3 text-right text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(r.created_at) }}</td>
-            <td class="px-4 py-3 text-right">
-              <button @click="deleteTarget = r" title="Delete" class="w-8 h-8 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+            <td class="px-4 py-3 text-end text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(r.created_at) }}</td>
+            <td class="px-4 py-3 text-end">
+              <button @click="deleteTarget = r" title="Delete" class="w-10 h-10 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
             </td>

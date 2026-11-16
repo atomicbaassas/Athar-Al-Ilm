@@ -28,7 +28,7 @@
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-50">
         <button v-for="w in items" :key="w.id" @click="startEdit(w)"
-          class="w-full text-left px-5 py-4 hover:bg-gray-50/60 transition-colors flex items-center justify-between gap-4">
+          class="w-full text-start px-5 py-4 hover:bg-gray-50/60 transition-colors flex items-center justify-between gap-4">
           <div class="min-w-0">
             <div class="flex items-center gap-2 flex-wrap">
               <p class="font-medium text-gray-800 truncate">{{ w.name }}</p>
@@ -108,20 +108,20 @@
 
             <label v-if="form.delay_hours > 0" class="flex items-center gap-2.5 cursor-pointer">
               <button type="button" @click="form.recheck_condition = !form.recheck_condition"
-                class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0"
+                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0"
                 :class="form.recheck_condition ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
-                <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
-                  :class="form.recheck_condition ? 'translate-x-4' : 'translate-x-1'" />
+                <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+                  :class="form.recheck_condition ? 'translate-x-5' : 'translate-x-1.5'" />
               </button>
               <span class="text-sm text-gray-700">Skip the send if the condition is no longer true</span>
             </label>
 
             <label class="flex items-center gap-2.5 cursor-pointer">
               <button type="button" @click="form.is_active = !form.is_active"
-                class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0"
+                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0"
                 :class="form.is_active ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
-                <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
-                  :class="form.is_active ? 'translate-x-4' : 'translate-x-1'" />
+                <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+                  :class="form.is_active ? 'translate-x-5' : 'translate-x-1.5'" />
               </button>
               <span class="text-sm text-gray-700">Active</span>
             </label>
@@ -174,7 +174,7 @@
                 <div v-if="userResults.length"
                   class="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-56 overflow-y-auto">
                   <button v-for="u in userResults" :key="u.id" @click="addUser(u)"
-                    class="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center justify-between gap-2"
+                    class="w-full text-start px-4 py-2 text-sm hover:bg-gray-50 flex items-center justify-between gap-2"
                     :class="form.allowed_user_ids.includes(u.id) ? 'opacity-50 pointer-events-none' : ''">
                     <span class="truncate">
                       <span class="text-gray-800">{{ u.full_name || u.username }}</span>

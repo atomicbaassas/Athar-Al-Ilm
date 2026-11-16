@@ -32,12 +32,13 @@
           No completion data yet.
         </div>
 
-        <table v-else class="w-full text-sm">
+        <div v-else class="overflow-x-auto">
+          <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider">
-              <th class="px-5 py-3 text-left font-medium">Lesson</th>
-              <th class="px-5 py-3 text-right font-medium">Completions</th>
-              <th class="px-5 py-3 text-right font-medium w-10"></th>
+              <th class="px-5 py-3 text-start font-medium">Lesson</th>
+              <th class="px-5 py-3 text-end font-medium">Completions</th>
+              <th class="px-5 py-3 text-end font-medium w-10"></th>
             </tr>
           </thead>
           <tbody>
@@ -48,19 +49,20 @@
               class="border-b border-gray-50 last:border-0 hover:bg-gray-50 cursor-pointer transition-colors"
             >
               <td class="px-5 py-3 font-medium text-gray-800 font-mono text-xs">{{ row.lesson_slug }}</td>
-              <td class="px-5 py-3 text-right">
+              <td class="px-5 py-3 text-end">
                 <span class="inline-flex items-center justify-center bg-[#0B3D2E]/10 text-[#0B3D2E] text-xs font-bold rounded-full px-2.5 py-0.5 min-w-[2rem]">
                   {{ row.completion_count }}
                 </span>
               </td>
-              <td class="px-5 py-3 text-right text-gray-300 hover:text-[#0B3D2E] transition-colors">
+              <td class="px-5 py-3 text-end text-gray-300 hover:text-[#0B3D2E] transition-colors">
                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
               </td>
             </tr>
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
 
       <!-- Lesson detail: quiz breakdown -->
@@ -140,7 +142,7 @@
                       :style="{ width: barWidth(count, quiz.total_attempts) + '%' }"
                     />
                   </div>
-                  <span class="text-xs text-gray-500 w-12 text-right">
+                  <span class="text-xs text-gray-500 w-12 text-end">
                     {{ count }} <span class="text-gray-300">({{ barWidth(count, quiz.total_attempts) }}%)</span>
                   </span>
                 </div>

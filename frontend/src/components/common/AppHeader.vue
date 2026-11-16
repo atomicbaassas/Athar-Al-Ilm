@@ -219,7 +219,7 @@
               ? 'text-white/80 hover:text-white hover:bg-white/10'
               : 'text-gray-800 hover:text-gray-900 hover:bg-black/[0.06]'
             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'"
-          class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
+          class="md:hidden flex items-center justify-center w-11 h-11 -me-2 rounded-lg transition-all duration-200"
           :aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'"
           :aria-expanded="mobileMenuOpen"
         >

@@ -29,10 +29,10 @@
 
           <!-- Enabled toggle -->
           <button type="button" @click="row.enabled = !row.enabled"
-            class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0 mt-0.5"
+            class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0 mt-0.5"
             :class="row.enabled ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
-            <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
-              :class="row.enabled ? 'translate-x-4' : 'translate-x-1'" />
+            <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+              :class="row.enabled ? 'translate-x-5' : 'translate-x-1.5'" />
           </button>
         </div>
 

@@ -1,6 +1,12 @@
 <template>
   <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="$emit('cancel')">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
+    <div
+      role="dialog"
+      aria-modal="true"
+      :aria-label="t('enroll.title')"
+      tabindex="-1"
+      class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 focus:outline-none"
+    >
       <h3 class="font-bold text-gray-900 text-lg mb-1">{{ t('enroll.title') }}</h3>
       <p class="text-sm text-gray-500 mb-5">{{ t('enroll.subtitle', { track: trackTitle }) }}</p>
 
@@ -50,16 +56,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useModalA11y } from '@/composables/useModalA11y'
 
-defineProps({
+const props = defineProps({
+  show: { type: Boolean, default: true },
   trackTitle: { type: String, default: '' },
   languages: { type: Array, default: () => [] },
   enrolling: { type: Boolean, default: false },
 })
-defineEmits(['confirm', 'cancel'])
+const emit = defineEmits(['confirm', 'cancel'])
 
 const { t } = useI18n()
 const selected = ref('')
+
+useModalA11y(toRef(props, 'show'), () => emit('cancel'))
 </script>

@@ -64,17 +64,17 @@
     </div>
 
     <!-- Table -->
-    <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+    <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-sm">
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider">
-            <th class="px-5 py-3 text-left font-medium">User</th>
-            <th class="px-4 py-3 text-left font-medium">Role</th>
+            <th class="px-5 py-3 text-start font-medium">User</th>
+            <th class="px-4 py-3 text-start font-medium">Role</th>
             <th class="px-4 py-3 text-center font-medium">Status</th>
-            <th class="px-4 py-3 text-right font-medium hidden md:table-cell">Lessons</th>
-            <th class="px-4 py-3 text-right font-medium hidden lg:table-cell">Streak</th>
-            <th class="px-4 py-3 text-right font-medium hidden lg:table-cell">Last active</th>
-            <th class="px-4 py-3 text-right font-medium w-px">Actions</th>
+            <th class="px-4 py-3 text-end font-medium hidden md:table-cell">Lessons</th>
+            <th class="px-4 py-3 text-end font-medium hidden lg:table-cell">Streak</th>
+            <th class="px-4 py-3 text-end font-medium hidden lg:table-cell">Last active</th>
+            <th class="px-4 py-3 text-end font-medium w-px">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -96,7 +96,7 @@
               <select
                 :value="u.role"
                 @change="changeRole(u, $event.target.value)"
-                class="border border-gray-200 rounded-lg px-2 py-1.5 text-xs bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 max-w-[10rem]"
+                class="border border-gray-200 rounded-lg px-2 py-2 text-xs bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 max-w-[10rem] min-h-[36px]"
               >
                 <option v-for="r in roleOptions" :key="r.name" :value="r.name">{{ r.label }}</option>
                 <option v-if="!roleOptions.some(r => r.name === u.role)" :value="u.role">{{ u.role }}</option>
@@ -106,7 +106,7 @@
             <td class="px-4 py-3 text-center">
               <button
                 @click="toggleActive(u)"
-                class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full transition-colors"
+                class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 min-h-[36px] rounded-full transition-colors"
                 :class="u.is_active ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'"
                 :title="u.is_active ? 'Click to deactivate' : 'Click to activate'"
               >
@@ -114,16 +114,16 @@
                 {{ u.is_active ? 'Active' : 'Off' }}
               </button>
             </td>
-            <td class="px-4 py-3 text-right text-gray-600 hidden md:table-cell">{{ u.lessons_completed }}</td>
-            <td class="px-4 py-3 text-right text-gray-600 hidden lg:table-cell">{{ u.current_streak }}🔥</td>
-            <td class="px-4 py-3 text-right text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(u.last_activity || u.last_login) }}</td>
+            <td class="px-4 py-3 text-end text-gray-600 hidden md:table-cell">{{ u.lessons_completed }}</td>
+            <td class="px-4 py-3 text-end text-gray-600 hidden lg:table-cell">{{ u.current_streak }}🔥</td>
+            <td class="px-4 py-3 text-end text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(u.last_activity || u.last_login) }}</td>
             <!-- Actions -->
             <td class="px-4 py-3">
               <div class="flex items-center justify-end gap-1">
-                <button @click="passwordTarget = u" title="Reset password" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
+                <button @click="passwordTarget = u" title="Reset password" class="w-10 h-10 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </button>
-                <button @click="deleteTarget = u" title="Delete user" class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                <button @click="deleteTarget = u" title="Delete user" class="w-10 h-10 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 </button>
               </div>

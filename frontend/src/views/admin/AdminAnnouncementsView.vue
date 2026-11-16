@@ -30,12 +30,12 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider">
-              <th class="px-5 py-3 text-left font-medium">Title</th>
-              <th class="px-4 py-3 text-left font-medium">Status</th>
-              <th class="px-4 py-3 text-left font-medium hidden sm:table-cell">Schedule</th>
-              <th class="px-4 py-3 text-right font-medium">Views</th>
-              <th class="px-4 py-3 text-right font-medium hidden sm:table-cell">Dismissed</th>
-              <th class="px-4 py-3 text-right font-medium w-px"></th>
+              <th class="px-5 py-3 text-start font-medium">Title</th>
+              <th class="px-4 py-3 text-start font-medium">Status</th>
+              <th class="px-4 py-3 text-start font-medium hidden sm:table-cell">Schedule</th>
+              <th class="px-4 py-3 text-end font-medium">Views</th>
+              <th class="px-4 py-3 text-end font-medium hidden sm:table-cell">Dismissed</th>
+              <th class="px-4 py-3 text-end font-medium w-px"></th>
             </tr>
           </thead>
           <tbody>
@@ -49,10 +49,10 @@
                 <span v-else class="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">Off</span>
               </td>
               <td class="px-4 py-3 text-gray-500 text-xs hidden sm:table-cell">{{ scheduleLabel(a) }}</td>
-              <td class="px-4 py-3 text-right font-semibold text-gray-700">{{ a.views }}</td>
-              <td class="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{{ a.dismissed }}</td>
-              <td class="px-4 py-3 text-right">
-                <button @click.stop="deleteTarget = a" title="Delete" class="w-8 h-8 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+              <td class="px-4 py-3 text-end font-semibold text-gray-700">{{ a.views }}</td>
+              <td class="px-4 py-3 text-end text-gray-500 hidden sm:table-cell">{{ a.dismissed }}</td>
+              <td class="px-4 py-3 text-end">
+                <button @click.stop="deleteTarget = a" title="Delete" class="w-10 h-10 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 </button>
               </td>
@@ -99,10 +99,10 @@
                 <p class="text-xs text-gray-400 mt-0.5">Show to users when on.</p>
               </div>
               <button type="button" @click="form.is_active = !form.is_active"
-                class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
+                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
                 :class="form.is_active ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
-                <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
-                  :class="form.is_active ? 'translate-x-4' : 'translate-x-1'" />
+                <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+                  :class="form.is_active ? 'translate-x-5' : 'translate-x-1.5'" />
               </button>
             </div>
 

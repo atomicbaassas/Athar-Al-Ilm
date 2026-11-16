@@ -28,7 +28,7 @@
 
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button v-for="b in items" :key="b.id" @click="startEdit(b)"
-          class="text-left bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#0B3D2E]/40 transition-colors flex items-center gap-4">
+          class="text-start bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#0B3D2E]/40 transition-colors flex items-center gap-4">
           <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden shrink-0">
             <img v-if="b.icon_url" :src="b.icon_url" class="w-full h-full object-cover" />
             <svg v-else class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="m8.5 13.5-1.8 7.5L12 18l5.3 3-1.8-7.5"/></svg>
@@ -108,10 +108,10 @@
                 <p class="text-xs text-gray-400 mt-0.5">Eligible to be awarded.</p>
               </div>
               <button type="button" @click="form.is_active = !form.is_active"
-                class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
+                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
                 :class="form.is_active ? 'bg-[#0B3D2E]' : 'bg-gray-300'">
-                <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
-                  :class="form.is_active ? 'translate-x-4' : 'translate-x-1'" />
+                <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+                  :class="form.is_active ? 'translate-x-5' : 'translate-x-1.5'" />
               </button>
             </div>
 

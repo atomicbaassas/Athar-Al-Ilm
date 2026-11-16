@@ -4,7 +4,13 @@
     class="fixed inset-0 bg-black/60 flex items-center justify-center z-[60] p-4 backdrop-blur-sm"
     @click.self="close"
   >
-    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+    <div
+      role="dialog"
+      aria-modal="true"
+      :aria-label="current.title"
+      tabindex="-1"
+      class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden focus:outline-none"
+    >
       <!-- Header -->
       <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-gray-100 shrink-0">
         <h2 class="text-lg font-bold text-gray-900">{{ current.title }}</h2>
@@ -41,6 +47,7 @@ import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { announcementsApi } from '@/api/announcements'
+import { useModalA11y } from '@/composables/useModalA11y'
 import BlockRenderer from '@/components/blocks/BlockRenderer.vue'
 
 const route = useRoute()
@@ -86,4 +93,6 @@ watch(
   (ready) => { if (ready) load() },
   { immediate: true },
 )
+
+useModalA11y(current, close)
 </script>
