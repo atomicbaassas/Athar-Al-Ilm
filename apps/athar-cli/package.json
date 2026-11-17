@@ -1,0 +1,17 @@
+{
+  "name": "athar-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent-friendly Athar CLI (practice / muaalem via gateway)",
+  "bin": {
+    "athar": "./bin/athar.js"
+  },
+  "scripts": {
+    "athar": "node ./bin/athar.js",
+    "check": "node --test check.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

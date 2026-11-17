@@ -28,6 +28,12 @@ export default defineConfig({
         target: process.env.VITE_PROXY_TARGET || 'http://backend:8000',
         changeOrigin: true,
       },
+      // Practice / Salafi JSON via local athar-gateway
+      '/athar': {
+        target: process.env.VITE_ATHAR_GATEWAY || 'http://127.0.0.1:9091',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/athar/, '') || '/',
+      },
     },
   },
   // vite-ssg: prerender each public route to static HTML. Route list comes from

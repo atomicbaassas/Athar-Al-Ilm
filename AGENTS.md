@@ -29,6 +29,11 @@ docker compose -f docker-compose.dev.yml up --build
 # Athar gateway
 cd apps/athar-gateway && node server.js
 cd apps/athar-gateway && npm run check
+
+# Practice CLI (gateway → muaalem; agent-friendly)
+cd apps/athar-cli && node bin/athar.js practice --help
+cd apps/athar-cli && node bin/athar.js practice status --json
+cd apps/athar-cli && node bin/athar.js practice correct --file ./a.wav --surah 1 --ayah 1 --json
 ```
 
 ## Read next

@@ -4,20 +4,27 @@ import {
   ayahAudioUrl,
   chapterForJuz,
   chapterForPage,
+  correctionMatchesTarget,
   experienceFromModes,
   getReciterById,
   modesEqual,
   modesForExperience,
   normalizeSegments,
+  matchSpokenWords,
+  practiceAdvanceAllowed,
   quranSharePath,
   resolveInitialModes,
+  spanBoundsFromWordIndices,
   splitAyahWords,
+  stripArabicDiacritics,
   stripHtml,
+  wordIndicesFromMuaalemErrors,
   wordSyncIdForReciter,
   wordSyncReciters,
   VERIFIED_WORD_SYNC_IDS,
   QURAN_RECITERS,
   QURAN_SPEEDS,
+  QURAN_EXPERIENCES,
   DEFAULT_QURAN_MODES,
 } from './quran.js'
 
@@ -90,10 +97,13 @@ describe('word timing helpers', () => {
     expect(DEFAULT_QURAN_MODES.tafsir).toBe(false)
   })
 
-  it('maps experience presets for read/learn/listen', () => {
+  it('maps experience presets for read/learn/listen/practice', () => {
     expect(modesForExperience('read').player).toBe(false)
     expect(modesForExperience('learn').tafsir).toBe(true)
     expect(modesForExperience('listen').wordSync).toBe(true)
+    expect(modesForExperience('practice').wordSync).toBe(true)
+    expect(modesForExperience('practice').tafsir).toBe(false)
+    expect(QURAN_EXPERIENCES).toContain('practice')
     expect(QURAN_SPEEDS).toContain(1.25)
   })
 
@@ -101,6 +111,7 @@ describe('word timing helpers', () => {
     expect(resolveInitialModes('learn', { ...DEFAULT_QURAN_MODES, tafsir: false }).modes.tafsir).toBe(true)
     expect(resolveInitialModes('read', DEFAULT_QURAN_MODES).modes.player).toBe(false)
     expect(resolveInitialModes('listen', DEFAULT_QURAN_MODES).modes.translation).toBe(false)
+    expect(resolveInitialModes('practice', DEFAULT_QURAN_MODES).modes.player).toBe(true)
   })
 
   it('detects custom when toggles leave a preset', () => {
@@ -108,11 +119,45 @@ describe('word timing helpers', () => {
     expect(experienceFromModes(listen)).toBe('listen')
     expect(experienceFromModes({ ...listen, translation: true })).toBe('custom')
     expect(modesEqual(listen, modesForExperience('listen'))).toBe(true)
+    expect(experienceFromModes(modesForExperience('practice'))).toBe('practice')
   })
 
   it('builds share paths and juz/page chapter jumps', () => {
     expect(quranSharePath(2, 255)).toBe('/quran?surah=2&ayah=255')
     expect(chapterForJuz([{ juz: 1, start: { chapter: 1, verse: 1 } }], 1)).toBe(1)
     expect(chapterForPage([{ page: 2, start: { chapter: 2, verse: 1 } }], 2)).toBe(2)
+  })
+
+  it('maps muaalem errors to word spans and gates advance', () => {
+    const result = {
+      start: { sura_idx: 1, aya_idx: 1, uthmani_word_idx: 0 },
+      end: { sura_idx: 1, aya_idx: 1, uthmani_word_idx: 4 },
+      uthmani_text: 'بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ',
+      errors: [{ uthmani_pos: [0, 5], error_type: 'normal', speech_error_type: 'replace' }],
+    }
+    expect(correctionMatchesTarget(result, 1, 1)).toBe(true)
+    expect(correctionMatchesTarget(result, 1, 2)).toBe(false)
+    expect(wordIndicesFromMuaalemErrors(result)).toEqual([1])
+    expect(practiceAdvanceAllowed(false)).toBe(false)
+    expect(practiceAdvanceAllowed(true)).toBe(true)
+    const segs = normalizeSegments([[1, 0, 580], [2, 580, 1409], [3, 1409, 2502]])
+    expect(spanBoundsFromWordIndices(segs, [2, 3])).toEqual({
+      startMs: 580,
+      endMs: 2502,
+      wordFrom: 2,
+      wordTo: 3,
+    })
+  })
+
+  it('matches live spoken words against ayah (diacritics stripped)', () => {
+    const words = splitAyahWords('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ')
+    expect(stripArabicDiacritics(words[0])).toBe('بسم')
+    const mid = matchSpokenWords(words, 'بسم الله')
+    expect(mid.heard).toEqual([1, 2])
+    expect(mid.current).toBe(3)
+    expect(mid.complete).toBe(false)
+    const done = matchSpokenWords(words, 'بسم الله الرحمن الرحيم')
+    expect(done.complete).toBe(true)
+    expect(done.current).toBe(null)
   })
 })

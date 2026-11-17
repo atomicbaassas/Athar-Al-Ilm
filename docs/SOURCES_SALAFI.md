@@ -84,6 +84,13 @@ Filter featured books to known Salafi publishers/authors in product UI — API i
 - **C-SRC:** mushaf/translation text still comes from quran-api / QuranEnc.
   Quran.com is used here for verified audio clocks + Salafi tafsir payload only.
 
+## 7. Quran practice assist (muaalem) — not a source of truth
+
+- Upstream: local [obadx/quran-muaalem](https://github.com/obadx/quran-muaalem) FastAPI app
+- Gateway: `POST /athar/v1/muaalem/correct-recitation` → `MUAALEM_URL` (default `http://127.0.0.1:8001`)
+- Purpose: assistive phoneme/tajweed hints for `/quran` Practice experience only
+- **C-SRC:** model output is never mushaf/tafsir/hadith source of truth; UI must show advisory
+
 ## Not wired yet
 
 | Source | Status |

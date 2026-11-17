@@ -79,4 +79,29 @@ test("health + quran translations list", async (t) => {
   const dorarBody = await dorar.json();
   assert.equal(dorarBody.error, "dorar_token_required");
   assert.equal(dorarBody.source, "dorar");
+
+  assert.ok(healthBody.sources.includes("muaalem"));
+  assert.ok(String(healthBody.muaalem || "").includes("8001"));
+
+  // Muaalem POST is allowed but returns 502 when local engine is down.
+  const muaalem = await fetch(
+    `http://127.0.0.1:${PORT}/v1/muaalem/correct-recitation`,
+    {
+      method: "POST",
+      headers: {
+        "content-type":
+          "multipart/form-data; boundary=----atharCheckBoundary",
+      },
+      body:
+        "------atharCheckBoundary\r\n" +
+        'Content-Disposition: form-data; name="file"; filename="x.wav"\r\n' +
+        "Content-Type: audio/wav\r\n\r\n" +
+        "RIFF....\r\n" +
+        "------atharCheckBoundary--\r\n",
+    },
+  );
+  assert.equal(muaalem.status, 502);
+  const muaalemBody = await muaalem.json();
+  assert.equal(muaalemBody.error, "muaalem_unreachable");
+  assert.equal(muaalemBody.source, "muaalem");
 });

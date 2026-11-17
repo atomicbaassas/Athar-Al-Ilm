@@ -11,13 +11,14 @@ Amend this file when a rule must change. Code that violates an active contract i
 5. Dorar.net only when a Dorar token is set in Admin → Integrations or `DORAR_API_KEY` on the gateway host; never scrape HTML for content. Without a token, gateway returns **501** `dorar_token_required`.
 6. Do **not** treat LLM/AI output, Quran.com, or random scrapers as religious source of truth.
 7. Browser never holds IslamHouse or Dorar keys; server/gateway only.
+8. **C-SRC delta (2026-11-17):** `obadx/quran-muaalem` may assist practice (listen → repeat → phoneme/tajweed hints) via gateway `POST /athar/v1/muaalem/correct-recitation`. UI must show an assistive advisory. Model output is **never** mushaf/tafsir/hadith source of truth; Quran text remains gateway mushaf editions.
 
 ## C-GATE — Athar gateway
 
 1. Public path prefix: `/athar/` → gateway; health at `/athar/health`.
 2. Gateway binds loopback only on Contabo (`127.0.0.1:9091`).
 3. Responses are JSON envelopes `{ source, upstream_status, data }` (except health / Dorar status errors).
-4. No write/mutate proxies to upstream; GET only.
+4. No write/mutate proxies to upstream; GET only — **except** `POST /v1/muaalem/correct-recitation` forwarding multipart audio to loopback `MUAALEM_URL` (default `http://127.0.0.1:8001`). Not a public third-party write proxy.
 5. CORS allowlist via `ATHAR_CORS_ORIGINS` (default apex + www + local Vite). No `*`.
 
 ## C-DEP — Deploy

@@ -38,9 +38,18 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Gateway: `ISLAMHOUSE_API_KEY` + CORS on host; admin passwords in `/root/.athar-secrets/admin-credentials` only
 - Superadmin **Admin → Integrations** stores IslamHouse / Dorar / Resend / YouTube keys (masked); gateway pulls via `ATHAR_KEYS_URL` + `ATHAR_INTERNAL_TOKEN`
 
+## 2026-11-17 — Quran Practice (muaalem) + dock UI
+
+- Practice mode: listen → read-back via gateway `POST /v1/muaalem/correct-recitation` (assistive only; C-SRC advisory).
+- Browser mic → 16 kHz WAV (`practiceAudio.js`) before muaalem (webm caused 500).
+- Unified player dock (play↔mic), quieter Quran chrome, EN/SW/AR cycle, overlay surah drawer on mobile.
+- `apps/athar-cli` practice helpers; gateway muaalem proxy + Vite `/athar` rewrite.
+- Deploy: Contabo app (`deploy-tadabbur.sh` / Actions on `main`) + `deploy-gateway.sh` for muaalem routes.
+
 ## Still open
 
 - Migrate `/quran` translations to QuranEnc when product wants stricter Salafi-only editions
 - Wire more Salafi learner pages to `/athar/` gateway; strip AI-as-source of truth
 - Ingest library PDFs into MinIO instead of hotlinking IslamHouse CDN
 - Dorar token still unset (`dorar_token_required`); Athar-owned IslamHouse key when issued (host research key for now)
+- Contabo muaalem process must be running for Practice check (local `:8001` / configured `MUAALEM_URL`)

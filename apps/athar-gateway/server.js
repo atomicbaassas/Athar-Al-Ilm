@@ -15,6 +15,12 @@ const TIMEOUT_MS = Number(process.env.ATHAR_FETCH_TIMEOUT_MS || 20000);
 const KEYS_URL = (process.env.ATHAR_KEYS_URL || "").trim();
 const INTERNAL_TOKEN = (process.env.ATHAR_INTERNAL_TOKEN || "").trim();
 const KEYS_TTL_MS = Number(process.env.ATHAR_KEYS_TTL_MS || 60000);
+/** Local quran-muaalem app (assistive only — not a religious source of truth). */
+const MUAALEM_URL = (process.env.MUAALEM_URL || "http://127.0.0.1:8001").replace(
+  /\/+$/,
+  "",
+);
+const MUAALEM_TIMEOUT_MS = Number(process.env.MUAALEM_TIMEOUT_MS || 60000);
 const CORS_ORIGINS = (
   process.env.ATHAR_CORS_ORIGINS ||
   "https://atharulilm.or.tz,https://www.atharulilm.or.tz,http://localhost:5173,http://127.0.0.1:5173"
@@ -169,27 +175,119 @@ function buildUpstream(kind, path, searchParams, keys) {
   return null;
 }
 
+async function readRequestBody(req) {
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  return Buffer.concat(chunks);
+}
+
+async function proxyMuaalemCorrect(req, res) {
+  const contentType = String(req.headers["content-type"] || "");
+  if (!contentType.toLowerCase().includes("multipart/form-data")) {
+    return json(
+      res,
+      415,
+      {
+        error: "multipart_required",
+        source: "muaalem",
+        message: "POST multipart/form-data with audio file field `file`.",
+      },
+      req,
+    );
+  }
+  let body;
+  try {
+    body = await readRequestBody(req);
+  } catch (err) {
+    return json(
+      res,
+      400,
+      {
+        error: "bad_body",
+        source: "muaalem",
+        message: err instanceof Error ? err.message : String(err),
+      },
+      req,
+    );
+  }
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), MUAALEM_TIMEOUT_MS);
+  try {
+    const upstream = await fetch(`${MUAALEM_URL}/correct-recitation`, {
+      method: "POST",
+      headers: { "content-type": contentType },
+      body,
+      signal: ctrl.signal,
+    });
+    const text = await upstream.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { raw: text.slice(0, 500) };
+    }
+    return json(
+      res,
+      upstream.status,
+      {
+        source: "muaalem",
+        upstream_status: upstream.status,
+        data,
+        advisory:
+          "Assistive only. Not a substitute for mushafahah with an authorized teacher. Not a religious source of truth (C-SRC).",
+      },
+      req,
+    );
+  } catch (err) {
+    return json(
+      res,
+      502,
+      {
+        error: "muaalem_unreachable",
+        source: "muaalem",
+        message: err instanceof Error ? err.message : String(err),
+        hint: `Start quran-muaalem app and set MUAALEM_URL (now ${MUAALEM_URL}).`,
+      },
+      req,
+    );
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url || "/", `http://${HOST}`);
+  const pathname = url.pathname.replace(/\/+$/, "") || "/";
+
   if (req.method === "OPTIONS") {
     const origin = allowOrigin(req);
     if (!origin) {
       res.writeHead(403, { "content-type": "application/json; charset=utf-8" });
       return res.end(JSON.stringify({ error: "origin_not_allowed" }));
     }
+    const allowPost = pathname === "/v1/muaalem/correct-recitation";
     res.writeHead(204, {
       "access-control-allow-origin": origin,
-      "access-control-allow-methods": "GET, OPTIONS",
+      "access-control-allow-methods": allowPost
+        ? "GET, POST, OPTIONS"
+        : "GET, OPTIONS",
       "access-control-allow-headers": "content-type",
     });
     return res.end();
+  }
+
+  // C-GATE delta: sole POST exception — loopback muaalem assistive correction.
+  if (
+    req.method === "POST" &&
+    pathname === "/v1/muaalem/correct-recitation"
+  ) {
+    return proxyMuaalemCorrect(req, res);
   }
 
   if (req.method !== "GET") {
     return json(res, 405, { error: "method_not_allowed" }, req);
   }
 
-  const url = new URL(req.url || "/", `http://${HOST}`);
-  const pathname = url.pathname.replace(/\/+$/, "") || "/";
   const keys = await resolveKeys();
 
   if (pathname === "/" || pathname === "/health") {
@@ -199,9 +297,18 @@ const server = http.createServer(async (req, res) => {
       {
         service: "athar-gateway",
         ok: true,
-        sources: ["quranenc", "hadeethenc", "islamhouse", "dorar", "quranapi", "qurancom"],
+        sources: [
+          "quranenc",
+          "hadeethenc",
+          "islamhouse",
+          "dorar",
+          "quranapi",
+          "qurancom",
+          "muaalem",
+        ],
         dorar: keys.dorar ? "configured" : "token_required",
         islamhouse: keys.islamhouse ? "configured" : "key_required",
+        muaalem: MUAALEM_URL,
       },
       req,
     );
@@ -243,7 +350,7 @@ const server = http.createServer(async (req, res) => {
       404,
       {
         error: "not_found",
-        hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, /v1/dorar/status, /health",
+        hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, POST /v1/muaalem/correct-recitation, /v1/dorar/status, /health",
       },
       req,
     );

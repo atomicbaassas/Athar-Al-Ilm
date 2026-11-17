@@ -9,6 +9,8 @@
  *
  * Tafsir: Al-Sa'di (resource 91) via /athar/v1/qurancom — Salafi text, not invented.
  */
+import { audioBlobToWav16k } from './practiceAudio.js'
+
 const GATEWAY_QURANAPI = '/athar/v1/quranapi'
 const GATEWAY_QURANCOM = '/athar/v1/qurancom'
 
@@ -171,8 +173,18 @@ const STORAGE_SPEED = 'athar-quran-speed'
 const STORAGE_EXPERIENCE = 'athar-quran-experience'
 
 export const QURAN_SPEEDS = [0.75, 1, 1.25, 1.5]
-export const QURAN_EXPERIENCES = ['read', 'learn', 'listen']
+export const QURAN_EXPERIENCES = ['read', 'learn', 'listen', 'practice']
 export const QURAN_SLEEP_MINUTES = [0, 5, 15, 30, 45]
+/** Practice listen→repeat phases (gated advance until clear). */
+export const PRACTICE_PHASES = [
+  'idle',
+  'listening',
+  'awaiting_repeat',
+  'recording',
+  'checking',
+  'correcting',
+  'clear',
+]
 
 export const DEFAULT_QURAN_MODES = {
   tafsir: false,
@@ -293,7 +305,7 @@ export function saveExperience(exp) {
   localStorage.setItem(STORAGE_EXPERIENCE, exp)
 }
 
-/** Presets for reading / learning / listening experiences. */
+/** Presets for reading / learning / listening / practice experiences. */
 export function modesForExperience(exp) {
   if (exp === 'read') {
     return { player: false, wordSync: false, tafsir: false, translation: true, compact: false }
@@ -301,7 +313,127 @@ export function modesForExperience(exp) {
   if (exp === 'listen') {
     return { player: true, wordSync: true, tafsir: false, translation: false, compact: true }
   }
+  if (exp === 'practice') {
+    // Word sync required so wrong-span re-read can seek segment clocks.
+    return { player: true, wordSync: true, tafsir: false, translation: true, compact: false }
+  }
   return { player: true, wordSync: true, tafsir: true, translation: true, compact: false }
+}
+
+/** True only after muaalem reports no errors for the current ayah. */
+export function practiceAdvanceAllowed(verseCleared) {
+  return verseCleared === true
+}
+
+/** Normalize Arabic for live speech↔ayah word matching (not a tajweed judge). */
+export function stripArabicDiacritics(text) {
+  return String(text || '')
+    .normalize('NFKD')
+    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '')
+    .replace(/ٱ/g, 'ا')
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/[^\u0600-\u06FF\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+/**
+ * Advance through ayah words from interim speech transcript.
+ * @returns {{ heard: number[], current: number|null, complete: boolean }}
+ */
+export function matchSpokenWords(ayahWords, spokenText) {
+  const targets = (ayahWords || []).map(stripArabicDiacritics).filter(Boolean)
+  const spoken = stripArabicDiacritics(spokenText).split(/\s+/).filter(Boolean)
+  let ti = 0
+  const heard = []
+  for (const tok of spoken) {
+    if (ti >= targets.length) break
+    const want = targets[ti]
+    if (tok === want || want.includes(tok) || tok.includes(want)) {
+      heard.push(ti + 1)
+      ti += 1
+      continue
+    }
+    // Allow one skipped target if next matches (ASR often drops short particles).
+    if (ti + 1 < targets.length) {
+      const next = targets[ti + 1]
+      if (tok === next || next.includes(tok) || tok.includes(next)) {
+        heard.push(ti + 1, ti + 2)
+        ti += 2
+      }
+    }
+  }
+  return {
+    heard,
+    current: ti < targets.length ? ti + 1 : null,
+    complete: targets.length > 0 && ti >= targets.length,
+  }
+}
+
+/** Whether the matched Quran span is the ayah the learner is practicing. */
+export function correctionMatchesTarget(result, chapter, verse) {
+  const sura = Number(result?.start?.sura_idx)
+  const aya = Number(result?.start?.aya_idx)
+  return sura === Number(chapter) && aya === Number(verse)
+}
+
+/**
+ * Map muaalem errors to 1-based word indices (Athar / Quran.com segments).
+ * Falls back to start/end uthmani_word_idx span when char positions are missing.
+ */
+export function wordIndicesFromMuaalemErrors(result) {
+  const errors = Array.isArray(result?.errors) ? result.errors : []
+  const text = String(result?.uthmani_text || '')
+  const words = splitAyahWords(text)
+  const set = new Set()
+
+  if (words.length && errors.length) {
+    let cursor = 0
+    const ranges = words.map((w) => {
+      const idx = text.indexOf(w, cursor)
+      const start = idx >= 0 ? idx : cursor
+      const end = start + w.length
+      cursor = end
+      return { start, end }
+    })
+    for (const err of errors) {
+      const a = Number(err?.uthmani_pos?.[0])
+      if (!Number.isFinite(a)) continue
+      const b = Number(err?.uthmani_pos?.[1])
+      const end = Number.isFinite(b) ? b : a + 1
+      ranges.forEach((r, i) => {
+        if (r.end > a && r.start < end) set.add(i + 1)
+      })
+    }
+  }
+
+  if (!set.size && result?.start && result?.end) {
+    const from = Number(result.start.uthmani_word_idx)
+    const to = Number(result.end.uthmani_word_idx)
+    if (Number.isFinite(from) && Number.isFinite(to) && to > from) {
+      for (let i = from; i < to; i += 1) set.add(i + 1)
+    } else if (Number.isFinite(from)) {
+      set.add(from + 1)
+    }
+  }
+
+  return [...set].sort((a, b) => a - b)
+}
+
+/** ms bounds for replaying only the wrong words (1-based indices). */
+export function spanBoundsFromWordIndices(segments, wordIndices) {
+  const wanted = new Set((wordIndices || []).map(Number).filter((n) => n > 0))
+  if (!wanted.size || !Array.isArray(segments)) return null
+  const hits = segments.filter((s) => wanted.has(Number(s.wordIndex)))
+  if (!hits.length) return null
+  return {
+    startMs: hits[0].startMs,
+    endMs: hits[hits.length - 1].endMs,
+    wordFrom: hits[0].wordIndex,
+    wordTo: hits[hits.length - 1].wordIndex,
+  }
 }
 
 export function modesEqual(a, b) {
@@ -476,6 +608,36 @@ export const quranApi = {
     return {
       name: tafsir?.resource_name || tafsir?.translated_name?.name || "Al-Sa'di",
       text: stripHtml(tafsir?.text || ''),
+    }
+  },
+
+  /**
+   * Assistive recitation check via gateway → local muaalem.
+   * @param {Blob|File} audioBlob
+   * @param {{ errorRatio?: number }} [opts]
+   */
+  async correctRecitation(audioBlob, opts = {}) {
+    // shortcut: muaalem/soundfile rejects webm; decode in browser → 16 kHz WAV
+    const wav = await audioBlobToWav16k(audioBlob)
+    const form = new FormData()
+    form.append('file', wav, 'recitation.wav')
+    form.append('error_ratio', String(opts.errorRatio ?? 0.15))
+    form.append('rewaya', 'hafs')
+    form.append('recitation_speed', 'murattal')
+    const res = await fetch('/athar/v1/muaalem/correct-recitation', {
+      method: 'POST',
+      body: form,
+    })
+    const body = await res.json().catch(() => ({}))
+    if (!res.ok) {
+      const err = new Error(body?.error || body?.message || `muaalem ${res.status}`)
+      err.status = res.status
+      err.body = body
+      throw err
+    }
+    return {
+      advisory: body.advisory || '',
+      ...((body.data && typeof body.data === 'object') ? body.data : body),
     }
   },
 }
