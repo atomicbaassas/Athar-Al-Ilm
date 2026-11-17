@@ -46,10 +46,17 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - `apps/athar-cli` practice helpers; gateway muaalem proxy + Vite `/athar` rewrite.
 - Deploy: Contabo app (`deploy-tadabbur.sh` / Actions on `main`) + `deploy-gateway.sh` for muaalem routes.
 
+## 2026-11-17 — Contabo muaalem running
+
+- Host path: `/opt/quran-muaalem` (obadx/quran-muaalem), CPU (`ACCELERATOR=cpu`, `DTYPE=float32`).
+- systemd: `muaalem-engine` (:8000) + `muaalem-app` (127.0.0.1:8001). Install/update: `deploy/contabo/deploy-muaalem.sh`.
+- Patch: `deploy/contabo/patch-muaalem-serve.py` (Form enum + engine timeout 180s + PhoneticSearch startup warmup).
+- Gateway: `MUAALEM_TIMEOUT_MS=300000` in `/root/.athar-secrets/athar-gateway.env`.
+- Verified: public `POST https://atharulilm.or.tz/athar/v1/muaalem/correct-recitation` with Al-Fatiha WAV → **200** (~8s). UFW does not expose :8000/:8001.
+
 ## Still open
 
 - Migrate `/quran` translations to QuranEnc when product wants stricter Salafi-only editions
 - Wire more Salafi learner pages to `/athar/` gateway; strip AI-as-source of truth
 - Ingest library PDFs into MinIO instead of hotlinking IslamHouse CDN
 - Dorar token still unset (`dorar_token_required`); Athar-owned IslamHouse key when issued (host research key for now)
-- Contabo muaalem process must be running for Practice check (local `:8001` / configured `MUAALEM_URL`)

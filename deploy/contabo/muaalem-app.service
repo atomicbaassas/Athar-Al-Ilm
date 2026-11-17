@@ -1,0 +1,21 @@
+[Unit]
+Description=Athar Quran muaalem app (correct-recitation API)
+After=network.target muaalem-engine.service
+Requires=muaalem-engine.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/quran-muaalem
+Environment=ENGINE_URL=http://127.0.0.1:8000/predict
+Environment=HOST=127.0.0.1
+Environment=PORT=8001
+Environment=PATH=/opt/quran-muaalem/.venv/bin:/usr/local/bin:/usr/bin
+ExecStart=/opt/quran-muaalem/.venv/bin/quran-muaalem-app
+Restart=on-failure
+RestartSec=3
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

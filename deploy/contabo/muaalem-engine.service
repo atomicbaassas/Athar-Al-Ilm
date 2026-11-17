@@ -1,0 +1,25 @@
+[Unit]
+Description=Athar Quran muaalem engine (phoneme model)
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/quran-muaalem
+Environment=ACCELERATOR=cpu
+Environment=DTYPE=float32
+Environment=HOST=127.0.0.1
+Environment=PORT=8000
+Environment=MAX_BATCH_SIZE=2
+Environment=HF_HOME=/opt/quran-muaalem/.hf-cache
+Environment=PATH=/opt/quran-muaalem/.venv/bin:/usr/local/bin:/usr/bin
+ExecStart=/opt/quran-muaalem/.venv/bin/quran-muaalem-engine
+Restart=on-failure
+RestartSec=5
+# Model load can take minutes on CPU
+TimeoutStartSec=0
+MemoryMax=5G
+
+[Install]
+WantedBy=multi-user.target
