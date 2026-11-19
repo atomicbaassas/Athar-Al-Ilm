@@ -123,10 +123,17 @@
         <div v-for="n in 3" :key="n" class="bg-gray-100 rounded-xl h-16" />
       </div>
 
-      <div v-else-if="items.length === 0" class="py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-        <p class="text-gray-600 font-semibold mb-1">No categories yet</p>
-        <p class="text-gray-400 text-sm">Create one to organize tracks on the Curriculum page and /learn.</p>
-      </div>
+      <EmptyState
+        v-else-if="items.length === 0"
+        title="No categories yet"
+        description="Create a category to organize curriculum tracks."
+      >
+        <template #action>
+          <button type="button" class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold" @click="startNew">
+            Create category
+          </button>
+        </template>
+      </EmptyState>
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-50">
         <button v-for="c in items" :key="c.id" @click="startEdit(c)"
@@ -231,6 +238,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
 import { useFeaturesStore } from '@/stores/features'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const features = useFeaturesStore()
 

@@ -55,15 +55,21 @@
         {{ error }}
       </div>
 
-      <!-- Empty -->
-      <div v-else-if="videos.length === 0" class="text-center py-24">
-        <div class="mb-4 flex justify-center">
-          <svg class="w-16 h-16 text-white/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            <path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/>
-          </svg>
-        </div>
-        <p class="text-white/40 text-lg">No videos found.</p>
+      <div
+        v-else-if="videos.length === 0"
+        class="text-center py-16 sm:py-20 px-4 border border-dashed border-white/15 rounded-2xl"
+        aria-labelledby="videos-empty-title"
+      >
+        <h2 id="videos-empty-title" class="text-white font-semibold text-base mb-1.5">No videos yet</h2>
+        <p class="text-white/40 text-sm max-w-md mx-auto mb-5">
+          Channel lectures will appear here once the YouTube feed is connected.
+        </p>
+        <RouterLink
+          to="/learn"
+          class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand-dark transition-colors"
+        >
+          Start learning
+        </RouterLink>
       </div>
 
       <!-- Grid -->

@@ -113,13 +113,16 @@
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Title <span class="text-red-500">*</span></label>
             <input
               v-model="doc.title"
-              @input="autofillSlug"
               type="text"
               required
               :dir="editDir"
               placeholder="e.g. The Five Pillars of Islam"
               class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
+              :class="{ 'border-red-400': fieldErrors.title }"
+              @input="onTitleInput"
+              @blur="validateTitle"
             />
+            <p v-if="fieldErrors.title" class="text-red-600 text-xs mt-1">{{ fieldErrors.title }}</p>
           </div>
 
           <div v-if="!activeLang">
@@ -127,10 +130,12 @@
             <div class="flex gap-2">
               <input
                 v-model="form.slug"
-                @input="slugWasEdited = true"
                 type="text"
                 placeholder="auto-generated"
                 class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
+                :class="{ 'border-red-400': fieldErrors.slug }"
+                @input="onSlugInput"
+                @blur="validateSlug"
               />
               <button
                 type="button"
@@ -313,6 +318,7 @@ import { adminApi } from '@/api/admin'
 import { curriculumApi } from '@/api/curriculum'
 import BlockEditor from '@/components/blocks/BlockEditor.vue'
 import { BLOCK_DEFAULTS } from '@/components/blocks/blockKit'
+import { useFieldErrors } from '@/composables/useFieldErrors'
 
 const route = useRoute()
 const router = useRouter()
@@ -340,6 +346,7 @@ const loadError = ref('')
 const saving = ref(false)
 const saved = ref(false)
 const apiError = ref('')
+const { errors: fieldErrors, required, onInput, clearAll } = useFieldErrors()
 let slugWasEdited = false
 
 // ── Translations ─────────────────────────────────────────────────────────
@@ -360,6 +367,22 @@ const editDir = computed(() => (activeLang.value && langRtl(activeLang.value)) ?
 const saveLabel = computed(() =>
   activeLang.value ? `Save ${langName(activeLang.value)}` : (isEdit.value ? 'Save Changes' : 'Create Lesson')
 )
+
+function validateTitle() {
+  required('title', doc.value.title, 'Enter a lesson title.')
+}
+function validateSlug() {
+  if (activeLang.value) return
+  required('slug', form.value.slug, 'Enter a URL slug.')
+}
+function onTitleInput() {
+  onInput('title')
+  autofillSlug()
+}
+function onSlugInput() {
+  slugWasEdited = true
+  onInput('slug')
+}
 
 function langName(code) {
   return availableLangs.value.find(l => l.code === code)?.name || code
@@ -497,6 +520,10 @@ function buildOriginalPayload() {
 
 async function save() {
   apiError.value = ''
+  clearAll()
+  validateTitle()
+  validateSlug()
+  if (fieldErrors.title || fieldErrors.slug) return
   saved.value = false
   saving.value = true
   try {

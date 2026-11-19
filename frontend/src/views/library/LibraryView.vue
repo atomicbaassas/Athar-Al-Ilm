@@ -94,26 +94,27 @@
         {{ error }}
       </div>
 
-      <!-- Empty -->
-      <div v-else-if="books.length === 0" class="text-center py-24">
-        <div class="mb-4 flex justify-center">
-          <svg
-            class="w-16 h-16 text-gray-200"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      <EmptyState
+        v-else-if="books.length === 0 && (searchQuery || categoryFilter || langFilter)"
+        title="No books match these filters"
+        description="Try a broader search or reset filters."
+        clear-label="Clear all filters"
+        @clear="resetFilters"
+      />
+      <EmptyState
+        v-else-if="books.length === 0"
+        title="No books yet"
+        description="Scholar-reviewed books will appear here when published."
+      >
+        <template #action>
+          <RouterLink
+            to="/learn"
+            class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand-dark transition-colors"
           >
-            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-          </svg>
-        </div>
-        <p class="text-gray-400 text-lg">No books found.</p>
-        <button
-          v-if="searchQuery || categoryFilter || langFilter"
-          @click="resetFilters"
-          class="mt-4 text-brand text-sm hover:underline"
-        >
-          Clear filters
-        </button>
-      </div>
+            Start learning
+          </RouterLink>
+        </template>
+      </EmptyState>
 
       <!-- Grid -->
       <div
@@ -232,6 +233,7 @@ import { ref, onMounted, onServerPrefetch } from 'vue'
 import { libraryApi } from '@/api/library'
 import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const ssr            = useSsrDataStore()
 const books          = ref(ssr.get('library:books') ?? [])

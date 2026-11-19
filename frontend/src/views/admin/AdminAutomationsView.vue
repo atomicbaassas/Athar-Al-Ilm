@@ -22,10 +22,17 @@
         <div v-for="n in 3" :key="n" class="bg-gray-100 rounded-xl h-16" />
       </div>
 
-      <div v-else-if="items.length === 0" class="py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-        <p class="text-gray-600 font-semibold mb-1">No workflows yet</p>
-        <p class="text-gray-400 text-sm">Create one, e.g. "remind learners who started but haven't finished a track."</p>
-      </div>
+      <EmptyState
+        v-else-if="items.length === 0"
+        title="No workflows yet"
+        description="Create a workflow to remind learners who started a track but have not finished."
+      >
+        <template #action>
+          <button type="button" class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold" @click="startNew">
+            Create workflow
+          </button>
+        </template>
+      </EmptyState>
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-50">
         <button v-for="w in items" :key="w.id" @click="startEdit(w)"
@@ -232,6 +239,7 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
 import { formatDateTime } from '@/utils/datetime'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const items = ref([])
 const tracks = ref([])

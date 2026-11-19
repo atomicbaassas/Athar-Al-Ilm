@@ -78,7 +78,7 @@
               </span>
 
               <div class="flex items-center gap-1 shrink-0">
-                <button
+                <button v-tooltip.top="subj.is_published ? 'Unpublish' : 'Publish'"
                   @click="togglePublishSubject(subj)"
                   :aria-label="subj.is_published ? 'Unpublish' : 'Publish'"
                   class="min-h-11 min-w-11 w-11 h-11 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
@@ -112,7 +112,7 @@
                   </svg>
                 </RouterLink>
 
-                <button
+                <button v-tooltip.top="'Delete subject'"
                   @click="deleteTarget = { type: 'subject', item: subj }"
                   aria-label="Delete subject"
                   class="min-h-11 min-w-11 w-11 h-11 rounded-lg bg-gray-100 hover:bg-red-50 hover:text-red-500 flex items-center justify-center text-gray-400 transition-colors"
@@ -148,7 +148,7 @@
                 <span class="text-xs text-gray-400 shrink-0">{{ lesson.block_count }} blocks · {{ lesson.estimated_minutes }}m</span>
 
                 <div class="flex items-center gap-1 shrink-0">
-                  <button
+                  <button v-tooltip.top="lesson.status === 'published' ? 'Unpublish' : 'Publish'"
                     @click="togglePublishLesson(lesson, subj.slug)"
                     :aria-label="lesson.status === 'published' ? 'Unpublish' : 'Publish'"
                     class="min-h-11 min-w-11 w-11 h-11 rounded-lg bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] flex items-center justify-center text-gray-400 transition-colors"
@@ -172,7 +172,7 @@
                     </svg>
                   </RouterLink>
 
-                  <button
+                  <button v-tooltip.top="'Delete lesson'"
                     @click="deleteTarget = { type: 'lesson', item: lesson, subjectSlug: subj.slug }"
                     aria-label="Delete lesson"
                     class="min-h-11 min-w-11 w-11 h-11 rounded-lg bg-gray-100 hover:bg-red-50 hover:text-red-500 flex items-center justify-center text-gray-400 transition-colors"

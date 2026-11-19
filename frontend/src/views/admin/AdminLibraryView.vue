@@ -103,45 +103,28 @@
       </div>
     </div>
 
-    <!-- Empty state -->
-    <div v-else-if="books.length === 0"
-         class="flex flex-col items-center justify-center py-32 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-      <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
-        <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
-      </div>
-      <p class="text-gray-600 font-semibold mb-1">No books yet</p>
-      <p class="text-gray-400 text-sm mb-5">Add your first Islamic book to the library.</p>
-      <RouterLink
-        :to="{ name: 'admin-book-new' }"
-        class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-        </svg>
-        Add First Book
-      </RouterLink>
-    </div>
+    <EmptyState
+      v-else-if="books.length === 0"
+      title="No books yet"
+      description="Add a book so learners can read, listen, or download."
+    >
+      <template #action>
+        <RouterLink
+          :to="{ name: 'admin-book-new' }"
+          class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold hover:bg-[#0B3D2E]/90 transition-colors"
+        >
+          Add book
+        </RouterLink>
+      </template>
+    </EmptyState>
 
-    <!-- No results for current filters -->
-    <div v-else-if="sorted.length === 0"
-         class="flex flex-col items-center justify-center py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-      <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
-        <svg class="w-7 h-7 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="m21 21-4.35-4.35"/>
-        </svg>
-      </div>
-      <p class="text-gray-600 font-semibold mb-1">No books match these filters</p>
-      <p class="text-gray-400 text-sm mb-5">Try a different search or clear the filters.</p>
-      <button
-        @click="resetFilters"
-        class="inline-flex items-center gap-2 bg-[#0B3D2E] hover:bg-[#1a3ba8] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
-      >
-        Clear filters
-      </button>
-    </div>
+    <EmptyState
+      v-else-if="sorted.length === 0"
+      title="No books match these filters"
+      description="Try a broader search or reset filters."
+      clear-label="Clear all filters"
+      @clear="resetFilters"
+    />
 
     <!-- Book grid -->
     <div v-else class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
@@ -206,7 +189,7 @@
                       d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
               </svg>
             </RouterLink>
-            <button
+            <button v-tooltip.top="book.is_published ? 'Unpublish' : 'Publish'"
               @click="togglePublish(book)"
               :aria-label="book.is_published ? 'Unpublish' : 'Publish'"
               class="w-9 h-9 bg-white rounded-xl flex items-center justify-center transition-colors shadow-sm"
@@ -220,7 +203,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
               </svg>
             </button>
-            <button
+            <button v-tooltip.top="'Delete'"
               @click="confirmDelete(book)"
               aria-label="Delete"
               class="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow-sm"
@@ -316,6 +299,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const books = ref([])
 const loading = ref(true)

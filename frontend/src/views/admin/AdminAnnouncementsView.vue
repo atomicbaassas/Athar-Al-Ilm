@@ -22,10 +22,17 @@
         <div v-for="n in 4" :key="n" class="bg-gray-100 rounded-xl h-16" />
       </div>
 
-      <div v-else-if="items.length === 0" class="py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-        <p class="text-gray-600 font-semibold mb-1">No announcements yet</p>
-        <p class="text-gray-400 text-sm">Create one to greet users when they open the app.</p>
-      </div>
+      <EmptyState
+        v-else-if="items.length === 0"
+        title="No announcements yet"
+        description="Create an announcement to greet learners when they open the app."
+      >
+        <template #action>
+          <button type="button" class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold" @click="startNew">
+            Create announcement
+          </button>
+        </template>
+      </EmptyState>
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-sm">
         <table class="w-full text-sm">
@@ -53,7 +60,7 @@
               <td class="px-4 py-3 text-end font-semibold text-gray-700">{{ a.views }}</td>
               <td class="px-4 py-3 text-end text-gray-500 hidden sm:table-cell">{{ a.dismissed }}</td>
               <td class="px-4 py-3 text-end">
-                <button @click.stop="deleteTarget = a" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                <button v-tooltip.top="'Delete'" @click.stop="deleteTarget = a" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 </button>
               </td>
@@ -161,6 +168,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
 import BlockEditor from '@/components/blocks/BlockEditor.vue'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const items = ref([])
 const loading = ref(true)

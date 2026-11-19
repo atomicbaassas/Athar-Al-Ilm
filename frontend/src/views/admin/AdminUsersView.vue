@@ -56,13 +56,18 @@
       <div v-for="n in 8" :key="n" class="bg-gray-100 rounded-xl h-14" />
     </div>
 
-    <!-- Empty -->
-    <div v-else-if="users.length === 0" class="py-24 text-center text-gray-400 text-sm border-2 border-dashed border-gray-200 rounded-2xl">
-      No users found.
-    </div>
-    <div v-else-if="sorted.length === 0" class="py-20 text-center text-gray-400 text-sm border-2 border-dashed border-gray-200 rounded-2xl">
-      No users match these filters.
-    </div>
+    <EmptyState
+      v-else-if="users.length === 0"
+      title="No users yet"
+      description="Registered learners will appear here."
+    />
+    <EmptyState
+      v-else-if="sorted.length === 0"
+      title="No users match these filters"
+      description="Try a broader search or reset filters."
+      clear-label="Clear all filters"
+      @clear="clearFilters"
+    />
 
     <!-- Table -->
     <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-sm">
@@ -105,7 +110,7 @@
             </td>
             <!-- Status -->
             <td class="px-4 py-3 text-center">
-              <button
+              <button v-tooltip.top="u.is_active ? 'Click to deactivate' : 'Click to activate'"
                 @click="toggleActive(u)"
                 class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 min-h-11 rounded-full transition-colors"
                 :class="u.is_active ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'"
@@ -116,15 +121,15 @@
               </button>
             </td>
             <td class="px-4 py-3 text-end text-gray-600 hidden md:table-cell">{{ u.lessons_completed }}</td>
-            <td class="px-4 py-3 text-end text-gray-600 hidden lg:table-cell">{{ u.current_streak }}🔥</td>
+            <td class="px-4 py-3 text-end text-gray-600 hidden lg:table-cell">{{ u.current_streak }}</td>
             <td class="px-4 py-3 text-end text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(u.last_activity || u.last_login) }}</td>
             <!-- Actions -->
             <td class="px-4 py-3">
               <div class="flex items-center justify-end gap-1">
-                <button @click="passwordTarget = u" aria-label="Reset password" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
+                <button v-tooltip.top="'Reset password'" @click="passwordTarget = u" aria-label="Reset password" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </button>
-                <button @click="deleteTarget = u" aria-label="Delete user" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                <button v-tooltip.top="'Delete user'" @click="deleteTarget = u" aria-label="Delete user" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 </button>
               </div>
@@ -181,6 +186,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
 import { formatDate } from '@/utils/datetime'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const users = ref([])
 const roles = ref([])
@@ -199,6 +205,14 @@ const statusFilter = ref('all')
 const sortBy       = ref('newest')
 const currentPage  = ref(1)
 const pageSize     = 15
+
+function clearFilters() {
+  searchQuery.value = ''
+  roleFilter.value = ''
+  statusFilter.value = 'all'
+  sortBy.value = 'newest'
+  currentPage.value = 1
+}
 
 const roleOptions = computed(() =>
   roles.value.length

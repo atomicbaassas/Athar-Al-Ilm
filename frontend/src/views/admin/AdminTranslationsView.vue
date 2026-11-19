@@ -100,7 +100,7 @@
               <label class="inline-flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer" title="Show to learners">
                 <input v-model="lang.enabled" type="checkbox" class="rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" /> On
               </label>
-              <button @click="languages.splice(i, 1)" type="button" aria-label="Remove"
+              <button v-tooltip.top="'Remove'" @click="languages.splice(i, 1)" type="button" aria-label="Remove"
                 class="min-h-11 min-w-11 w-11 h-11 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
               </button>

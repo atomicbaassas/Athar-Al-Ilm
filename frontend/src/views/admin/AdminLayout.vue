@@ -3,7 +3,7 @@
 
     <!-- Mobile top bar -->
     <div class="fixed top-0 left-0 right-0 z-30 flex items-center h-14 px-4 bg-[#0c0c0e] md:hidden">
-      <button
+      <button v-tooltip.top="'Open admin menu'"
         @click="sidebarOpen = true"
         aria-label="Open admin menu"
         class="min-h-11 min-w-11 w-11 h-11 -ml-2 inline-flex items-center justify-center rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"

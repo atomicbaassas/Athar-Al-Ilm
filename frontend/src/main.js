@@ -2,6 +2,7 @@ import { ViteSSG } from 'vite-ssg'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
+import Tooltip from 'primevue/tooltip'
 import 'primeicons/primeicons.css'
 
 import App from './App.vue'
@@ -44,6 +45,7 @@ export const createApp = ViteSSG(
         options: { darkModeSelector: '.dark' },
       },
     })
+    app.directive('tooltip', Tooltip)
 
     setupRouterGuards(router)
   },

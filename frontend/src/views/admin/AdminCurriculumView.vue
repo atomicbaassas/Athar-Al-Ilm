@@ -70,21 +70,28 @@
       {{ error }}
     </div>
 
-    <!-- Empty state -->
-    <div v-else-if="filteredTracks.length === 0 && tracks.length === 0" class="text-center py-20 text-gray-400">
-      <svg class="w-12 h-12 mx-auto text-gray-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-      </svg>
-      <p class="font-medium text-gray-500 mb-1">No tracks yet</p>
-      <p class="text-sm mb-4">Create your first track to start building curriculum.</p>
-      <RouterLink :to="{ name: 'admin-track-new' }" class="bg-[#0B3D2E] text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-[#1a3ba8] transition-colors">
-        + Create Track
-      </RouterLink>
-    </div>
+    <EmptyState
+      v-else-if="filteredTracks.length === 0 && tracks.length === 0"
+      title="No tracks yet"
+      description="Create a track to start building curriculum."
+    >
+      <template #action>
+        <RouterLink
+          :to="{ name: 'admin-track-new' }"
+          class="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold hover:bg-[#0B3D2E]/90 transition-colors"
+        >
+          Create track
+        </RouterLink>
+      </template>
+    </EmptyState>
 
-    <div v-else-if="filteredTracks.length === 0" class="text-center py-16 text-gray-400 text-sm">
-      No tracks match this search or filter.
-    </div>
+    <EmptyState
+      v-else-if="filteredTracks.length === 0"
+      title="No tracks match these filters"
+      description="Try a broader search or reset filters."
+      clear-label="Clear all filters"
+      @clear="clearFilters"
+    />
 
     <!-- Track cards grid -->
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -128,7 +135,7 @@
 
           <!-- Hover action overlay -->
           <div class="absolute top-2.5 left-2.5 hidden group-hover:flex gap-1.5">
-            <button
+            <button v-tooltip.top="track.is_published ? 'Unpublish' : 'Publish'"
               @click.stop="togglePublish(track)"
               :aria-label="track.is_published ? 'Unpublish' : 'Publish'"
               class="min-h-11 min-w-11 w-11 h-11 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-[#0B3D2E] transition-colors"
@@ -138,7 +145,7 @@
                 <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
               </svg>
             </button>
-            <button
+            <button v-tooltip.top="'Delete track'"
               @click.stop="deleteTarget = track"
               aria-label="Delete track"
               class="min-h-11 min-w-11 w-11 h-11 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors"
@@ -205,6 +212,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const tracks = ref([])
 const subjectCounts = reactive({})
@@ -215,6 +223,12 @@ const sortBy = ref('published_first')
 const filterStatus = ref('all')
 const deleteTarget = ref(null)
 const deleting = ref(false)
+
+function clearFilters() {
+  search.value = ''
+  filterStatus.value = 'all'
+  sortBy.value = 'published_first'
+}
 
 const GRADIENTS = [
   'bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8]',

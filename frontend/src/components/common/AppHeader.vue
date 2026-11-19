@@ -123,7 +123,7 @@
       <div class="flex items-center gap-2">
 
         <!-- Dark / Light toggle (home page only) -->
-        <button
+        <button v-tooltip.top="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
           v-if="isHomePage"
           @click="homeTheme.toggle()"
           :aria-label="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
@@ -146,7 +146,7 @@
         </button>
 
         <!-- Language cycle EN → SW → AR (desktop) -->
-        <button
+        <button v-tooltip.top="nextLocaleTitle"
           id="lang-toggle-btn"
           @click="toggleLocale"
           :aria-label="nextLocaleTitle"
@@ -166,7 +166,7 @@
 
         <!-- Auth: logged in (desktop) -->
         <template v-if="auth.isLoggedIn">
-          <button
+          <button v-tooltip.top="t('nav.logout')"
             id="logout-btn"
             @click="handleLogout"
             :class="isHomePage && !isScrolled
@@ -212,7 +212,7 @@
         </template>
 
         <!-- Hamburger button (mobile only, < md) -->
-        <button
+        <button v-tooltip.top="mobileMenuOpen ? 'Close menu' : 'Open menu'"
           @click="mobileMenuOpen = !mobileMenuOpen"
           :class="isHomePage && !isScrolled
             ? homeTheme.theme.value === 'dark'
@@ -366,7 +366,7 @@
             </button>
 
             <!-- Dark / Light toggle (home page only) -->
-            <button
+            <button v-tooltip.top="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
               v-if="isHomePage"
               @click="homeTheme.toggle()"
               :aria-label="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"

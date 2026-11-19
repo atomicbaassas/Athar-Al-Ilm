@@ -22,10 +22,17 @@
         <div v-for="n in 3" :key="n" class="bg-gray-100 rounded-xl h-16" />
       </div>
 
-      <div v-else-if="items.length === 0" class="py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-        <p class="text-gray-600 font-semibold mb-1">No campaigns yet</p>
-        <p class="text-gray-400 text-sm">Create one to reach your learners.</p>
-      </div>
+      <EmptyState
+        v-else-if="items.length === 0"
+        title="No campaigns yet"
+        description="Create a campaign to email learners."
+      >
+        <template #action>
+          <button type="button" class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold" @click="startNew">
+            Create campaign
+          </button>
+        </template>
+      </EmptyState>
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-sm">
         <table class="w-full text-sm">
@@ -206,6 +213,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const items = ref([])
 const templates = ref([])

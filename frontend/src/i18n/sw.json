@@ -271,8 +271,8 @@
   },
   "curriculum": {
     "title": "Njia za kujifunza",
-    "subtitle": "Chagua uwanja wa elimu ya Kiislamu kuanza safari yako.",
-    "empty": "Hakuna njia zilizochapishwa bado. Rudi baadaye.",
+    "subtitle": "Chagua uwanja wa elimu ya Kiislamu kuanza.",
+    "empty": "Njia zilizochapishwa zitaonekana hapa kwa masomo yaliyopangwa.",
     "loadError": "Imeshindikana kupakia njia. Jaribu tena.",
     "startLearning": "Anza kujifunza",
     "searchPlaceholder": "Tafuta njia…",
@@ -285,13 +285,16 @@
     "viewIcon": "Mwonekano wa ikoni",
     "viewCard": "Mwonekano wa kadi",
     "enrolled": "Umejiandikisha",
-    "noResults": "Hakuna njia zinazolingana.",
-    "clearFilters": "Futa vichujio",
+    "noResults": "Hakuna njia zinazolingana na utafutaji huu.",
+    "clearFilters": "Futa vichujio vyote",
     "availableIn": "Lugha zinazopatikana",
     "allTracks": "Njia zote",
     "allLevels": "Viwango vyote",
     "completed": "Imekamilika",
-    "beta": "Beta"
+    "beta": "Beta",
+    "emptyTitle": "Bado hakuna njia",
+    "emptyCta": "Fungua Quran",
+    "noResultsHint": "Jaribu neno pana zaidi au futa vichujio."
   },
   "track": {
     "availableIn": "Inapatikana kwa:",
@@ -389,7 +392,7 @@
   "dashboard": {
     "welcome": "Karibu tena",
     "welcomeName": "Karibu tena, {name}",
-    "subtitle": "Safari yako ya kujifunza inaendelea hapa.",
+    "subtitle": "Endelea pale somo la mwisho lilipoishia.",
     "lessonsCompleted": "Masomo yaliyokamilika",
     "tracksEnrolled": "Njia ulizojiandikisha",
     "dayStreak": "Mfululizo wa siku",

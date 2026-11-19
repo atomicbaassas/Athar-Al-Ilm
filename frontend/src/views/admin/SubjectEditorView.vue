@@ -75,12 +75,15 @@
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Title <span class="text-red-500">*</span></label>
             <input
               v-model="form.title"
-              @input="autofillSlug"
               type="text"
               required
               placeholder="e.g. Pillars of Islam"
               class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
+              :class="{ 'border-red-400': fieldErrors.title }"
+              @input="onTitleInput"
+              @blur="validateTitle"
             />
+            <p v-if="fieldErrors.title" class="text-red-600 text-xs mt-1">{{ fieldErrors.title }}</p>
           </div>
 
           <div>
@@ -88,11 +91,13 @@
             <div class="flex gap-2">
               <input
                 v-model="form.slug"
-                @input="slugWasEdited = true"
                 type="text"
                 required
                 placeholder="e.g. pillars-of-islam"
                 class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
+                :class="{ 'border-red-400': fieldErrors.slug }"
+                @input="onSlugInput"
+                @blur="validateSlug"
               />
               <button
                 type="button"
@@ -188,6 +193,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { adminApi } from '@/api/admin'
+import { useFieldErrors } from '@/composables/useFieldErrors'
 
 const route = useRoute()
 const router = useRouter()
@@ -210,6 +216,7 @@ const loadingSubject = ref(false)
 const saving = ref(false)
 const saved = ref(false)
 const apiError = ref('')
+const { errors: fieldErrors, required, onInput, clearAll } = useFieldErrors()
 let slugWasEdited = false
 
 function slugify(text) {
@@ -225,8 +232,27 @@ function regenerateSlug() {
   slugWasEdited = false
 }
 
+function validateTitle() {
+  required('title', form.value.title, 'Enter a subject title.')
+}
+function validateSlug() {
+  required('slug', form.value.slug, 'Enter a URL slug.')
+}
+function onTitleInput() {
+  onInput('title')
+  autofillSlug()
+}
+function onSlugInput() {
+  slugWasEdited = true
+  onInput('slug')
+}
+
 async function save() {
   apiError.value = ''
+  clearAll()
+  validateTitle()
+  validateSlug()
+  if (fieldErrors.title || fieldErrors.slug) return
   saved.value = false
   saving.value = true
   try {

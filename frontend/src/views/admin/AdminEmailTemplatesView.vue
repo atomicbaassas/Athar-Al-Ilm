@@ -22,10 +22,17 @@
         <div v-for="n in 3" :key="n" class="bg-gray-100 rounded-xl h-16" />
       </div>
 
-      <div v-else-if="items.length === 0" class="py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-        <p class="text-gray-600 font-semibold mb-1">No templates yet</p>
-        <p class="text-gray-400 text-sm">Create one to reuse across campaigns.</p>
-      </div>
+      <EmptyState
+        v-else-if="items.length === 0"
+        title="No templates yet"
+        description="Create a template to reuse in campaigns."
+      >
+        <template #action>
+          <button type="button" class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold" @click="startNew">
+            Create template
+          </button>
+        </template>
+      </EmptyState>
 
       <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-50">
         <button v-for="t in items" :key="t.id" @click="startEdit(t)"
@@ -161,6 +168,7 @@ import { adminApi } from '@/api/admin'
 import { useFeaturesStore } from '@/stores/features'
 import EmailBlockEditor from '@/components/blocks/EmailBlockEditor.vue'
 import { MERGE_TAG_CATALOGUE } from '@/components/blocks/emailBlockKit'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const features = useFeaturesStore()
 

@@ -87,16 +87,24 @@
     </div>
 
     <!-- Empty -->
-    <div v-else-if="registrations.length === 0" class="py-24 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-      <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-        <svg class="w-7 h-7 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
-      </div>
-      <p class="text-gray-600 font-semibold mb-1">No registrations yet</p>
-      <p class="text-gray-400 text-sm">They'll appear here as people sign up at <span class="font-mono">/launch</span>.</p>
-    </div>
-    <div v-else-if="filtered.length === 0" class="py-20 text-center text-gray-400 text-sm border-2 border-dashed border-gray-200 rounded-2xl">
-      No registrations match this search.
-    </div>
+    <EmptyState
+      v-else-if="registrations.length === 0"
+      title="No registrations yet"
+      description="Signups from /launch will appear here."
+    >
+      <template #action>
+        <RouterLink to="/launch" class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-[#0B3D2E] text-white text-sm font-semibold">
+          Open launch page
+        </RouterLink>
+      </template>
+    </EmptyState>
+    <EmptyState
+      v-else-if="filtered.length === 0"
+      title="No registrations match this search"
+      description="Try a broader term or reset the search."
+      clear-label="Clear all filters"
+      @clear="searchQuery = ''"
+    />
 
     <!-- Table -->
     <div v-else class="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-sm">
@@ -119,7 +127,7 @@
             <td class="px-4 py-3 text-gray-600 hidden md:table-cell">{{ r.country || '—' }}</td>
             <td class="px-4 py-3 text-end text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(r.created_at) }}</td>
             <td class="px-4 py-3 text-end">
-              <button @click="deleteTarget = r" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+              <button v-tooltip.top="'Delete'" @click="deleteTarget = r" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
             </td>
@@ -158,6 +166,7 @@
 import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
 import { formatDateTime, formatEventLocal } from '@/utils/datetime'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const registrations = ref([])
 const loading = ref(true)

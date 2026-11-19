@@ -127,7 +127,7 @@
 
         <!-- View mode toggle -->
         <div class="flex items-center bg-gray-100 rounded-xl p-1 gap-0.5">
-          <button
+          <button v-tooltip.top="t('curriculum.viewIcon')"
             @click="viewMode = 'icon'"
 
             :aria-label="t('curriculum.viewIcon')"
@@ -143,7 +143,7 @@
               <rect x="14" y="14" width="7" height="7" rx="1.5" stroke-width="1.75"/>
             </svg>
           </button>
-          <button
+          <button v-tooltip.top="t('curriculum.viewCard')"
             @click="viewMode = 'card'"
 
             :aria-label="t('curriculum.viewCard')"
@@ -196,17 +196,29 @@
     </div>
 
     <!-- No tracks at all -->
-    <div v-else-if="tracks.length === 0" class="text-center py-20 text-gray-400">
-      {{ t('curriculum.empty') }}
-    </div>
+    <EmptyState
+      v-else-if="tracks.length === 0"
+      :title="t('curriculum.emptyTitle')"
+      :description="t('curriculum.empty')"
+    >
+      <template #action>
+        <RouterLink
+          to="/quran"
+          class="inline-flex items-center justify-center min-h-11 px-4 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand-dark transition-colors"
+        >
+          {{ t('curriculum.emptyCta') }}
+        </RouterLink>
+      </template>
+    </EmptyState>
 
     <!-- No results from search/filter -->
-    <div v-else-if="displayedTracks.length === 0" class="text-center py-16">
-      <p class="text-gray-500 font-medium mb-2">{{ t('curriculum.noResults') }}</p>
-      <button @click="clearFilters" class="text-sm text-emerald-700 hover:underline">
-        {{ t('curriculum.clearFilters') }}
-      </button>
-    </div>
+    <EmptyState
+      v-else-if="displayedTracks.length === 0"
+      :title="t('curriculum.noResults')"
+      :description="t('curriculum.noResultsHint')"
+      :clear-label="t('curriculum.clearFilters')"
+      @clear="clearFilters"
+    />
 
     <!-- ICON VIEW -->
     <div v-else-if="viewMode === 'icon'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -376,6 +388,7 @@ import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 import { useFeaturesStore } from '@/stores/features'
 import TrackLanguages from '@/components/TrackLanguages.vue'
+import EmptyState from '@/components/common/EmptyState.vue'
 import { formatAudioTime, loadLastLesson } from '@/utils/lessonAudio'
 import { stripSiteBrand } from '@/utils/stripSiteBrand'
 
