@@ -98,6 +98,7 @@ import { eventsApi } from '@/api/events'
 import { useSsrDataStore } from '@/stores/ssrData'
 import { useSeo, SEO_ORIGIN } from '@/composables/useSeo'
 import BrandLockup from '@/components/common/BrandLockup.vue'
+import { formatEventLocal } from '@/utils/datetime'
 
 // Page content. The defaults below are only a fallback — the admin-configured
 // values are fetched from the settings API during SSG prerender (so the static
@@ -129,24 +130,9 @@ onServerPrefetch(async () => {
 const eventDate = computed(() => new Date(eventAt.value))
 const eventDateLabel = computed(() => formatEventLabel(eventAt.value))
 
-// Format the date in the event's OWN timezone offset, so every visitor sees the
-// same wall-clock time + offset (e.g. "… 6:30 PM GMT+5:30") regardless of locale.
+/** Device locale + timezone (12/24h and DMY/MDY follow OS/browser). */
 function formatEventLabel(iso) {
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return ''
-  const m = String(iso).match(/(Z)$|([+-])(\d{2}):(\d{2})$/)
-  let offsetMin = 0, label = 'GMT'
-  if (m && !m[1]) {
-    const sign = m[2] === '-' ? -1 : 1
-    const oh = parseInt(m[3], 10), om = parseInt(m[4], 10)
-    offsetMin = sign * (oh * 60 + om)
-    label = 'GMT' + (sign < 0 ? '-' : '+') + oh + (om ? ':' + String(om).padStart(2, '0') : '')
-  }
-  const wall = new Date(d.getTime() + offsetMin * 60000).toLocaleString('en-US', {
-    timeZone: 'UTC', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    hour: 'numeric', minute: '2-digit',
-  })
-  return `${wall} ${label}`
+  return formatEventLocal(iso)
 }
 
 useSeo({

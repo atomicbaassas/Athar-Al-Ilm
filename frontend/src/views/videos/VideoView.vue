@@ -56,7 +56,7 @@
               </svg>
               {{ video.channel_title }}
             </span>
-            <span v-if="video.published_at">{{ formatDate(video.published_at) }}</span>
+            <span v-if="video.published_at">{{ formatDate(video.published_at, { month: 'long' }) }}</span>
             <span v-if="video.view_count !== '0'"
                   class="flex items-center gap-1.5">
               <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,6 +124,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { videosApi } from '@/api/videos'
 import { useSeo } from '@/composables/useSeo'
+import { formatDate } from '@/utils/datetime'
 
 const route       = useRoute()
 const video       = ref(null)
@@ -141,11 +142,6 @@ useSeo(() => {
     description: v.description?.slice(0, 160) || 'Watch this Islamic video on Athar Al \'Ilm.',
   }
 })
-
-function formatDate(iso) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
-}
 
 async function loadVideo(id) {
   loading.value  = true

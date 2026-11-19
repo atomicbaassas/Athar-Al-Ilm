@@ -106,15 +106,15 @@ function formatRemaining(ms) {
   return `${pad(m)}:${pad(s)}`
 }
 
-function formatClock(date, locale) {
+/** Device locale + hour cycle (ignore app UI language). */
+function formatClock(date) {
   try {
-    const tag = locale === 'ar' ? 'ar' : locale === 'sw' ? 'sw' : 'en'
-    return new Intl.DateTimeFormat(tag, {
+    return new Intl.DateTimeFormat(undefined, {
       hour: 'numeric',
       minute: '2-digit',
     }).format(date)
   } catch {
-    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+    return date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })
   }
 }
 

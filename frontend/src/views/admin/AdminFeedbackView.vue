@@ -71,6 +71,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import { formatDate } from '@/utils/datetime'
 
 const rows = ref([])
 const loading = ref(true)
@@ -89,11 +90,6 @@ function displayName(u) {
 function initials(u) {
   const name = u ? (u.full_name || u.email || '?') : '?'
   return name.trim().charAt(0).toUpperCase()
-}
-
-function formatDate(iso) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
 async function load() {

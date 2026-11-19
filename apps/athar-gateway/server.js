@@ -1,7 +1,8 @@
 /**
  * Athar Al 'Ilm sources gateway.
  * Proxies QuranEnc, HadeethEnc, IslamHouse, fawazahmed0/quran-api (CDN),
- * and Quran.com Content API (timing metadata + Salafi tafsir text only).
+ * Quran.com Content API (timing metadata + Salafi tafsir text only),
+ * and UmmahAPI hadith kutub (allowlisted collections only).
  * No HTML scrape; JSON only.
  * Keys: Admin → Integrations (via ATHAR_KEYS_URL) preferred; env fallback.
  * shortcut: no cache layer yet — add Redis when traffic warrants it.
@@ -38,7 +39,22 @@ const UPSTREAM = {
   quranapiFallback: "https://raw.githubusercontent.com/fawazahmed0/quran-api/1",
   // Technical audio timestamps + Al-Sa'di tafsir delivery (not a mushaf source).
   qurancom: "https://api.quran.com/api/v4",
+  // Kutub shelf only — not a Salafi encyclopedia; grade ≠ Dorar hukm.
+  ummah: "https://ummahapi.com/api",
 };
+
+/** Classical kutub (+ Nawawi/Qudsi 40). Skip dehlawi / search / random. */
+const UMMAH_HADITH_COLLECTIONS = new Set([
+  "bukhari",
+  "muslim",
+  "abudawud",
+  "tirmidhi",
+  "ibnmajah",
+  "nasai",
+  "malik",
+  "nawawi",
+  "qudsi",
+]);
 
 let keysCache = { islamhouse: "", dorar: "", fetchedAt: 0 };
 
@@ -170,6 +186,21 @@ function buildUpstream(kind, path, searchParams, keys) {
     if (!allowed) return null;
     const u = new URL(`${UPSTREAM.qurancom}${p}`);
     searchParams.forEach((v, k) => u.searchParams.set(k, v));
+    return u.toString();
+  }
+  if (kind === "ummah_hadith") {
+    const p = path.startsWith("/") ? path : `/${path}`;
+    if (p === "/collections") {
+      return `${UPSTREAM.ummah}/hadith/collections`;
+    }
+    const m = p.match(/^\/([a-z]+)(?:\/([0-9]+(?:\.[0-9]+)?))?$/);
+    if (!m || !UMMAH_HADITH_COLLECTIONS.has(m[1])) return null;
+    const u = new URL(
+      `${UPSTREAM.ummah}/hadith/${m[1]}${m[2] ? `/${m[2]}` : ""}`,
+    );
+    for (const key of ["page", "limit"]) {
+      if (searchParams.has(key)) u.searchParams.set(key, searchParams.get(key));
+    }
     return u.toString();
   }
   return null;
@@ -304,6 +335,7 @@ const server = http.createServer(async (req, res) => {
           "dorar",
           "quranapi",
           "qurancom",
+          "ummah_hadith",
           "muaalem",
         ],
         dorar: keys.dorar ? "configured" : "token_required",
@@ -342,6 +374,47 @@ const server = http.createServer(async (req, res) => {
     );
   }
 
+  // UmmahAPI kutub shelf (allowlisted collections only).
+  const ummahHadith = pathname.match(/^\/v1\/ummah\/hadith(\/.*)?$/);
+  if (ummahHadith) {
+    const path = ummahHadith[1] || "/";
+    const upstream = buildUpstream(
+      "ummah_hadith",
+      path,
+      url.searchParams,
+      keys,
+    );
+    if (!upstream) {
+      return json(res, 403, { error: "path_not_allowed", source: "ummah_hadith" }, req);
+    }
+    try {
+      const out = await fetchUpstream(upstream);
+      return json(
+        res,
+        out.ok ? 200 : out.status,
+        {
+          source: "ummah_hadith",
+          upstream_status: out.status,
+          data: out.data,
+          advisory:
+            "Kutub text via UmmahAPI. Collection-level grade is not Dorar hukm. HadeethEnc remains the curated encyclopedia (C-SRC).",
+        },
+        req,
+      );
+    } catch (err) {
+      return json(
+        res,
+        502,
+        {
+          error: "upstream_failed",
+          source: "ummah_hadith",
+          message: err instanceof Error ? err.message : String(err),
+        },
+        req,
+      );
+    }
+  }
+
   // /v1/quran/...  /v1/hadeeth/...  /v1/islamhouse/...  /v1/quranapi/...  /v1/qurancom/...
   const m = pathname.match(/^\/v1\/(quran|hadeeth|islamhouse|quranapi|qurancom)(\/.*)?$/);
   if (!m) {
@@ -350,7 +423,7 @@ const server = http.createServer(async (req, res) => {
       404,
       {
         error: "not_found",
-        hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, POST /v1/muaalem/correct-recitation, /v1/dorar/status, /health",
+        hint: "GET /v1/quran/*, /v1/hadeeth/*, /v1/islamhouse/*, /v1/quranapi/*, /v1/qurancom/*, /v1/ummah/hadith/*, POST /v1/muaalem/correct-recitation, /v1/dorar/status, /health",
       },
       req,
     );

@@ -179,6 +179,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import { formatDate } from '@/utils/datetime'
 
 const users = ref([])
 const roles = ref([])
@@ -231,13 +232,6 @@ const paged = computed(() => sorted.value.slice((currentPage.value - 1) * pageSi
 watch([searchQuery, roleFilter, statusFilter, sortBy], () => { currentPage.value = 1 })
 watch(totalPages, (tp) => { if (currentPage.value > tp) currentPage.value = tp })
 function goToPage(p) { currentPage.value = Math.min(Math.max(1, p), totalPages.value) }
-
-function formatDate(iso) {
-  if (!iso) return '—'
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return '—'
-  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
-}
 
 function apiError(e, fallback) {
   return e?.response?.data?.role || e?.response?.data?.is_active || e?.response?.data?.detail || fallback

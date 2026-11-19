@@ -428,6 +428,7 @@ import {
 } from 'chart.js'
 import { adminApi } from '@/api/admin'
 import { useFeaturesStore } from '@/stores/features'
+import { formatChartDay, formatDateTime } from '@/utils/datetime'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
@@ -455,7 +456,7 @@ const statsDays = ref(30)
 const readersData = computed(() => {
   const series = trackStats.value?.readers_series || []
   return {
-    labels: series.map(p => new Date(p.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })),
+    labels: series.map(p => formatChartDay(p.date)),
     datasets: [{
       label: 'Readers',
       data: series.map(p => p.count),
@@ -481,7 +482,7 @@ const chartOptions = {
 }
 
 function formatLastOpened(iso) {
-  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+  return formatDateTime(iso, { year: undefined })
 }
 
 async function loadStats() {

@@ -246,12 +246,13 @@ import { useAuthStore } from '@/stores/auth'
 import { useProgressStore } from '@/stores/progress'
 import { useFeaturesStore } from '@/stores/features'
 import { useBadgesStore } from '@/stores/badges'
+import { formatDate } from '@/utils/datetime'
 
 const auth = useAuthStore()
 const progress = useProgressStore()
 const features = useFeaturesStore()
 const badges = useBadgesStore()
-const { t, locale } = useI18n()
+const { t } = useI18n()
 
 const loading = ref(true)
 const trackStats = ref({})
@@ -284,10 +285,7 @@ const lastActivityLabel = computed(() => {
 
 const lastActivityDate = computed(() => {
   if (!progress.lastActivity) return null
-  return parseLocalDate(progress.lastActivity).toLocaleDateString(
-    locale.value === 'ar' ? 'ar-SA' : 'en-US',
-    { month: 'short', day: 'numeric', year: 'numeric' }
-  )
+  return formatDate(parseLocalDate(progress.lastActivity))
 })
 
 // Flame colour scales with streak length

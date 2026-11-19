@@ -230,6 +230,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import { formatDateTime } from '@/utils/datetime'
 
 const items = ref([])
 const tracks = ref([])
@@ -271,8 +272,7 @@ function userLabel(uid) {
 }
 
 function formatDate(iso) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+  return formatDateTime(iso, { year: undefined })
 }
 
 function statusClass(status) {

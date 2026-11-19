@@ -41,6 +41,19 @@ Filter featured books to known Salafi publishers/authors in product UI — API i
 - Requires host env `DORAR_API_KEY`. Without it the gateway returns **501** `dorar_token_required` (no HTML scrape).
 - Upstream adapter ships after an Athar token is issued.
 
+## 4b. UmmahAPI — hadith kutub shelf only
+
+- Base: `https://ummahapi.com/api`
+- Gateway: `GET /athar/v1/ummah/hadith/{path}` (**allowlisted** collections only)
+- Allowed:
+  - `/collections` — list kutub
+  - `/{collection}?page=&limit=` — paginated browse
+  - `/{collection}/{number}` — one narration (decimal numbers ok, e.g. `2787.2`)
+- Collections: `bukhari`, `muslim`, `abudawud`, `tirmidhi`, `ibnmajah`, `nasai`, `malik`, `nawawi`, `qudsi`
+- Blocked: `dehlawi`, `/search`, `/random`, and all non-hadith Ummah services (prayer, zakat, …)
+- Learner UI: `/hadith` → **Books** tab
+- **C-SRC:** HadeethEnc stays the curated encyclopedia. Ummah `grade` is collection/upstream label — **not** Dorar hukm.
+
 ## 5. fawazahmed0/quran-api (learner Quran reader)
 
 - CDN: `https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1`

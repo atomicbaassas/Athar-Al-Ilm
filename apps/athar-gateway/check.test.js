@@ -81,7 +81,27 @@ test("health + quran translations list", async (t) => {
   assert.equal(dorarBody.source, "dorar");
 
   assert.ok(healthBody.sources.includes("muaalem"));
+  assert.ok(healthBody.sources.includes("ummah_hadith"));
   assert.ok(String(healthBody.muaalem || "").includes("8001"));
+
+  const ummahCollections = await fetch(
+    `http://127.0.0.1:${PORT}/v1/ummah/hadith/collections`,
+  );
+  assert.equal(ummahCollections.status, 200);
+  const ummahBody = await ummahCollections.json();
+  assert.equal(ummahBody.source, "ummah_hadith");
+  assert.ok(ummahBody.advisory);
+  assert.ok(ummahBody.data);
+
+  const ummahBlocked = await fetch(
+    `http://127.0.0.1:${PORT}/v1/ummah/hadith/search?q=niyyah`,
+  );
+  assert.equal(ummahBlocked.status, 403);
+
+  const ummahDehlawi = await fetch(
+    `http://127.0.0.1:${PORT}/v1/ummah/hadith/dehlawi/1`,
+  );
+  assert.equal(ummahDehlawi.status, 403);
 
   // Muaalem POST is allowed but returns 502 when local engine is down.
   const muaalem = await fetch(

@@ -101,6 +101,7 @@ import {
   LineElement, BarElement, Tooltip, Filler,
 } from 'chart.js'
 import { adminApi } from '@/api/admin'
+import { formatChartDay } from '@/utils/datetime'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Filler)
 
@@ -112,7 +113,7 @@ const days = ref(30)
 const BRAND = '#0B3D2E'
 
 function shortDate(iso) {
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+  return formatChartDay(iso)
 }
 
 const signupsData = computed(() => {

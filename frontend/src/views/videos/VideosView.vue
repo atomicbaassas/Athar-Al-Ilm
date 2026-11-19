@@ -166,6 +166,7 @@
 import { ref, onMounted } from 'vue'
 import { videosApi } from '@/api/videos'
 import { useSeo } from '@/composables/useSeo'
+import { formatDate } from '@/utils/datetime'
 
 useSeo({
   title: 'Videos — Athar Al \'Ilm',
@@ -177,12 +178,6 @@ const loading       = ref(true)
 const error         = ref('')
 const notConfigured = ref(false)
 const nextPageToken = ref(null)
-
-function formatDate(iso) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })
-}
 
 async function fetchPage(pageToken = '') {
   loading.value = true

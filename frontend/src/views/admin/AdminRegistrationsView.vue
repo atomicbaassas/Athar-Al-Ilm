@@ -156,6 +156,7 @@
 <script setup>
 import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { adminApi } from '@/api/admin'
+import { formatDateTime, formatEventLocal } from '@/utils/datetime'
 
 const registrations = ref([])
 const loading = ref(true)
@@ -203,17 +204,7 @@ function eventIso() {
 
 const previewLabel = computed(() => {
   const iso = eventIso()
-  const d = iso ? new Date(iso) : null
-  if (!d || Number.isNaN(d.getTime())) return '—'
-  const sign = settingsForm.offset[0] === '-' ? -1 : 1
-  const oh = parseInt(settingsForm.offset.slice(1, 3), 10)
-  const om = parseInt(settingsForm.offset.slice(4, 6), 10)
-  const label = 'GMT' + (sign < 0 ? '-' : '+') + oh + (om ? ':' + String(om).padStart(2, '0') : '')
-  const wall = new Date(d.getTime() + sign * (oh * 60 + om) * 60000).toLocaleString('en-US', {
-    timeZone: 'UTC', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    hour: 'numeric', minute: '2-digit',
-  })
-  return `${wall} ${label}`
+  return formatEventLocal(iso) || '—'
 })
 
 async function saveSettings() {
@@ -255,9 +246,7 @@ watch(totalPages, (tp) => { if (currentPage.value > tp) currentPage.value = tp }
 function goToPage(p) { currentPage.value = Math.min(Math.max(1, p), totalPages.value) }
 
 function formatDate(iso) {
-  if (!iso) return '—'
-  const d = new Date(iso)
-  return Number.isNaN(d.getTime()) ? '—' : d.toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' })
+  return formatDateTime(iso)
 }
 
 function exportCsv() {

@@ -43,7 +43,7 @@
           <time
             class="prayer-card__slot-time"
             :datetime="row.at.toISOString()"
-          >{{ formatClock(row.at, locale) }}</time>
+          >{{ formatClock(row.at) }}</time>
         </li>
       </ul>
 
@@ -104,7 +104,7 @@
 import { useI18n } from 'vue-i18n'
 import { usePrayerTimes } from '@/composables/usePrayerTimes'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const {
   schedule,
   prayerRows,
