@@ -1,7 +1,7 @@
 # HANDOFF — Athar Al 'Ilm (Tadabbur)
 
-**Date:** 2026-11-17  
-**Branch:** `main` only (no feature branches / no git worktrees)  
+**Date:** 2026-11-19  
+**Branch:** develop on `feat/` / `fix/` / `chore/`; **deploy from `origin/main` only**  
 **Workspace:** `~/AIO Devs/Athar Alilm`
 
 ## Decision
@@ -14,6 +14,16 @@ Product base is **Athar Al 'Ilm / Tadabbur** (Vue 3 + Django 5 + Mongo) + Salafi
 - Host nginx `atharulilm` proxies `/` → `:8080` (upstream `atharulilm_app`)
 - Gateway `/athar/` → `:9091`; secrets in `/root/.athar-secrets/`
 - Public site: Cloudflare `atharulilm.or.tz`
+- App deploy: `./deploy/contabo/deploy-tadabbur.sh` (ff-only pull of `main`)
+
+## 2026-11-19 — UX hard-gate audit (ship on `main`)
+
+- `.ux-profile.md` + CLAUDE/AGENTS UI rules; page-pattern comments on routes.
+- Canvas `#f9fafb`, type weight ≤600, sub-12px → `text-xs`, 44px hit targets.
+- Auth/launch + admin editors: blur validation (`useFieldErrors`).
+- Icon actions: PrimeVue `v-tooltip` + `IconButton.vue`; empties via `EmptyState.vue`.
+- EN/AR/SW copy parity for curriculum/dashboard empty/filter strings.
+- Branch history: `chore/ux-audit-hard-gate` → merge to `main` then Contabo deploy.
 
 ## 2026-11-16 — LearnHouse removed
 

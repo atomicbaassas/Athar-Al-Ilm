@@ -11,12 +11,16 @@ Athar Al 'Ilm is a **Tadabbur MIT fork** + Salafi content gateway. Canonical rem
 | Path | Role |
 |---|---|
 | `AGENTS.md` | Agent entry |
-| `HANDOFF.md` | Cutover / what not to delete |
+| `HANDOFF.md` | Cutover / live Contabo / what not to delete |
+| `.ux-profile.md` | UI taste, bans, a11y, icons, voice |
 | `docs/ENGINEERING_CONTRACTS.md` | Binding C-* |
 | `docs/SOURCES_SALAFI.md` | Allowed APIs |
 | `apps/athar-gateway/` | Salafi JSON proxy |
 | `frontend/` | Vue learner + admin |
+| `frontend/src/components/common/EmptyState.vue` | Shared empty / filtered-zero |
+| `frontend/src/composables/useFieldErrors.js` | Blur-first form errors |
 | `backend/` | Django API / curriculum |
+| `deploy/contabo/deploy-tadabbur.sh` | Prod app deploy |
 | `docker-compose.dev.yml` | Local stack |
 
 ## Do not

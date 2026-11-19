@@ -18,7 +18,15 @@ Islamic educational platform on a **Tadabbur MIT fork** (Vue + Django), branded 
 | API / curriculum | `backend/` (Django 5 + DRF + MongoDB) |
 | Salafi JSON proxy | `apps/athar-gateway` (Node 20+, no deps) |
 | Local compose | `docker-compose.dev.yml` |
-| Prod host (planned) | Contabo `contabo` + Cloudflare `atharulilm.or.tz` |
+| Prod host | Contabo `contabo` + Cloudflare `atharulilm.or.tz` |
+| UX profile | `.ux-profile.md` (Stripe taste, brand `#0B3D2E`, PrimeIcons, Warm & Humancentric) |
+
+## UI / UX
+
+- Read `.ux-profile.md` before layout, copy, or interaction changes.
+- New page → name a `page-patterns` pattern before markup; finish with `ux-audit`.
+- Shared UI helpers: `EmptyState.vue`, `IconButton.vue` (PrimeVue `v-tooltip`), `useFieldErrors.js`.
+- Learner + admin strings: EN / AR / SW (`frontend/src/i18n/`).
 
 ## Commands
 
@@ -34,6 +42,12 @@ cd apps/athar-gateway && npm run check
 cd apps/athar-cli && node bin/athar.js practice --help
 cd apps/athar-cli && node bin/athar.js practice status --json
 cd apps/athar-cli && node bin/athar.js practice correct --file ./a.wav --surah 1 --ayah 1 --json
+
+# Contabo app deploy (pulls origin/main into /opt/athar-tadabbur)
+./deploy/contabo/deploy-tadabbur.sh
+
+# Contabo gateway (only when gateway code or host nginx /athar changes)
+./deploy/contabo/deploy-gateway.sh
 ```
 
 ## Read next
@@ -42,5 +56,6 @@ cd apps/athar-cli && node bin/athar.js practice correct --file ./a.wav --surah 1
 |---|---|
 | `docs/ENGINEERING_CONTRACTS.md` | Binding C-* rules |
 | `docs/SOURCES_SALAFI.md` | Allowed APIs |
-| `HANDOFF.md` | Cutover state |
+| `HANDOFF.md` | Cutover / live Contabo state |
+| `.ux-profile.md` | UI taste, bans, a11y, icons |
 | `README.md` | Upstream Athar Al 'Ilm setup |
