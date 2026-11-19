@@ -14,22 +14,22 @@
             <span class="drag-handle cursor-grab active:cursor-grabbing text-gray-300 hover:text-gray-500" title="Drag to reorder">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M7 4a1 1 0 100 2 1 1 0 000-2zM7 9a1 1 0 100 2 1 1 0 000-2zM7 14a1 1 0 100 2 1 1 0 000-2zM13 4a1 1 0 100 2 1 1 0 000-2zM13 9a1 1 0 100 2 1 1 0 000-2zM13 14a1 1 0 100 2 1 1 0 000-2z"/></svg>
             </span>
-            <span class="text-[11px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full" :class="EMAIL_BLOCK_BADGE_CLASSES[block.type]">
+            <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full" :class="EMAIL_BLOCK_BADGE_CLASSES[block.type]">
               {{ block.type }}
             </span>
             <span class="text-xs text-gray-400">#{{ idx + 1 }}</span>
             <div class="flex-1" />
             <div class="flex items-center gap-1">
               <button type="button" @click="moveBlock(idx, -1)" :disabled="idx === 0"
-                class="w-7 h-7 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
+                class="min-h-11 min-w-11 w-11 h-11 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
               </button>
               <button type="button" @click="moveBlock(idx, 1)" :disabled="idx === blocks.length - 1"
-                class="w-7 h-7 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
+                class="min-h-11 min-w-11 w-11 h-11 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </button>
               <button type="button" @click="removeBlock(idx)"
-                class="w-7 h-7 flex items-center justify-center rounded-lg text-red-300 hover:text-red-500 hover:bg-red-50 transition-colors ml-1">
+                class="min-h-11 min-w-11 w-11 h-11 flex items-center justify-center rounded-lg text-red-300 hover:text-red-500 hover:bg-red-50 transition-colors ml-1">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
               </button>
             </div>

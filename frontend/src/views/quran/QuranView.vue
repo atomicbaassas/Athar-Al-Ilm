@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Split Pane -->
   <div
     class="quran-page min-h-screen overflow-x-hidden"
     :class="[
@@ -11,7 +12,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-2 sm:pt-8 sm:pb-4">
       <div class="flex items-baseline justify-between gap-3 mb-4">
         <div class="min-w-0">
-          <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight text-balance">
+          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 tracking-tight text-balance">
             {{ t('quran.title') }}
           </h1>
           <p class="mt-0.5 text-sm text-gray-500 max-w-lg text-pretty">
@@ -70,14 +71,14 @@
 
         <button
           type="button"
-          class="inline-flex items-center justify-center min-h-11 min-w-11 rounded-xl text-xs font-bold
+          class="inline-flex items-center justify-center min-h-11 min-w-11 rounded-xl text-xs font-semibold
                  tracking-wide touch-manipulation shrink-0 transition-colors"
           :class="translationLang === 'none'
             ? 'border border-gray-200 text-gray-600 hover:border-brand/30 hover:text-brand'
             : 'bg-brand text-white'"
           :aria-label="`${translationToggleLabel}: ${translationToggleTitle}`"
           :aria-pressed="translationLang !== 'none' ? 'true' : 'false'"
-          :title="translationToggleTitle"
+
           @click="cycleTranslationLang"
         >
           {{ translationToggleLabel }}
@@ -205,7 +206,7 @@
                 @click="selectChapter(s.chapter)"
               >
                 <span
-                  class="w-8 h-8 rounded-lg text-xs font-bold flex items-center justify-center shrink-0"
+                  class="w-8 h-8 rounded-lg text-xs font-semibold flex items-center justify-center shrink-0"
                   :class="selectedChapter === s.chapter ? 'bg-brand text-white' : 'bg-white border border-gray-200 text-gray-500'"
                 >
                   {{ s.chapter }}
@@ -214,7 +215,7 @@
                   <span class="block text-sm font-semibold truncate">{{ s.englishname || s.name }}</span>
                   <span class="block text-xs text-gray-400 truncate font-arabic" dir="rtl">{{ s.arabicname }}</span>
                 </span>
-                <span class="text-[10px] text-gray-400 shrink-0 tabular-nums">{{ verseCount(s) }}</span>
+                <span class="text-xs text-gray-400 shrink-0 tabular-nums">{{ verseCount(s) }}</span>
               </button>
             </li>
             <li v-if="!filteredSurahs.length" class="p-4 text-sm text-gray-400">
@@ -237,7 +238,7 @@
         <div v-else>
           <header class="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div class="min-w-0">
-              <h2 class="text-xl font-bold text-gray-900 truncate">
+              <h2 class="text-xl font-semibold text-gray-900 truncate">
                 {{ activeSurah?.englishname || activeSurah?.name }}
                 <span class="ms-2 text-base font-normal text-gray-500 font-arabic" dir="rtl">{{ activeSurah?.arabicname }}</span>
               </h2>
@@ -288,7 +289,7 @@
               class="scroll-mt-28"
             >
               <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-brand/70 tabular-nums">{{ selectedChapter }}:{{ ayah.verse }}</span>
+                <span class="text-xs font-semibold text-brand/70 tabular-nums">{{ selectedChapter }}:{{ ayah.verse }}</span>
                 <button type="button" class="text-xs font-semibold text-gray-400 hover:text-brand" @click="copyShare(ayah.verse)">
                   {{ t('quran.share') }}
                 </button>
@@ -338,7 +339,7 @@
                   <button
                     v-if="modes.player"
                     type="button"
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full transition-colors touch-manipulation"
+                    class="inline-flex items-center justify-center min-h-11 min-w-11 w-11 h-11 rounded-full transition-colors touch-manipulation"
                     :class="playingVerse === ayah.verse && isPlaying
                         ? 'bg-brand text-white'
                         : 'text-gray-500 hover:bg-gray-100 hover:text-brand'"
@@ -437,7 +438,7 @@
       <div class="max-w-6xl mx-auto flex items-center gap-1.5 sm:gap-2 min-w-0">
         <button
           type="button"
-          class="inline-flex items-center justify-center w-10 h-10 rounded-full text-gray-500
+          class="inline-flex items-center justify-center min-h-11 min-w-11 w-11 h-11 rounded-full text-gray-500
                  touch-manipulation disabled:opacity-35 shrink-0 hover:bg-gray-100"
           :aria-label="t('quran.prevAyah')"
           :disabled="!playingVerse || playingVerse <= 1 || practiceBlocksNav"
@@ -472,7 +473,7 @@
 
         <button
           type="button"
-          class="inline-flex items-center justify-center w-10 h-10 rounded-full text-gray-500
+          class="inline-flex items-center justify-center min-h-11 min-w-11 w-11 h-11 rounded-full text-gray-500
                  touch-manipulation disabled:opacity-35 shrink-0 hover:bg-gray-100"
           :aria-label="t('quran.nextAyah')"
           :disabled="!playingVerse || playingVerse >= ayahs.length || !canAdvancePractice"

@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: Split Pane -->
   <div class="min-h-screen bg-[#f7faf8] pb-24">
     <header class="sticky top-0 z-20 border-b border-gray-100/90 bg-[#f7faf8]/95 backdrop-blur-md">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 pb-3 space-y-3">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div class="min-w-0">
-            <h1 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">
+            <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 tracking-tight">
               {{ t('hadith.title') }}
             </h1>
             <p class="mt-0.5 text-sm text-gray-500 text-pretty max-w-xl">
@@ -235,13 +236,13 @@
                 <div class="flex flex-wrap items-center gap-2">
                   <span
                     v-if="selected.grade || selected.grade_ar"
-                    class="inline-flex items-center min-h-8 px-2.5 rounded-lg bg-brand-muted text-brand text-xs font-bold"
+                    class="inline-flex items-center min-h-8 px-2.5 rounded-lg bg-brand-muted text-brand text-xs font-semibold"
                   >
                     {{ selected.grade || selected.grade_ar }}
                   </span>
                   <span v-if="activeCategoryTitle" class="text-xs text-gray-400">{{ activeCategoryTitle }}</span>
                 </div>
-                <h2 class="text-xl sm:text-2xl font-black text-gray-900 tracking-tight text-pretty">
+                <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 tracking-tight text-pretty">
                   {{ selected.title }}
                 </h2>
                 <p v-if="topicNarrator" class="text-sm text-gray-600">
@@ -252,7 +253,7 @@
 
               <div class="px-5 sm:px-8 py-5 sm:py-7 space-y-7">
                 <section v-if="topicArabic" aria-labelledby="topic-ar-label">
-                  <h3 id="topic-ar-label" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-3">
+                  <h3 id="topic-ar-label" class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
                     {{ t('hadith.arabicLabel') }}
                   </h3>
                   <div class="rounded-2xl bg-[#f4f7f5] px-4 sm:px-5 py-4 sm:py-5">
@@ -265,7 +266,7 @@
                 </section>
 
                 <section v-if="topicTranslation" aria-labelledby="topic-tr-label">
-                  <h3 id="topic-tr-label" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-3">
+                  <h3 id="topic-tr-label" class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
                     {{ t('hadith.translationLabel') }}
                   </h3>
                   <p class="text-base sm:text-lg leading-relaxed text-gray-800 whitespace-pre-wrap text-pretty">
@@ -278,7 +279,7 @@
                   class="pt-6 border-t border-gray-100"
                   aria-labelledby="topic-exp-label"
                 >
-                  <h3 id="topic-exp-label" class="text-sm font-bold text-gray-800 mb-2">
+                  <h3 id="topic-exp-label" class="text-sm font-semibold text-gray-800 mb-2">
                     {{ t('hadith.explanation') }}
                   </h3>
                   <p class="text-sm sm:text-base leading-relaxed text-gray-600 whitespace-pre-wrap text-pretty">
@@ -303,7 +304,7 @@
                   @click="openOne(item.id)"
                 >
                   <span class="flex gap-3 items-start">
-                    <span class="shrink-0 w-8 text-xs font-bold tabular-nums text-gray-300 pt-1 group-hover:text-brand/50">
+                    <span class="shrink-0 w-8 text-xs font-semibold tabular-nums text-gray-300 pt-1 group-hover:text-brand/50">
                       {{ idx + 1 }}
                     </span>
                     <span class="min-w-0 flex-1">
@@ -368,18 +369,18 @@
             <div class="rounded-2xl bg-white border border-gray-100 overflow-hidden">
               <header class="px-5 sm:px-8 pt-5 sm:pt-7 pb-4 border-b border-gray-50 space-y-3">
                 <div class="flex flex-wrap items-center gap-2">
-                  <span class="inline-flex items-center min-h-8 px-2.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-bold tabular-nums">
+                  <span class="inline-flex items-center min-h-8 px-2.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-semibold tabular-nums">
                     #{{ bookSelected.hadithnumber }}
                   </span>
                   <span
                     v-if="bookSelected.grade"
-                    class="inline-flex items-center min-h-8 px-2.5 rounded-lg bg-brand-muted text-brand text-xs font-bold"
+                    class="inline-flex items-center min-h-8 px-2.5 rounded-lg bg-brand-muted text-brand text-xs font-semibold"
                   >
                     {{ bookSelected.grade }}
                   </span>
                   <span class="text-xs text-gray-400">{{ bookSelected.collection_name || activeBookName }}</span>
                 </div>
-                <h2 class="text-lg sm:text-xl font-black text-gray-900 tracking-tight">
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-900 tracking-tight">
                   {{ t('hadith.narrationN', { n: bookSelected.hadithnumber }) }}
                 </h2>
                 <p v-if="bookNarrator" class="text-sm text-gray-600">
@@ -390,7 +391,7 @@
 
               <div class="px-5 sm:px-8 py-5 sm:py-7 space-y-7">
                 <section v-if="bookSelected.arabic" aria-labelledby="book-ar-label">
-                  <h3 id="book-ar-label" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-3">
+                  <h3 id="book-ar-label" class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
                     {{ t('hadith.arabicLabel') }}
                   </h3>
                   <div class="rounded-2xl bg-[#f4f7f5] px-4 sm:px-5 py-4 sm:py-5">
@@ -403,7 +404,7 @@
                 </section>
 
                 <section v-if="bookSelected.english" aria-labelledby="book-en-label">
-                  <h3 id="book-en-label" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-3">
+                  <h3 id="book-en-label" class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
                     {{ t('hadith.translationLabel') }}
                   </h3>
                   <p class="text-base sm:text-lg leading-relaxed text-gray-800 whitespace-pre-wrap text-pretty">
@@ -428,7 +429,7 @@
                   @click="openBookHadith(item.hadithnumber)"
                 >
                   <span class="flex gap-3 items-start">
-                    <span class="shrink-0 min-w-[2.5rem] text-xs font-bold tabular-nums text-brand pt-0.5">
+                    <span class="shrink-0 min-w-[2.5rem] text-xs font-semibold tabular-nums text-brand pt-0.5">
                       #{{ item.hadithnumber }}
                     </span>
                     <span class="min-w-0 flex-1 space-y-2">
@@ -450,7 +451,7 @@
                       >{{ stripNarratorPrefix(item.english) }}</span>
                       <span
                         v-if="item.grade"
-                        class="inline-flex text-[0.65rem] font-bold uppercase tracking-wide text-brand/80 bg-brand-muted px-2 py-0.5 rounded"
+                        class="inline-flex text-xs font-semibold uppercase tracking-wide text-brand/80 bg-brand-muted px-2 py-0.5 rounded"
                       >{{ item.grade }}</span>
                     </span>
                     <span class="shrink-0 text-gray-300 group-hover:text-brand mt-1 text-lg" aria-hidden="true">›</span>

@@ -1,8 +1,9 @@
 <template>
+  <!-- Pattern: Form (auth) -->
   <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-900">{{ t('auth.login.title') }}</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">{{ t('auth.login.title') }}</h1>
         <p class="text-gray-500 mt-1">{{ t('auth.login.subtitle') }}</p>
       </div>
 
@@ -21,8 +22,12 @@
               required
               autocomplete="email"
               class="w-full px-4 py-2.5 text-base border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              :class="{ 'border-red-400': fieldErrors.email }"
               :placeholder="t('auth.login.emailPlaceholder')"
+              @blur="validateEmail"
+              @input="clearFieldError('email')"
             />
+            <p v-if="fieldErrors.email" class="text-red-600 text-xs mt-1">{{ fieldErrors.email }}</p>
           </div>
 
           <div>
@@ -38,8 +43,12 @@
               required
               autocomplete="current-password"
               class="w-full px-4 py-2.5 text-base border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              :class="{ 'border-red-400': fieldErrors.password }"
               :placeholder="t('auth.login.passwordPlaceholder')"
+              @blur="validatePassword"
+              @input="clearFieldError('password')"
             />
+            <p v-if="fieldErrors.password" class="text-red-600 text-xs mt-1">{{ fieldErrors.password }}</p>
           </div>
 
           <button
@@ -77,15 +86,32 @@ const { t } = useI18n()
 const form = ref({ email: '', password: '' })
 const loading = ref(false)
 const error = ref('')
+const fieldErrors = ref({ email: '', password: '' })
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+function clearFieldError(field) {
+  if (fieldErrors.value[field]) fieldErrors.value[field] = ''
+  if (error.value) error.value = ''
+}
+
+function validateEmail() {
+  fieldErrors.value.email = EMAIL_RE.test(form.value.email.trim())
+    ? ''
+    : t('auth.login.error')
+}
+
+function validatePassword() {
+  fieldErrors.value.password = form.value.password
+    ? ''
+    : t('auth.login.error')
+}
+
 async function handleLogin() {
   error.value = ''
-  if (!EMAIL_RE.test(form.value.email.trim())) {
-    error.value = t('auth.login.error')
-    return
-  }
+  validateEmail()
+  validatePassword()
+  if (fieldErrors.value.email || fieldErrors.value.password) return
   loading.value = true
   try {
     await auth.login(form.value.email, form.value.password)

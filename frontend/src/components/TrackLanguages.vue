@@ -7,11 +7,11 @@
       v-for="l in shown"
       :key="l.code"
       :dir="l.rtl ? 'rtl' : 'ltr'"
-      class="text-[10px] leading-none font-medium bg-emerald-50 text-emerald-700 border border-emerald-100 px-1.5 py-1 rounded-full"
+      class="text-xs leading-none font-medium bg-emerald-50 text-emerald-700 border border-emerald-100 px-1.5 py-1 rounded-full"
     >
       {{ l.native_name || l.name }}
     </span>
-    <span v-if="extra > 0" class="text-[10px] text-gray-400">+{{ extra }}</span>
+    <span v-if="extra > 0" class="text-xs text-gray-400">+{{ extra }}</span>
   </div>
 </template>
 

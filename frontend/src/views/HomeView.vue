@@ -1,4 +1,5 @@
 ﻿<template>
+  <!-- Pattern: Marketing — home -->
   <div class="home-page overflow-hidden">
 
     <!-- ══════════════════════════════════════════════════════════════ -->
@@ -43,7 +44,7 @@
             data-h-badge
             class="inline-flex items-center gap-2.5 bg-white/[0.04] border border-white/[0.1] rounded-full px-4 py-2 mb-8"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-brand-light animate-pulse"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-light"></span>
             <p class="arabic-text text-base text-brand-light leading-none" style="line-height:1.2;">
               وَقُل رَّبِّ زِدْنِي عِلْمًا
             </p>
@@ -51,7 +52,7 @@
           </div>
 
           <!-- Headline -->
-          <h1 class="font-black tracking-tight leading-[0.95] text-white mb-6" style="font-size: clamp(2.8rem, 6vw, 5rem);">
+          <h1 class="font-semibold tracking-tight leading-[0.95] text-white mb-6" style="font-size: clamp(2.8rem, 6vw, 5rem);">
             <span data-h-line class="block">Structured</span>
             <span data-h-line class="block" style="background: linear-gradient(135deg, #ffffff 30%, #3d65e8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Islamic</span>
             <span data-h-line class="block">Learning.</span>
@@ -114,7 +115,7 @@
                 <span class="w-3 h-3 rounded-full" style="background:#febc2e;"></span>
                 <span class="w-3 h-3 rounded-full" style="background:#28c840;"></span>
               </div>
-              <div class="flex-1 rounded-md px-3 py-1 text-[11px] font-mono"
+              <div class="flex-1 rounded-md px-3 py-1 text-xs font-mono"
                    style="background:#0a0a0f; color:rgba(255,255,255,0.25);">
                 atharulilm.or.tz/learn
               </div>
@@ -124,7 +125,7 @@
             <!-- App header -->
             <div class="flex items-center justify-between px-4 py-2.5 border-b"
                  style="background:#0e0e14; border-color:rgba(255,255,255,0.05);">
-              <span class="text-white text-sm font-bold">Athar Al 'Ilm</span>
+              <span class="text-white text-sm font-semibold">Athar Al 'Ilm</span>
               <div class="hidden sm:flex gap-5 text-xs" style="color:rgba(255,255,255,0.35);">
                 <span style="color:rgba(255,255,255,0.75);">Learn</span>
                 <span>Dashboard</span>
@@ -141,7 +142,7 @@
                 <p class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">
                   Islamic Curriculum
                 </p>
-                <p class="text-[10px]" style="color:rgba(255,255,255,0.2);">3 tracks available</p>
+                <p class="text-xs" style="color:rgba(255,255,255,0.2);">3 tracks available</p>
               </div>
 
               <!-- Track cards -->
@@ -152,7 +153,7 @@
                     <svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                   </div>
                   <p class="text-xs font-semibold leading-tight mb-0.5" style="color:rgba(255,255,255,0.9);">Quran Sciences</p>
-                  <p class="text-[10px] mb-2" style="color:rgba(255,255,255,0.3);">12 subjects</p>
+                  <p class="text-xs mb-2" style="color:rgba(255,255,255,0.3);">12 subjects</p>
                   <div class="w-full rounded-full h-1" style="background:rgba(255,255,255,0.06);">
                     <div data-hero-progress class="h-1 rounded-full" style="width:0%;background:#0B3D2E;"></div>
                   </div>
@@ -163,7 +164,7 @@
                     <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"/></svg>
                   </div>
                   <p class="text-xs font-semibold leading-tight mb-0.5" style="color:rgba(255,255,255,0.9);">Islamic Fiqh</p>
-                  <p class="text-[10px] mb-2" style="color:rgba(255,255,255,0.3);">8 subjects</p>
+                  <p class="text-xs mb-2" style="color:rgba(255,255,255,0.3);">8 subjects</p>
                   <div class="w-full rounded-full h-1" style="background:rgba(255,255,255,0.06);"></div>
                 </div>
 
@@ -172,7 +173,7 @@
                     <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
                   </div>
                   <p class="text-xs font-semibold leading-tight mb-0.5" style="color:rgba(255,255,255,0.9);">Aqeedah</p>
-                  <p class="text-[10px] mb-2" style="color:rgba(255,255,255,0.3);">6 subjects</p>
+                  <p class="text-xs mb-2" style="color:rgba(255,255,255,0.3);">6 subjects</p>
                   <div class="w-full rounded-full h-1" style="background:rgba(255,255,255,0.06);"></div>
                 </div>
 
@@ -180,15 +181,15 @@
 
               <!-- Recent lesson -->
               <div data-hero-lesson-row class="rounded-xl p-3" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);">
-                <p class="text-[10px] uppercase tracking-wider font-medium mb-2" style="color:rgba(255,255,255,0.25);">
+                <p class="text-xs uppercase tracking-wider font-medium mb-2" style="color:rgba(255,255,255,0.25);">
                   Continue Learning
                 </p>
                 <div class="flex items-center gap-2.5">
-                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0"
+                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
                        style="background:rgba(35,78,204,0.2); color:#3d65e8;">3</div>
                   <div class="flex-1 min-w-0">
                     <p class="text-xs font-medium truncate" style="color:rgba(255,255,255,0.8);">Sources of Islamic Law</p>
-                    <p class="text-[10px]" style="color:rgba(255,255,255,0.25);">Lesson 3 of 12 · 15 min</p>
+                    <p class="text-xs" style="color:rgba(255,255,255,0.25);">Lesson 3 of 12 · 15 min</p>
                   </div>
                   <div class="w-5 h-5 rounded-full shrink-0 flex items-center justify-center"
                        style="background:rgba(35,78,204,0.2);">
@@ -205,7 +206,7 @@
           <!-- Floating badge -->
           <div data-hero-badge-success class="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-6 bg-emerald-900/80 backdrop-blur-sm border border-emerald-500/30 rounded-xl px-3 py-2 shadow-xl hidden sm:block">
             <div class="flex items-center gap-2">
-              <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></div>
+              <div class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></div>
               <p class="text-emerald-300 text-xs font-medium">Lesson completed</p>
             </div>
           </div>
@@ -217,8 +218,8 @@
                 <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248ZM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1A5.99 5.99 0 0112 12.75a.75.75 0 01.75.75v.008l-.001.008a3.75 3.75 0 013.001 2.734Z" clip-rule="evenodd"/>
               </svg>
               <div>
-                <p class="text-white text-xs font-bold leading-none">12 day</p>
-                <p class="text-white/40 text-[10px] mt-0.5">streak</p>
+                <p class="text-white text-xs font-semibold leading-none">12 day</p>
+                <p class="text-white/40 text-xs mt-0.5">streak</p>
               </div>
             </div>
           </div>
@@ -228,7 +229,7 @@
 
       <!-- Scroll hint -->
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <span class="text-[10px] tracking-[0.2em] uppercase text-white font-medium">{{ t('home.heroScrollHint') }}</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-white font-medium">{{ t('home.heroScrollHint') }}</span>
         <svg class="w-4 h-4 text-white bounce-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
@@ -253,8 +254,8 @@
             style="border-color:rgba(255,255,255,0.06);"
             :class="[i % 2 === 0 ? 'border-r' : '', i < heroStats.length - 1 ? 'md:border-r' : '']"
           >
-            <p class="text-2xl sm:text-3xl font-black text-white mb-1">{{ item.value }}</p>
-            <p class="text-[11px] font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.35);">{{ item.label }}</p>
+            <p class="text-2xl sm:text-3xl font-semibold text-white mb-1">{{ item.value }}</p>
+            <p class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.35);">{{ item.label }}</p>
           </div>
         </div>
       </div>
@@ -273,7 +274,7 @@
             {{ t('home.diffBadge') }}
             <span class="w-4 h-px bg-brand-light inline-block align-middle ms-2"></span>
           </p>
-          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight mb-4">
+          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight mb-4">
             {{ t('home.diffTitle') }}
           </h2>
           <p data-reveal class="text-white/40 text-lg">{{ t('home.diffSub') }}</p>
@@ -291,7 +292,7 @@
             <div class="icon-circle mb-5" style="background:rgba(35,78,204,0.15);">
               <svg class="w-6 h-6" style="color:#3d65e8;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
             </div>
-            <h3 class="text-white text-xl font-bold mb-2">{{ t('home.diff1Title') }}</h3>
+            <h3 class="text-white text-xl font-semibold mb-2">{{ t('home.diff1Title') }}</h3>
             <p class="text-white/40 text-sm leading-relaxed mb-6">{{ t('home.diff1Desc') }}</p>
             <!-- Hierarchy tree visual -->
             <div class="mt-auto rounded-xl p-4 space-y-2" style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.05);">
@@ -323,7 +324,7 @@
             <div class="icon-circle mb-5" style="background:rgba(5,150,105,0.15);">
               <svg class="w-6 h-6" style="color:#10b981;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
             </div>
-            <h3 class="text-white text-xl font-bold mb-2">{{ t('home.diff2Title') }}</h3>
+            <h3 class="text-white text-xl font-semibold mb-2">{{ t('home.diff2Title') }}</h3>
             <p class="text-white/40 text-sm leading-relaxed mb-6">{{ t('home.diff2Desc') }}</p>
             <!-- Trust badges -->
             <div class="mt-auto space-y-2">
@@ -351,23 +352,23 @@
             <div class="icon-circle mb-5" style="background:rgba(124,58,237,0.15);">
               <svg class="w-6 h-6" style="color:#a78bfa;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
             </div>
-            <h3 class="text-white text-xl font-bold mb-2">{{ t('home.diff3Title') }}</h3>
+            <h3 class="text-white text-xl font-semibold mb-2">{{ t('home.diff3Title') }}</h3>
             <p class="text-white/40 text-sm leading-relaxed mb-6">{{ t('home.diff3Desc') }}</p>
             <!-- Mini quiz mockup -->
             <div class="mt-auto rounded-xl overflow-hidden" style="border:1px solid rgba(255,255,255,0.07);">
               <div class="px-4 py-3" style="background:rgba(0,0,0,0.3);">
-                <p class="text-[10px] uppercase tracking-widest text-white/30 font-semibold mb-1">Quick Check</p>
+                <p class="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">Quick Check</p>
                 <p class="text-xs text-white/60 leading-snug">What are the four main sources of Islamic law?</p>
               </div>
               <div class="p-3 space-y-1.5" style="background:rgba(0,0,0,0.15);">
                 <div class="flex items-center gap-2 rounded-lg px-3 py-2" style="background:rgba(5,150,105,0.12); border:1px solid rgba(5,150,105,0.3);">
-                  <span class="text-[10px] font-bold text-emerald-400">A.</span>
-                  <span class="text-[10px] text-emerald-300">Quran, Sunnah, Ijma, Qiyas</span>
+                  <span class="text-xs font-semibold text-emerald-400">A.</span>
+                  <span class="text-xs text-emerald-300">Quran, Sunnah, Ijma, Qiyas</span>
                   <svg class="w-3 h-3 text-emerald-400 ms-auto shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 </div>
                 <div class="flex items-center gap-2 rounded-lg px-3 py-2" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05);">
-                  <span class="text-[10px] font-bold text-white/25">B.</span>
-                  <span class="text-[10px] text-white/25">Quran, Hadith, Fatwa, Ijtihad</span>
+                  <span class="text-xs font-semibold text-white/25">B.</span>
+                  <span class="text-xs text-white/25">Quran, Hadith, Fatwa, Ijtihad</span>
                 </div>
               </div>
             </div>
@@ -383,7 +384,7 @@
               <svg class="w-6 h-6" style="color:#3d65e8;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <div class="flex items-start justify-between gap-4 mb-2">
-              <h3 class="text-white text-xl font-bold">Arabic & RTL Support</h3>
+              <h3 class="text-white text-xl font-semibold">Arabic & RTL Support</h3>
               <div class="flex gap-1.5 shrink-0">
                 <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(35,78,204,0.15); color:#3d65e8; border:1px solid rgba(35,78,204,0.25);">EN</span>
                 <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(35,78,204,0.25); color:#ffffff; border:1px solid rgba(35,78,204,0.4);">AR</span>
@@ -411,7 +412,7 @@
             <div class="icon-circle mb-5" style="background:rgba(35,78,204,0.15);">
               <svg class="w-6 h-6" style="color:#3d65e8;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
             </div>
-            <h3 class="text-white text-xl font-bold mb-2">Progress Tracking</h3>
+            <h3 class="text-white text-xl font-semibold mb-2">Progress Tracking</h3>
             <p class="text-white/40 text-sm leading-relaxed mb-6">
               Streaks, completion badges, and per-subject progress bars keep you accountable.
             </p>
@@ -419,8 +420,8 @@
             <div class="mt-auto space-y-3">
               <div>
                 <div class="flex justify-between mb-1.5">
-                  <span class="text-[11px] text-white/40">Quran Sciences</span>
-                  <span class="text-[11px] font-bold" style="color:#3d65e8;">34%</span>
+                  <span class="text-xs text-white/40">Quran Sciences</span>
+                  <span class="text-xs font-semibold" style="color:#3d65e8;">34%</span>
                 </div>
                 <div class="w-full rounded-full h-1.5" style="background:rgba(255,255,255,0.06);">
                   <div class="h-1.5 rounded-full" style="width:34%; background:linear-gradient(90deg, #0B3D2E, #3d65e8);"></div>
@@ -428,8 +429,8 @@
               </div>
               <div>
                 <div class="flex justify-between mb-1.5">
-                  <span class="text-[11px] text-white/40">Islamic Fiqh</span>
-                  <span class="text-[11px] font-bold text-white/30">12%</span>
+                  <span class="text-xs text-white/40">Islamic Fiqh</span>
+                  <span class="text-xs font-semibold text-white/30">12%</span>
                 </div>
                 <div class="w-full rounded-full h-1.5" style="background:rgba(255,255,255,0.06);">
                   <div class="h-1.5 rounded-full" style="width:12%; background:rgba(35,78,204,0.5);"></div>
@@ -437,8 +438,8 @@
               </div>
               <div>
                 <div class="flex justify-between mb-1.5">
-                  <span class="text-[11px] text-white/40">Seerah</span>
-                  <span class="text-[11px] font-bold text-white/20">0%</span>
+                  <span class="text-xs text-white/40">Seerah</span>
+                  <span class="text-xs font-semibold text-white/20">0%</span>
                 </div>
                 <div class="w-full rounded-full h-1.5" style="background:rgba(255,255,255,0.06);"></div>
               </div>
@@ -454,7 +455,7 @@
             <div class="icon-circle mb-5" style="background:rgba(11,61,46,0.2);">
               <svg class="w-6 h-6 text-brand-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <h3 class="text-white text-xl font-bold mb-2">{{ t('home.diff4Title') }}</h3>
+            <h3 class="text-white text-xl font-semibold mb-2">{{ t('home.diff4Title') }}</h3>
             <p class="text-white/40 text-sm leading-relaxed mb-6">{{ t('home.diff4Desc') }}</p>
             <div class="mt-auto flex flex-wrap gap-2">
               <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style="background:rgba(11,61,46,0.25); color:#a7f3d0; border:1px solid rgba(11,61,46,0.45);">
@@ -486,7 +487,7 @@
             The Experience
             <span class="w-4 h-px bg-brand-light inline-block align-middle ms-2"></span>
           </p>
-          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight mb-4">
+          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight mb-4">
             Designed for deep reading.
           </h2>
           <p data-reveal class="text-white/40 text-lg max-w-xl mx-auto">
@@ -510,10 +511,10 @@
 
             <!-- Lesson header -->
             <div class="px-6 pt-6 pb-4 border-b" style="border-color:rgba(255,255,255,0.06);">
-              <p class="text-[10px] uppercase tracking-widest font-semibold mb-3" style="color:rgba(255,255,255,0.3);">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-3" style="color:rgba(255,255,255,0.3);">
                 Quran Sciences · Lesson 3 of 12
               </p>
-              <h3 class="text-white text-lg sm:text-xl font-bold leading-snug">Sources of Islamic Law</h3>
+              <h3 class="text-white text-lg sm:text-xl font-semibold leading-snug">Sources of Islamic Law</h3>
               <p class="text-xs mt-1.5 flex items-center gap-3" style="color:rgba(255,255,255,0.3);">
                 <span>15 min read</span>
                 <span>·</span>
@@ -551,13 +552,13 @@
               <!-- Quiz element -->
               <div data-reader-quiz class="rounded-xl overflow-hidden" style="border:1px solid rgba(255,255,255,0.07);">
                 <div class="px-4 py-3" style="background:rgba(255,255,255,0.03);">
-                  <p class="text-[10px] uppercase tracking-widest text-white/30 font-semibold mb-1">Quick Check</p>
+                  <p class="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">Quick Check</p>
                   <p class="text-xs text-white/50">Which is considered the second source of Islamic law?</p>
                 </div>
                 <div class="grid grid-cols-2 gap-1.5 p-3" style="background:rgba(0,0,0,0.2);">
-                  <div class="text-[10px] px-2.5 py-2 rounded-lg text-white/25" style="border:1px solid rgba(255,255,255,0.05);">Ijma</div>
+                  <div class="text-xs px-2.5 py-2 rounded-lg text-white/25" style="border:1px solid rgba(255,255,255,0.05);">Ijma</div>
                   <div
-                    class="text-[10px] px-2.5 py-2 rounded-lg flex items-center justify-center gap-1 transition-all duration-500"
+                    class="text-xs px-2.5 py-2 rounded-lg flex items-center justify-center gap-1 transition-all duration-500"
                     :class="quizAnswered ? 'text-emerald-300' : 'text-white/25'"
                     :style="quizAnswered
                       ? 'border:1px solid rgba(5,150,105,0.3); background:rgba(5,150,105,0.1);'
@@ -566,8 +567,8 @@
                     Sunnah
                     <svg v-if="quizAnswered" class="w-2.5 h-2.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
                   </div>
-                  <div class="text-[10px] px-2.5 py-2 rounded-lg text-white/25" style="border:1px solid rgba(255,255,255,0.05);">Qiyas</div>
-                  <div class="text-[10px] px-2.5 py-2 rounded-lg text-white/25" style="border:1px solid rgba(255,255,255,0.05);">Istihsan</div>
+                  <div class="text-xs px-2.5 py-2 rounded-lg text-white/25" style="border:1px solid rgba(255,255,255,0.05);">Qiyas</div>
+                  <div class="text-xs px-2.5 py-2 rounded-lg text-white/25" style="border:1px solid rgba(255,255,255,0.05);">Istihsan</div>
                 </div>
               </div>
 
@@ -576,11 +577,11 @@
             <!-- Bottom nav -->
             <div class="px-6 py-4 border-t grid grid-cols-2 gap-3" style="border-color:rgba(255,255,255,0.06);">
               <div class="rounded-xl p-3 text-center" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);">
-                <p class="text-[10px] text-white/25">← Previous</p>
+                <p class="text-xs text-white/25">← Previous</p>
                 <p class="text-xs text-white/40 mt-0.5 truncate">History of Tafsir</p>
               </div>
               <div class="rounded-xl p-3 text-center" style="background:rgba(35,78,204,0.15); border:1px solid rgba(35,78,204,0.25);">
-                <p class="text-[10px] text-brand-light">Next →</p>
+                <p class="text-xs text-brand-light">Next →</p>
                 <p class="text-xs text-white/60 mt-0.5 truncate">Ijma & Qiyas</p>
               </div>
             </div>
@@ -604,7 +605,7 @@
               <span class="w-4 h-px bg-brand-light inline-block align-middle me-2"></span>
               {{ t('home.problemBadge') }}
             </p>
-            <p class="font-black leading-none text-white tracking-tighter mb-4" style="font-size:clamp(3.5rem,8vw,6rem);">
+            <p class="font-semibold leading-none text-white tracking-tighter mb-4" style="font-size:clamp(3.5rem,8vw,6rem);">
               1.8<span class="text-brand-light">B</span>
             </p>
             <p class="text-white/35 leading-relaxed max-w-xs" style="font-size:1rem;">
@@ -614,7 +615,7 @@
           </div>
 
           <div data-reveal class="lg:pt-4">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-white mb-5">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-white mb-5">
               {{ t('home.problemTitle') }}
             </h2>
             <p class="text-white/35 leading-relaxed">{{ t('home.problemSub') }}</p>
@@ -635,10 +636,10 @@
               <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="pain.iconPath"></svg>
             </div>
             <div class="flex-1 min-w-0">
-              <h3 class="font-bold text-white text-base sm:text-lg mb-1">{{ t(`home.${pain.key}Title`) }}</h3>
+              <h3 class="font-semibold text-white text-base sm:text-lg mb-1">{{ t(`home.${pain.key}Title`) }}</h3>
               <p class="text-white/40 leading-relaxed text-sm sm:text-base">{{ t(`home.${pain.key}Desc`) }}</p>
             </div>
-            <span class="shrink-0 font-black text-2xl sm:text-4xl xl:text-5xl select-none" style="color:rgba(239,68,68,0.12);">
+            <span class="shrink-0 font-semibold text-2xl sm:text-4xl xl:text-5xl select-none" style="color:rgba(239,68,68,0.12);">
               {{ String(i + 1).padStart(2, '0') }}
             </span>
           </div>
@@ -658,7 +659,7 @@
             <span class="w-4 h-px bg-brand-light inline-block align-middle me-2"></span>
             {{ t('home.roadmapBadge') }}
           </p>
-          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight mb-4">
+          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight mb-4">
             {{ t('home.roadmapTitle') }}
           </h2>
           <p data-reveal class="text-white/40 text-lg">{{ t('home.roadmapSub') }}</p>
@@ -678,7 +679,7 @@
           >
             <div class="flex items-center justify-between mb-5">
               <span
-                class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
+                class="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
                 :style="phase.done
                   ? 'background:#059669; color:#fff;'
                   : phase.current
@@ -688,12 +689,12 @@
                 <svg v-if="phase.done" class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
                 {{ phase.done ? t('home.roadmapCompleteBadge') : phase.current ? t('home.roadmapCurrentBadge') : t('home.roadmapPlannedBadge') }}
               </span>
-              <span class="text-2xl font-black select-none" data-ghost-num style="color:rgba(255,255,255,0.06);">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="text-2xl font-semibold select-none" data-ghost-num style="color:rgba(255,255,255,0.06);">{{ String(i + 1).padStart(2, '0') }}</span>
             </div>
             <div class="icon-circle mb-4" :style="phase.current ? 'background:rgba(35,78,204,0.2);' : phase.done ? 'background:rgba(5,150,105,0.18);' : 'background:rgba(255,255,255,0.04);'">
               <svg class="w-5 h-5" :style="phase.current ? 'color:#3d65e8;' : phase.done ? 'color:#10b981;' : 'color:rgba(255,255,255,0.2);'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="phase.iconPath"></svg>
             </div>
-            <h3 class="font-bold text-lg mb-2" :style="phase.current ? 'color:#3d65e8;' : phase.done ? 'color:#10b981;' : 'color:rgba(255,255,255,0.7);'">
+            <h3 class="font-semibold text-lg mb-2" :style="phase.current ? 'color:#3d65e8;' : phase.done ? 'color:#10b981;' : 'color:rgba(255,255,255,0.7);'">
               {{ t(`home.${phase.key}Title`) }}
             </h3>
             <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.35);">{{ t(`home.${phase.key}Desc`) }}</p>
@@ -714,7 +715,7 @@
             <span class="w-4 h-px bg-brand-light inline-block align-middle me-2"></span>
             {{ t('home.audienceBadge') }}
           </p>
-          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+          <h2 data-reveal class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight">
             {{ t('home.audienceTitle') }}
           </h2>
         </div>
@@ -734,7 +735,7 @@
             <div class="icon-circle mb-5 ms-2" :style="`background:${item.bgColor};`">
               <svg class="w-5 h-5" :style="`color:${item.accent};`" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="item.iconPath"></svg>
             </div>
-            <h3 class="font-bold text-base sm:text-lg mb-2 ms-2 transition-colors duration-200" :style="`color:${item.accent};`">
+            <h3 class="font-semibold text-base sm:text-lg mb-2 ms-2 transition-colors duration-200" :style="`color:${item.accent};`">
               {{ t(`home.${item.key}Title`) }}
             </h3>
             <p class="text-sm leading-relaxed ms-2" style="color:rgba(255,255,255,0.35);">{{ t(`home.${item.key}Desc`) }}</p>
@@ -763,7 +764,7 @@
           <p class="text-white/30 text-sm">{{ t('home.finalVerseRef') }}</p>
         </div>
 
-        <h2 data-reveal class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 tracking-tight">
+        <h2 data-reveal class="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight mb-4 tracking-tight">
           {{ t('home.finalTitle') }}
           <span class="text-white/85 italic">{{ t('home.finalTitleAccent') }}</span>
         </h2>
@@ -776,7 +777,7 @@
           <RouterLink
             v-if="!auth.isLoggedIn"
             to="/register"
-            class="bg-white hover:bg-gray-50 text-brand px-8 py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
+            class="bg-white hover:bg-gray-50 text-brand px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
           >
             {{ t('home.finalCta1') }}
           </RouterLink>
@@ -785,7 +786,7 @@
             :class="auth.isLoggedIn
               ? 'bg-white hover:bg-gray-50 text-brand shadow-lg hover:shadow-xl'
               : 'border border-white/25 hover:border-white/50 hover:bg-white/8 text-white/80 hover:text-white'"
-            class="px-8 py-4 rounded-xl font-bold text-lg transition-all duration-200 hover:-translate-y-0.5"
+            class="px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:-translate-y-0.5"
           >
             {{ t('home.finalCta2') }}
           </RouterLink>
@@ -814,7 +815,7 @@
 
           <!-- Platform links -->
           <div>
-            <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:rgba(255,255,255,0.25);">Platform</p>
+            <p class="text-xs font-semibold uppercase tracking-widest mb-5" style="color:rgba(255,255,255,0.25);">Platform</p>
             <ul class="space-y-3">
               <li v-for="link in footerPlatform" :key="link.label">
                 <RouterLink :to="link.to" class="text-sm transition-colors duration-200" style="color:rgba(255,255,255,0.4);" @mouseover="$event.target.style.color='rgba(255,255,255,0.8)'" @mouseleave="$event.target.style.color='rgba(255,255,255,0.4)'">
@@ -826,7 +827,7 @@
 
           <!-- Community links -->
           <div>
-            <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:rgba(255,255,255,0.25);">Community</p>
+            <p class="text-xs font-semibold uppercase tracking-widest mb-5" style="color:rgba(255,255,255,0.25);">Community</p>
             <ul class="space-y-3">
               <li v-for="link in footerCommunity" :key="link.label">
                 <RouterLink
@@ -849,7 +850,7 @@
 
           <!-- Legal links -->
           <div>
-            <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:rgba(255,255,255,0.25);">Legal</p>
+            <p class="text-xs font-semibold uppercase tracking-widest mb-5" style="color:rgba(255,255,255,0.25);">Legal</p>
             <ul class="space-y-3">
               <li v-for="link in footerLegal" :key="link.label">
                 <RouterLink

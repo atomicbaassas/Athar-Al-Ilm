@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Detail / Record -->
   <div>
     <!-- Reading progress bar -->
     <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-100">
@@ -49,7 +50,7 @@
             </label>
           </div>
 
-          <h1 :dir="contentDir" class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 leading-snug">{{ lesson.title }}</h1>
+          <h1 :dir="contentDir" class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 leading-snug">{{ lesson.title }}</h1>
           <div class="flex items-center gap-3 text-sm text-gray-400 flex-wrap">
             <span v-if="lesson.estimated_minutes" class="flex items-center gap-1">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +89,7 @@
                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
               </div>
-              <h3 class="text-xl font-bold mb-1">{{ t('lesson.enrollRequired') }}</h3>
+              <h3 class="text-xl font-semibold mb-1">{{ t('lesson.enrollRequired') }}</h3>
               <p class="text-white/70 text-sm">{{ lesson.track_title }}</p>
             </div>
             <div class="bg-white px-8 py-7 text-center">
@@ -124,7 +125,7 @@
           <div class="border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
             <div class="bg-gradient-to-br from-emerald-900 to-emerald-700 px-8 py-6 text-center text-white">
               <p class="text-emerald-300 text-sm mb-1">{{ t('lesson.previewNote') }}</p>
-              <h3 class="text-xl font-bold">{{ t('lesson.continueReading') }}</h3>
+              <h3 class="text-xl font-semibold">{{ t('lesson.continueReading') }}</h3>
             </div>
             <div class="bg-white px-8 py-6 text-center">
               <p class="text-gray-500 text-sm mb-6">{{ t('lesson.gateDesc') }}</p>

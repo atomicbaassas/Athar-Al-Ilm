@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
 
     <!-- Page Header -->
@@ -11,7 +12,7 @@
       } : {}"
     >
       <h1
-        class="text-2xl sm:text-3xl font-bold mb-1.5"
+        class="text-2xl sm:text-3xl font-semibold mb-1.5"
         :class="bannerActive ? '' : 'text-gray-900'"
         :style="bannerActive ? {
           color: bannerTextColor,
@@ -128,7 +129,7 @@
         <div class="flex items-center bg-gray-100 rounded-xl p-1 gap-0.5">
           <button
             @click="viewMode = 'icon'"
-            :title="t('curriculum.viewIcon')"
+
             :aria-label="t('curriculum.viewIcon')"
             :aria-pressed="viewMode === 'icon' ? 'true' : 'false'"
             :class="viewMode === 'icon' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-400 hover:text-gray-600'"
@@ -144,7 +145,7 @@
           </button>
           <button
             @click="viewMode = 'card'"
-            :title="t('curriculum.viewCard')"
+
             :aria-label="t('curriculum.viewCard')"
             :aria-pressed="viewMode === 'card' ? 'true' : 'false'"
             :class="viewMode === 'card' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-400 hover:text-gray-600'"

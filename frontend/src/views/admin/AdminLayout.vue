@@ -6,13 +6,13 @@
       <button
         @click="sidebarOpen = true"
         aria-label="Open admin menu"
-        class="w-10 h-10 -ml-2 inline-flex items-center justify-center rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+        class="min-h-11 min-w-11 w-11 h-11 -ml-2 inline-flex items-center justify-center rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
       >
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M3 12h18M3 6h18M3 18h18"/>
         </svg>
       </button>
-      <RouterLink to="/admin" class="ms-3 py-3 text-white font-bold text-sm tracking-wide">أثر العلم <span class="text-white/40 font-normal">Admin</span></RouterLink>
+      <RouterLink to="/admin" class="ms-3 py-3 text-white font-semibold text-sm tracking-wide">أثر العلم <span class="text-white/40 font-normal">Admin</span></RouterLink>
     </div>
 
     <!-- Mobile backdrop -->
@@ -30,7 +30,7 @@
         <!-- Logo -->
         <div class="flex items-center h-16 px-5 border-b border-white/5 shrink-0">
           <RouterLink to="/admin" class="flex items-center gap-2" @click="sidebarOpen = false">
-            <span class="text-white font-bold text-lg tracking-tight">أثر العلم</span>
+            <span class="text-white font-semibold text-lg tracking-tight">أثر العلم</span>
             <span class="text-white/30 text-sm font-normal">Admin</span>
           </RouterLink>
         </div>
@@ -297,12 +297,12 @@
             Back to site
           </RouterLink>
           <div v-if="auth.user" class="flex items-center gap-2.5">
-            <div class="w-7 h-7 rounded-full bg-[#0B3D2E]/30 flex items-center justify-center text-[#0B3D2E] text-xs font-bold shrink-0">
+            <div class="w-7 h-7 rounded-full bg-[#0B3D2E]/30 flex items-center justify-center text-[#0B3D2E] text-xs font-semibold shrink-0">
               {{ auth.user.full_name?.charAt(0)?.toUpperCase() || auth.user.email?.charAt(0)?.toUpperCase() }}
             </div>
             <div class="min-w-0">
               <p class="text-white/50 text-xs truncate">{{ auth.user.email }}</p>
-              <p class="text-white/25 text-[11px] capitalize">{{ auth.user.role }}</p>
+              <p class="text-white/25 text-xs capitalize">{{ auth.user.role }}</p>
             </div>
           </div>
           <button @click="handleLogout" class="flex items-center gap-2 text-xs text-white/25 hover:text-red-400 transition-colors w-full">

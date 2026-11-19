@@ -1,7 +1,8 @@
 <template>
+  <!-- Pattern: Settings / Configuration -->
   <div class="px-6 py-8 max-w-4xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Feature Flags</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">Feature Flags</h1>
       <p class="text-gray-400 text-sm mt-0.5">
         Turn features on/off, or roll them out to a selected group of users for pre-testing.
       </p>
@@ -21,8 +22,8 @@
           <div class="min-w-0">
             <div class="flex items-center gap-2 flex-wrap">
               <h2 class="text-sm font-semibold text-gray-900">{{ row.label }}</h2>
-              <span v-if="row.owner_section" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{{ row.owner_section }}</span>
-              <code class="text-[11px] text-gray-400">{{ row.key }}</code>
+              <span v-if="row.owner_section" class="text-xs font-medium px-2 py-0.5 rounded-md bg-gray-100 text-gray-500">{{ row.owner_section }}</span>
+              <code class="text-xs text-gray-400">{{ row.key }}</code>
             </div>
             <p class="text-xs text-gray-400 mt-1">{{ row.description }}</p>
           </div>
@@ -76,11 +77,11 @@
                     <span class="text-gray-800">{{ u.full_name || u.username }}</span>
                     <span class="text-gray-400 ms-1.5">{{ u.email }}</span>
                   </span>
-                  <span v-if="row.allowed_user_ids.includes(u.id)" class="text-[11px] text-emerald-600">added</span>
+                  <span v-if="row.allowed_user_ids.includes(u.id)" class="text-xs text-emerald-600">added</span>
                 </button>
               </div>
             </div>
-            <p class="text-[11px] text-gray-400 mt-1.5">Only these users will see the feature while it's in pre-testing.</p>
+            <p class="text-xs text-gray-400 mt-1.5">Only these users will see the feature while it's in pre-testing.</p>
           </div>
         </div>
 
@@ -142,7 +143,7 @@ async function load() {
       } catch { /* names just show as … */ }
     }
   } catch {
-    error.value = 'Could not load feature flags. Make sure your account has Feature Flags access.'
+    error.value = 'Could not load feature flags. This account needs Feature Flags access.'
   } finally {
     loading.value = false
   }

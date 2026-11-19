@@ -1,9 +1,10 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="min-h-screen bg-white">
 
     <!-- ── Page header ──────────────────────────────────────────────── -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6 sm:pt-12 sm:pb-8">
-      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-3">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 tracking-tight mb-3">
         Books for the Ummah
       </h1>
       <p class="text-gray-500 text-base sm:text-lg max-w-xl">
@@ -146,13 +147,13 @@
               class="w-full h-full flex flex-col justify-between p-4 text-white"
               :style="{ backgroundImage: coverGradient(book) }"
             >
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] opacity-80">
                 {{ book.category || 'Athar Al \'Ilm' }}
               </span>
-              <span class="text-base font-extrabold leading-tight line-clamp-4 drop-shadow-sm">
+              <span class="text-base font-semibold leading-tight line-clamp-4 drop-shadow-sm">
                 {{ book.title }}
               </span>
-              <span class="text-[11px] font-medium opacity-80 truncate">
+              <span class="text-xs font-medium opacity-80 truncate">
                 {{ book.author || '' }}
               </span>
             </div>
@@ -163,7 +164,7 @@
             <!-- Category pill (top-start) -->
             <span
               v-if="book.category"
-              class="absolute top-2.5 start-2.5 text-[10px] font-bold uppercase tracking-wider
+              class="absolute top-2.5 start-2.5 text-xs font-semibold uppercase tracking-wider
                      px-2 py-0.5 rounded-full bg-white/90 text-brand backdrop-blur-sm shadow-sm"
             >
               {{ book.category }}
@@ -184,7 +185,7 @@
             <!-- Multi-volume indicator (bottom-start) -->
             <span
               v-if="book.volume_count > 1"
-              class="absolute bottom-2.5 start-2.5 text-[10px] font-bold tracking-wider
+              class="absolute bottom-2.5 start-2.5 text-xs font-semibold tracking-wider
                      px-2 py-0.5 rounded-full bg-black/55 text-white backdrop-blur-sm shadow-sm
                      flex items-center gap-1"
               :title="`${book.volume_count} volumes`"
@@ -199,7 +200,7 @@
           <!-- Info -->
           <div class="pt-3 px-0.5 flex flex-col">
             <h3
-              class="text-gray-900 text-sm font-bold leading-snug line-clamp-2
+              class="text-gray-900 text-sm font-semibold leading-snug line-clamp-2
                      group-hover:text-brand transition-colors duration-200"
             >
               {{ book.title }}
@@ -207,7 +208,7 @@
             <p class="text-gray-500 text-xs mt-1 truncate">{{ book.author || 'Unknown' }}</p>
 
             <!-- Meta row -->
-            <div class="flex items-center gap-2 mt-2 text-[11px] text-gray-400">
+            <div class="flex items-center gap-2 mt-2 text-xs text-gray-400">
               <span v-if="book.page_count">{{ book.page_count }} pages</span>
               <span v-if="book.page_count && book.language && book.language !== 'en'" class="text-gray-300">·</span>
               <span

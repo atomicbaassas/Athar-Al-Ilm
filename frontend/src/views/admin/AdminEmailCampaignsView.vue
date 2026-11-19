@@ -1,11 +1,12 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-5xl mx-auto">
 
     <!-- ── LIST MODE ─────────────────────────────────────────────── -->
     <template v-if="!editing">
       <div class="flex items-start justify-between mb-8 gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Email Campaigns</h1>
+          <h1 class="text-2xl font-semibold text-gray-900">Email Campaigns</h1>
           <p class="text-gray-400 text-sm mt-0.5">Send an email to a segment of your audience.</p>
         </div>
         <button @click="startNew"
@@ -39,7 +40,7 @@
           <tbody>
             <tr v-for="c in items" :key="c.id" class="border-b border-gray-50 last:border-0 hover:bg-gray-50/60 transition-colors cursor-pointer" @click="startEdit(c)">
               <td class="px-5 py-3 font-medium text-gray-800">{{ c.name }}</td>
-              <td class="px-4 py-3"><span class="text-xs font-semibold px-2 py-0.5 rounded-full" :class="statusClass(c.status)">{{ c.status }}</span></td>
+              <td class="px-4 py-3"><span class="text-xs font-semibold px-2 py-0.5 rounded-md" :class="statusClass(c.status)">{{ c.status }}</span></td>
               <td class="px-4 py-3 text-gray-500 text-xs hidden sm:table-cell">{{ c.segment }}</td>
               <td class="px-4 py-3 text-end text-gray-700 font-semibold">{{ c.stats?.sent ?? '—' }}</td>
             </tr>
@@ -118,7 +119,7 @@
                 class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 disabled:bg-gray-50">
                 <option v-for="s in segments" :key="s.key" :value="s.key">{{ s.label }}</option>
               </select>
-              <p class="text-[11px] text-gray-400 mt-1">
+              <p class="text-xs text-gray-400 mt-1">
                 <span v-if="recipientCount !== null">{{ recipientCount }} recipient(s) after removing unsubscribes.</span>
                 <span v-else>Select to preview the count.</span>
               </p>
@@ -126,7 +127,7 @@
 
             <div>
               <p class="text-sm font-medium text-gray-700 mb-1.5">Status</p>
-              <span class="text-xs font-semibold px-2 py-0.5 rounded-full" :class="statusClass(form.status)">{{ form.status }}</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-md" :class="statusClass(form.status)">{{ form.status }}</span>
             </div>
 
             <div v-if="form.stats && (form.stats.total != null)" class="pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
@@ -147,7 +148,7 @@
                 {{ testing ? '…' : 'Send' }}
               </button>
             </div>
-            <p v-if="testMsg" class="text-[11px] text-emerald-600">{{ testMsg }}</p>
+            <p v-if="testMsg" class="text-xs text-emerald-600">{{ testMsg }}</p>
           </div>
 
           <!-- Send / schedule -->
@@ -169,7 +170,7 @@
     <!-- Delete confirmation -->
     <div v-if="confirmDelete" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="confirmDelete = false">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete this campaign?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete this campaign?</h3>
         <p class="text-sm text-gray-500 mb-5">
           <strong>{{ form.name }}</strong> will be permanently deleted. This cannot be undone.
         </p>
@@ -185,7 +186,7 @@
     <!-- Send confirmation -->
     <div v-if="confirmSend" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="confirmSend = false">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">{{ form.scheduled_at ? 'Schedule this campaign?' : 'Send this campaign now?' }}</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">{{ form.scheduled_at ? 'Schedule this campaign?' : 'Send this campaign now?' }}</h3>
         <p class="text-sm text-gray-500 mb-5">
           It will go to <strong>{{ recipientCount ?? '…' }}</strong> recipient(s) in the
           <strong>{{ form.segment }}</strong> segment. This can't be undone.
@@ -251,7 +252,7 @@ async function load() {
   try {
     items.value = await adminApi.listEmailCampaigns()
   } catch {
-    error.value = 'Could not load campaigns. Make sure your account has Email Marketing access.'
+    error.value = 'Could not load campaigns. This account needs Email Marketing access.'
   } finally {
     loading.value = false
   }

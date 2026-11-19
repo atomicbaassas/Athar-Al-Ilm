@@ -1,8 +1,9 @@
 <template>
+  <!-- Pattern: Form (auth) -->
   <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-900">{{ t('auth.register.title') }}</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">{{ t('auth.register.title') }}</h1>
         <p class="text-gray-500 mt-1">{{ t('auth.register.subtitle') }}</p>
       </div>
 
@@ -57,6 +58,8 @@
                 class="w-full px-4 py-2.5 text-base border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 :class="{ 'border-red-400': errors.username }"
                 :placeholder="t('auth.register.usernamePlaceholder')"
+                @blur="validateUsername"
+                @input="clearFieldError('username')"
               />
               <p v-if="errors.username" class="text-red-600 text-xs mt-1">{{ errors.username }}</p>
             </div>
@@ -71,6 +74,8 @@
                 class="w-full px-4 py-2.5 text-base border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 :class="{ 'border-red-400': errors.email }"
                 :placeholder="t('auth.register.emailPlaceholder')"
+                @blur="validateEmail"
+                @input="clearFieldError('email')"
               />
               <p v-if="errors.email" class="text-red-600 text-xs mt-1">{{ errors.email }}</p>
             </div>
@@ -84,7 +89,10 @@
                 minlength="8"
                 autocomplete="new-password"
                 class="w-full px-4 py-2.5 text-base border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                :class="{ 'border-red-400': errors.password }"
                 :placeholder="t('auth.register.passwordHint')"
+                @blur="validatePassword"
+                @input="clearFieldError('password')"
               />
               <p v-if="errors.password" class="text-red-600 text-xs mt-1">{{ errors.password }}</p>
             </div>
@@ -128,15 +136,35 @@ const resent = ref(false)
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+function setFieldError(field, message) {
+  const next = { ...errors.value }
+  if (message) next[field] = message
+  else delete next[field]
+  errors.value = next
+}
+
+function clearFieldError(field) {
+  setFieldError(field, '')
+}
+
+function validateUsername() {
+  setFieldError('username', form.value.username.trim() ? '' : t('auth.register.error'))
+}
+
+function validateEmail() {
+  setFieldError('email', EMAIL_RE.test(form.value.email.trim()) ? '' : t('auth.register.invalidEmail'))
+}
+
+function validatePassword() {
+  setFieldError('password', form.value.password.length >= 8 ? '' : t('auth.register.passwordHint'))
+}
+
 async function handleRegister() {
   errors.value = {}
-  if (!EMAIL_RE.test(form.value.email.trim())) {
-    errors.value.email = t('auth.register.invalidEmail')
-  }
-  if (form.value.password.length < 8) {
-    errors.value.password = t('auth.register.passwordHint')
-  }
-  if (errors.value.email || errors.value.password) return
+  validateUsername()
+  validateEmail()
+  validatePassword()
+  if (errors.value.email || errors.value.password || errors.value.username) return
 
   loading.value = true
   try {

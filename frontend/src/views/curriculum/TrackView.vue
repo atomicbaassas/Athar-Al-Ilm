@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Detail / Record -->
   <div class="max-w-7xl mx-auto px-4 py-6 sm:py-12">
 
     <!-- Breadcrumb -->
@@ -25,7 +26,7 @@
       <!-- Track header -->
       <div class="mb-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{{ track.title }}</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">{{ track.title }}</h1>
           <p class="text-gray-500 max-w-2xl">{{ stripSiteBrand(track.description) }}</p>
 
           <!-- Available translation languages -->
@@ -103,7 +104,7 @@
           <span
             v-else-if="subjectStatus(subject.slug) === 'inprogress'"
             class="absolute top-4 right-4 rtl:right-auto rtl:left-4 inline-flex items-center gap-1
-                   text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#0B3D2E]
+                   text-xs font-semibold uppercase tracking-wider bg-blue-50 text-[#0B3D2E]
                    border border-blue-200 px-2 py-0.5 rounded-full"
             :title="t('track.subjectInProgress')"
           >
@@ -125,10 +126,10 @@
             class="mb-4"
           >
             <div class="flex items-center justify-between mb-1">
-              <span class="text-[11px] text-gray-400">
+              <span class="text-xs text-gray-400">
                 {{ subjectData(subject.slug).completed_lessons }}/{{ subjectData(subject.slug).total_lessons }} {{ t('track.lessons') }}
               </span>
-              <span class="text-[11px] font-medium"
+              <span class="text-xs font-medium"
                 :class="subjectStatus(subject.slug) === 'completed' ? 'text-emerald-600' : 'text-[#0B3D2E]'">
                 {{ subjectData(subject.slug).percent }}%
               </span>

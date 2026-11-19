@@ -107,6 +107,14 @@ select:disabled {
 
 /* ── Base layer ───────────────────────────────────────────────────── */
 @layer base {
+  /* Default canvas so learner routes never sit on a transparent (often black) host bg */
+  html,
+  body,
+  #athar-app {
+    background-color: #f9fafb;
+    color: #111827;
+  }
+
   /* Arabic Quran/hadith content — Al Majeed Quranic, always RTL */
   .arabic-text {
     font-family: 'Al Majeed Quranic', 'Traditional Arabic', serif;
@@ -268,12 +276,18 @@ select:disabled {
   .hero-enter-3    { animation: fadeInUp 0.7s ease both; animation-delay: 0.50s; }
   .hero-enter-4    { animation: fadeInUp 0.7s ease both; animation-delay: 0.70s; }
 
-  /* ── Decorative floating calligraphy ──────────────────────────── */
-  .float-arabic      { animation: floatArabic  7s  ease-in-out infinite; }
-  .float-arabic-slow { animation: floatArabic  10s ease-in-out infinite; animation-delay: 2s; }
+  /* Decorative motion — opacity/transform only; no infinite chrome loops */
+  .float-arabic,
+  .float-arabic-slow,
+  .bounce-chevron {
+    animation: none;
+  }
 
-  /* Scroll indicator bounce */
-  .bounce-chevron { animation: bounceChevron 1.5s ease-in-out infinite; }
+  @media (prefers-reduced-motion: no-preference) {
+    .float-arabic { animation: floatArabic 7s ease-in-out 1; }
+    .float-arabic-slow { animation: floatArabic 10s ease-in-out 1; animation-delay: 2s; }
+    .bounce-chevron { animation: bounceChevron 1.5s ease-in-out 2; }
+  }
 
   /* ── Dark section backgrounds ─────────────────────────────────── */
   .section-dark   { background-color: #0a0a0a; }
@@ -289,9 +303,14 @@ select:disabled {
     border: 1px solid rgba(0,0,0,0.06);
   }
 
-  /* ── Glow pulse for hero accent ───────────────────────────────── */
+  /* ── Glow pulse for hero accent (finite, motion-safe) ─────────── */
   .glow-pulse {
-    animation: pulse-glow 4s ease-in-out infinite;
+    animation: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .glow-pulse {
+      animation: pulse-glow 4s ease-in-out 2;
+    }
   }
 
   /* ── Icon circle ──────────────────────────────────────────────── */
@@ -311,7 +330,7 @@ select:disabled {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }

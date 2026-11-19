@@ -1,11 +1,12 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="min-h-screen bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 pt-10 pb-16 sm:pt-14">
-      <p class="text-xs font-bold uppercase tracking-widest text-brand mb-4 flex items-center gap-2">
+      <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-4 flex items-center gap-2">
         <span class="w-4 h-px bg-brand inline-block"></span>
         {{ t('contributors.eyebrow') }}
       </p>
-      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-3">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 tracking-tight mb-3">
         {{ t('contributors.title') }}
       </h1>
       <p class="text-gray-600 text-base sm:text-lg leading-relaxed mb-10">
@@ -16,7 +17,7 @@
         class="mb-12 rounded-2xl border border-brand/20 bg-[#0B3D2E]/[0.04] p-5 sm:p-6"
         aria-labelledby="dua-heading"
       >
-        <h2 id="dua-heading" class="text-sm font-bold uppercase tracking-wide text-brand mb-3">
+        <h2 id="dua-heading" class="text-sm font-semibold uppercase tracking-wide text-brand mb-3">
           {{ t('contributors.duaTitle') }}
         </h2>
         <p class="font-arabic text-xl sm:text-2xl leading-relaxed text-gray-900 text-end mb-3" dir="rtl" lang="ar">
@@ -36,7 +37,7 @@
           :key="item.id"
           class="border-b border-gray-100 pb-6 last:border-0"
         >
-          <h3 class="text-lg font-bold text-gray-900 mb-1">{{ item.name }}</h3>
+          <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ item.name }}</h3>
           <p class="text-sm text-gray-600 leading-relaxed mb-2">{{ item.taken }}</p>
           <a
             v-if="item.href"

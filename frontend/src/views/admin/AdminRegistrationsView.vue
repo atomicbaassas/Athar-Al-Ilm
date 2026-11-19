@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Header -->
     <div class="flex items-start justify-between mb-8 gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Registrations</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Registrations</h1>
         <p class="text-gray-400 text-sm mt-0.5">People signed up for the live launch.</p>
       </div>
       <button
@@ -94,7 +95,7 @@
       <p class="text-gray-400 text-sm">They'll appear here as people sign up at <span class="font-mono">/launch</span>.</p>
     </div>
     <div v-else-if="filtered.length === 0" class="py-20 text-center text-gray-400 text-sm border-2 border-dashed border-gray-200 rounded-2xl">
-      No registrations match your search.
+      No registrations match this search.
     </div>
 
     <!-- Table -->
@@ -118,7 +119,7 @@
             <td class="px-4 py-3 text-gray-600 hidden md:table-cell">{{ r.country || '—' }}</td>
             <td class="px-4 py-3 text-end text-gray-400 text-xs hidden lg:table-cell">{{ formatDate(r.created_at) }}</td>
             <td class="px-4 py-3 text-end">
-              <button @click="deleteTarget = r" title="Delete" class="w-10 h-10 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+              <button @click="deleteTarget = r" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
             </td>
@@ -139,7 +140,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete registration?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete registration?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ deleteTarget.email }}</strong> will be removed from the list.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -281,7 +282,7 @@ onMounted(async () => {
   try {
     registrations.value = await adminApi.listRegistrations()
   } catch {
-    error.value = 'Could not load registrations. Make sure your account has Registrations access.'
+    error.value = 'Could not load registrations. This account needs Registrations access.'
   } finally {
     loading.value = false
   }

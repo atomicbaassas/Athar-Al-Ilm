@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Detail / Record -->
   <div class="px-6 py-8 max-w-4xl mx-auto">
 
     <RouterLink :to="{ name: 'admin-users' }" class="inline-flex items-center gap-1.5 text-sm text-[#0B3D2E] hover:text-[#1a3ba8] mb-6 transition-colors">
@@ -22,15 +23,15 @@
       <!-- Profile header -->
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-5">
         <div class="flex items-start gap-4">
-          <span class="w-14 h-14 rounded-2xl bg-[#0B3D2E]/15 text-[#0B3D2E] text-xl font-bold flex items-center justify-center shrink-0">
+          <span class="w-14 h-14 rounded-2xl bg-[#0B3D2E]/15 text-[#0B3D2E] text-xl font-semibold flex items-center justify-center shrink-0">
             {{ (user.full_name || user.email).charAt(0).toUpperCase() }}
           </span>
           <div class="min-w-0 flex-1">
-            <h1 class="text-xl font-bold text-gray-900 truncate">{{ user.full_name || user.username }}</h1>
+            <h1 class="text-xl font-semibold text-gray-900 truncate">{{ user.full_name || user.username }}</h1>
             <p class="text-gray-400 text-sm truncate">{{ user.email }} · @{{ user.username }}</p>
             <div class="flex flex-wrap items-center gap-2 mt-2 text-xs">
-              <span class="px-2 py-0.5 rounded-full bg-[#0B3D2E]/10 text-[#0B3D2E] font-semibold capitalize">{{ user.role }}</span>
-              <span class="px-2 py-0.5 rounded-full font-semibold" :class="user.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'">
+              <span class="px-2 py-0.5 rounded-md bg-[#0B3D2E]/10 text-[#0B3D2E] font-semibold capitalize">{{ user.role }}</span>
+              <span class="px-2 py-0.5 rounded-md font-semibold" :class="user.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'">
                 {{ user.is_active ? 'Active' : 'Deactivated' }}
               </span>
               <span class="text-gray-400">Joined {{ formatDate(user.created_at) }}</span>
@@ -42,19 +43,19 @@
         <!-- Quick stats -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">
           <div class="bg-gray-50 rounded-xl px-4 py-3">
-            <p class="text-2xl font-black text-gray-900">{{ user.lessons_completed }}</p>
+            <p class="text-2xl font-semibold text-gray-900">{{ user.lessons_completed }}</p>
             <p class="text-xs text-gray-400">Lessons done</p>
           </div>
           <div class="bg-gray-50 rounded-xl px-4 py-3">
-            <p class="text-2xl font-black text-gray-900">{{ user.current_streak }}</p>
+            <p class="text-2xl font-semibold text-gray-900">{{ user.current_streak }}</p>
             <p class="text-xs text-gray-400">Current streak</p>
           </div>
           <div class="bg-gray-50 rounded-xl px-4 py-3">
-            <p class="text-2xl font-black text-gray-900">{{ user.longest_streak }}</p>
+            <p class="text-2xl font-semibold text-gray-900">{{ user.longest_streak }}</p>
             <p class="text-xs text-gray-400">Longest streak</p>
           </div>
           <div class="bg-gray-50 rounded-xl px-4 py-3">
-            <p class="text-2xl font-black text-gray-900">{{ user.enrolled_tracks.length }}</p>
+            <p class="text-2xl font-semibold text-gray-900">{{ user.enrolled_tracks.length }}</p>
             <p class="text-xs text-gray-400">Enrolled tracks</p>
           </div>
         </div>
@@ -112,7 +113,7 @@
     <!-- Reset password modal -->
     <div v-if="showPassword" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="showPassword = false">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Reset password</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Reset password</h3>
         <p class="text-sm text-gray-500 mb-4">Set a new password for <strong>{{ user.email }}</strong>.</p>
         <input v-model="newPassword" type="text" placeholder="New password (min 8 chars)"
           class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
@@ -129,7 +130,7 @@
     <!-- Delete modal -->
     <div v-if="showDelete" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="showDelete = false">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete user?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete user?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ user.email }}</strong> will be permanently removed. This cannot be undone.</p>
         <div class="flex gap-3">
           <button @click="showDelete = false" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>

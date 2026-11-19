@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="max-w-4xl mx-auto px-4 py-6 sm:py-12">
 
     <!-- Breadcrumb -->
@@ -32,7 +33,7 @@
     <template v-else-if="subject">
       <!-- Subject header -->
       <div class="mb-8">
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{{ subject.title }}</h1>
+        <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">{{ subject.title }}</h1>
         <p class="text-gray-500">{{ subject.description }}</p>
       </div>
 
@@ -111,13 +112,13 @@
               </p>
               <span
                 v-if="isCompleted(lesson.slug)"
-                class="flex-shrink-0 text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full"
+                class="flex-shrink-0 text-xs font-semibold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full"
               >
                 {{ t('subject.statusCompleted') }}
               </span>
               <span
                 v-else-if="isInProgress(lesson.slug)"
-                class="flex-shrink-0 text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#0B3D2E] border border-blue-200 px-1.5 py-0.5 rounded-full"
+                class="flex-shrink-0 text-xs font-semibold uppercase tracking-wider bg-blue-50 text-[#0B3D2E] border border-blue-200 px-1.5 py-0.5 rounded-full"
               >
                 {{ t('subject.statusInProgress') }}
               </span>

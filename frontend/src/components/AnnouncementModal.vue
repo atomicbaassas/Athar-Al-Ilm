@@ -13,10 +13,10 @@
     >
       <!-- Header -->
       <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-gray-100 shrink-0">
-        <h2 class="text-lg font-bold text-gray-900">{{ current.title }}</h2>
+        <h2 class="text-lg font-semibold text-gray-900">{{ current.title }}</h2>
         <button
           @click="close"
-          :title="t('announce.close')"
+          :aria-label="t('announce.close')"
           class="shrink-0 -me-1 -mt-1 w-8 h-8 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>

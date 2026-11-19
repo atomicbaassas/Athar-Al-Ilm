@@ -1,7 +1,8 @@
 <template>
+  <!-- Pattern: Dashboard / Overview -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Overview</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">Overview</h1>
       <p class="text-gray-400 text-sm mt-0.5">Platform activity at a glance.</p>
     </div>
 
@@ -23,23 +24,23 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <p class="text-xs text-gray-400 mb-1">Total users</p>
-          <p class="text-2xl font-bold text-gray-900">{{ stats.total_users.toLocaleString() }}</p>
-          <p class="text-[11px] text-gray-400 mt-1">{{ stats.verified_users.toLocaleString() }} verified</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ stats.total_users.toLocaleString() }}</p>
+          <p class="text-xs text-gray-400 mt-1">{{ stats.verified_users.toLocaleString() }} verified</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <p class="text-xs text-gray-400 mb-1">Active last 7 days</p>
-          <p class="text-2xl font-bold text-gray-900">{{ stats.active_users_7d.toLocaleString() }}</p>
-          <p class="text-[11px] text-gray-400 mt-1">read a lesson</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ stats.active_users_7d.toLocaleString() }}</p>
+          <p class="text-xs text-gray-400 mt-1">read a lesson</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <p class="text-xs text-gray-400 mb-1">Lessons completed</p>
-          <p class="text-2xl font-bold text-gray-900">{{ stats.total_lessons_completed.toLocaleString() }}</p>
-          <p class="text-[11px] text-gray-400 mt-1">{{ stats.published_lessons.toLocaleString() }} published lessons</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ stats.total_lessons_completed.toLocaleString() }}</p>
+          <p class="text-xs text-gray-400 mt-1">{{ stats.published_lessons.toLocaleString() }} published lessons</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <p class="text-xs text-gray-400 mb-1">Feedback average</p>
-          <p class="text-2xl font-bold text-gray-900">{{ stats.feedback_average || '—' }}<span v-if="stats.feedback_average" class="text-sm text-gray-400">/5</span></p>
-          <p class="text-[11px] text-gray-400 mt-1">{{ stats.feedback_count.toLocaleString() }} responses</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ stats.feedback_average || '—' }}<span v-if="stats.feedback_average" class="text-sm text-gray-400">/5</span></p>
+          <p class="text-xs text-gray-400 mt-1">{{ stats.feedback_count.toLocaleString() }} responses</p>
         </div>
       </div>
 
@@ -53,7 +54,7 @@
                 v-for="d in [7, 30, 90]"
                 :key="d"
                 @click="days = d"
-                class="px-3 min-h-[36px] min-w-[44px] transition-colors"
+                class="px-3 min-h-11 min-w-[44px] transition-colors"
                 :class="days === d ? 'bg-[#0B3D2E] text-white font-semibold' : 'text-gray-500 hover:text-gray-700'"
               >
                 {{ d }}d
@@ -175,7 +176,7 @@ async function load() {
   try {
     stats.value = await adminApi.getOverviewStats(days.value)
   } catch {
-    error.value = 'Could not load dashboard stats. Make sure your account has Analytics access.'
+    error.value = 'Could not load dashboard stats. This account needs Analytics access.'
   } finally {
     loading.value = false
   }

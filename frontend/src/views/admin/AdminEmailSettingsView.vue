@@ -1,7 +1,8 @@
 <template>
+  <!-- Pattern: Settings / Configuration -->
   <div class="px-6 py-8 max-w-2xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Email Settings</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">Email Settings</h1>
       <p class="text-gray-400 text-sm mt-0.5">SMTP credentials used to send campaigns. Stored securely; the password is never shown again.</p>
     </div>
 
@@ -69,7 +70,7 @@
           </div>
         </div>
 
-        <p class="text-[11px] text-gray-400">Use TLS for port 587 (STARTTLS) or SSL for port 465. Leave the host blank to disable real sending in development.</p>
+        <p class="text-xs text-gray-400">Use TLS for port 587 (STARTTLS) or SSL for port 465. Leave the host blank to disable real sending in development.</p>
 
         <div class="flex items-center justify-end gap-3 pt-2 border-t border-gray-100">
           <span v-if="saved" class="text-sm text-emerald-600 font-medium">Saved ✓</span>
@@ -108,7 +109,7 @@ async function load() {
   try {
     apply(await adminApi.getEmailSettings())
   } catch {
-    error.value = 'Could not load email settings. Make sure your account has Email Marketing access.'
+    error.value = 'Could not load email settings. This account needs Email Marketing access.'
   } finally {
     loading.value = false
   }

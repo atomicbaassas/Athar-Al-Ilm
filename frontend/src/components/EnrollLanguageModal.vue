@@ -7,7 +7,7 @@
       tabindex="-1"
       class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 focus:outline-none"
     >
-      <h3 class="font-bold text-gray-900 text-lg mb-1">{{ t('enroll.title') }}</h3>
+      <h3 class="font-semibold text-gray-900 text-lg mb-1">{{ t('enroll.title') }}</h3>
       <p class="text-sm text-gray-500 mb-5">{{ t('enroll.subtitle', { track: trackTitle }) }}</p>
 
       <div class="space-y-2 max-h-72 overflow-y-auto -mx-1 px-1">

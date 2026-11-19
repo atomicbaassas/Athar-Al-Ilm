@@ -1,11 +1,12 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-5xl mx-auto">
 
     <!-- ── LIST MODE ─────────────────────────────────────────────── -->
     <template v-if="!editing">
       <div class="flex items-start justify-between mb-8 gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Announcements</h1>
+          <h1 class="text-2xl font-semibold text-gray-900">Announcements</h1>
           <p class="text-gray-400 text-sm mt-0.5">Pop-up modals shown to logged-in users (once each).</p>
         </div>
         <button @click="startNew"
@@ -45,14 +46,14 @@
                 <span class="text-gray-300 ms-1">· {{ a.block_count }} block{{ a.block_count === 1 ? '' : 's' }}</span>
               </td>
               <td class="px-4 py-3">
-                <span v-if="a.is_active" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Active</span>
-                <span v-else class="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">Off</span>
+                <span v-if="a.is_active" class="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-700">Active</span>
+                <span v-else class="text-xs font-semibold px-2 py-0.5 rounded-md bg-gray-100 text-gray-500">Off</span>
               </td>
               <td class="px-4 py-3 text-gray-500 text-xs hidden sm:table-cell">{{ scheduleLabel(a) }}</td>
               <td class="px-4 py-3 text-end font-semibold text-gray-700">{{ a.views }}</td>
               <td class="px-4 py-3 text-end text-gray-500 hidden sm:table-cell">{{ a.dismissed }}</td>
               <td class="px-4 py-3 text-end">
-                <button @click.stop="deleteTarget = a" title="Delete" class="w-10 h-10 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                <button @click.stop="deleteTarget = a" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 </button>
               </td>
@@ -110,7 +111,7 @@
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Priority</label>
               <input v-model.number="form.priority" type="number"
                 class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
-              <p class="text-[11px] text-gray-400 mt-1">Higher shows first when several are queued.</p>
+              <p class="text-xs text-gray-400 mt-1">Higher shows first when several are queued.</p>
             </div>
 
             <div>
@@ -122,7 +123,7 @@
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Show until</label>
               <input v-model="form.ends_at" type="datetime-local"
                 class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
-              <p class="text-[11px] text-gray-400 mt-1">Leave both blank to show indefinitely. Times are UTC.</p>
+              <p class="text-xs text-gray-400 mt-1">Leave both blank to show indefinitely. Times are UTC.</p>
             </div>
 
             <div v-if="form.id" class="pt-3 border-t border-gray-100 text-xs text-gray-400 space-y-1">
@@ -142,7 +143,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete announcement?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete announcement?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ deleteTarget.title }}</strong> will be removed. Its view records go too.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -189,7 +190,7 @@ async function load() {
   try {
     items.value = await adminApi.listAnnouncements()
   } catch {
-    error.value = 'Could not load announcements. Make sure your account has Announcements access.'
+    error.value = 'Could not load announcements. This account needs Announcements access.'
   } finally {
     loading.value = false
   }

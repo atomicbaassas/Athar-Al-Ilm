@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Form -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Sticky top bar -->
@@ -255,7 +256,7 @@
               :placeholder="form.title || 'Defaults to lesson title'"
               class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
             />
-            <p class="text-[11px] mt-1" :class="(form.meta_title?.length || 0) > 60 ? 'text-amber-500' : 'text-gray-400'">
+            <p class="text-xs mt-1" :class="(form.meta_title?.length || 0) > 60 ? 'text-amber-500' : 'text-gray-400'">
               {{ form.meta_title?.length || 0 }}/70 — aim for ≤ 60
             </p>
           </div>
@@ -269,7 +270,7 @@
               :placeholder="form.summary || 'Defaults to lesson summary'"
               class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
             />
-            <p class="text-[11px] mt-1" :class="(form.meta_description?.length || 0) > 160 ? 'text-amber-500' : 'text-gray-400'">
+            <p class="text-xs mt-1" :class="(form.meta_description?.length || 0) > 160 ? 'text-amber-500' : 'text-gray-400'">
               {{ form.meta_description?.length || 0 }}/200 — aim for ≤ 160
             </p>
           </div>
@@ -291,7 +292,7 @@
     <!-- Delete translation modal -->
     <div v-if="deleteLangTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteLangTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete translation?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete translation?</h3>
         <p class="text-sm text-gray-500 mb-5">The <strong>{{ langName(deleteLangTarget) }}</strong> translation of this lesson will be removed. The original is untouched.</p>
         <div class="flex gap-3">
           <button @click="deleteLangTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>

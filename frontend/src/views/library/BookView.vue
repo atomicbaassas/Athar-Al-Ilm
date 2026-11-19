@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Detail / Record -->
   <div class="min-h-screen" style="background:#020205;">
 
     <!-- ── Breadcrumb ────────────────────────────────────────────────── -->
@@ -57,33 +58,33 @@
 
                 <!-- Category badge -->
                 <span v-if="book.category"
-                      class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
+                      class="inline-block text-xs font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
                       style="background:rgba(35,78,204,0.15); color:#3d65e8; border:1px solid rgba(35,78,204,0.25);">
                   {{ book.category }}
                 </span>
 
-                <h1 class="text-white font-bold text-lg sm:text-xl leading-snug mb-1">{{ book.title }}</h1>
+                <h1 class="text-white font-semibold text-lg sm:text-xl leading-snug mb-1">{{ book.title }}</h1>
                 <p class="text-white/45 text-sm mb-4">{{ book.author || 'Unknown Author' }}</p>
 
                 <!-- Meta chips -->
                 <div class="flex flex-wrap gap-2 mb-5">
                   <span v-if="displayPageCount"
-                        class="text-[11px] text-white/40 border border-white/10 rounded-lg px-2.5 py-1">
+                        class="text-xs text-white/40 border border-white/10 rounded-lg px-2.5 py-1">
                     {{ displayPageCount }} pages
                   </span>
                   <span v-if="displaySizeMb"
-                        class="text-[11px] text-white/40 border border-white/10 rounded-lg px-2.5 py-1">
+                        class="text-xs text-white/40 border border-white/10 rounded-lg px-2.5 py-1">
                     {{ displaySizeMb.toFixed(1) }} MB
                   </span>
                   <span v-if="book.language"
-                        class="text-[11px] text-white/40 border border-white/10 rounded-lg px-2.5 py-1 uppercase">
+                        class="text-xs text-white/40 border border-white/10 rounded-lg px-2.5 py-1 uppercase">
                     {{ book.language }}
                   </span>
                 </div>
 
                 <!-- Volume selector (multi-volume books) -->
                 <div v-if="isMultiVolume" class="mb-5">
-                  <p class="text-[10px] font-bold uppercase tracking-widest text-white/25 mb-2">
+                  <p class="text-xs font-semibold uppercase tracking-widest text-white/25 mb-2">
                     {{ volumes.length }} Volumes
                   </p>
                   <div class="space-y-1.5 max-h-72 overflow-y-auto pr-1">
@@ -97,7 +98,7 @@
                         ? 'bg-brand/15 border border-brand/40'
                         : 'border border-white/[0.08] hover:border-white/20'"
                     >
-                      <span class="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold"
+                      <span class="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold"
                             :class="i === selectedIndex ? 'bg-brand text-white' : 'bg-white/[0.06] text-white/50'">
                         {{ vol.number }}
                       </span>
@@ -106,7 +107,7 @@
                               :class="i === selectedIndex ? 'text-white' : 'text-white/60'">
                           {{ vol.title || `Volume ${vol.number}` }}
                         </span>
-                        <span v-if="vol.page_count" class="block text-[11px] text-white/30">{{ vol.page_count }} pages</span>
+                        <span v-if="vol.page_count" class="block text-xs text-white/30">{{ vol.page_count }} pages</span>
                       </span>
                     </button>
                   </div>
@@ -150,7 +151,7 @@
               <div v-if="book.description"
                    class="rounded-2xl p-5"
                    style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
-                <p class="text-xs font-bold uppercase tracking-widest text-white/25 mb-3">About this book</p>
+                <p class="text-xs font-semibold uppercase tracking-widest text-white/25 mb-3">About this book</p>
                 <p class="text-white/50 text-sm leading-relaxed"
                    :class="descExpanded ? '' : 'line-clamp-4'">
                   {{ book.description }}
@@ -166,7 +167,7 @@
               <div v-if="book.tags?.length"
                    class="flex flex-wrap gap-2">
                 <span v-for="tag in book.tags" :key="tag"
-                      class="text-[11px] text-white/35 border border-white/08 rounded-lg px-2.5 py-1">
+                      class="text-xs text-white/35 border border-white/08 rounded-lg px-2.5 py-1">
                   #{{ tag }}
                 </span>
               </div>

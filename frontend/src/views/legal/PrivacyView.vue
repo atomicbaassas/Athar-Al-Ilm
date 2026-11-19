@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Marketing — legal -->
   <div class="legal" dir="ltr">
     <div class="max-w-3xl mx-auto px-4 py-12 sm:py-16">
       <RouterLink to="/" class="inline-flex items-center gap-1.5 text-sm text-[#0B3D2E] hover:text-[#1a3ba8] mb-8 transition-colors">
@@ -6,7 +7,7 @@
         Back to home
       </RouterLink>
 
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
+      <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-2">Privacy Policy</h1>
       <p class="text-sm text-gray-400 mb-10">Last updated: 25 June 2026</p>
 
       <p>
@@ -96,7 +97,7 @@ useSeo({
 .legal :deep(p) { line-height: 1.75; margin-bottom: 1rem; color: #4b5563; }
 .legal :deep(h2) {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
   margin-top: 2.25rem;
   margin-bottom: 0.75rem;

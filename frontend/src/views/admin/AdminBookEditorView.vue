@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Form -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Sticky top bar -->
@@ -179,7 +180,7 @@
               class="border border-gray-200 rounded-xl p-4 space-y-3 bg-gray-50/60"
             >
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Volume {{ i + 1 }}</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">Volume {{ i + 1 }}</span>
                 <button
                   type="button"
                   @click="removeVolume(i)"

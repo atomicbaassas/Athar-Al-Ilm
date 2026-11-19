@@ -25,7 +25,7 @@
 
       <!-- Body -->
       <div class="px-6 pt-5 pb-6 -mt-4 bg-white rounded-t-3xl relative">
-        <h2 class="text-xl font-bold text-gray-900">{{ current.name }}</h2>
+        <h2 class="text-xl font-semibold text-gray-900">{{ current.name }}</h2>
         <p v-if="current.description" class="text-sm text-gray-500 mt-1.5">{{ current.description }}</p>
         <div v-if="current.reward" class="mt-4 inline-flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200 rounded-xl px-4 py-2 text-sm font-medium">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>

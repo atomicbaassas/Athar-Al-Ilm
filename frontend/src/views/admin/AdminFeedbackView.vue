@@ -1,7 +1,8 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-4xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Track Feedback</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">Track Feedback</h1>
       <p class="text-gray-400 text-sm mt-0.5">Ratings and comments learners left after completing a track.</p>
     </div>
 
@@ -25,7 +26,7 @@
           </div>
           <div class="text-end shrink-0">
             <div class="flex items-center gap-1.5">
-              <span class="text-2xl font-bold text-gray-900">{{ row.average.toFixed(1) }}</span>
+              <span class="text-2xl font-semibold text-gray-900">{{ row.average.toFixed(1) }}</span>
               <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </div>
           </div>
@@ -51,11 +52,11 @@
               <div v-if="c.user?.avatar_url" class="w-6 h-6 rounded-full overflow-hidden shrink-0 bg-gray-100">
                 <img :src="c.user.avatar_url" class="w-full h-full object-cover" alt="" />
               </div>
-              <div v-else class="w-6 h-6 rounded-full shrink-0 bg-[#0B3D2E]/10 text-[#0B3D2E] text-[10px] font-semibold flex items-center justify-center">
+              <div v-else class="w-6 h-6 rounded-full shrink-0 bg-[#0B3D2E]/10 text-[#0B3D2E] text-xs font-semibold flex items-center justify-center">
                 {{ initials(c.user) }}
               </div>
               <span class="font-medium text-gray-800 truncate">{{ displayName(c.user) }}</span>
-              <span v-if="c.user?.joined_at" class="text-[11px] text-gray-400 shrink-0">joined {{ formatDate(c.user.joined_at) }}</span>
+              <span v-if="c.user?.joined_at" class="text-xs text-gray-400 shrink-0">joined {{ formatDate(c.user.joined_at) }}</span>
             </div>
             <div class="flex items-center gap-1 mb-0.5">
               <svg v-for="s in c.rating" :key="s" class="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -97,7 +98,7 @@ async function load() {
   try {
     rows.value = await adminApi.listFeedback()
   } catch {
-    error.value = 'Could not load feedback. Make sure your account has Feedback access.'
+    error.value = 'Could not load feedback. This account needs Feedback access.'
   } finally {
     loading.value = false
   }

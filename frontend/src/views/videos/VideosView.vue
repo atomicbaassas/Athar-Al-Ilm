@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="min-h-screen" style="background:#020205;">
 
     <!-- ── Page header ──────────────────────────────────────────────── -->
@@ -7,7 +8,7 @@
         <span class="w-4 h-px bg-brand-light inline-block align-middle me-2"></span>
         Videos
       </p>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-3">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight mb-3">
         From Our Channel
       </h1>
       <p class="text-white/40 text-base sm:text-lg max-w-xl">
@@ -41,10 +42,10 @@
             <path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/>
           </svg>
         </div>
-        <h2 class="text-white font-bold text-xl mb-2">YouTube not connected yet</h2>
+        <h2 class="text-white font-semibold text-xl mb-2">YouTube not connected yet</h2>
         <p class="text-white/35 text-sm max-w-sm mx-auto">
-          Add <code class="text-brand-light">YOUTUBE_API_KEY</code> and
-          <code class="text-brand-light">YOUTUBE_CHANNEL_ID</code> to your <code>.env</code> file to enable this page.
+          Set <code class="text-brand-light">YOUTUBE_API_KEY</code> and
+          <code class="text-brand-light">YOUTUBE_CHANNEL_ID</code> in the server environment to enable this page.
         </p>
       </div>
 
@@ -94,8 +95,8 @@
             <!-- Play overlay -->
             <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                  style="background:rgba(0,0,0,0.35);">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm"
-                   style="background:rgba(35,78,204,0.85);">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center"
+                   style="background:rgba(35,78,204,0.95); border:1px solid rgba(255,255,255,0.25);">
                 <svg class="w-5 h-5 text-white ms-0.5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z"/>
                 </svg>
@@ -103,8 +104,8 @@
             </div>
 
             <!-- Duration badge placeholder / published date -->
-            <div class="absolute bottom-2 end-2 bg-black/70 backdrop-blur-sm rounded-md px-2 py-0.5">
-              <span class="text-white text-[10px] font-medium">{{ formatDate(video.published_at) }}</span>
+            <div class="absolute bottom-2 end-2 bg-black/80 rounded-md px-2 py-0.5 border border-white/10">
+              <span class="text-white text-xs font-medium">{{ formatDate(video.published_at) }}</span>
             </div>
           </div>
 
@@ -122,7 +123,7 @@
               <svg class="w-3 h-3 text-white/20 shrink-0" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
               </svg>
-              <span class="text-white/25 text-[11px]">{{ video.channel_title }}</span>
+              <span class="text-white/25 text-xs">{{ video.channel_title }}</span>
             </div>
           </div>
         </RouterLink>

@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Header -->
     <div class="flex items-start justify-between mb-8">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Users</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Users</h1>
         <p class="text-gray-400 text-sm mt-0.5">Manage accounts, roles and access.</p>
       </div>
     </div>
@@ -60,7 +61,7 @@
       No users found.
     </div>
     <div v-else-if="sorted.length === 0" class="py-20 text-center text-gray-400 text-sm border-2 border-dashed border-gray-200 rounded-2xl">
-      No users match your filters.
+      No users match these filters.
     </div>
 
     <!-- Table -->
@@ -82,7 +83,7 @@
             <!-- User -->
             <td class="px-5 py-3">
               <RouterLink :to="{ name: 'admin-user-detail', params: { id: u.id } }" class="flex items-center gap-3 group">
-                <span class="w-8 h-8 rounded-full bg-[#0B3D2E]/15 text-[#0B3D2E] text-xs font-bold flex items-center justify-center shrink-0">
+                <span class="w-8 h-8 rounded-full bg-[#0B3D2E]/15 text-[#0B3D2E] text-xs font-semibold flex items-center justify-center shrink-0">
                   {{ (u.full_name || u.email).charAt(0).toUpperCase() }}
                 </span>
                 <span class="min-w-0">
@@ -96,7 +97,7 @@
               <select
                 :value="u.role"
                 @change="changeRole(u, $event.target.value)"
-                class="border border-gray-200 rounded-lg px-2 py-2 text-xs bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 max-w-[10rem] min-h-[36px]"
+                class="border border-gray-200 rounded-lg px-2 py-2 text-xs bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 max-w-[10rem] min-h-11"
               >
                 <option v-for="r in roleOptions" :key="r.name" :value="r.name">{{ r.label }}</option>
                 <option v-if="!roleOptions.some(r => r.name === u.role)" :value="u.role">{{ u.role }}</option>
@@ -106,9 +107,9 @@
             <td class="px-4 py-3 text-center">
               <button
                 @click="toggleActive(u)"
-                class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 min-h-[36px] rounded-full transition-colors"
+                class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 min-h-11 rounded-full transition-colors"
                 :class="u.is_active ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'"
-                :title="u.is_active ? 'Click to deactivate' : 'Click to activate'"
+                :aria-label="u.is_active ? 'Click to deactivate' : 'Click to activate'"
               >
                 <span class="w-1.5 h-1.5 rounded-full" :class="u.is_active ? 'bg-emerald-500' : 'bg-gray-400'" />
                 {{ u.is_active ? 'Active' : 'Off' }}
@@ -120,10 +121,10 @@
             <!-- Actions -->
             <td class="px-4 py-3">
               <div class="flex items-center justify-end gap-1">
-                <button @click="passwordTarget = u" title="Reset password" class="w-10 h-10 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
+                <button @click="passwordTarget = u" aria-label="Reset password" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </button>
-                <button @click="deleteTarget = u" title="Delete user" class="w-10 h-10 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                <button @click="deleteTarget = u" aria-label="Delete user" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 </button>
               </div>
@@ -145,7 +146,7 @@
     <!-- Reset password modal -->
     <div v-if="passwordTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="passwordTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Reset password</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Reset password</h3>
         <p class="text-sm text-gray-500 mb-4">Set a new password for <strong>{{ passwordTarget.email }}</strong>.</p>
         <input v-model="newPassword" type="text" placeholder="New password (min 8 chars)"
           class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
@@ -162,7 +163,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete user?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete user?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ deleteTarget.email }}</strong> will be permanently removed. This cannot be undone.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -292,7 +293,7 @@ onMounted(async () => {
     users.value = await adminApi.listUsers()
     try { roles.value = await adminApi.listRoles() } catch { /* role list optional */ }
   } catch {
-    error.value = 'Could not load users. Make sure your account has Users access.'
+    error.value = 'Could not load users. This account needs Users access.'
   } finally {
     loading.value = false
   }

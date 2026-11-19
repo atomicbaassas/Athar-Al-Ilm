@@ -1,11 +1,12 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-5xl mx-auto">
 
     <!-- ── LIST MODE ─────────────────────────────────────────────── -->
     <template v-if="!editing">
       <div class="flex items-start justify-between mb-8 gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Badges &amp; Rewards</h1>
+          <h1 class="text-2xl font-semibold text-gray-900">Badges &amp; Rewards</h1>
           <p class="text-gray-400 text-sm mt-0.5">Achievements awarded to learners, with a celebration popup.</p>
         </div>
         <button @click="startNew"
@@ -36,7 +37,7 @@
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <p class="font-semibold text-gray-800 truncate">{{ b.name }}</p>
-              <span v-if="!b.is_active" class="text-[11px] font-semibold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">Off</span>
+              <span v-if="!b.is_active" class="text-xs font-semibold px-1.5 py-0.5 rounded-md bg-gray-100 text-gray-500">Off</span>
             </div>
             <p class="text-xs text-gray-400 mt-0.5">{{ criteriaLabel(b) }} · {{ b.awarded_count }} earned</p>
           </div>
@@ -177,7 +178,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete badge?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete badge?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ deleteTarget.name }}</strong> will be removed, along with every learner's award of it.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -259,7 +260,7 @@ async function load() {
   try {
     items.value = await adminApi.listBadges()
   } catch {
-    error.value = 'Could not load badges. Make sure your account has Badges access.'
+    error.value = 'Could not load badges. This account needs Badges access.'
   } finally {
     loading.value = false
   }

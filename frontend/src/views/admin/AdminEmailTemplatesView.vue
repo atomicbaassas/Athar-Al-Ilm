@@ -1,11 +1,12 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-5xl mx-auto">
 
     <!-- ── LIST MODE ─────────────────────────────────────────────── -->
     <template v-if="!editing">
       <div class="flex items-start justify-between mb-8 gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Email Templates</h1>
+          <h1 class="text-2xl font-semibold text-gray-900">Email Templates</h1>
           <p class="text-gray-400 text-sm mt-0.5">Reusable subject + layout for your campaigns and system emails.</p>
         </div>
         <button @click="startNew"
@@ -34,8 +35,8 @@
               <p class="font-medium text-gray-800 truncate">{{ t.name }}</p>
               <p class="text-xs text-gray-400 truncate">{{ t.subject || 'No subject' }}</p>
             </div>
-            <span v-if="t.slug" class="shrink-0 text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">System</span>
-            <span v-if="t.slug && !t.is_active" class="shrink-0 text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">Inactive (fallback in use)</span>
+            <span v-if="t.slug" class="shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-md bg-blue-100 text-blue-700">System</span>
+            <span v-if="t.slug && !t.is_active" class="shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-md bg-gray-100 text-gray-500">Inactive (fallback in use)</span>
           </div>
           <svg class="w-4 h-4 text-gray-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </button>
@@ -89,12 +90,12 @@
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Personalization tags</label>
               <div class="flex flex-wrap gap-1.5">
                 <button v-for="tag in availableTags" :key="tag" type="button" @click="copyTag(tag)"
-                  class="px-2 py-1 rounded-full bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] font-mono text-[11px] transition-colors">
+                  class="px-2 py-1 rounded-full bg-gray-100 hover:bg-[#0B3D2E]/10 hover:text-[#0B3D2E] font-mono text-xs transition-colors">
                   {{ tagLabel(tag) }}
                 </button>
               </div>
-              <p v-if="copiedTag" class="text-[11px] text-emerald-600 mt-1">Copied {{ tagLabel(copiedTag) }} — paste it into a block field.</p>
-              <p v-else class="text-[11px] text-gray-400 mt-1">Click a tag to copy it, then paste into a text/header/button field above.</p>
+              <p v-if="copiedTag" class="text-xs text-emerald-600 mt-1">Copied {{ tagLabel(copiedTag) }} — paste it into a block field.</p>
+              <p v-else class="text-xs text-gray-400 mt-1">Click a tag to copy it, then paste into a text/header/button field above.</p>
             </div>
 
             <div>
@@ -104,7 +105,7 @@
                 <textarea v-model="form.html_body" rows="16" spellcheck="false"
                   placeholder="<h1>Hello!</h1><p>Your message…</p>"
                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-y" />
-                <p class="text-[11px] text-gray-400 mt-1">Raw HTML. An unsubscribe footer is appended automatically when sent.</p>
+                <p class="text-xs text-gray-400 mt-1">Raw HTML. An unsubscribe footer is appended automatically when sent.</p>
               </template>
             </div>
           </div>
@@ -120,8 +121,8 @@
                 {{ testing ? 'Sending…' : 'Send test' }}
               </button>
             </div>
-            <p v-if="testMsg" class="text-[11px] mt-1.5" :class="testOk ? 'text-emerald-600' : 'text-red-600'">{{ testMsg }}</p>
-            <p class="text-[11px] text-gray-400 mt-1">Sends the current subject + body (with sample personalization data) to one address. Configure SMTP in Email Settings first (in dev it prints to the server log).</p>
+            <p v-if="testMsg" class="text-xs mt-1.5" :class="testOk ? 'text-emerald-600' : 'text-red-600'">{{ testMsg }}</p>
+            <p class="text-xs text-gray-400 mt-1">Sends the current subject + body (with sample personalization data) to one address. Configure SMTP in Email Settings first (in dev it prints to the server log).</p>
           </div>
         </div>
 
@@ -140,7 +141,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete template?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete template?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ deleteTarget.name }}</strong> will be removed.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -233,7 +234,7 @@ async function load() {
   try {
     items.value = await adminApi.listEmailTemplates()
   } catch {
-    error.value = 'Could not load templates. Make sure your account has Email Marketing access.'
+    error.value = 'Could not load templates. This account needs Email Marketing access.'
   } finally {
     loading.value = false
   }

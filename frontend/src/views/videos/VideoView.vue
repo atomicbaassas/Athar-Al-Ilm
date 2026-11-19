@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Detail / Record -->
   <div class="min-h-screen" style="background:#020205;">
 
     <!-- ── Breadcrumb ────────────────────────────────────────────────── -->
@@ -46,7 +47,7 @@
 
         <!-- Title + meta -->
         <div class="mb-6">
-          <h1 class="text-white text-xl sm:text-2xl lg:text-3xl font-bold leading-snug mb-3">
+          <h1 class="text-white text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-3">
             {{ video.title }}
           </h1>
           <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/35">
@@ -86,7 +87,7 @@
         <div v-if="video.description"
              class="rounded-2xl p-5 sm:p-6"
              style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
-          <p class="text-xs font-bold uppercase tracking-widest text-white/25 mb-4">Description</p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-white/25 mb-4">Description</p>
           <p
             class="text-white/50 text-sm leading-relaxed whitespace-pre-line"
             :class="descExpanded ? '' : 'line-clamp-6'"

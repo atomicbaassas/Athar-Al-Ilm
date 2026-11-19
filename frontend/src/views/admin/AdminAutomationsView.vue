@@ -1,11 +1,12 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-5xl mx-auto">
 
     <!-- ── LIST MODE ─────────────────────────────────────────────── -->
     <template v-if="!editing">
       <div class="flex items-start justify-between mb-8 gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Email Automation</h1>
+          <h1 class="text-2xl font-semibold text-gray-900">Email Automation</h1>
           <p class="text-gray-400 text-sm mt-0.5">Condition-based transactional emails triggered by learner activity — separate from marketing campaigns.</p>
         </div>
         <button @click="startNew"
@@ -32,7 +33,7 @@
           <div class="min-w-0">
             <div class="flex items-center gap-2 flex-wrap">
               <p class="font-medium text-gray-800 truncate">{{ w.name }}</p>
-              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full" :class="w.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-400'">
+              <span class="text-xs font-medium px-2 py-0.5 rounded-md" :class="w.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-400'">
                 {{ w.is_active ? 'Active' : 'Paused' }}
               </span>
             </div>
@@ -93,7 +94,7 @@
                 </div>
               </div>
             </div>
-            <p class="text-[11px] text-gray-400 -mt-2">0 = send immediately when the trigger fires. Greater than 0 schedules a delayed check.</p>
+            <p class="text-xs text-gray-400 -mt-2">0 = send immediately when the trigger fires. Greater than 0 schedules a delayed check.</p>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">
@@ -200,10 +201,10 @@
             <div v-for="s in sends" :key="s.id" class="px-4 py-3 text-sm flex items-center justify-between gap-3">
               <div class="min-w-0">
                 <p class="text-gray-800 truncate">{{ s.user_email }}</p>
-                <p class="text-[11px] text-gray-400">{{ formatDate(s.sent_at || s.scheduled_for || s.created_at) }}</p>
-                <p v-if="s.reason" class="text-[11px] text-red-500 truncate mt-0.5">{{ reasonLabel(s.reason) }}</p>
+                <p class="text-xs text-gray-400">{{ formatDate(s.sent_at || s.scheduled_for || s.created_at) }}</p>
+                <p v-if="s.reason" class="text-xs text-red-500 truncate mt-0.5">{{ reasonLabel(s.reason) }}</p>
               </div>
-              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0" :class="statusClass(s.status)">{{ s.status }}</span>
+              <span class="text-xs font-medium px-2 py-0.5 rounded-md shrink-0" :class="statusClass(s.status)">{{ s.status }}</span>
             </div>
           </div>
         </div>
@@ -213,7 +214,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete workflow?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete workflow?</h3>
         <p class="text-sm text-gray-500 mb-5"><strong>{{ deleteTarget.name }}</strong> will be removed. Already-scheduled sends for it are cancelled.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -294,7 +295,7 @@ async function load() {
     items.value = workflows
     tracks.value = trackList
   } catch {
-    error.value = 'Could not load workflows. Make sure your account has Email Automation access.'
+    error.value = 'Could not load workflows. This account needs Email Automation access.'
   } finally {
     loading.value = false
   }

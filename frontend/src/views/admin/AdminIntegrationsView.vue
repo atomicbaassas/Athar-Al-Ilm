@@ -1,7 +1,8 @@
 <template>
+  <!-- Pattern: Settings / Configuration -->
   <div class="px-6 py-8 max-w-3xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Integrations</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">Integrations</h1>
       <p class="text-gray-400 text-sm mt-0.5">
         Superadmin-only API keys for Salafi sources and outbound mail. Keys are stored server-side and never shown again.
       </p>

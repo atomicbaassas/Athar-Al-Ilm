@@ -1,9 +1,10 @@
 <template>
+  <!-- Pattern: Settings / Configuration -->
   <div class="px-6 py-8 max-w-4xl mx-auto">
 
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Languages</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">Languages</h1>
       <p class="text-gray-400 text-sm mt-0.5">
         Offer AI translations of lessons. Authors generate them in the lesson editor;
         learners pick a language when they enroll.
@@ -51,7 +52,7 @@
               <summary class="text-xs font-medium text-gray-500 cursor-pointer select-none">Translation instructions (advanced)</summary>
               <textarea v-model="form.system_instruction" rows="6"
                 class="mt-2 w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-y"></textarea>
-              <p class="text-[11px] text-gray-400 mt-1">Guides tone and what to preserve (Arabic, ﷺ, names, Islamic terms).</p>
+              <p class="text-xs text-gray-400 mt-1">Guides tone and what to preserve (Arabic, ﷺ, names, Islamic terms).</p>
             </details>
           </div>
         </div>
@@ -78,17 +79,17 @@
         <div v-else class="divide-y divide-gray-100">
           <div v-for="(lang, i) in languages" :key="i" class="px-5 py-4 grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
             <div class="sm:col-span-4">
-              <label class="block text-[11px] font-medium text-gray-400 mb-1 sm:hidden">Name</label>
+              <label class="block text-xs font-medium text-gray-400 mb-1 sm:hidden">Name</label>
               <input v-model="lang.name" type="text" placeholder="Hinglish"
                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div class="sm:col-span-3">
-              <label class="block text-[11px] font-medium text-gray-400 mb-1 sm:hidden">Code</label>
+              <label class="block text-xs font-medium text-gray-400 mb-1 sm:hidden">Code</label>
               <input v-model="lang.code" type="text" :placeholder="slugify(lang.name) || 'code'"
                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
             <div class="sm:col-span-3">
-              <label class="block text-[11px] font-medium text-gray-400 mb-1 sm:hidden">Native name</label>
+              <label class="block text-xs font-medium text-gray-400 mb-1 sm:hidden">Native name</label>
               <input v-model="lang.native_name" type="text" placeholder="Native name (optional)"
                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40" />
             </div>
@@ -99,8 +100,8 @@
               <label class="inline-flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer" title="Show to learners">
                 <input v-model="lang.enabled" type="checkbox" class="rounded border-gray-300 text-[#0B3D2E] focus:ring-[#0B3D2E]/40" /> On
               </label>
-              <button @click="languages.splice(i, 1)" type="button" title="Remove"
-                class="w-7 h-7 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0">
+              <button @click="languages.splice(i, 1)" type="button" aria-label="Remove"
+                class="min-h-11 min-w-11 w-11 h-11 rounded-lg inline-flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
               </button>
             </div>
@@ -188,7 +189,7 @@ async function save() {
     saved.value = true
     setTimeout(() => { saved.value = false }, 2500)
   } catch (e) {
-    saveError.value = e?.response?.data?.languages || 'Could not save. Make sure your account has Languages access.'
+    saveError.value = e?.response?.data?.languages || 'Could not save. This account needs Languages access.'
   } finally {
     saving.value = false
   }
@@ -198,7 +199,7 @@ onMounted(async () => {
   try {
     applySettings(await adminApi.getTranslationSettings())
   } catch {
-    error.value = 'Could not load translation settings. Make sure your account has Languages access.'
+    error.value = 'Could not load translation settings. This account needs Languages access.'
   } finally {
     loading.value = false
   }

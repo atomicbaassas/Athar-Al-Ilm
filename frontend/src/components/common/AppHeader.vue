@@ -126,7 +126,7 @@
         <button
           v-if="isHomePage"
           @click="homeTheme.toggle()"
-          :title="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          :aria-label="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
           :class="isHomePage && !isScrolled
             ? homeTheme.theme.value === 'dark'
               ? 'text-white/70 hover:text-white border-white/20 hover:border-white/50 hover:bg-white/10'
@@ -149,7 +149,7 @@
         <button
           id="lang-toggle-btn"
           @click="toggleLocale"
-          :title="nextLocaleTitle"
+          :aria-label="nextLocaleTitle"
           :class="isHomePage && !isScrolled
             ? homeTheme.theme.value === 'dark'
               ? 'text-white/70 hover:text-white border-white/20 hover:border-white/50 hover:bg-white/10'
@@ -173,7 +173,7 @@
               ? homeTheme.theme.value === 'dark' ? 'text-white/60 hover:text-red-400' : 'text-gray-500 hover:text-red-500'
               : 'text-gray-400 hover:text-red-500'"
             class="hidden sm:flex items-center gap-1.5 text-sm font-medium transition-colors duration-200 px-2 py-1"
-            :title="t('nav.logout')"
+            :aria-label="t('nav.logout')"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
@@ -369,7 +369,7 @@
             <button
               v-if="isHomePage"
               @click="homeTheme.toggle()"
-              :title="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+              :aria-label="homeTheme.theme.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
               class="flex items-center gap-1.5 text-xs font-semibold border border-gray-200 text-gray-500
                      hover:text-gray-800 hover:border-gray-300 hover:bg-gray-50 rounded-lg px-3 py-2
                      transition-all duration-200"

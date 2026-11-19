@@ -16,7 +16,7 @@
         <div class="mx-auto w-12 h-12 rounded-full bg-[#0B3D2E]/10 flex items-center justify-center mb-3">
           <svg class="w-6 h-6 text-[#0B3D2E]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
         </div>
-        <h2 class="text-lg font-bold text-gray-900">{{ t('feedback.trackCompleted') }}</h2>
+        <h2 class="text-lg font-semibold text-gray-900">{{ t('feedback.trackCompleted') }}</h2>
         <p class="text-sm text-gray-500 mt-1">{{ t('feedback.leaveReview') }}</p>
       </div>
 

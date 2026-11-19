@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: Analytics / Reporting -->
   <div class="px-6 py-8 max-w-5xl mx-auto">
 
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Analytics</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Analytics</h1>
         <p class="text-gray-400 text-sm mt-0.5">Lesson completions &amp; quiz answers across all users</p>
       </div>
     </div>
@@ -50,7 +51,7 @@
             >
               <td class="px-5 py-3 font-medium text-gray-800 font-mono text-xs">{{ row.lesson_slug }}</td>
               <td class="px-5 py-3 text-end">
-                <span class="inline-flex items-center justify-center bg-[#0B3D2E]/10 text-[#0B3D2E] text-xs font-bold rounded-full px-2.5 py-0.5 min-w-[2rem]">
+                <span class="inline-flex items-center justify-center bg-[#0B3D2E]/10 text-[#0B3D2E] text-xs font-semibold rounded-full px-2.5 py-0.5 min-w-[2rem]">
                   {{ row.completion_count }}
                 </span>
               </td>
@@ -87,9 +88,9 @@
           <!-- Completion summary -->
           <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm mb-5">
             <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Lesson</p>
-            <p class="font-bold text-gray-900 font-mono text-sm mb-3">{{ detail.lesson_slug }}</p>
+            <p class="font-semibold text-gray-900 font-mono text-sm mb-3">{{ detail.lesson_slug }}</p>
             <div class="flex items-center gap-2">
-              <span class="text-3xl font-black text-[#0B3D2E]">{{ detail.completion_count }}</span>
+              <span class="text-3xl font-semibold text-[#0B3D2E]">{{ detail.completion_count }}</span>
               <span class="text-gray-500 text-sm">users completed this lesson</span>
             </div>
           </div>
@@ -107,7 +108,7 @@
             >
               <!-- Quiz header -->
               <div class="bg-gray-50 px-5 py-4 border-b border-gray-100">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">
                   Quiz Block {{ blockOrder }}
                 </p>
                 <p class="font-semibold text-gray-800 text-sm">{{ quiz.question || '—' }}</p>
@@ -128,7 +129,7 @@
                   class="flex items-center gap-3"
                 >
                   <span
-                    class="flex-shrink-0 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center"
+                    class="flex-shrink-0 w-6 h-6 rounded-full text-xs font-semibold flex items-center justify-center"
                     :class="Number(idx) === quiz.correct_index
                       ? 'bg-emerald-100 text-emerald-700'
                       : 'bg-gray-100 text-gray-500'"
@@ -199,7 +200,7 @@ onMounted(async () => {
   try {
     stats.value = await progressApi.getAdminLessonStats(null)
   } catch {
-    error.value = 'Could not load analytics. Make sure your account has admin access.'
+    error.value = 'Could not load analytics. This account needs admin access.'
   } finally {
     loading.value = false
   }

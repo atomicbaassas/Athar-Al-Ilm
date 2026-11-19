@@ -1,9 +1,10 @@
 <template>
+  <!-- Pattern: Dashboard / Overview -->
   <div class="max-w-6xl mx-auto px-4 py-8">
 
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
+      <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">
         {{ auth.user?.full_name ? t('dashboard.welcomeName', { name: auth.user.full_name }) : t('dashboard.welcome') }}
       </h1>
       <p class="text-gray-500 mt-1 text-sm">{{ t('dashboard.subtitle') }}</p>
@@ -33,11 +34,11 @@
           <!-- Continue Learning hero -->
           <div
             v-if="progress.continueLesson"
-            class="bg-gradient-to-br from-[#0B3D2E] to-[#1a3ba8] rounded-2xl p-6 text-white"
+            class="bg-[#0B3D2E] rounded-2xl p-6 text-white"
           >
             <p class="text-white/60 text-xs uppercase tracking-wider font-medium mb-1">{{ t('dashboard.continueLearning') }}</p>
             <p class="text-white/80 text-sm mb-1">{{ progress.continueLesson.subject_title }}</p>
-            <p class="text-xl font-bold mb-4">{{ progress.continueLesson.lesson_title }}</p>
+            <p class="text-xl font-semibold mb-4">{{ progress.continueLesson.lesson_title }}</p>
             <RouterLink
               :to="{ name: 'lesson', params: { lessonSlug: progress.continueLesson.lesson_slug } }"
               class="inline-flex items-center gap-2 bg-white text-[#0B3D2E] font-semibold text-sm rounded-xl px-5 py-2.5 hover:bg-white/90 transition-colors"
@@ -57,7 +58,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
-              <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ progress.totalCompleted }}</div>
+              <div class="text-2xl sm:text-3xl font-semibold text-gray-900">{{ progress.totalCompleted }}</div>
               <div class="text-xs text-gray-500 mt-1">{{ t('dashboard.lessonsCompleted') }}</div>
             </div>
             <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
@@ -66,7 +67,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
               </div>
-              <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ progress.enrolledTracks.length }}</div>
+              <div class="text-2xl sm:text-3xl font-semibold text-gray-900">{{ progress.enrolledTracks.length }}</div>
               <div class="text-xs text-gray-500 mt-1">{{ t('dashboard.tracksEnrolled') }}</div>
             </div>
             <!-- Day Streak stat -->
@@ -78,12 +79,12 @@
                   <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248ZM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1A5.99 5.99 0 0112 12.75a.75.75 0 01.75.75v.008l-.001.008a3.75 3.75 0 013.001 2.734Z" clip-rule="evenodd"/>
                 </svg>
               </div>
-              <div class="text-2xl sm:text-3xl font-bold"
+              <div class="text-2xl sm:text-3xl font-semibold"
                 :class="progress.currentStreak > 0 ? 'text-gray-900' : 'text-gray-300'">
                 {{ progress.currentStreak }}
               </div>
               <div class="text-xs text-gray-500 mt-1">{{ t('dashboard.dayStreak') }}</div>
-              <div class="text-[10px] mt-1"
+              <div class="text-xs mt-1"
                 :class="progress.currentStreak === 0 ? 'text-[#0B3D2E]' : streakAtRisk ? 'text-orange-500' : 'text-emerald-600'">
                 {{ streakSubtext }}
               </div>
@@ -98,13 +99,13 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
-              <div class="text-2xl sm:text-3xl font-bold"
+              <div class="text-2xl sm:text-3xl font-semibold"
                 :class="progress.lastActivity ? 'text-gray-900' : 'text-gray-300'">
                 {{ lastActivityLabel }}
               </div>
               <div class="text-xs text-gray-500 mt-1">{{ t('dashboard.lastActivity') }}</div>
-              <div v-if="lastActivityDate" class="text-[10px] text-gray-400 mt-1">{{ lastActivityDate }}</div>
-              <div v-else class="text-[10px] text-[#0B3D2E] mt-1">{{ t('dashboard.noActivityYet') }}</div>
+              <div v-if="lastActivityDate" class="text-xs text-gray-400 mt-1">{{ lastActivityDate }}</div>
+              <div v-else class="text-xs text-[#0B3D2E] mt-1">{{ t('dashboard.noActivityYet') }}</div>
             </div>
           </div>
 
@@ -120,14 +121,14 @@
                     :to="{ name: 'track', params: { trackSlug: slug } }"
                     class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:border-[#0B3D2E]/40 hover:shadow-md transition-all"
                   >
-                    <p class="text-[10px] text-[#0B3D2E] font-semibold uppercase tracking-wide mb-1.5 truncate">{{ trackStats[slug].track_title }}</p>
+                    <p class="text-xs text-[#0B3D2E] font-semibold uppercase tracking-wide mb-1.5 truncate">{{ trackStats[slug].track_title }}</p>
                     <p class="font-semibold text-gray-900 text-sm mb-3 line-clamp-2 leading-snug">{{ subj.subject_title }}</p>
                     <div class="w-full bg-gray-100 rounded-full h-1.5 mb-2">
                       <div class="bg-[#0B3D2E] h-1.5 rounded-full transition-all duration-500" :style="{ width: subj.percent + '%' }" />
                     </div>
                     <div class="flex items-center justify-between">
                       <span class="text-xs text-gray-400">{{ subj.completed_lessons }}/{{ subj.total_lessons }} {{ t('dashboard.lessons') }}</span>
-                      <span class="text-xs font-bold text-[#0B3D2E]">{{ subj.percent }}%</span>
+                      <span class="text-xs font-semibold text-[#0B3D2E]">{{ subj.percent }}%</span>
                     </div>
                   </RouterLink>
                 </template>
@@ -172,7 +173,7 @@
               :class="streakFlameClass">
               <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248ZM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1A5.99 5.99 0 0112 12.75a.75.75 0 01.75.75v.008l-.001.008a3.75 3.75 0 013.001 2.734Z" clip-rule="evenodd"/>
             </svg>
-            <div class="text-4xl font-black transition-colors"
+            <div class="text-4xl font-semibold transition-colors"
               :class="progress.currentStreak > 0 ? 'text-gray-900' : 'text-gray-300'">
               {{ progress.currentStreak }}
             </div>
@@ -195,7 +196,7 @@
                   <img v-if="b.icon_url" :src="b.icon_url" :alt="b.name" class="w-full h-full object-cover" />
                   <svg v-else class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="m8.5 13.5-1.8 7.5L12 18l5.3 3-1.8-7.5"/></svg>
                 </div>
-                <span class="text-[10px] text-gray-500 text-center leading-tight line-clamp-2">{{ b.name }}</span>
+                <span class="text-xs text-gray-500 text-center leading-tight line-clamp-2">{{ b.name }}</span>
               </div>
             </div>
             <p v-else class="text-xs text-gray-400">{{ t('badges.noBadges') }}</p>

@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Header -->
     <div class="flex items-start justify-between mb-8">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Library</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Library</h1>
         <p class="text-gray-400 text-sm mt-0.5">Manage books, PDFs and audio files.</p>
       </div>
       <RouterLink
@@ -132,7 +133,7 @@
           <circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="m21 21-4.35-4.35"/>
         </svg>
       </div>
-      <p class="text-gray-600 font-semibold mb-1">No books match your filters</p>
+      <p class="text-gray-600 font-semibold mb-1">No books match these filters</p>
       <p class="text-gray-400 text-sm mb-5">Try a different search or clear the filters.</p>
       <button
         @click="resetFilters"
@@ -173,7 +174,7 @@
 
           <!-- Status badge -->
           <span
-            class="absolute top-2 left-2 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full"
+            class="absolute top-2 left-2 text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-md"
             :class="book.is_published
               ? 'bg-emerald-500/90 text-white'
               : 'bg-black/40 text-white/80'"
@@ -184,11 +185,11 @@
           <!-- File type badges -->
           <div class="absolute bottom-2 left-2 flex gap-1">
             <span v-if="book.has_pdf"
-                  class="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded bg-[#0B3D2E]/80 text-white">
+                  class="text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-[#0B3D2E]/80 text-white">
               PDF
             </span>
             <span v-if="book.has_audio"
-                  class="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded bg-purple-500/80 text-white">
+                  class="text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-purple-500/80 text-white">
               Audio
             </span>
           </div>
@@ -198,7 +199,7 @@
             <RouterLink
               :to="{ name: 'admin-book-edit', params: { slug: book.slug } }"
               class="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-gray-700 hover:text-[#0B3D2E] transition-colors shadow-sm"
-              title="Edit"
+              aria-label="Edit"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -207,7 +208,7 @@
             </RouterLink>
             <button
               @click="togglePublish(book)"
-              :title="book.is_published ? 'Unpublish' : 'Publish'"
+              :aria-label="book.is_published ? 'Unpublish' : 'Publish'"
               class="w-9 h-9 bg-white rounded-xl flex items-center justify-center transition-colors shadow-sm"
               :class="book.is_published ? 'text-emerald-600 hover:text-gray-600' : 'text-gray-400 hover:text-emerald-600'"
             >
@@ -221,7 +222,7 @@
             </button>
             <button
               @click="confirmDelete(book)"
-              title="Delete"
+              aria-label="Delete"
               class="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow-sm"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +237,7 @@
         <p class="font-semibold text-gray-900 text-sm truncate leading-tight">{{ book.title }}</p>
         <p v-if="book.author" class="text-xs text-gray-400 mt-0.5 truncate">{{ book.author }}</p>
         <div v-if="book.category" class="mt-1.5">
-          <span class="text-[10px] text-[#0B3D2E] bg-[#0B3D2E]/8 font-semibold px-2 py-0.5 rounded-full">
+          <span class="text-xs text-[#0B3D2E] bg-[#0B3D2E]/8 font-semibold px-2 py-0.5 rounded-md">
             {{ book.category }}
           </span>
         </div>
@@ -287,7 +288,7 @@
                   d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
         </div>
-        <h3 class="font-bold text-gray-900 mb-1">Delete Book?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete Book?</h3>
         <p class="text-sm text-gray-500 mb-5">
           "<strong>{{ deleteTarget.title }}</strong>" will be permanently removed. This cannot be undone.
         </p>
@@ -458,7 +459,7 @@ onMounted(async () => {
   try {
     books.value = await adminApi.listBooks()
   } catch {
-    error.value = 'Could not load books. Make sure your account has author access.'
+    error.value = 'Could not load books. This account needs author access.'
   } finally {
     loading.value = false
   }

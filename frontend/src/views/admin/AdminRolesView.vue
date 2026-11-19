@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-4xl mx-auto">
 
     <!-- Header -->
     <div class="flex items-start justify-between mb-8">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Roles &amp; Permissions</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Roles &amp; Permissions</h1>
         <p class="text-gray-400 text-sm mt-0.5">Create roles and grant access to admin sections.</p>
       </div>
       <button @click="openCreate"
@@ -30,23 +31,23 @@
         <div class="flex items-start justify-between gap-4">
           <div class="min-w-0">
             <div class="flex items-center gap-2">
-              <h3 class="font-bold text-gray-900 capitalize">{{ r.label || r.name }}</h3>
-              <span v-if="r.is_system" class="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">Built-in</span>
+              <h3 class="font-semibold text-gray-900 capitalize">{{ r.label || r.name }}</h3>
+              <span v-if="r.is_system" class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-md bg-gray-100 text-gray-500">Built-in</span>
               <span class="text-xs text-gray-400">{{ r.user_count }} user{{ r.user_count === 1 ? '' : 's' }}</span>
             </div>
             <p v-if="r.description" class="text-sm text-gray-500 mt-1">{{ r.description }}</p>
             <div class="flex flex-wrap gap-1.5 mt-3">
               <span v-if="r.sections.length === 0" class="text-xs text-gray-400">No access</span>
-              <span v-for="s in r.sections" :key="s" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#0B3D2E]/8 text-[#0B3D2E]">
+              <span v-for="s in r.sections" :key="s" class="text-xs font-medium px-2 py-0.5 rounded-md bg-[#0B3D2E]/8 text-[#0B3D2E]">
                 {{ sectionLabel(s) }}
               </span>
             </div>
           </div>
           <div v-if="!r.is_system" class="flex items-center gap-1 shrink-0">
-            <button @click="openEdit(r)" title="Edit" class="w-10 h-10 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
+            <button @click="openEdit(r)" aria-label="Edit" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#0B3D2E] hover:bg-[#0B3D2E]/8 transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
             </button>
-            <button @click="deleteTarget = r" title="Delete" class="w-10 h-10 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+            <button @click="deleteTarget = r" aria-label="Delete" class="min-h-11 min-w-11 w-11 h-11 -mx-1 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </button>
           </div>
@@ -60,7 +61,7 @@
     <!-- Editor modal -->
     <div v-if="editing" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="editing = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-4">{{ editing.id ? 'Edit role' : 'New role' }}</h3>
+        <h3 class="font-semibold text-gray-900 mb-4">{{ editing.id ? 'Edit role' : 'New role' }}</h3>
 
         <div class="space-y-4">
           <div v-if="!editing.id">
@@ -102,7 +103,7 @@
     <!-- Delete modal -->
     <div v-if="deleteTarget" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm" @click.self="deleteTarget = null">
       <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-1">Delete role?</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Delete role?</h3>
         <p class="text-sm text-gray-500 mb-5">"<strong>{{ deleteTarget.label || deleteTarget.name }}</strong>" will be removed. Users must be reassigned first.</p>
         <div class="flex gap-3">
           <button @click="deleteTarget = null" class="flex-1 px-4 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:text-gray-900 transition-colors">Cancel</button>
@@ -190,7 +191,7 @@ onMounted(async () => {
     sections.value = await adminApi.listSections()
     roles.value = await adminApi.listRoles()
   } catch {
-    error.value = 'Could not load roles. Make sure your account has Roles access.'
+    error.value = 'Could not load roles. This account needs Roles access.'
   } finally {
     loading.value = false
   }

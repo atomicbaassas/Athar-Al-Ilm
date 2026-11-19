@@ -1,6 +1,7 @@
 <template>
+  <!-- Pattern: Marketing — utility -->
   <div class="max-w-xl mx-auto px-4 py-24 text-center">
-    <h1 class="text-3xl font-bold text-gray-900">Page not found</h1>
+    <h1 class="text-3xl font-semibold text-gray-900">Page not found</h1>
     <p class="mt-3 text-gray-600 font-arabic" lang="ar" dir="rtl">الصفحة غير موجودة</p>
     <p class="mt-1 text-gray-500" lang="sw">Ukurasa haujapatikana</p>
     <RouterLink to="/" class="inline-block mt-8 text-[#0B3D2E] font-medium hover:underline">

@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Form -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Sticky top bar -->
@@ -217,7 +218,7 @@
                   </button>
                 </div>
               </div>
-              <p class="text-[11px] text-gray-400 mt-1.5">Only these users will see this track while it's published.</p>
+              <p class="text-xs text-gray-400 mt-1.5">Only these users will see this track while it's published.</p>
             </div>
           </div>
 
@@ -240,7 +241,7 @@
                 :placeholder="form.title || 'Defaults to track title'"
                 class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
-              <p class="text-[11px] mt-1" :class="(form.meta_title?.length || 0) > 60 ? 'text-amber-500' : 'text-gray-400'">
+              <p class="text-xs mt-1" :class="(form.meta_title?.length || 0) > 60 ? 'text-amber-500' : 'text-gray-400'">
                 {{ form.meta_title?.length || 0 }}/70 — aim for ≤ 60
               </p>
             </div>
@@ -254,7 +255,7 @@
                 :placeholder="form.description || 'Defaults to track description'"
                 class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40 resize-none"
               />
-              <p class="text-[11px] mt-1" :class="(form.meta_description?.length || 0) > 160 ? 'text-amber-500' : 'text-gray-400'">
+              <p class="text-xs mt-1" :class="(form.meta_description?.length || 0) > 160 ? 'text-amber-500' : 'text-gray-400'">
                 {{ form.meta_description?.length || 0 }}/200 — aim for ≤ 160
               </p>
             </div>
@@ -267,7 +268,7 @@
                 :placeholder="form.thumbnail_url || 'https://… (defaults to thumbnail)'"
                 class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B3D2E]/40"
               />
-              <p class="text-[11px] text-gray-400 mt-1">Shown when shared on social. 1200×630 recommended.</p>
+              <p class="text-xs text-gray-400 mt-1">Shown when shared on social. 1200×630 recommended.</p>
             </div>
           </div>
         </div>

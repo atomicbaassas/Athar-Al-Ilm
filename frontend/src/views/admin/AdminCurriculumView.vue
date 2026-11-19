@@ -1,10 +1,11 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="px-6 py-8 max-w-6xl mx-auto">
 
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Curriculum</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Curriculum</h1>
         <p class="text-gray-400 text-sm mt-0.5">
           {{ filteredTracks.length }} track{{ filteredTracks.length !== 1 ? 's' : '' }}
           <template v-if="filterStatus !== 'all' || search"> matching filters</template>
@@ -82,7 +83,7 @@
     </div>
 
     <div v-else-if="filteredTracks.length === 0" class="text-center py-16 text-gray-400 text-sm">
-      No tracks match your search or filter.
+      No tracks match this search or filter.
     </div>
 
     <!-- Track cards grid -->
@@ -102,7 +103,7 @@
           />
           <div
             v-else
-            class="w-full h-full flex items-center justify-center text-3xl font-bold text-white/50"
+            class="w-full h-full flex items-center justify-center text-3xl font-semibold text-white/50"
             :class="gradientFor(track.title)"
           >
             {{ track.title.charAt(0).toUpperCase() }}
@@ -113,12 +114,12 @@
             <span
               v-if="track.audience === 'selected'"
               title="Only visible to selected testers"
-              class="text-xs font-semibold px-2 py-0.5 rounded-full shadow-sm bg-amber-400 text-amber-950"
+              class="text-xs font-semibold px-2 py-0.5 rounded-md shadow-sm bg-amber-400 text-amber-950"
             >
               Beta
             </span>
             <span
-              class="text-xs font-semibold px-2 py-0.5 rounded-full shadow-sm"
+              class="text-xs font-semibold px-2 py-0.5 rounded-md shadow-sm"
               :class="track.is_published ? 'bg-emerald-500 text-white' : 'bg-white/95 text-gray-600 border border-gray-200'"
             >
               {{ track.is_published ? 'Published' : 'Draft' }}
@@ -129,8 +130,8 @@
           <div class="absolute top-2.5 left-2.5 hidden group-hover:flex gap-1.5">
             <button
               @click.stop="togglePublish(track)"
-              :title="track.is_published ? 'Unpublish' : 'Publish'"
-              class="w-7 h-7 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-[#0B3D2E] transition-colors"
+              :aria-label="track.is_published ? 'Unpublish' : 'Publish'"
+              class="min-h-11 min-w-11 w-11 h-11 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-[#0B3D2E] transition-colors"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path v-if="track.is_published" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
@@ -139,8 +140,8 @@
             </button>
             <button
               @click.stop="deleteTarget = track"
-              title="Delete track"
-              class="w-7 h-7 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors"
+              aria-label="Delete track"
+              class="min-h-11 min-w-11 w-11 h-11 bg-white/95 rounded-lg shadow-sm flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -151,7 +152,7 @@
 
         <!-- Card body -->
         <div class="p-5 flex flex-col flex-1">
-          <h3 class="font-bold text-gray-900 mb-1 truncate text-base">{{ track.title }}</h3>
+          <h3 class="font-semibold text-gray-900 mb-1 truncate text-base">{{ track.title }}</h3>
           <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1 leading-relaxed">
             {{ track.description || 'No description.' }}
           </p>
@@ -181,7 +182,7 @@
       @click.self="deleteTarget = null"
     >
       <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
-        <h3 class="font-bold text-gray-900 mb-2">Delete Track?</h3>
+        <h3 class="font-semibold text-gray-900 mb-2">Delete Track?</h3>
         <p class="text-sm text-gray-500 mb-5">
           "<strong>{{ deleteTarget.title }}</strong>" and all its content will be permanently deleted. This cannot be undone.
         </p>
@@ -286,7 +287,7 @@ onMounted(async () => {
       }
     })
   } catch {
-    error.value = 'Could not load tracks. Make sure your account has author access.'
+    error.value = 'Could not load tracks. This account needs author access.'
   } finally {
     loading.value = false
   }

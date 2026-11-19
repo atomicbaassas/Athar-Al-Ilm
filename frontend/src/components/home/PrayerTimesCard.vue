@@ -178,7 +178,7 @@ const {
 .prayer-card__next-name {
   margin: 0;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--prayer-ink);
   line-height: 1.2;
   text-wrap: balance;
@@ -196,7 +196,7 @@ const {
 .prayer-card__countdown {
   margin: 0.5rem 0 0;
   font-size: clamp(2.25rem, 6vw, 2.75rem);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: #fff;
@@ -263,7 +263,7 @@ const {
 .prayer-card__slot.is-current .prayer-card__slot-time,
 .prayer-card__slot.is-next .prayer-card__slot-time {
   color: #fff;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .prayer-card__footer {

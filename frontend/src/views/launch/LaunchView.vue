@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: Marketing — event + Form -->
   <div class="launch">
     <div class="launch__glow" aria-hidden="true"></div>
     <div class="launch__grid" aria-hidden="true"></div>
@@ -30,7 +31,7 @@
             <span class="cd__label">{{ u.label }}</span>
           </div>
         </div>
-        <p v-else class="launch__live">🔴 The event is live — check your email for the link.</p>
+        <p v-else class="launch__live">The event is live — check the inbox for the join link.</p>
 
         <ul class="launch__points">
           <li>A guided tour of the curriculum, library and progress tracking</li>
@@ -50,13 +51,29 @@
 
             <div>
               <label>Full name</label>
-              <input v-model="form.full_name" type="text" autocomplete="name" :class="{ bad: errors.full_name }" placeholder="Your name" />
+              <input
+                v-model="form.full_name"
+                type="text"
+                autocomplete="name"
+                :class="{ bad: errors.full_name }"
+                placeholder="Your name"
+                @blur="validateField('full_name')"
+                @input="onFieldInput('full_name')"
+              />
               <p v-if="errors.full_name" class="launch__err">{{ errors.full_name }}</p>
             </div>
 
             <div>
               <label>Email</label>
-              <input v-model="form.email" type="email" autocomplete="email" :class="{ bad: errors.email }" placeholder="you@example.com" />
+              <input
+                v-model="form.email"
+                type="email"
+                autocomplete="email"
+                :class="{ bad: errors.email }"
+                placeholder="you@example.com"
+                @blur="validateField('email')"
+                @input="onFieldInput('email')"
+              />
               <p v-if="errors.email" class="launch__err">{{ errors.email }}</p>
             </div>
 
@@ -73,7 +90,7 @@
             <button type="submit" class="launch__submit" :disabled="loading">
               {{ loading ? 'Registering…' : 'Register for the launch' }}
             </button>
-            <p class="launch__fineprint">We'll only use your details for this event. No spam.</p>
+            <p class="launch__fineprint">Details are used only for this event. No spam.</p>
           </form>
         </div>
 
@@ -175,10 +192,23 @@ const successMessage = ref('')
 
 function resetErrors() { errors.full_name = ''; errors.email = ''; errors.general = '' }
 
+function validateField(field) {
+  if (field === 'full_name') {
+    errors.full_name = form.full_name.trim() ? '' : 'Enter a name to continue.'
+  } else if (field === 'email') {
+    errors.email = form.email.trim() ? '' : 'Enter an email to continue.'
+  }
+}
+
+function onFieldInput(field) {
+  if (errors[field]) validateField(field)
+}
+
 async function submit() {
   resetErrors()
-  if (!form.full_name.trim()) { errors.full_name = 'Please enter your name.'; return }
-  if (!form.email.trim()) { errors.email = 'Please enter your email.'; return }
+  validateField('full_name')
+  validateField('email')
+  if (errors.full_name || errors.email) return
   loading.value = true
   try {
     const res = await eventsApi.registerForLaunch({
@@ -194,7 +224,7 @@ async function submit() {
     const data = e.response?.data || {}
     if (data.full_name) errors.full_name = Array.isArray(data.full_name) ? data.full_name[0] : data.full_name
     if (data.email) errors.email = Array.isArray(data.email) ? data.email[0] : data.email
-    if (!data.full_name && !data.email) errors.general = data.detail || 'Something went wrong. Please try again.'
+    if (!data.full_name && !data.email) errors.general = data.detail || 'Something went wrong. Try again.'
   } finally {
     loading.value = false
   }
@@ -211,10 +241,10 @@ async function submit() {
   -webkit-font-smoothing: antialiased;
 }
 .launch__glow {
-  position: absolute; top: -20%; left: 50%; width: min(120vw, 1100px); aspect-ratio: 1;
+  position: absolute; top: -10%; left: 50%; width: min(90vw, 720px); aspect-ratio: 1;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(35,78,204,0.32), transparent 62%);
-  filter: blur(20px); pointer-events: none;
+  background: radial-gradient(circle, rgba(11,61,46,0.22), transparent 70%);
+  pointer-events: none;
 }
 .launch__grid {
   position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
@@ -248,11 +278,11 @@ async function submit() {
 }
 
 .launch__eyebrow {
-  display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+  display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
   text-transform: uppercase; color: #5b7cf0; margin-bottom: 1rem;
 }
 .launch__title {
-  font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 800; line-height: 1.05;
+  font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 600; line-height: 1.05;
   letter-spacing: -0.02em; margin-bottom: 1.25rem;
 }
 .launch__title span { color: #5b7cf0; }
@@ -272,7 +302,7 @@ async function submit() {
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
   border-radius: 0.85rem; padding: 0.85rem 0.5rem;
 }
-.cd__num { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.cd__num { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
 .cd__label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.45rem; }
 .launch__live { margin-top: 1.5rem; font-weight: 600; color: #fca5a5; }
 
@@ -288,7 +318,7 @@ async function submit() {
   background: #fff; color: #111827; border-radius: 1.5rem; padding: clamp(1.5rem, 3vw, 2.25rem);
   box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
 }
-.launch__card-title { font-size: 1.4rem; font-weight: 800; }
+.launch__card-title { font-size: 1.4rem; font-weight: 600; }
 .launch__card-sub { color: #6b7280; font-size: 0.92rem; margin-top: 0.25rem; }
 .launch__fields { margin-top: 1.5rem; display: grid; gap: 1.1rem; }
 .launch__fields label { display: block; font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 0.35rem; }
@@ -302,7 +332,7 @@ async function submit() {
 .launch__err { color: #dc2626; font-size: 0.78rem; margin-top: 0.3rem; }
 .launch__error-banner { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; font-size: 0.85rem; padding: 0.7rem 0.9rem; border-radius: 0.6rem; }
 .launch__submit {
-  width: 100%; padding: 0.85rem 1rem; font-size: 1rem; font-weight: 700; color: #fff;
+  width: 100%; padding: 0.85rem 1rem; font-size: 1rem; font-weight: 600; color: #fff;
   background: #0B3D2E; border: none; border-radius: 0.8rem; cursor: pointer; transition: background 0.2s, transform 0.15s;
 }
 .launch__submit:hover:not(:disabled) { background: #1a3ba8; transform: translateY(-1px); }

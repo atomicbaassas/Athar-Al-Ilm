@@ -1,4 +1,5 @@
 <template>
+  <!-- Pattern: List / Index -->
   <div class="min-h-screen bg-white overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-6 sm:pt-12">
       <nav class="flex flex-wrap items-center gap-2 text-xs font-semibold text-gray-400 mb-4">
@@ -7,11 +8,11 @@
         <span class="text-gray-600">{{ t('quran.dua.title') }}</span>
       </nav>
 
-      <p class="text-xs font-bold uppercase tracking-widest text-brand mb-3 flex items-center gap-2">
+      <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-3 flex items-center gap-2">
         <span class="w-4 h-px bg-brand inline-block"></span>
         {{ t('quran.dua.eyebrow') }}
       </p>
-      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-3">
+      <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 tracking-tight mb-3">
         {{ t('quran.dua.title') }}
       </h1>
       <p class="text-gray-500 text-base max-w-xl mb-6">
@@ -24,10 +25,10 @@
         class="block rounded-2xl border border-brand/20 bg-[#0B3D2E]/[0.04] p-5 sm:p-6 mb-8
                hover:border-brand/40 transition-colors focus:outline-none focus:ring-2 focus:ring-brand/30"
       >
-        <p class="text-xs font-bold uppercase tracking-widest text-brand mb-2">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-2">
           {{ t('quran.dua.hisnBadge') }}
         </p>
-        <h2 class="text-xl font-black text-gray-900 mb-1">{{ t('quran.dua.hisnTitle') }}</h2>
+        <h2 class="text-xl font-semibold text-gray-900 mb-1">{{ t('quran.dua.hisnTitle') }}</h2>
         <p class="text-sm text-gray-500 mb-3">{{ t('quran.dua.hisnAuthor') }}</p>
         <p class="text-sm text-gray-600 leading-relaxed mb-4">{{ t('quran.dua.hisnDesc') }}</p>
         <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand">
@@ -38,7 +39,7 @@
         </span>
       </a>
 
-      <h2 class="text-lg font-bold text-gray-900 mb-2">{{ t('quran.dua.fromQuran') }}</h2>
+      <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ t('quran.dua.fromQuran') }}</h2>
       <p class="text-xs text-gray-400 mb-4">{{ t('quran.dua.fromQuranNote') }}</p>
 
       <div v-if="loading" class="space-y-3">
@@ -55,10 +56,10 @@
         >
           <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
             <div>
-              <p class="text-[10px] font-bold uppercase tracking-wider text-brand mb-1">
+              <p class="text-xs font-semibold uppercase tracking-wider text-brand mb-1">
                 {{ t(`quran.dua.cat.${item.category}`) }}
               </p>
-              <h3 class="text-base font-bold text-gray-900">
+              <h3 class="text-base font-semibold text-gray-900">
                 {{ locale === 'ar' ? item.titleAr : item.titleEn }}
               </h3>
             </div>

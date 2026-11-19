@@ -19,22 +19,22 @@
       >
         <!-- Block header -->
         <div class="flex items-center gap-3 px-4 py-2.5 border-b" :class="BLOCK_HEADER_CLASSES[block.type]">
-          <span class="text-[11px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full" :class="BLOCK_BADGE_CLASSES[block.type]">
+          <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full" :class="BLOCK_BADGE_CLASSES[block.type]">
             {{ block.type }}
           </span>
           <span class="text-xs text-gray-400">#{{ idx + 1 }}</span>
           <div class="flex-1" />
           <div v-if="allowStructure" class="flex items-center gap-1">
             <button type="button" @click="moveBlock(idx, -1)" :disabled="idx === 0"
-              class="w-7 h-7 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
+              class="min-h-11 min-w-11 w-11 h-11 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
             </button>
             <button type="button" @click="moveBlock(idx, 1)" :disabled="idx === blocks.length - 1"
-              class="w-7 h-7 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
+              class="min-h-11 min-w-11 w-11 h-11 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-white/60 disabled:opacity-30 transition-colors">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <button type="button" @click="removeBlock(idx)"
-              class="w-7 h-7 flex items-center justify-center rounded-lg text-red-300 hover:text-red-500 hover:bg-red-50 transition-colors ml-1">
+              class="min-h-11 min-w-11 w-11 h-11 flex items-center justify-center rounded-lg text-red-300 hover:text-red-500 hover:bg-red-50 transition-colors ml-1">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
           </div>
